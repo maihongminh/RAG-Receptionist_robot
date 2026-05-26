@@ -1,6 +1,6 @@
 # Mục lục tài liệu
 
-File này mô tả chức năng của từng tài liệu trong project.
+File này mô tả chức năng của từng tài liệu trong project. Toàn bộ tài liệu cấp project hiện nằm trong `docs/` để root thư mục gọn hơn.
 
 ## Tài liệu nên đọc theo thứ tự
 
@@ -47,6 +47,19 @@ File này mô tả chức năng của từng tài liệu trong project.
 9. `frontend/README.md`
    - Hướng dẫn riêng cho frontend.
 
+## Cấu trúc docs
+
+```text
+docs/
+├── AUTHORIZATION_PLAN.md
+├── BACKEND_FLOW.md
+├── DOCS_INDEX.md
+├── PROGRESS.md
+├── ROBOT_RECEPTION_ROADMAP.md
+├── RUNBOOK.md
+└── doc_system.md
+```
+
 ## Quy tắc cập nhật tài liệu
 
 Trước khi làm một phần lớn mới:
@@ -61,7 +74,7 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Thêm login/OTP/JWT thật cho dữ liệu cá nhân
+Hoàn thiện auth/login thật sau khi ổn định MVP chat flow
 ```
 
 Mục tiêu:
@@ -75,3 +88,5 @@ Mục tiêu:
 - `scripts/rag_documents.py` hiện gom `robo_app.knowledge_articles`; sau này thêm nguồn text hợp lệ vào file này.
 - SQL vẫn xử lý giá dịch vụ, lịch bác sĩ, thông tin cơ sở và dữ liệu cá nhân.
 - UI Trace vẫn phải hiện parser, sources và data/debug để kiểm tra nguồn câu trả lời.
+- MVP đã có short conversation context in-memory cho follow-up như `xem tiếp`, `xem chi tiết nhóm 35`.
+- Medical advice đang trả lời theo hướng triage an toàn, bám triệu chứng nhưng không chẩn đoán.

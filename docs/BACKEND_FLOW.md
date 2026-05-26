@@ -431,19 +431,18 @@ Hiện tại backend có các xử lý:
 Backend chưa xử lý:
 
 ```text
-1. Vector search thật.
-2. Mở rộng Grounded LLM Response Generator sang các intent phù hợp khác nếu cần.
-3. Auth/phân quyền thật.
-4. Memory hội thoại.
-5. Tạo lịch hẹn.
-6. STT/TTS.
-7. Domain thật ngoài clinic.
+1. Auth/phân quyền thật.
+2. Chuyển conversation context từ in-memory sang Redis/PostgreSQL nếu cần production.
+3. Mở rộng Grounded LLM Response Generator sang các intent phù hợp khác nếu cần.
+4. Tạo lịch hẹn.
+5. STT/TTS.
+6. Domain thật ngoài clinic.
 ```
 
 Kế hoạch auth/RBAC chi tiết nằm ở:
 
 ```text
-AUTHORIZATION_PLAN.md
+docs/AUTHORIZATION_PLAN.md
 ```
 
 Test tự động hiện có:
@@ -468,13 +467,14 @@ pytest
 /home/minhmh/tool/robo
 ├── .env.example
 ├── .gitignore
-├── BACKEND_FLOW.md
-├── DOCS_INDEX.md
-├── PROGRESS.md
-├── ROBOT_RECEPTION_ROADMAP.md
-├── RUNBOOK.md
-├── AUTHORIZATION_PLAN.md
-├── doc_system.md
+├── docs/
+│   ├── BACKEND_FLOW.md
+│   ├── DOCS_INDEX.md
+│   ├── PROGRESS.md
+│   ├── ROBOT_RECEPTION_ROADMAP.md
+│   ├── RUNBOOK.md
+│   ├── AUTHORIZATION_PLAN.md
+│   └── doc_system.md
 ├── backend/
 ├── frontend/
 ├── db/
@@ -488,13 +488,14 @@ pytest
 
 - `.env.example`: ví dụ cấu hình môi trường cấp project.
 - `.gitignore`: loại trừ `.env`, `.venv`, cache Python.
-- `BACKEND_FLOW.md`: tài liệu này, giải thích flow backend và cấu trúc project.
-- `DOCS_INDEX.md`: mục lục tài liệu, task hiện tại, quy tắc cập nhật docs.
-- `PROGRESS.md`: ghi tiến độ hiện tại và note sau mỗi lần làm.
-- `ROBOT_RECEPTION_ROADMAP.md`: roadmap tổng thể.
-- `AUTHORIZATION_PLAN.md`: kế hoạch auth/RBAC/audit/row-level filtering.
-- `RUNBOOK.md`: hướng dẫn chạy backend, frontend, database.
-- `doc_system.md`: tài liệu hệ thống và trạng thái kỹ thuật.
+- `docs/`: chứa toàn bộ tài liệu cấp project.
+- `docs/BACKEND_FLOW.md`: tài liệu này, giải thích flow backend và cấu trúc project.
+- `docs/DOCS_INDEX.md`: mục lục tài liệu, task hiện tại, quy tắc cập nhật docs.
+- `docs/PROGRESS.md`: ghi tiến độ hiện tại và note sau mỗi lần làm.
+- `docs/ROBOT_RECEPTION_ROADMAP.md`: roadmap tổng thể.
+- `docs/AUTHORIZATION_PLAN.md`: kế hoạch auth/RBAC/audit/row-level filtering.
+- `docs/RUNBOOK.md`: hướng dẫn chạy backend, frontend, database.
+- `docs/doc_system.md`: tài liệu hệ thống và trạng thái kỹ thuật.
 - `qdrant_data/`: dữ liệu Qdrant local mode cho vector RAG, là index có thể rebuild, không commit.
 
 ## 8. Cây thư mục backend

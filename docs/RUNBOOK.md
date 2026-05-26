@@ -486,14 +486,14 @@ pytest
 Đọc và cập nhật:
 
 ```text
-PROGRESS.md
-DOCS_INDEX.md
+docs/PROGRESS.md
+docs/DOCS_INDEX.md
 ```
 
 Tiến độ hiện tại được ghi trong:
 
 ```text
-PROGRESS.md
+docs/PROGRESS.md
 ```
 
 Sau mỗi lần hoàn thành một phần, cập nhật file này để lần sau dễ tiếp tục.
@@ -501,7 +501,7 @@ Sau mỗi lần hoàn thành một phần, cập nhật file này để lần sa
 Mục lục tài liệu nằm ở:
 
 ```text
-DOCS_INDEX.md
+docs/DOCS_INDEX.md
 ```
 
 ## 11. Đọc hiểu backend flow
@@ -509,7 +509,7 @@ DOCS_INDEX.md
 Tài liệu giải thích chi tiết flow backend và cây thư mục project:
 
 ```text
-BACKEND_FLOW.md
+docs/BACKEND_FLOW.md
 ```
 
 ## 12. Xác thực và phân quyền
@@ -517,5 +517,5 @@ BACKEND_FLOW.md
 Kế hoạch auth/RBAC nằm ở:
 
 ```text
-AUTHORIZATION_PLAN.md
+docs/AUTHORIZATION_PLAN.md
 ```

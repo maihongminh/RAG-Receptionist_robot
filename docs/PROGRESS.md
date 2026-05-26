@@ -4,9 +4,9 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 ## Trạng thái hiện tại
 
-Cập nhật gần nhất: 2026-05-21
+Cập nhật gần nhất: 2026-05-26
 
-Project đang ở giai đoạn **MVP hỏi đáp cơ bản**.
+Project đang ở giai đoạn **MVP hỏi đáp có SQL/RAG/LLM local, auth mock và context hội thoại ngắn**.
 
 Luồng hiện tại:
 
@@ -15,6 +15,8 @@ Postgres
   -> robo_raw
   -> robo_app
   -> backend /ask
+  -> SQL/RAG/Auth tools
+  -> response formatter / local LLM formatter
   -> frontend chatbot
 ```
 
@@ -26,11 +28,11 @@ Postgres
 - Tạo schema `robo_raw` chứa đủ 56 bảng từ Excel.
 - Tạo schema view `robo_app` cho dữ liệu sạch.
 - Tạo tài liệu DB trong `db/README.md`.
-- Tạo tài liệu hệ thống trong `doc_system.md`.
-- Tạo tài liệu backend flow trong `BACKEND_FLOW.md`.
-- Tạo kế hoạch xác thực/phân quyền trong `AUTHORIZATION_PLAN.md`.
-- Tạo mục lục tài liệu trong `DOCS_INDEX.md`.
-- Tạo hướng dẫn chạy chung trong `RUNBOOK.md`.
+- Tạo tài liệu hệ thống trong `docs/doc_system.md`.
+- Tạo tài liệu backend flow trong `docs/BACKEND_FLOW.md`.
+- Tạo kế hoạch xác thực/phân quyền trong `docs/AUTHORIZATION_PLAN.md`.
+- Tạo mục lục tài liệu trong `docs/DOCS_INDEX.md`.
+- Tạo hướng dẫn chạy chung trong `docs/RUNBOOK.md`.
 - Scaffold backend FastAPI.
 - Thiết kế backend theo hướng scale:
   - `core/orchestrator.py`
@@ -78,6 +80,49 @@ Postgres
 - `knowledge_search` hiện query Qdrant trước và fallback keyword/fuzzy search nếu Qdrant lỗi hoặc chưa có index.
 - Thêm grounded LLM response generator cho `knowledge_search`.
 - Thêm Ollama local formatter cho kết quả SQL/Auth, gồm lịch hẹn cá nhân sau khi đã qua `PolicyGuard`.
+- Gom tài liệu cấp project vào `docs/` để root thư mục gọn hơn.
+- Thêm short conversation context in-memory theo `session_id`:
+  - frontend tạo/gửi `session_id`;
+  - backend nhớ context ngắn cho follow-up;
+  - hỗ trợ `xem tiếp`, `24 nhóm khác là nhóm nào`, `xem chi tiết nhóm 35`.
+- Tách `context_max_rows`, `api_preview_max_rows`, `sql_result_limit` trong RAG config để kiểm soát số dòng trả lời/trace/query.
+- Cải thiện service catalog:
+  - `service_catalog_summary`;
+  - `service_category_list`;
+  - `service_category_detail`;
+  - paging/follow-up theo nhóm dịch vụ.
+- Cải thiện routing/normalization để LLM local không kéo sai intent public info sang service list.
+- Cải thiện medical advice:
+  - nhận diện câu triệu chứng linh hoạt;
+  - bám cụm triệu chứng user nói;
+  - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
+  - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
+- Test backend hiện tại: `103 passed`.
+- MVP scenario hiện tại: `15/15 passed`.
+
+### 2026-05-26
+
+- Push repo lần đầu lên GitHub: `maihongminh/RAG-Receptionist_robot`.
+- Gom tài liệu root vào `docs/`.
+- Thêm conversation context MVP bằng `backend/app/core/conversation_context.py`.
+- Frontend gửi `session_id` trong request `/ask`.
+- Backend trả `session_id` trong response `/ask`.
+- Sửa các lỗi follow-up service category:
+  - `24 nhóm khác là nhóm nào`;
+  - `xem tiếp`;
+  - `xem chi tiết nhóm 24/35`;
+  - match exact category như `check for insects in the blood`.
+- Sửa false-positive service type, không để `ct` trong `insects` bị hiểu là CT/imaging.
+- Sửa public info: `Phòng khám mở cửa lúc mấy giờ` không bị route nhầm sang danh sách dịch vụ.
+- Sửa medical advice để câu như `tôi đau ngực, nên khám gì`, `tôi đau đầu đau mắt thì sao` trả lời linh hoạt hơn.
+- Chạy test backend: `103 passed`.
+- Chạy scenario MVP: `15/15 passed`.
+
+Task tiếp theo đề xuất:
+
+```text
+Tiếp tục test role patient/doctor/receptionist/clinic_admin, sau đó thiết kế auth/login thật.
+```
 - Thêm config RAG riêng trong `backend/app/rag/rag_config.py`.
 - Thêm `RAG_EXCLUDED_TOPICS=overview,roles` để loại tài liệu platform/permission khỏi RAG retrieval.
 - Thêm auth MVP bằng `auth` mock trong request:
@@ -139,7 +184,7 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 3. Thêm audit log ghi DB cho private data access.
 2. Thêm auth flow cho dữ liệu cá nhân.
 3. Thêm lookup lịch hẹn cá nhân sau xác thực.
-4. Thêm policy guard/RBAC theo `AUTHORIZATION_PLAN.md`.
+4. Thêm policy guard/RBAC theo `docs/AUTHORIZATION_PLAN.md`.
 5. Thêm integration test với Postgres thật.
 6. Thêm test cho SQL tools.
 
@@ -198,7 +243,7 @@ http://localhost:5173
 - Đồng bộ tài liệu với source hiện tại:
   - bổ sung `embedding_client.py`, `qdrant_store.py`, `build_qdrant_index.py`, `qdrant_data/`.
   - bổ sung `test_clinic_sql_tools.py`.
-  - cập nhật `BACKEND_FLOW.md`, `backend/README.md`, `doc_system.md`, `RUNBOOK.md`, `DOCS_INDEX.md`.
+  - cập nhật `docs/BACKEND_FLOW.md`, `backend/README.md`, `docs/doc_system.md`, `docs/RUNBOOK.md`, `docs/DOCS_INDEX.md`.
 - Thêm `backend/app/rag/rag_config.py` để gom cấu hình RAG:
   - `RAG_TOP_K`
   - `RAG_MIN_SCORE`

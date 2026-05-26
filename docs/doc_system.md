@@ -29,11 +29,11 @@ Lệnh kết nối:
 psql -U minhmh -d robo_reception -h localhost
 ```
 
-Hướng dẫn chạy backend + frontend nằm ở `RUNBOOK.md`.
+Hướng dẫn chạy backend + frontend nằm ở `docs/RUNBOOK.md`.
 
-Kế hoạch xác thực/phân quyền nằm ở `AUTHORIZATION_PLAN.md`.
+Kế hoạch xác thực/phân quyền nằm ở `docs/AUTHORIZATION_PLAN.md`.
 
-Mục lục tài liệu nằm ở `DOCS_INDEX.md`.
+Mục lục tài liệu nằm ở `docs/DOCS_INDEX.md`.
 
 ## 2. Data layer
 
@@ -327,7 +327,7 @@ School:
 - Có roadmap scale đa lĩnh vực.
 - Có LLM provider OpenAI-compatible trong flow, mặc định tắt.
 - Có LLM provider Ollama local trong flow để parse intent/entities.
-- Có kế hoạch phân quyền trong `AUTHORIZATION_PLAN.md`.
+- Có kế hoạch phân quyền trong `docs/AUTHORIZATION_PLAN.md`.
 
 Đã có thêm:
 

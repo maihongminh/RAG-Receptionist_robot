@@ -248,7 +248,7 @@ Thứ tự nên làm:
 9. Thêm RAG cho dữ liệu hướng dẫn/quy trình/FAQ.
 10. Thêm grounded LLM response generator sau retrieval.
 11. Thêm authentication cho câu hỏi cá nhân.
-12. Thêm authorization/policy guard/audit log theo `AUTHORIZATION_PLAN.md`.
+12. Thêm authorization/policy guard/audit log theo `docs/AUTHORIZATION_PLAN.md`.
 13. Thêm STT/TTS và kết nối robot.
 
 Trạng thái hiện tại:
@@ -259,9 +259,9 @@ Trạng thái hiện tại:
 - Đã scaffold backend API `/ask` theo kiến trúc core + domain adapter.
 - Đã có rule fallback cho MVP khi chưa cấu hình LLM provider.
 - Đã có UI chatbot web tách riêng trong `frontend/`, chạy tại `http://localhost:5173`.
-- Đã có `RUNBOOK.md` hướng dẫn chạy backend + frontend + kiểm tra database.
-- Đã có `PROGRESS.md` để cập nhật tiến độ sau mỗi lần làm.
-- Đã có `AUTHORIZATION_PLAN.md` cho xác thực/phân quyền.
+- Đã có `docs/RUNBOOK.md` hướng dẫn chạy backend + frontend + kiểm tra database.
+- Đã có `docs/PROGRESS.md` để cập nhật tiến độ sau mỗi lần làm.
+- Đã có `docs/AUTHORIZATION_PLAN.md` cho xác thực/phân quyền.
 - Đã có test backend bước đầu cho intent parser, policy guard và orchestrator.
 - Đã có RAG vector bằng Qdrant local mode trên `robo_app.knowledge_articles`.
 - Vẫn giữ keyword/fuzzy search làm fallback khi Qdrant chưa có index hoặc lỗi.
