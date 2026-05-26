@@ -1,0 +1,12 @@
+_excel_row_number,id,category,question_text,question_text_vi,display_order,is_active,created_at
+2,32567940-1d46-4e18-a60d-30ed69015399,general,What is my diagnosis?,Chẩn đoán của tôi là gì?,1,t,2026-01-20 07:37:40.309117+00
+3,6f5573e5-7b5e-4553-a26d-0c567195cd3e,general,What are my treatment options?,Các phương án điều trị của tôi là gì?,2,t,2026-01-20 07:37:40.309117+00
+4,7863dada-4221-44fe-b26f-7e7c58d5a4ca,general,What are the possible side effects of my medication?,Tác dụng phụ có thể có của thuốc là gì?,3,t,2026-01-20 07:37:40.309117+00
+5,ff8ef279-5c55-4fd1-90e2-b66a03916b41,general,When should I come back for a follow-up?,Khi nào tôi nên tái khám?,4,t,2026-01-20 07:37:40.309117+00
+6,cff71768-10c0-4385-8c7a-4d702c1949dc,general,Are there any warning signs I should watch for?,Có dấu hiệu cảnh báo nào tôi cần chú ý không?,5,t,2026-01-20 07:37:40.309117+00
+7,93ee61bd-522c-47b9-b539-4a62c63f12a5,medication,How should I take this medication?,Tôi nên uống thuốc này như thế nào?,1,t,2026-01-20 07:37:40.309117+00
+8,2a4b873c-18c2-4169-8c1a-0f78a4bf3c66,medication,Can I take this with other medications?,Tôi có thể uống thuốc này cùng với các thuốc khác không?,2,t,2026-01-20 07:37:40.309117+00
+9,2609d399-f4b6-46b0-a37d-4857de34ddf7,lifestyle,What lifestyle changes should I make?,Tôi nên thay đổi lối sống như thế nào?,1,t,2026-01-20 07:37:40.309117+00
+10,c2588ee8-b505-4e16-8839-8a4c16a8058d,lifestyle,Are there any activities I should avoid?,Có hoạt động nào tôi nên tránh không?,2,t,2026-01-20 07:37:40.309117+00
+11,e3a3547b-ff58-46a6-94ec-f3e4d7a3b891,test_results,What do my test results mean?,Kết quả xét nghiệm của tôi có ý nghĩa gì?,1,t,2026-01-20 07:37:40.309117+00
+12,01b4de27-a035-4ae7-b030-c57ed4184c99,test_results,Do I need any additional tests?,Tôi có cần làm thêm xét nghiệm nào không?,2,t,2026-01-20 07:37:40.309117+00

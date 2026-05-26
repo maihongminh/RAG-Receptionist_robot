@@ -1,0 +1,5 @@
+_excel_row_number,id,clinic_id,tier,min_points,discount_percent,benefits,is_active,created_at,updated_at,created_by,updated_by
+2,2200e2c2-b484-494b-a842-3035a8739dbd,e137130e-ce05-403d-aa63-d4d63e03699d,bronze,0,0.00,"[""Free consultation""]",t,2026-03-16 02:09:29.794818+00,2026-03-16 02:09:29.794818+00,,
+3,5e309bf8-22f3-4960-a2d9-600878ae62d6,e137130e-ce05-403d-aa63-d4d63e03699d,silver,100,5.00,"[""5% discount"",""Priority booking""]",t,2026-03-16 02:09:29.794818+00,2026-03-16 02:09:29.794818+00,,
+4,55004637-8668-4d2a-9dee-b1170b41fe32,e137130e-ce05-403d-aa63-d4d63e03699d,gold,300,10.00,"[""10% discount"",""Priority booking"",""Free check-up""]",t,2026-03-16 02:09:29.794818+00,2026-03-16 02:09:29.794818+00,,
+5,a7a3cbdc-985f-4f44-be77-4092ac0f494a,e137130e-ce05-403d-aa63-d4d63e03699d,platinum,600,15.00,"[""15% discount"",""Priority booking"",""Free check-up"",""Dedicated nurse""]",t,2026-03-16 02:09:29.794818+00,2026-03-16 02:09:29.794818+00,,

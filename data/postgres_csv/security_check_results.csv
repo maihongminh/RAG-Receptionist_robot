@@ -1,0 +1,11 @@
+_excel_row_number,id,category,check_name,status,severity,details,detected_at,is_blocking
+2,e998ca2d-bb4a-488d-b4eb-fa365f1f3bfb,RLS,all_tables_rls_enabled,PASS,CRITICAL,All business tables have RLS enabled,2026-03-18 03:51:57.4068+00,f
+3,b7db6d7a-496a-40e8-b7be-c9d4dcb609d4,AI_BOUNDARY,ai_views_exist,PASS,ERROR,"AI views found: ai_view_medical_history, ai_view_patient_allergies, ai_view_patient_context, ai_view_visit_context, ai_view_vital_signs",2026-03-18 03:51:57.4068+00,f
+4,e2c64a42-4da5-48cb-b481-0dfec13a9514,AI_BOUNDARY,ai_rpcs_exist,PASS,ERROR,"AI RPCs found: ai_explain_lab_result, ai_get_patient_context, ai_patient_admin_guide, ai_patient_visit_summary, ai_prepare_questions_for_doctor, ai_propose_medical_draft",2026-03-18 03:51:57.4068+00,f
+5,03144fb8-65c0-4c5f-9e30-2a5a8e908c9e,AI_BOUNDARY,assert_ai_runtime_exists,PASS,CRITICAL,assert_ai_runtime() function exists for AI role enforcement,2026-03-18 03:51:57.4068+00,f
+6,f899d372-99ab-4b8a-b508-4b62ec8f76ce,TENANT_ISOLATION,tenant_helpers_exist,PASS,CRITICAL,"Tenant isolation helpers (get_user_clinic_id, get_firm_id) exist",2026-03-18 03:51:57.4068+00,f
+7,d4ec18dd-a877-4164-9f28-b73d40c96ead,AUDIT,ai_logging_function_exists,PASS,WARN,AI audit logging function (log_ai_rpc_call) exists,2026-03-18 03:51:57.4068+00,f
+8,ee4901f4-7a24-495f-a3dd-250c9f58043f,RBAC,role_functions_exist,PASS,CRITICAL,"Role-based access functions (has_role, has_any_role) exist",2026-03-18 03:51:57.4068+00,f
+9,f2bfd133-c448-4944-a69d-431b6f7e7b22,SECURITY_CONFIG,security_views_exist,PASS,INFO,Security monitoring views exist,2026-03-18 03:51:57.4068+00,f
+10,f6190c1c-d0f5-44e8-b850-7dd9b4ed2bc1,DATA_PROTECTION,patient_safe_views_exist,PASS,ERROR,Patient data safe views exist for data minimization,2026-03-18 03:51:57.4068+00,f
+11,738c1a8a-a01e-41d8-8db2-0e00d6c7c56a,TENANT_ISOLATION,clinic_active_check_exists,PASS,WARN,is_clinic_active() function exists for tenant state validation,2026-03-18 03:51:57.4068+00,f

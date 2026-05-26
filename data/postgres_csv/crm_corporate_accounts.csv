@@ -1,0 +1,2 @@
+_excel_row_number,id,clinic_id,company_name,tax_code,address,city,phone,email,website,industry,employee_count,contract_count,total_revenue_vnd,notes,is_active,is_deleted,deleted_at,deleted_by,created_at,updated_at,created_by,updated_by
+2,c71929be-5454-4bef-b28a-b6bba585d235,640f49d1-dcef-4fdf-9fa2-420308e3e776,BIOMEDIC DIAGNOSTIC CENTER,,,,"010378077, 012378077",biomeddc@gmail.com,,,,0,0,Owner: Dr. Buth Sokhal,t,f,,,2026-03-25 10:04:09.211768+00,2026-03-25 10:04:09.211768+00,,

@@ -1,0 +1,3 @@
+_excel_row_number,id,code,name,name_en,phone_code,is_active,display_order,created_at,updated_at,name_km
+2,8877d8e9-5808-4919-9ae6-ed69073ece14,VN,Việt Nam,Vietnam,+84,t,1,2026-01-24 04:56:45.318995+00,2026-01-31 01:04:00.654294+00,វៀតណាម
+3,5d56f03f-b751-4947-b55d-d7d921e420f2,CAM,Cambodia,Cambodia,+855,t,1,2026-01-27 06:59:22.439103+00,2026-01-31 01:04:14.594224+00,កម្ពុជា

@@ -1,0 +1,382 @@
+from app.core.schemas import AuthContext, Intent, ToolResult
+from app.rag.rag_config import get_rag_config
+
+
+class ResponseGenerator:
+    def generate(
+        self,
+        question: str,
+        intent: Intent,
+        result: ToolResult,
+        auth: AuthContext | None = None,
+    ) -> str:
+        if result.tool_name == "policy_guard":
+            return "Bạn chưa có quyền thực hiện yêu cầu này hoặc cần xác thực trước khi tra cứu."
+
+        if intent.intent in {"appointment_lookup", "personal_data"}:
+            return self._private_data(result, auth or AuthContext(role="guest"))
+        if intent.intent == "lab_result_lookup":
+            return self._lab_result_lookup(result)
+
+        if intent.requires_auth:
+            return (
+                "Thông tin này thuộc dữ liệu cá nhân. Vui lòng xác thực bằng số điện thoại, "
+                "CCCD/ID hoặc OTP trước khi tôi tra cứu."
+            )
+
+        if intent.intent == "greeting":
+            return self._greeting()
+        if intent.intent == "general_info":
+            return self._general_info(result)
+        if intent.intent == "service_price":
+            return self._service_price(result)
+        if intent.intent == "service_category_list":
+            return self._service_category_list(result)
+        if intent.intent == "service_catalog_summary":
+            return self._service_catalog_summary(result)
+        if intent.intent == "service_category_detail":
+            return self._service_category_detail(result)
+        if intent.intent == "doctor_schedule":
+            return self._doctor_schedule(intent, result)
+        if intent.intent == "knowledge_search":
+            return self._knowledge_search(result)
+        if intent.intent == "appointment_booking":
+            return self._appointment_booking()
+        if intent.intent == "medical_advice":
+            return self._medical_advice()
+
+        if result.message:
+            return result.message
+        return "Tôi chưa có đủ dữ liệu để trả lời câu hỏi này. Vui lòng liên hệ nhân viên lễ tân để được hỗ trợ."
+
+    def _greeting(self) -> str:
+        return (
+            "Xin chào, tôi là robot lễ tân. Hiện tôi có thể hỗ trợ tra cứu thông tin phòng khám, "
+            "địa chỉ, số điện thoại, giờ làm việc, giá dịch vụ và lịch bác sĩ. "
+            "Với thông tin cá nhân như lịch hẹn hoặc kết quả xét nghiệm, tôi sẽ yêu cầu xác thực trước khi tra cứu."
+        )
+
+    def _general_info(self, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy thông tin cơ sở trong hệ thống."
+        lines = []
+        max_rows = get_rag_config().context_max_rows
+        for row in result.rows[:max_rows]:
+            parts = [f"{row.get('name')}"]
+            if row.get("address"):
+                parts.append(f"địa chỉ: {row.get('address')}")
+            else:
+                parts.append("địa chỉ: chưa có dữ liệu")
+            if row.get("city"):
+                parts.append(f"thành phố: {row.get('city')}")
+            if row.get("phone"):
+                parts.append(f"số điện thoại: {row.get('phone')}")
+            if row.get("email"):
+                parts.append(f"email: {row.get('email')}")
+            if row.get("working_hours_start") and row.get("working_hours_end"):
+                parts.append(
+                    f"giờ làm việc: {row.get('working_hours_start')} - {row.get('working_hours_end')}"
+                )
+            lines.append(". ".join(str(part) for part in parts if part) + ".")
+        if len(lines) == 1:
+            return lines[0]
+        return "Tôi tìm thấy các cơ sở đang hoạt động:\n" + "\n".join(
+            f"{index}. {line}" for index, line in enumerate(lines, start=1)
+        )
+
+    def _service_price(self, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy dịch vụ phù hợp trong bảng dịch vụ."
+        if len(result.rows) > 1:
+            lines = []
+            max_rows = get_rag_config().context_max_rows
+            for row in result.rows[:max_rows]:
+                price = row.get("price_amount")
+                currency = row.get("currency_code") or ""
+                price_text = f"{price} {currency}" if price is not None else "chưa có giá"
+                code = f"{row.get('code')} - " if row.get("code") else ""
+                lines.append(f"{code}{row.get('name')}: {price_text}")
+            return "Tôi tìm thấy các dịch vụ phù hợp:\n" + "\n".join(
+                f"{index}. {line}" for index, line in enumerate(lines, start=1)
+            )
+        row = result.rows[0]
+        price = row.get("price_amount")
+        currency = row.get("currency_code") or ""
+        if price is None:
+            return f"Tôi tìm thấy dịch vụ {row.get('name')}, nhưng chưa có giá trong hệ thống."
+        return f"Dịch vụ {row.get('name')} có giá {price} {currency}."
+
+    def _service_category_list(self, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy nhóm dịch vụ phù hợp trong hệ thống."
+        lines = []
+        first = result.rows[0]
+        offset = self._safe_int(first.get("category_offset"), default=0)
+        total_categories = self._safe_int(first.get("total_categories"), default=offset + len(result.rows))
+        display_limit = self._safe_int(first.get("display_limit"), default=12)
+        display_rows = result.rows[: min(display_limit, len(result.rows))]
+        for row in display_rows:
+            category = row.get("category_name") or "Chưa phân nhóm"
+            service_type = row.get("service_type") or "dịch vụ"
+            count = row.get("service_count") or 0
+            min_price = row.get("min_price")
+            max_price = row.get("max_price")
+            currency = row.get("currency_code") or ""
+            price_text = ""
+            if min_price is not None and max_price is not None:
+                price_text = f", giá từ {min_price} đến {max_price} {currency}"
+            lines.append(f"{category} ({service_type}, {count} dịch vụ{price_text})")
+        suffix = ""
+        hidden_count = max(total_categories - offset - len(display_rows), 0)
+        if hidden_count > 0:
+            suffix = f"\nCòn {hidden_count} nhóm khác trong dữ liệu. Bạn muốn xem chi tiết nhóm nào?"
+        title = (
+            "Các nhóm dịch vụ còn lại phù hợp:\n"
+            if offset > 0
+            else "Tôi tìm thấy các nhóm dịch vụ phù hợp:\n"
+        )
+        return title + "\n".join(
+            f"{index}. {line}" for index, line in enumerate(lines, start=offset + 1)
+        ) + suffix
+
+    def _safe_int(self, value: object, default: int) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    def _service_catalog_summary(self, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy danh mục dịch vụ phù hợp trong hệ thống."
+
+        first = result.rows[0]
+        total_services = first.get("total_services") or sum(
+            int(row.get("service_count") or 0) for row in result.rows
+        )
+        total_categories = first.get("total_categories") or len(result.rows)
+        display_rows = result.rows[: min(10, len(result.rows))]
+
+        lines = []
+        for row in display_rows:
+            category = row.get("category_name") or "Chưa phân nhóm"
+            service_type = row.get("service_type") or "dịch vụ"
+            count = row.get("service_count") or 0
+            min_price = row.get("min_price")
+            max_price = row.get("max_price")
+            currency = row.get("currency_code") or ""
+            price_text = ""
+            if min_price is not None and max_price is not None:
+                price_text = f", giá từ {min_price} đến {max_price} {currency}".rstrip()
+            lines.append(f"{category} ({service_type}, {count} dịch vụ{price_text})")
+
+        return (
+            f"Phòng khám hiện có {total_services} dịch vụ trong {total_categories} nhóm. "
+            f"Dưới đây là {len(display_rows)} nhóm lớn nhất:\n"
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+            + "\nBạn muốn xem chi tiết nhóm nào?"
+        )
+
+    def _service_category_detail(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy dịch vụ trong nhóm phù hợp."
+
+        first = result.rows[0]
+        category = first.get("matched_category_name") or first.get("category_name") or "nhóm dịch vụ"
+        total = first.get("total_services_in_category") or len(result.rows)
+        display_rows = result.rows[: min(20, len(result.rows))]
+
+        lines = []
+        for row in display_rows:
+            price = row.get("price_amount")
+            currency = row.get("currency_code") or ""
+            price_text = f"{price} {currency}" if price is not None else "chưa có giá"
+            code = f"{row.get('code')} - " if row.get("code") else ""
+            duration = f", thời lượng {row.get('duration_minutes')} phút" if row.get("duration_minutes") else ""
+            lines.append(f"{code}{row.get('name')}: {price_text}{duration}")
+
+        hidden_count = int(total) - len(display_rows)
+        suffix = ""
+        if hidden_count > 0:
+            suffix = f"\nNhóm này còn {hidden_count} dịch vụ khác. Bạn có thể hỏi tên dịch vụ cụ thể để xem giá."
+
+        return (
+            f"Nhóm {category} có {total} dịch vụ. Dưới đây là {len(display_rows)} dịch vụ đầu tiên:\n"
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+            + suffix
+        )
+
+    def _doctor_schedule(self, intent: Intent, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy lịch phù hợp cho bác sĩ trong hệ thống."
+
+        lines = []
+        max_rows = get_rag_config().context_max_rows
+        for row in result.rows[:max_rows]:
+            doctor = row.get("doctor_name") or "bác sĩ"
+            day = row.get("day_of_week")
+            start = row.get("start_time")
+            end = row.get("end_time")
+            room = row.get("room_name") or row.get("room_code") or "chưa rõ phòng"
+            lines.append(f"{doctor} có lịch thứ {day}, từ {start} đến {end}, tại {room}")
+
+        return "Tôi tìm thấy lịch bác sĩ phù hợp:\n" + "\n".join(
+            f"{index}. {line}" for index, line in enumerate(lines, start=1)
+        )
+
+    def _knowledge_search(self, result: ToolResult) -> str:
+        if not result.rows:
+            return "Tôi chưa tìm thấy hướng dẫn phù hợp trong dữ liệu hiện có."
+
+        row = result.rows[0]
+        title = row.get("title_vi") or row.get("title") or row.get("topic") or "Thông tin hướng dẫn"
+        content = row.get("content_vi") or row.get("content") or ""
+        summary_lines = self._knowledge_summary_lines(content, title)
+        if summary_lines:
+            return f"{title}:\n" + "\n".join(summary_lines)
+        return f"Tôi tìm thấy nội dung liên quan: {title}."
+
+    def _knowledge_summary_lines(self, content: str, title: str, limit: int = 8) -> list[str]:
+        raw_lines = str(content or "").splitlines()
+        lines = []
+        for raw_line in raw_lines:
+            line = " ".join(raw_line.strip().split())
+            if not line:
+                continue
+            line = line.replace("**", "").replace("__", "")
+            line = line.lstrip("#").strip()
+            line = line.lstrip("-•").strip()
+            line = self._strip_repeated_title(line, title)
+            if not line:
+                continue
+            if line.lower() in {"workflow", "tips", "mẹo"}:
+                continue
+            if line.startswith("###"):
+                line = line.lstrip("#").strip()
+            lines.append(line)
+
+        cleaned = []
+        for line in lines:
+            if len(cleaned) >= limit:
+                break
+            if self._is_unhelpful_knowledge_heading(line):
+                continue
+            if line not in cleaned:
+                cleaned.append(line)
+        while cleaned and self._is_unhelpful_knowledge_heading(cleaned[-1]):
+            cleaned.pop()
+        return cleaned
+
+    def _is_unhelpful_knowledge_heading(self, line: str) -> bool:
+        normalized = " ".join(str(line or "").lower().split())
+        return normalized in {
+            "quy trình",
+            "loại lấy mẫu",
+            "phương thức trả kết quả",
+            "mẹo",
+            "tips",
+            "workflow",
+        }
+
+    def _compact_text(self, value: str, limit: int = 520) -> str:
+        text = " ".join(str(value or "").replace("#", " ").replace("*", " ").split())
+        if len(text) <= limit:
+            return text
+        return text[:limit].rstrip() + "..."
+
+    def _strip_repeated_title(self, summary: str, title: str) -> str:
+        text = summary.strip()
+        normalized_title = " ".join(str(title or "").replace("#", " ").replace("*", " ").split())
+        if normalized_title and text.lower().startswith(normalized_title.lower()):
+            text = text[len(normalized_title) :].lstrip(" :-")
+        return text
+
+    def _appointment_booking(self) -> str:
+        return (
+            "Tôi đã hiểu bạn muốn đặt lịch khám. Hiện chức năng tạo lịch hẹn tự động chưa được bật. "
+            "Bạn có thể cho biết dịch vụ/chuyên khoa, ngày giờ mong muốn và số điện thoại liên hệ; "
+            "nhân viên lễ tân sẽ xác nhận lịch cho bạn. Nếu cần, tôi cũng có thể cung cấp số điện thoại hoặc giờ làm việc của phòng khám."
+        )
+
+    def _lab_result_lookup(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy kết quả xét nghiệm/cận lâm sàng phù hợp."
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            service = row.get("service_name") or row.get("service_code") or "dịch vụ chưa rõ"
+            status = self._lab_result_status_label(row.get("status"))
+            result_state = "đã có kết quả" if row.get("has_result") else "chưa có kết quả"
+            parts = [f"{index}. {service}: {status}, {result_state}"]
+            if row.get("completed_at"):
+                parts.append(f"hoàn tất lúc {row.get('completed_at')}")
+            detail = row.get("result_summary") or row.get("result_file_url")
+            if detail:
+                parts.append(f"kết quả: {detail}")
+            lines.append("\n   ".join(parts))
+        return "Tôi tìm thấy các chỉ định/kết quả xét nghiệm trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _medical_advice(self) -> str:
+        return (
+            "Tôi không thể khuyến nghị bạn nên làm xét nghiệm hoặc sử dụng dịch vụ nào thay cho bác sĩ. "
+            "Tôi có thể hỗ trợ tra danh sách xét nghiệm, giá dịch vụ hoặc quy trình lấy mẫu để bạn tham khảo."
+        )
+
+    def _private_data(self, result: ToolResult, auth: AuthContext) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy dữ liệu cá nhân phù hợp trong phạm vi đã xác thực."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            date = row.get("appointment_date") or "chưa rõ ngày"
+            start = row.get("start_time") or "chưa rõ giờ"
+            patient = row.get("patient_name") or "chưa rõ bệnh nhân"
+            doctor = row.get("doctor_name")
+            service = row.get("service_name") or self._appointment_type_label(row.get("visit_type"))
+            status = self._appointment_status_label(row.get("status"))
+            parts = [f"{index}. {date} lúc {start}"]
+            if auth.role == "patient":
+                parts.append(f"Nội dung: {service}")
+                parts.append(f"Trạng thái: {status}")
+                if doctor:
+                    parts.append(f"Bác sĩ: {doctor}")
+                else:
+                    parts.append("Bác sĩ: chưa có thông tin")
+            else:
+                parts.append(f"Bệnh nhân: {patient}")
+                parts.append(f"Nội dung: {service}")
+                parts.append(f"Trạng thái: {status}")
+                if auth.role not in {"doctor"} and doctor:
+                    parts.append(f"Bác sĩ: {doctor}")
+            lines.append("\n   ".join(parts))
+
+        return "Tôi tìm thấy lịch hẹn trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _appointment_type_label(self, value: str | None) -> str:
+        labels = {
+            "walk_in": "khám trực tiếp/walk-in",
+            "scheduled": "lịch hẹn đã đặt",
+            "follow_up": "tái khám",
+            "consultation": "tư vấn/khám",
+        }
+        return labels.get(str(value or "").strip(), str(value or "chưa rõ dịch vụ"))
+
+    def _appointment_status_label(self, value: str | None) -> str:
+        labels = {
+            "scheduled": "đã lên lịch",
+            "arrived": "bệnh nhân đã đến",
+            "in_progress": "đang xử lý/đang khám",
+            "completed": "đã hoàn tất",
+            "cancelled": "đã hủy",
+            "no_show": "không đến",
+        }
+        return labels.get(str(value or "").strip(), str(value or "chưa rõ trạng thái"))
+
+    def _lab_result_status_label(self, value: str | None) -> str:
+        labels = {
+            "ordered": "đã chỉ định",
+            "collected": "đã lấy mẫu",
+            "processing": "đang xử lý",
+            "completed": "đã hoàn tất",
+            "verified": "đã xác nhận",
+            "cancelled": "đã hủy",
+        }
+        return labels.get(str(value or "").strip(), str(value or "chưa rõ trạng thái"))

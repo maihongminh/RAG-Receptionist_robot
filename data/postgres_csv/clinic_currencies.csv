@@ -1,0 +1,3 @@
+_excel_row_number,id,clinic_id,currency_code,is_default,exchange_rate_to_vnd,display_order,created_at,created_by,units_per_default_unit
+2,9d4755a1-1241-4f58-8f14-e305d4eda104,d5ac6269-d8cf-4821-ac8b-a6341e68987b,USD,t,,1,2026-03-26 03:02:26.48058+00,,
+3,62fb1a4c-d06c-4764-903e-eca348969f7b,d5ac6269-d8cf-4821-ac8b-a6341e68987b,KHR,f,,2,2026-03-26 03:02:26.48058+00,,4100

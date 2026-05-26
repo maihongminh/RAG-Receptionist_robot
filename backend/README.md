@@ -1,0 +1,234 @@
+# Backend API
+
+Backend này được scaffold theo hướng **core + domain adapter** để sau này thêm LLM, RAG và các domain khác mà không phải viết lại core.
+
+## Kiến trúc
+
+```text
+POST /ask
+  -> core/orchestrator.py
+  -> llm/llm_client.py hoặc rule fallback để parse intent/entities
+  -> core/decision_router.py
+  -> auth/policy_guard.py
+  -> core/tool_registry.py
+  -> domains/clinic/adapter.py
+  -> domains/clinic/sql_tools.py
+  -> rag/embedding_client.py + rag/qdrant_store.py nếu là knowledge_search
+  -> rag/grounded_response_generator.py cho grounded/LLM-formatted answers nếu có context
+  -> core/response_generator.py template fallback
+```
+
+Hiện MVP hỗ trợ domain đầu tiên:
+
+```text
+clinic
+```
+
+Các intent đã có:
+
+- `general_info`
+- `greeting`
+- `service_price`
+- `service_category_list`
+- `service_catalog_summary`
+- `service_category_detail`
+- `doctor_schedule`
+- `knowledge_search`
+- `appointment_booking`
+- `personal_data`
+- `out_of_scope`
+
+LLM chưa bắt buộc. Nếu chưa có API key, backend dùng rule-based router để chạy local.
+Nếu bật `LLM_PROVIDER=openai`, `llm/llm_client.py` sẽ gọi OpenAI-compatible Chat Completions để parse intent/entities rồi vẫn đi qua `PolicyGuard` và tool như bình thường.
+
+Quy ước LLM:
+
+- LLM đầu flow: parse intent/entities.
+- Backend quyết định route SQL/RAG/Auth và kiểm tra policy.
+- LLM cuối flow:
+  - `knowledge_search`: grounded answer từ RAG context.
+  - Các câu SQL/Auth khác: local formatter chỉ chạy khi `LLM_PROVIDER=ollama`, để không gửi dữ liệu bệnh nhân lên cloud.
+- SQL/RAG/API là nguồn sự thật; model không được tự bịa giá, lịch, địa chỉ hoặc dữ liệu cá nhân.
+
+Auth/RBAC MVP hiện có:
+
+- request không có `auth` sẽ được xem là `guest`
+- dữ liệu cá nhân bị chặn bởi `PolicyGuard`
+- request có `auth.role=patient` và `patient_id` được tra lịch hẹn của chính patient đó
+- request có `auth.role=doctor` và `doctor_id` được tra lịch hẹn của bác sĩ đó
+- request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
+- audit hiện log ra application logger, chưa ghi DB
+
+## Cài dependency
+
+```bash
+cd /home/minhmh/tool/robo/backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Cấu hình
+
+Tạo `.env` trong thư mục `backend/`:
+
+```bash
+cp .env.example .env
+```
+
+Sửa `DATABASE_URL` theo password local của bạn:
+
+```text
+DATABASE_URL=postgresql://minhmh:YOUR_PASSWORD@localhost:5432/robo_reception
+```
+
+Nếu chạy trên cùng WSL user `minhmh`, có thể dùng local socket và không cần ghi password:
+
+```text
+DATABASE_URL=postgresql:///robo_reception
+```
+
+Mặc định có thể giữ:
+
+```text
+LLM_PROVIDER=none
+```
+
+Nếu muốn bật LLM:
+
+```text
+LLM_PROVIDER=openai
+LLM_MODEL=gpt-4o-mini
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_TIMEOUT_SECONDS=20
+LLM_INTENT_TIMEOUT_SECONDS=8
+LLM_ANSWER_TIMEOUT_SECONDS=8
+LLM_CONTEXT_CHAR_LIMIT=3500
+OPENAI_API_KEY=your_api_key_here
+```
+
+Sau khi sửa `.env`, restart backend. Nếu LLM lỗi hoặc thiếu key, backend tự fallback về rule parser.
+
+Nếu muốn dùng Ollama local:
+
+```text
+LLM_PROVIDER=ollama
+LLM_MODEL=qwen2.5:3b
+LLM_BASE_URL=http://localhost:11434
+LLM_TIMEOUT_SECONDS=60
+LLM_INTENT_TIMEOUT_SECONDS=8
+LLM_ANSWER_TIMEOUT_SECONDS=8
+LLM_CONTEXT_CHAR_LIMIT=3500
+```
+
+Sau đó chạy:
+
+```bash
+ollama pull qwen2.5:3b
+ollama serve
+```
+
+Backend vẫn dùng cùng flow `LLM -> Intent -> PolicyGuard -> ToolRegistry`.
+
+### RAG vector
+
+RAG vector hiện dùng Qdrant local mode:
+
+```text
+scripts/rag_documents.py
+  -> scripts/build_qdrant_index.py
+  -> Ollama nomic-embed-text
+  -> qdrant_data / clinic_knowledge
+```
+
+Hiện flow nguồn là:
+
+```text
+robo_raw.admin_help_templates
+  -> robo_app.knowledge_articles
+  -> scripts/rag_documents.py
+```
+
+Build index:
+
+```bash
+cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/build_qdrant_index.py
+```
+
+Khi `knowledge_search`, backend sẽ query Qdrant trước. Nếu Qdrant chưa có index, không có kết quả đạt `RAG_MIN_SCORE`, hoặc lỗi, backend fallback về keyword/fuzzy search từ cùng registry `scripts/rag_documents.py`.
+
+RAG retrieval loại các topic không phù hợp để trả lời bệnh nhân theo `RAG_EXCLUDED_TOPICS`, mặc định:
+
+```text
+overview,roles
+```
+
+Mục tiêu là không đưa tài liệu platform/system overview hoặc phân quyền vào context trả lời các câu hỏi quy trình của bệnh nhân. Sau khi đổi danh sách này hoặc sửa dữ liệu knowledge, cần rebuild Qdrant index.
+
+Ở giai đoạn hiện tại, `knowledge_search` đã dùng grounded response generation để LLM viết câu trả lời tự nhiên hơn từ `ToolResult.rows`, RAG chunks và `sources`. Context đưa vào LLM chỉ giữ title và nội dung chính của tài liệu; nếu LLM timeout hoặc tắt, template fallback vẫn format markdown thành danh sách dễ đọc thay vì trả content thô.
+
+Với các kết quả SQL/Auth như thông tin phòng khám, giá dịch vụ chính xác, lịch hẹn cá nhân và kết quả xét nghiệm, backend có thể dùng Ollama local để format câu trả lời từ `ToolResult.rows`. Formatter này chỉ chạy với `LLM_PROVIDER=ollama`; nếu provider là cloud hoặc LLM lỗi/tắt, `ResponseGenerator` template vẫn là fallback. Các câu dạng danh sách đã có template tốt, ví dụ nhóm dịch vụ, tổng quan danh mục dịch vụ, chi tiết dịch vụ trong một nhóm hoặc service_price nhiều dòng, sẽ không ép qua LLM để tránh timeout và tránh LLM chọn thiếu dữ liệu.
+
+## File chính
+
+```text
+app/config.py                 đọc env DB, LLM, embedding, Qdrant
+app/db.py                     helper Postgres
+app/api/ask.py                endpoint POST /ask
+app/core/orchestrator.py      điều phối toàn bộ flow
+app/core/response_generator.py template answer hiện tại
+app/llm/llm_client.py         LLM intent parser và formatter local
+app/rag/grounded_response_generator.py LLM answer từ context
+app/rag/embedding_client.py   Ollama embedding client
+app/rag/qdrant_store.py       Qdrant local/server vector store
+app/rag/rag_config.py         RAG top-k, min score, fallback limit/confidence
+app/auth/policy_guard.py      kiểm tra quyền trước khi gọi tool
+app/auth/auth_context.py      resolve auth context
+app/auth/permissions.py       permission matrix
+app/domains/clinic/sql_tools.py SQL tools + Qdrant knowledge_search
+```
+
+## Chạy server
+
+```bash
+cd /home/minhmh/tool/robo/backend
+source .venv/bin/activate
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+API docs:
+
+```text
+http://localhost:8000/docs
+```
+
+UI chatbot chạy tách ở thư mục `frontend/`.
+
+## Test API
+
+```bash
+curl -X POST http://localhost:8000/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"CT Brain without contrast giá bao nhiêu?"}'
+```
+
+```bash
+curl -X POST http://localhost:8000/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"Hôm nay bác sĩ SUON SAVUTH có khám không?"}'
+```
+
+```bash
+curl -X POST http://localhost:8000/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"Địa chỉ phòng khám ở đâu?"}'
+```
+
+## Lộ trình tiếp theo
+
+Sau khi API text, UI, LLM parser, Qdrant RAG và grounded answer chạy ổn:
+
+1. Thêm auth tool cho dữ liệu cá nhân.
+2. Mở rộng grounded answer sang intent phù hợp khác nếu cần.
+3. Thêm domain adapter mới như `hotel`, `restaurant`, `school`.

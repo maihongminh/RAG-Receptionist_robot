@@ -1,0 +1,2 @@
+_excel_row_number,id,clinic_id,room_id,bed_code,bed_name,bed_type,is_active,display_order,notes,created_at,updated_at,created_by,updated_by
+2,031dd697-03b2-4407-a980-665ddee01ca0,99efa33e-8a21-4b1f-a5ac-92f920e69179,3d94bad4-ae13-4273-98c3-636107985f15,B1,icu-01,icu,t,0,,2026-03-14 04:56:07.32927+00,2026-03-14 04:56:07.32927+00,1c2593a7-1aad-457a-b536-9d568f49dd96,

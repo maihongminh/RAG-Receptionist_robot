@@ -1,0 +1,698 @@
+_excel_row_number,id,translation_key,language_code,value,created_at,updated_at,created_by,updated_by
+2,5341e4bc-073b-4923-9d8e-b083423967ef,admin.appointments.afternoon,en,Afternoon,2026-01-30 07:00:46.777142+00,2026-01-30 07:00:46.777142+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+3,96caa30b-4563-4c00-966a-005195364402,admin.appointments.afternoon,vi,Buổi chiều,2026-01-30 07:00:47.185641+00,2026-01-30 07:00:47.185641+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+4,af8b416e-1fc8-421f-b04d-81c60d484e91,admin.appointments.afternoon,km,រសៀល,2026-01-30 07:00:47.192409+00,2026-01-30 07:00:47.192409+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+5,8a58179a-1776-443e-8c2f-8dc544681541,admin.appointments.available,en,Available,2026-01-30 07:01:31.625368+00,2026-01-30 07:01:31.625368+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+6,bbf07d41-085a-4782-a5b2-524b46cd3395,admin.appointments.available,vi,Trống,2026-01-30 07:01:31.621303+00,2026-01-30 07:01:31.621303+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+7,7f15b387-8a4f-4b80-988b-eef90c082133,admin.appointments.available,km,ទំនេរ,2026-01-30 07:01:31.642402+00,2026-01-30 07:01:31.642402+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+8,6c287657-ab16-4aee-8d28-8558d382124b,admin.appointments.bookAppointment,en,Book Appointment,2026-01-30 07:02:57.126345+00,2026-01-30 07:02:57.126345+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+9,6a7d9032-b815-487a-a2cf-5dffdc0b8108,admin.appointments.bookAppointment,km,ការណាត់,2026-01-30 07:02:57.126794+00,2026-01-30 07:02:57.126794+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+10,5a0d8634-91ed-4ab7-a073-88f6bd510f5a,admin.appointments.bookAppointment,vi,Đặt lịch hẹn,2026-01-30 07:02:57.126652+00,2026-01-30 07:02:57.126652+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+11,b20589e0-e3a5-4b6a-ba87-318eb2e7fb75,admin.appointments.clickToBook,en,Click to book,2026-01-30 07:06:19.047391+00,2026-01-30 07:06:19.047391+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+12,cd957fd9-e47e-4efe-85cb-8ee9b765c61d,admin.appointments.clickToBook,vi,Click để đặt lịch,2026-01-30 07:06:19.06951+00,2026-01-30 07:06:19.06951+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+13,0563fbd0-7b06-437b-9964-b9bb0b190bd8,admin.appointments.clickToBook,km,ចុចដើម្បីណាត់,2026-01-30 07:06:19.069725+00,2026-01-30 07:06:19.069725+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+14,ce88e1e4-5343-4fde-a82b-911eedb4cd19,admin.appointments.dailySchedule,km,ការវិភាគប្រចាំថ្ងៃ,2026-01-30 07:06:46.074244+00,2026-01-30 07:06:46.074244+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+15,a6fddc06-9385-4ec5-9c3d-22c63f8ae1b7,admin.appointments.dailySchedule,en,Daily Schedule,2026-01-30 07:06:46.086843+00,2026-01-30 07:06:46.086843+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+16,1a36124d-b0a3-4912-8d93-66bbf6fda869,admin.appointments.dailySchedule,vi,Lịch theo ngày,2026-01-30 07:06:46.110028+00,2026-01-30 07:06:46.110028+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+17,b66a550a-2a55-4f81-abfd-3c5332e68645,admin.appointments.doctor,en,Doctor,2026-01-30 07:12:39.871197+00,2026-01-30 07:12:39.871197+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+18,8d8b256e-ba75-49eb-a56f-7f83ca56d891,admin.appointments.doctor,vi,Bác sĩ,2026-01-30 07:12:39.900466+00,2026-01-30 07:12:39.900466+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+19,2027af29-3f47-415a-aec5-2725217d6a50,admin.appointments.doctor,km,វេជ្ជបណ្ឌិត,2026-01-30 07:12:39.911593+00,2026-01-30 07:12:39.911593+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+20,1465799b-5851-43ef-aef9-a4e04f660bca,admin.appointments.doctorWeekView,en,7-Day Doctor Schedule,2026-01-30 07:14:07.640648+00,2026-01-30 07:14:07.640648+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+21,99e0dfa5-d994-4f73-9093-e176b369bfde,admin.appointments.doctorWeekView,vi,Lịch 7 ngày bác sĩ,2026-01-30 07:14:07.623958+00,2026-01-30 07:14:07.623958+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+22,7aef46da-adda-4663-b26e-6252cc26df5a,admin.appointments.doctorWeekView,km,កាលវិភាគវេជ្ជបណ្ឌិតរយៈពេល ៧ ថ្ងៃ,2026-01-30 07:14:07.68897+00,2026-01-30 07:14:07.68897+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+23,5c25ddfb-91ce-49b0-b525-1915d6f73c33,admin.appointments.generalDoctor,km,វេជ្ជបណ្ឌិតទូទៅ,2026-01-30 07:15:04.239348+00,2026-01-30 07:15:04.239348+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+24,0342a88d-c1bc-4cfd-a755-e946b2222baf,admin.appointments.generalDoctor,vi,Bác sĩ đa khoa,2026-01-30 07:15:04.236167+00,2026-01-30 07:15:04.236167+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+25,d530e3d1-b90d-43f4-a59f-d69ff2e632ad,admin.appointments.generalDoctor,en,General Doctor,2026-01-30 07:15:04.25514+00,2026-01-30 07:15:04.25514+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+26,99e390ad-478c-41a1-a061-51bed403fb4e,admin.appointments.morning,en,Morning,2026-01-30 07:15:46.791784+00,2026-01-30 07:15:46.791784+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+27,60c19a08-6436-40e4-8a7d-afd8104ece5c,admin.appointments.morning,vi,Buổi sáng,2026-01-30 07:15:46.795173+00,2026-01-30 07:15:46.795173+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+28,1e144e6d-5c58-4f26-bdb0-aa286f15a2f0,admin.appointments.morning,km,ពេលព្រឹក,2026-01-30 07:15:46.802147+00,2026-01-30 07:15:46.802147+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+29,8b7e00eb-9961-4ffd-bb53-c8f68b8ff088,admin.clinic.general.timeDate.workingHours,vi,Giờ làm việc,2026-01-30 07:16:25.396448+00,2026-01-30 07:16:25.396448+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+30,ab80ee11-25a4-480a-9495-8a2bc75e2cc4,admin.clinic.general.timeDate.workingHours,en,Working Hours,2026-01-30 07:16:25.421642+00,2026-01-30 07:16:25.421642+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+31,a56dfe75-2168-49ca-a205-c9e7400ffd8f,admin.clinic.general.timeDate.workingHours,km,ម៉ោងធ្វើការ,2026-01-30 07:16:25.420504+00,2026-01-30 07:16:25.420504+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+32,8503bce0-9e85-45f9-9536-a690a5ffc5ee,admin.clinic.general.updateError,km,មិនអាចធ្វើបច្ចុប្បន្នភាពការកំណត់បានទេ,2026-01-30 07:15:41.203004+00,2026-01-30 07:16:44.889939+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+33,54a4b294-a029-4094-8b75-62be1ccca517,admin.clinic.general.updateError,en,Unable to update settings.,2026-01-30 07:15:41.193659+00,2026-01-30 07:16:44.89027+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+34,795b7372-0510-48ea-a74c-2bf4da4a49c9,admin.clinic.general.updateError,vi,Không thể cập nhật cài đặt.,2026-01-30 07:15:41.194096+00,2026-01-30 07:16:44.895412+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+35,b68673c0-9e29-4ccb-bfa9-30094ddecef6,admin.clinic.general.timeDate.title,km,ពេលវេលា និងកាលបរិច្ឆេទ,2026-01-30 07:17:19.423564+00,2026-01-30 07:17:19.423564+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+36,e8707cdb-a687-446f-bad1-0d3946c13391,admin.clinic.general.timeDate.title,vi,Thời gian & Ngày tháng,2026-01-30 07:17:19.426074+00,2026-01-30 07:17:19.426074+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+37,c2676e97-5cd7-4c77-910b-db462578482d,admin.clinic.general.timeDate.title,en,Time & Date,2026-01-30 07:17:19.429764+00,2026-01-30 07:17:19.429764+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+38,1c232cf2-bd5b-4592-a840-2a824f6c39cd,admin.appointments.newAppointment,vi,Đặt lịch mới,2026-01-30 07:17:54.380251+00,2026-01-30 07:17:54.380251+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+39,fb565be7-73c2-4159-b462-cc2925f8e16a,admin.appointments.newAppointment,km,ការណាត់ថ្មី,2026-01-30 07:17:54.380955+00,2026-01-30 07:17:54.380955+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+40,e350e7e3-f536-48b6-9aaf-00678163bc66,admin.appointments.newAppointment,en,New Booking,2026-01-30 07:17:54.385544+00,2026-01-30 07:17:54.385544+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+41,ca4abe9e-c9a1-4e26-a9f6-91b19f6cbbb2,admin.clinic.general.timeDate.timezone,km,តំបន់ពេលវេលា,2026-01-30 07:18:03.010115+00,2026-01-30 07:18:03.010115+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+42,4532ba0e-07b7-4ed2-b0a2-b01ac96112c8,admin.clinic.general.timeDate.timezone,vi,Múi giờ,2026-01-30 07:18:03.011967+00,2026-01-30 07:18:03.011967+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+43,ce0ea07a-382f-4778-be90-91256fb5bfca,admin.clinic.general.timeDate.timezone,en,Timezone,2026-01-30 07:18:03.013285+00,2026-01-30 07:18:03.013285+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+44,dd669dfd-b8ab-441d-8dcf-6c9eb0300a63,admin.clinic.lab.add,vi,Thêm phòng Lab,2026-01-30 07:14:16.229006+00,2026-01-30 07:18:33.467101+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+45,cd6b6dba-8515-42c3-ab45-246731133efd,admin.clinic.lab.add,en,Add Lab,2026-01-30 07:14:16.233691+00,2026-01-30 07:18:33.471635+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+46,f9403e3f-9b48-4e6f-8ccd-3e88b6fa811e,admin.clinic.lab.add,km,បន្ថែមមន្ទីរពិសោធន៍,2026-01-30 07:14:16.342756+00,2026-01-30 07:18:33.476469+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+47,43405d26-476c-47a5-8c53-1e07d46aea67,admin.clinic.general.timeDate.timeFormat,en,Time Format,2026-01-30 07:19:03.391537+00,2026-01-30 07:19:03.391537+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+48,610baa96-0a92-4025-8623-43272e06ac14,admin.clinic.general.timeDate.timeFormat,vi,Định dạng giờ,2026-01-30 07:19:03.392454+00,2026-01-30 07:19:03.392454+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+49,d4d2c481-8fe8-48d2-a947-b6fff6ecc51e,admin.clinic.general.timeDate.timeFormat,km,ទម្រង់ពេលវេលា,2026-01-30 07:19:03.40157+00,2026-01-30 07:19:03.40157+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+50,ae2ac699-4dae-4659-95d2-3a1635690ed9,admin.clinic.general.updateSuccess,vi,Đã cập nhật cài đặt chung.,2026-01-30 07:15:08.387534+00,2026-01-30 12:28:14.214022+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+51,7f18615f-b895-462d-9ab3-e0210bc71710,admin.clinic.general.updateSuccess,en,General settings updated successfully.,2026-01-30 07:15:08.388085+00,2026-01-30 12:28:14.214482+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+52,926f4d21-0b24-49cb-b062-a6539c3beb67,admin.clinic.general.updateSuccess,km,បានធ្វើបច្ចុប្បន្នភាពការកំណត់ទូទៅដោយជោគជ័យ,2026-01-30 07:15:08.396806+00,2026-01-30 12:28:14.259781+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+53,cedd2e93-7fc3-4e88-88a5-d477abf3f61a,admin.clinic.general.timeDate.start,vi,Bắt đầu,2026-01-30 07:24:19.763544+00,2026-01-30 07:24:19.763544+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+54,c41884ec-1ddc-4522-96a0-0c7a5555a18a,admin.clinic.general.timeDate.start,en,Start,2026-01-30 07:24:19.772403+00,2026-01-30 07:24:19.772403+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+55,72b16305-748a-45d8-b007-2dc42b0a743f,admin.clinic.general.timeDate.start,km,ចាប់ផ្តើម,2026-01-30 07:24:19.777717+00,2026-01-30 07:24:19.777717+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+56,8d6c629e-84bb-49c1-814e-7422c8bb3f98,admin.clinic.general.timeDate.lunchBreak,en,Lunch Break,2026-01-30 07:24:47.567911+00,2026-01-30 07:24:47.567911+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+57,5528d381-4198-4997-b4b0-e0fbb3855ece,admin.clinic.general.timeDate.lunchBreak,km,សម្រាកអាហារថ្ងៃត្រង់,2026-01-30 07:24:47.594674+00,2026-01-30 07:24:47.594674+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+58,0dabddfd-6d3d-4833-ba3a-c2d155912a9c,admin.clinic.general.timeDate.lunchBreak,vi,Giờ nghỉ trưa,2026-01-30 07:24:47.578824+00,2026-01-30 07:24:47.578824+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+59,101d7721-3f9e-4354-9fe9-22c28b53112d,admin.appointments.noDoctors,en,No doctors assigned. Please add doctors in staff management.,2026-01-30 07:21:58.547918+00,2026-01-30 07:25:01.924958+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+60,0e9b2897-d6cc-49a9-8ac7-9cece6eb16dd,admin.appointments.noDoctors,km,មិនមានគ្រូពេទ្យត្រូវបានចាត់តាំងទេ។ សូមបន្ថែមគ្រូពេទ្យនៅក្នុងបញ្ជីគ្រប់គ្រងបុគ្គលិក។,2026-01-30 07:21:58.546682+00,2026-01-30 07:25:01.918462+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+61,c441a0d8-ac29-4297-85d5-43b85682062b,admin.appointments.noDoctors,vi,Chưa có bác sĩ nào được phân công. Vui lòng thêm bác sĩ trong phần quản lý nhân viên.,2026-01-30 07:21:58.541782+00,2026-01-30 07:25:01.921864+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+62,8753fe41-cbaf-4130-b775-8ab46e84c19e,admin.appointments.predictedAvg,en,Predicted Avg/Day,2026-01-30 07:26:06.617596+00,2026-01-30 07:26:06.617596+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+63,c9787e5c-965b-413d-aae4-07cac9cde736,admin.appointments.predictedAvg,vi,Dự đoán TB/ngày,2026-01-30 07:26:06.627878+00,2026-01-30 07:26:06.627878+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+64,c1495697-6d76-43b9-a45a-5f8f70fe878b,admin.appointments.predictedAvg,km,មធ្យមភាគដែលបានព្យាករណ៍ក្នុងមួយថ្ងៃ,2026-01-30 07:26:06.62788+00,2026-01-30 07:26:06.62788+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+65,1c9386b9-01ed-4456-9f63-b6ddffdc5ae5,admin.clinic.general.timeDate.end,vi,Kết thúc,2026-01-30 07:25:01.902403+00,2026-01-30 07:26:09.111213+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+66,dd0bf310-6833-43b5-a98e-44c5fb8c6278,admin.clinic.general.timeDate.end,km,បញ្ចប់,2026-01-30 07:26:09.123149+00,2026-01-30 07:26:09.123149+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+67,e7dcc589-dc8d-4481-a31b-8a5d449d254b,admin.clinic.general.timeDate.end,en,End,2026-01-30 07:25:01.906112+00,2026-01-30 07:26:09.122563+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+68,878d5b03-36ec-47cb-9d04-78a5ecf1d961,admin.clinic.general.timeDate.description,en,Configure timezone and time format for the clinic.,2026-01-30 07:26:52.992079+00,2026-01-30 07:26:52.992079+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+69,a4bfb6dc-2027-4c69-8252-bebf52f277b6,admin.clinic.general.timeDate.description,vi,Cấu hình múi giờ và định dạng thời gian cho phòng khám.,2026-01-30 07:26:52.998336+00,2026-01-30 07:26:52.998336+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+70,017ebaa3-97c4-4028-8dc3-4c89cb8e85af,admin.clinic.general.timeDate.description,km,កំណត់រចនាសម្ព័ន្ធតំបន់ពេលវេលា និងទម្រង់ពេលវេលាសម្រាប់គ្លីនិក,2026-01-30 07:26:52.996999+00,2026-01-30 07:26:52.996999+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+71,b90403c5-202b-405e-8a1c-eab605e2c40c,admin.clinic.general.timeDate.dateFormat,en,Date Format,2026-01-30 07:27:16.930858+00,2026-01-30 07:27:16.930858+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+72,ada22508-34fa-4851-88b2-be4ad4d88ec8,admin.clinic.general.timeDate.dateFormat,vi,Định dạng ngày,2026-01-30 07:27:16.930738+00,2026-01-30 07:27:16.930738+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+73,728accf7-677e-4692-818e-b0244fb0920a,admin.clinic.general.timeDate.dateFormat,km,ទម្រង់កាលបរិច្ឆេទ,2026-01-30 07:27:16.933042+00,2026-01-30 07:27:16.933042+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+74,2856683c-330a-49bd-9b7c-e94cedecb3d2,admin.clinic.general.timeDate.currency,vi,Loại tiền,2026-01-30 07:27:40.654607+00,2026-01-30 07:27:40.654607+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+75,0d379376-4235-4b9d-a638-0a645b455546,admin.clinic.general.timeDate.currency,en,Currency,2026-01-30 07:27:40.656637+00,2026-01-30 07:27:40.656637+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+76,fb35b9f6-9caa-421e-8182-8af4dfcc610e,admin.clinic.general.timeDate.currency,km,រូបិយប័ណ្ណ,2026-01-30 07:27:40.658785+00,2026-01-30 07:27:40.658785+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+77,db74ccda-c925-4f5c-9032-569efd99227b,admin.appointments.recurring,vi,Lịch tái khám,2026-01-30 08:34:35.263693+00,2026-01-30 08:34:35.263693+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+78,e1abc086-4d45-4d0c-8c2a-f9130e786dde,admin.appointments.recurring,en,Follow-up Schedule,2026-01-30 08:34:35.22245+00,2026-01-30 08:34:35.22245+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+79,09817bab-536d-4909-a3fc-877e68786644,admin.appointments.recurring,km,កាលវិភាគតាមដាន,2026-01-30 08:34:35.217217+00,2026-01-30 08:34:35.217217+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+80,2463b4c6-d1dd-422c-a431-11212922fd87,admin.clinic.fee.serviceFee,vi,Phí dịch vụ,2026-01-30 08:54:01.34697+00,2026-01-30 08:54:01.34697+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+81,2e933b47-f725-4295-b880-d42f5d3a947e,admin.clinic.fee.serviceFee,en,Service Fee,2026-01-30 08:54:01.389538+00,2026-01-30 08:54:01.389538+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+82,579e1218-f566-4bf7-9125-13581b031f69,admin.clinic.fee.serviceFee,km,ថ្លៃសេវា,2026-01-30 08:54:01.454171+00,2026-01-30 08:54:01.454171+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+83,289dc0f5-733c-47fa-a252-d07e38aaf81e,admin.clinic.general.appointment.requirePhoneVerificationDesc,km,អ្នកជំងឺត្រូវតែផ្ទៀងផ្ទាត់ទូរស័ព្ទនៅពេលកក់មុន,2026-01-30 09:08:03.923152+00,2026-01-30 09:08:03.923152+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+84,837de852-c6c7-49cc-8f21-68f10ba02faa,admin.clinic.general.appointment.requirePhoneVerificationDesc,vi,Bệnh nhân phải xác minh SĐT khi đặt lịch lần đầu.,2026-01-30 09:08:03.925965+00,2026-01-30 09:08:03.925965+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+85,b132a262-ca30-4421-b36d-046b748645f5,admin.clinic.general.appointment.requirePhoneVerificationDesc,en,Patients must verify phone on first booking.,2026-01-30 09:08:03.929862+00,2026-01-30 09:08:03.929862+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+86,09d57dcb-0b5c-4a96-95f6-0dfe51bbabce,admin.clinic.general.appointment.slotDuration,vi,Thời lượng slot (phút),2026-01-30 09:08:43.513284+00,2026-01-30 09:08:43.513284+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+87,0aae995c-9012-4d81-adff-31bac78600cc,admin.clinic.general.appointment.slotDuration,en,Slot Duration (minutes),2026-01-30 09:08:43.520509+00,2026-01-30 09:08:43.520509+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+88,48171b7d-9833-444e-9b46-dc1b6f1e999a,admin.clinic.general.appointment.slotDuration,km,ចន្លោះពេល (នាទី),2026-01-30 09:08:43.538849+00,2026-01-30 09:08:43.538849+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+89,cf47bc17-828b-49d5-99aa-e67faa83af6a,admin.clinic.general.appointment.title,en,Appointment Settings,2026-01-30 09:09:41.913456+00,2026-01-30 09:09:41.913456+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+90,e39af580-4278-4095-8fb1-3d933520ef3c,admin.clinic.general.appointment.title,km,ការកំណត់ការណាត់ជួប,2026-01-30 09:09:41.915528+00,2026-01-30 09:09:41.915528+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+91,04eec514-ec9e-4a4a-abf6-f2b03354cacb,admin.clinic.general.appointment.title,vi,Cài đặt lịch hẹn,2026-01-30 09:09:41.922609+00,2026-01-30 09:09:41.922609+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+92,2abe5cce-e04b-44d8-a786-8f582f633dbc,admin.clinic.general.codeSettings.appointmentCode,km,លេខកូដណាត់ជួប,2026-01-30 09:09:59.885909+00,2026-01-30 09:09:59.885909+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+93,581b640d-ab1a-4068-8a96-a57be6ae61b4,admin.clinic.general.codeSettings.appointmentCode,vi,Mã lịch khám,2026-01-30 09:09:59.905785+00,2026-01-30 09:09:59.905785+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+94,cbe4d4b4-7560-4fcf-afb7-c481e7aac949,admin.clinic.general.codeSettings.appointmentCode,en,Appointment Code,2026-01-30 09:09:59.943538+00,2026-01-30 09:09:59.943538+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+95,a26c37c3-5c30-4582-b036-4ea458357fee,admin.clinic.general.codeSettings.description,en,Configure code templates for system objects.,2026-01-30 09:10:12.016451+00,2026-01-30 09:10:12.016451+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+96,e84374ac-247d-4aa1-81f3-bb348b3ff94f,admin.clinic.general.codeSettings.description,km,កំណត់រចនាសម្ព័ន្ធគំរូកូដសម្រាប់វត្ថុប្រព័ន្ធ,2026-01-30 09:10:12.021966+00,2026-01-30 09:10:12.021966+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+97,e85e63c8-5eb9-4467-a5b2-c07c1130903f,admin.clinic.general.codeSettings.description,vi,Cấu hình mẫu mã cho các đối tượng trong hệ thống.,2026-01-30 09:10:12.03596+00,2026-01-30 09:10:12.03596+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+98,46e1efbf-2cc4-4612-88db-af862a2c4f25,admin.clinic.general.codeSettings.drugCode,km,លេខកូដឱសថ,2026-01-30 09:11:03.377561+00,2026-01-30 09:11:03.377561+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+99,2e79b31a-ece0-4ac2-91a9-c24992784147,admin.clinic.general.codeSettings.drugCode,en,Drug Code,2026-01-30 09:11:03.385171+00,2026-01-30 09:11:03.385171+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+100,bde631ff-4927-475d-848d-6c9ab151924c,admin.clinic.general.codeSettings.drugCode,vi,Mã thuốc,2026-01-30 09:11:03.389195+00,2026-01-30 09:11:03.389195+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+101,54151643-98cd-4846-b31a-d66ba4d755a2,admin.clinic.general.codeSettings.imagingCode,vi,Mã chẩn đoán hình ảnh,2026-01-30 09:11:16.900705+00,2026-01-30 09:11:16.900705+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+102,6c38b703-0a9d-471a-8ed5-18370375dc0a,admin.clinic.general.codeSettings.imagingCode,km,កូដរូបភាព,2026-01-30 09:11:16.951454+00,2026-01-30 09:11:16.951454+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+103,e50d5bf9-3058-4003-a842-9cc99010ed80,admin.clinic.general.codeSettings.imagingCode,en,Imaging Code,2026-01-30 09:11:17.012024+00,2026-01-30 09:11:17.012024+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+104,ec10b488-e103-4ad2-a819-09d4dbed26d1,admin.clinic.general.codeSettings.labCode,vi,Mã xét nghiệm,2026-01-30 09:11:30.08401+00,2026-01-30 09:11:30.08401+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+105,df7c3ffd-7a1f-4f70-b06f-acae2bbbb242,admin.clinic.general.codeSettings.labCode,en,Lab Code,2026-01-30 09:11:30.089548+00,2026-01-30 09:11:30.089548+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+106,05dc1ba5-edc2-40b2-8234-ff269c5228ec,admin.clinic.general.codeSettings.labCode,km,លេខកូដមន្ទីរពិសោធន៍,2026-01-30 09:11:30.11441+00,2026-01-30 09:11:30.11441+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+107,f2ea7c8e-4e56-49a8-9a99-1ca3e4d1f2fc,admin.clinic.general.codeSettings.minLength,km,ប្រវែងអប្បបរមា,2026-01-30 09:12:12.316351+00,2026-01-30 09:12:12.316351+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+108,ce89b8f3-3737-4c4b-89bc-d6be58970ed1,admin.clinic.general.codeSettings.minLength,vi,Độ dài tối thiểu,2026-01-30 09:11:43.507466+00,2026-01-30 09:12:12.314693+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+109,85a42316-b10d-4bc3-8450-4bbe3589f28e,admin.clinic.general.codeSettings.minLength,en,Minimum Length,2026-01-30 09:11:43.495481+00,2026-01-30 09:12:12.325616+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+110,ab505c8c-9ac0-4bca-9e6c-dfa3b89a8929,admin.clinic.general.codeSettings.patientCode,en,Patient Code,2026-01-30 09:12:24.305037+00,2026-01-30 09:12:24.305037+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+111,dd9584c6-2439-42a0-8cde-2ff6c78d76a7,admin.clinic.general.codeSettings.patientCode,vi,Mã bệnh nhân,2026-01-30 09:12:24.310283+00,2026-01-30 09:12:24.310283+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+112,199a8e4e-e4b2-457a-bf08-4a7fdc588aa6,admin.clinic.general.codeSettings.patientCode,km,លេខកូដអ្នកជំងឺ,2026-01-30 09:12:24.321767+00,2026-01-30 09:12:24.321767+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+113,15e113dc-6b4e-484d-9348-f5daea248d9d,admin.clinic.general.codeSettings.paymentCode,vi,Mã thanh toán,2026-01-30 09:12:34.382361+00,2026-01-30 09:12:34.382361+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+114,dac93034-0ce1-4783-94a5-9329e18f65e8,admin.clinic.general.codeSettings.paymentCode,en,Payment Code,2026-01-30 09:12:34.399543+00,2026-01-30 09:12:34.399543+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+115,ac3b958f-99d1-420e-9914-ae11e0aeea96,admin.clinic.general.codeSettings.paymentCode,km,លេខកូដបង់ប្រាក់,2026-01-30 09:12:34.396995+00,2026-01-30 09:12:34.396995+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+116,a956e33f-d0b9-44d7-a23c-c0c79ab48397,admin.clinic.general.codeSettings.pharmacyCode,vi,Mã nhà thuốc,2026-01-30 09:12:48.785471+00,2026-01-30 09:12:48.785471+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+117,7e560c28-086a-4cee-b0c5-36657effbc5d,admin.clinic.general.codeSettings.pharmacyCode,en,Pharmacy Code,2026-01-30 09:12:48.803205+00,2026-01-30 09:12:48.803205+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+118,61f4b982-c8da-475e-aa90-8acdd4ecd460,admin.clinic.general.codeSettings.pharmacyCode,km,លេខកូដឱសថស្ថាន,2026-01-30 09:12:48.792369+00,2026-01-30 09:12:48.792369+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+119,07ff6eb3-2ce5-4905-9a6c-0e2fbfaf2962,admin.clinic.general.codeSettings.prefix,en,Prefix,2026-01-30 09:12:57.744854+00,2026-01-30 09:12:57.744854+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+120,3a7b1a7a-d021-4988-913a-c065f31f19ce,admin.clinic.general.codeSettings.prefix,vi,Tiền tố,2026-01-30 09:12:57.777929+00,2026-01-30 09:12:57.777929+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+121,fc200ad3-c3c3-4ace-9dcb-dd275248f06d,admin.clinic.general.codeSettings.prefix,km,បុព្វបទ,2026-01-30 09:12:57.78597+00,2026-01-30 09:12:57.78597+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+122,697a0bfd-6499-4650-9972-5a9333f1e67c,admin.clinic.general.codeSettings.prescriptionCode,en,Prescription Code,2026-01-30 09:13:08.576117+00,2026-01-30 09:13:08.576117+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+123,526999c1-49d5-4cd8-8917-22e9c0d44a75,admin.clinic.general.codeSettings.prescriptionCode,vi,Mã đơn thuốc,2026-01-30 09:13:08.582557+00,2026-01-30 09:13:08.582557+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+124,702d9adb-5680-424d-b033-67091416e04c,admin.clinic.general.codeSettings.prescriptionCode,km,លេខកូដវេជ្ជបញ្ជា,2026-01-30 09:13:08.588468+00,2026-01-30 09:13:08.588468+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+125,fadd2d86-16ad-485b-8b53-3d653b65f10c,admin.clinic.general.codeSettings.supplierCode,km,លេខកូដអ្នកផ្គត់ផ្គង់,2026-01-30 09:15:12.398041+00,2026-01-30 09:15:12.398041+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+126,c762e4f1-7f5e-4eba-b918-48533409378e,admin.clinic.general.codeSettings.supplierCode,vi,Mã nhà cung cấp thuốc,2026-01-30 09:13:18.219611+00,2026-01-30 09:15:12.888302+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+127,458af54a-1321-4fa4-af10-70bafb798215,admin.clinic.general.codeSettings.supplierCode,en,Supplier Code,2026-01-30 09:13:18.210946+00,2026-01-30 09:15:12.926026+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+128,9587c51b-7e7c-40ae-a56b-293e0e3a567f,admin.clinic.general.codeSettings.title,en,Detailed Settings,2026-01-30 09:13:26.863157+00,2026-01-30 09:15:29.211105+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+129,6c34e0ee-4567-4472-bbf2-1f6c80603980,admin.clinic.general.codeSettings.title,km,ការកំណត់លម្អិត,2026-01-30 09:15:29.204264+00,2026-01-30 09:15:29.204264+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+130,56315cae-929e-4079-a198-1369fa685bac,admin.clinic.general.codeSettings.title,vi,Cài đặt chi tiết,2026-01-30 09:13:26.847695+00,2026-01-30 09:15:29.235461+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+131,c3a6dc9b-2a0e-4ad9-8535-f6df8d56f576,admin.clinic.general.codeSettings.warehouseCode,en,Warehouse Code,2026-01-30 09:15:49.317658+00,2026-01-30 09:15:49.317658+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+132,c4915422-265e-403f-a8c0-7e083f210ac9,admin.clinic.general.codeSettings.warehouseCode,vi,Mã kho hàng,2026-01-30 09:15:49.319204+00,2026-01-30 09:15:49.319204+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+133,ed5bc29f-e1b0-4657-8ca0-e0371f345c44,admin.clinic.general.codeSettings.warehouseCode,km,លេខកូដឃ្លាំង,2026-01-30 09:15:49.335444+00,2026-01-30 09:15:49.335444+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+134,36c22782-e7ba-4454-acdb-c4522af333d8,admin.clinic.general.notifications.description,km,កំណត់រចនាសម្ព័ន្ធការជូនដំណឹងដោយស្វ័យប្រវត្តិផ្ញើទៅអ្នកជំងឺ,2026-01-30 09:16:22.292577+00,2026-01-30 09:16:22.292577+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+135,654b49a7-9fe9-41ea-bc48-2b0344f6caa8,admin.clinic.general.notifications.description,en,Configure automatic notifications sent to patients.,2026-01-30 09:16:22.291454+00,2026-01-30 09:16:22.291454+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+136,c0eaf005-52eb-44d4-a407-cd9129106e3f,admin.clinic.general.notifications.description,vi,Cấu hình các thông báo tự động gửi đến bệnh nhân.,2026-01-30 09:16:22.304224+00,2026-01-30 09:16:22.304224+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+137,2b0835a8-3323-44b2-a7ae-9536dafd13d1,admin.clinic.general.codeSettings.visitCode,vi,Mã khám bệnh,2026-01-30 09:15:38.798951+00,2026-01-30 09:16:36.569098+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+138,feb82a97-b366-4524-9680-3a4d037ec7e7,admin.clinic.general.codeSettings.visitCode,km,ចូលមើលលេខកូដ,2026-01-30 09:16:36.575062+00,2026-01-30 09:16:36.575062+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+139,7cf30c92-3084-403c-b63a-8fa96c024b1f,admin.clinic.general.codeSettings.visitCode,en,Visit Code,2026-01-30 09:15:38.754991+00,2026-01-30 09:16:36.579757+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+140,95b26d4a-aafe-486c-865c-7a36176f73c3,admin.clinic.general.notifications.reminderHours,vi,Nhắc trước (giờ),2026-01-30 09:16:50.740795+00,2026-01-30 09:16:50.740795+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+141,f633aefc-04d7-43ea-a38f-f681d5505365,admin.clinic.general.notifications.reminderHours,km,រំលឹកមុន (ម៉ោង),2026-01-30 09:16:50.755832+00,2026-01-30 09:16:50.755832+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+142,ea1f62dd-d3cc-425f-9bfa-e5a7e11745c0,admin.clinic.general.notifications.reminderHours,en,Remind Before (hours),2026-01-30 09:16:50.764532+00,2026-01-30 09:16:50.764532+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+143,d94795f0-0e5a-4de9-9cef-edbf50a970f7,admin.clinic.general.notifications.sendReminders,en,Send Appointment Reminders,2026-01-30 09:17:10.266886+00,2026-01-30 09:17:10.266886+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+144,255741a3-82a7-4ddd-8b75-8c0141ae7c58,admin.clinic.general.notifications.sendReminders,vi,Gửi nhắc lịch hẹn,2026-01-30 09:17:10.269613+00,2026-01-30 09:17:10.269613+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+145,8f86477b-6909-4606-811d-f5931f609b75,admin.clinic.general.notifications.sendReminders,km,ផ្ញើការរំលឹកការណាត់ជួប,2026-01-30 09:17:10.270586+00,2026-01-30 09:17:10.270586+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+146,0964a264-d792-4cfb-8560-c2558d843447,admin.clinic.general.notifications.sendRemindersDesc,en,Automatically send reminder messages before appointments.,2026-01-30 09:17:18.915347+00,2026-01-30 09:17:18.915347+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+147,c7995ee6-9d87-4c4c-826a-3b0ee269a4b1,admin.clinic.general.notifications.sendRemindersDesc,km,ផ្ញើសាររំលឹកដោយស្វ័យប្រវត្តិមុនពេលណាត់ជួប,2026-01-30 09:17:18.922887+00,2026-01-30 09:17:18.922887+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+148,a4a96e2a-8af3-4864-91cb-5d27de644c11,admin.clinic.general.notifications.sendRemindersDesc,vi,Tự động gửi tin nhắn nhắc nhở trước buổi hẹn.,2026-01-30 09:17:18.923813+00,2026-01-30 09:17:18.923813+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+149,402e5c73-3a7a-4d0b-8774-313b1aa221a4,admin.clinic.general.notifications.title,vi,Thông báo,2026-01-30 09:17:33.452478+00,2026-01-30 09:17:33.452478+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+150,39f81267-48cd-4cea-9414-50c203373f12,admin.clinic.general.notifications.title,en,Notifications,2026-01-30 09:17:33.462662+00,2026-01-30 09:17:33.462662+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+151,d3af0186-f8a9-4e87-9b5b-ba6587771300,admin.clinic.general.notifications.title,km,ការជូនដំណឹង,2026-01-30 09:17:33.480257+00,2026-01-30 09:17:33.480257+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+152,7300ffef-b7b9-413d-a42c-07265a653638,admin.appointments.recurringTitle,en,Recurring Follow-up Booking,2026-01-30 09:17:34.137497+00,2026-01-30 09:17:34.137497+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+153,f9971706-7503-41ff-9a78-b8249ed0cabd,admin.appointments.schedules,vi,lịch,2026-01-30 09:17:50.419619+00,2026-01-30 09:17:50.419619+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+154,e84227d9-04cf-43b9-88fe-e3c5a1d0adf3,admin.appointments.recurringTitle,km,ការកក់ការតាមដានជាបន្តបន្ទាប់,2026-01-30 09:17:34.147256+00,2026-01-30 09:17:34.147256+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+155,dc3e8443-95ba-4546-badc-2d33fd950f1c,admin.appointments.schedules,km,កាលវិភាគ,2026-01-30 09:17:50.422634+00,2026-01-30 09:17:50.422634+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+156,d76c7f70-6245-434a-b781-1b2e301d79c6,admin.appointments.recurringTitle,vi,Đặt lịch tái khám định kỳ,2026-01-30 09:17:34.55628+00,2026-01-30 09:17:34.55628+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+157,532b070a-86ab-4539-a4a4-a7eb234d9df0,admin.clinic.general.saveSettings,en,Save Settings,2026-01-30 09:17:42.645011+00,2026-01-30 09:18:15.971765+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+158,3ed82dd2-a6ea-4310-8cd9-3724f39eaa9f,admin.appointments.schedules,en,schedules,2026-01-30 09:17:50.424274+00,2026-01-30 09:17:50.424274+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+159,1ed7052f-9039-4c52-9ac1-6313e1c4ea92,admin.clinic.general.saveSettings,vi,Lưu cài đặt,2026-01-30 09:17:42.644568+00,2026-01-30 09:18:15.973873+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+160,5478e114-82eb-4b0f-956e-376c74f02e82,admin.clinic.general.saveSettings,km,រក្សាទុកការកំណត់,2026-01-30 09:18:15.967729+00,2026-01-30 09:18:15.967729+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+161,6edb02cd-cb1b-401c-a735-fffc0b4cc2e2,admin.appointments.subtitle,en,"View and manage doctor schedules, book appointments for patients",2026-01-30 09:22:04.327356+00,2026-01-30 09:22:04.327356+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+162,796f8299-03a3-42c6-b2a1-b134acc1ef81,admin.appointments.subtitle,vi,"Xem và quản lý lịch làm việc của bác sĩ, đặt lịch hẹn cho bệnh nhân",2026-01-30 09:22:04.499075+00,2026-01-30 09:22:04.499075+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+163,31e8ad14-dc27-4741-9362-e6c1502fa97a,admin.appointments.subtitle,km,"មើល និងគ្រប់គ្រងកាលវិភាគវេជ្ជបណ្ឌិត, ណាត់ជួបសម្រាប់អ្នកជំងឺ",2026-01-30 09:22:04.50785+00,2026-01-30 09:22:04.50785+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+164,40ac9cdf-e1a8-46d7-8143-7dea5d19f63b,admin.appointments.thisWeek,en,This Week,2026-01-30 09:22:28.067169+00,2026-01-30 09:22:28.067169+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+165,717036df-e95e-4b1e-95e7-4166fffd8d5e,admin.appointments.thisWeek,km,សប្តាហ៍នេះ,2026-01-30 09:22:28.08435+00,2026-01-30 09:22:28.08435+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+166,32242a83-1c7d-4975-9daf-0069ca22a506,admin.appointments.thisWeek,vi,Tuần này,2026-01-30 09:22:28.091702+00,2026-01-30 09:22:28.091702+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+167,95a2cbe0-d6b4-493f-9004-81f3a0e4a6f6,admin.appointments.title,km,ការគ្រប់គ្រងការណាត់ជួប,2026-01-30 09:22:49.238003+00,2026-01-30 09:22:49.238003+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+168,4fddd34d-6bcf-4a08-882a-721e69433f58,admin.appointments.title,vi,Quản lý lịch hẹn,2026-01-30 09:22:49.243961+00,2026-01-30 09:22:49.243961+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+169,08938ddc-a2a2-40b0-8e4b-c67587097242,admin.appointments.title,en,Appointment Management,2026-01-30 09:22:49.2575+00,2026-01-30 09:22:49.2575+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+170,b3663b1c-01a6-45ea-b06d-76090d5e3004,admin.appointments.todayAppointments,km,ការណាត់ជួបថ្ងៃនេះ,2026-01-30 09:23:25.532422+00,2026-01-30 09:23:25.532422+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+171,0372ca63-9060-439a-8db9-d4b1e5799ab7,admin.appointments.todayAppointments,en,Today's Appointments,2026-01-30 09:23:25.530755+00,2026-01-30 09:23:25.530755+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+172,cf333478-3699-44f1-b4e9-c51ec40708e4,admin.appointments.todayAppointments,vi,Lịch hẹn hôm nay,2026-01-30 09:23:25.536466+00,2026-01-30 09:23:25.536466+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+173,2fa30680-e867-4aa8-88dc-439f309a548f,admin.appointments.today,vi,Hôm nay,2026-01-30 09:23:08.466576+00,2026-01-30 09:23:54.630648+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+174,815c21b9-fcd6-4fb1-80c0-508578fd80a1,admin.appointments.today,en,Today,2026-01-30 09:23:08.476465+00,2026-01-30 09:23:54.644664+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+175,b2253df6-fa5f-4950-95e2-7ca7ec83a1d3,admin.appointments.today,km,ថ្ងៃនេះ,2026-01-30 09:23:08.466573+00,2026-01-30 09:23:54.64793+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+176,ab2f30ad-ea84-4171-8e45-5916d45c241e,admin.appointments.unevenDistribution,vi,Phân bổ không đều,2026-01-30 09:24:45.530993+00,2026-01-30 09:24:45.530993+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+177,4096169f-4677-4217-b77b-6596a80ceb0d,admin.appointments.unevenDistribution,km,ការចែកចាយមិនស្មើគ្នា,2026-01-30 09:24:45.536139+00,2026-01-30 09:24:45.536139+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+178,297fba4d-873c-48ad-b6fd-c78bebcc3ba6,admin.appointments.unevenDistribution,en,Uneven Distribution,2026-01-30 09:24:45.543081+00,2026-01-30 09:24:45.543081+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+179,dcf4503c-97d3-4584-a285-61df26f2e88d,admin.appointments.unevenDistributionDesc,vi,{percent}% lịch hẹn tập trung vào buổi sáng. Khuyến nghị phân bổ thêm lịch buổi chiều để tối ưu thời gian chờ.,2026-01-30 09:25:30.007357+00,2026-01-30 09:25:30.007357+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+180,962caaa1-484f-4349-a245-7e18de063c74,admin.appointments.unevenDistributionDesc,km,ភាគរយ % នៃការណាត់ជួបត្រូវបានប្រមូលផ្តុំនៅពេលព្រឹក។ ពិចារណាចែកចាយបន្ថែមទៀតដល់ពេលរសៀល ដើម្បីបង្កើនប្រសិទ្ធភាពពេលវេលារង់ចាំ,2026-01-30 09:25:30.017408+00,2026-01-30 09:25:30.017408+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+181,c458863b-a8fe-430b-9eb0-1007e39a9b35,admin.appointments.unevenDistributionDesc,en,{percent}% of appointments are concentrated in the morning. Consider distributing more to afternoon to optimize wait time.,2026-01-30 09:25:30.014506+00,2026-01-30 09:25:30.014506+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+182,7d16d6a3-6805-4544-af20-a747263dd5c4,admin.appointments.weeklyTitle,km,ការកក់ប្រចាំសប្តាហ៍,2026-01-30 09:26:12.837938+00,2026-01-30 09:26:12.837938+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+183,94622ed1-0423-4658-9715-c4a71f6c4e8e,admin.appointments.weeklyTitle,en,Weekly Booking,2026-01-30 09:26:12.838613+00,2026-01-30 09:26:12.838613+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+184,c71d649b-ed6c-4c1e-82ef-6474ea7ba9c0,admin.appointments.weeklyTitle,vi,Đặt lịch hàng tuần,2026-01-30 09:26:12.847352+00,2026-01-30 09:26:12.847352+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+185,fc1e3cdc-70ae-45a6-95ab-ba89e7d98791,admin.appointments.weekly,en,Weekly Schedule,2026-01-30 09:25:45.555209+00,2026-01-30 09:26:17.099873+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+186,8b905ccb-3ce8-4fea-93a6-c388fd1bc1c3,admin.appointments.weekly,vi,Lịch tuần,2026-01-30 09:25:45.541282+00,2026-01-30 09:26:17.109504+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+187,bcb697fa-1cb0-4c4a-a2f2-b3199a57b52d,admin.appointments.weekly,km,កាលវិភាគប្រចាំសប្តាហ៍,2026-01-30 09:25:45.555162+00,2026-01-30 09:26:17.116549+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+188,ed45644f-f60f-4182-8ad7-8be9538a3427,admin.appointments.weekOverview,vi,Tổng quan tuần,2026-01-30 09:28:01.20176+00,2026-01-30 09:28:01.408435+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+189,526c099e-6e21-418b-bdff-b24658045c03,admin.appointments.weekOverview,en,Week Overview,2026-01-30 09:28:01.202618+00,2026-01-30 09:28:01.421678+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+190,4d4e7228-a08d-40f2-a29c-564609672ca3,admin.appointments.weekOverview,km,ពិនិត្យក្នុងសប្តាហ៍,2026-01-30 09:28:01.209265+00,2026-01-30 09:28:01.43429+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+191,84281867-b629-4dd5-b511-e2cba4572c4e,admin.clinic.actions.delete,km,លុបចោល,2026-01-30 09:28:15.287612+00,2026-01-30 09:28:20.341737+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+192,de994b58-be5b-4fc0-b2c3-298c87534334,admin.clinic.actions.delete,vi,Xóa,2026-01-30 09:28:15.285411+00,2026-01-30 09:28:20.339658+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+193,55078423-e39e-495d-9063-c524594e9d45,admin.clinic.actions.delete,en,Delete,2026-01-30 09:28:15.293285+00,2026-01-30 09:28:20.346977+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+194,05e8677e-e9be-483a-bd0e-10db61c8b1cb,admin.clinic.actions.edit,en,Edit,2026-01-30 09:28:31.779596+00,2026-01-30 09:28:33.792528+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+195,5f79f50f-7aa8-4405-8f8c-c6132fa068de,admin.clinic.actions.edit,vi,Chỉnh sửa,2026-01-30 09:28:31.768586+00,2026-01-30 09:28:33.799952+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+196,94bc59d9-a9c2-468f-93fe-5eb4d93d14b8,admin.clinic.actions.edit,km,កែសម្រួល,2026-01-30 09:28:31.770291+00,2026-01-30 09:28:33.800207+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+197,cfdb6b91-5c4e-4fd3-b77b-69e34062f54b,admin.clinic.basicInfo.address,en,Address,2026-01-30 09:28:48.137159+00,2026-01-30 09:28:49.473644+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+198,e975e924-52c9-476e-b35e-6b9c4774778c,admin.clinic.basicInfo.address,vi,Địa chỉ,2026-01-30 09:28:48.146769+00,2026-01-30 09:28:49.477496+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+199,959d6964-50c1-463e-a878-eda8a47979d0,admin.clinic.basicInfo.address,km,អាស័យដ្ឋាន,2026-01-30 09:28:48.148929+00,2026-01-30 09:28:49.477736+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+200,6da8ec90-f935-4d91-a1be-c8db5351dccc,admin.clinic.basicInfo.city,en,City/Province,2026-01-30 09:29:02.302522+00,2026-01-30 09:29:03.176998+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+201,6112804b-be66-4b74-9eca-6de6a7b3c8d0,admin.clinic.basicInfo.city,km,ទីក្រុង/ខេត្ត,2026-01-30 09:29:02.301256+00,2026-01-30 09:29:03.180277+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+202,a2d501fb-c324-4475-91bc-d7dba55ac478,admin.clinic.basicInfo.city,vi,Tỉnh/Thành phố,2026-01-30 09:29:02.293212+00,2026-01-30 09:29:03.185346+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+203,7ae398d5-434b-4123-b95c-adcf248a7eae,admin.clinic.basicInfo.clinicName,vi,Tên phòng khám,2026-01-30 09:29:16.664653+00,2026-01-30 09:29:20.78374+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+204,cc9648a4-93a4-485d-96a0-dc4e53c73a4a,admin.clinic.basicInfo.clinicName,km,ឈ្មោះគ្លីនិក,2026-01-30 09:29:16.672274+00,2026-01-30 09:29:20.78991+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+205,3da1e3ba-123b-4f28-8740-a6e006a3a0e7,admin.clinic.basicInfo.clinicName,en,Clinic Name,2026-01-30 09:29:16.658417+00,2026-01-30 09:29:20.792368+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+206,dec15c00-da70-4357-9ec5-c954d88808ee,admin.clinic.basicInfo.district,en,District,2026-01-30 09:29:34.438467+00,2026-01-30 09:29:39.629936+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+207,598422be-b9f8-455a-9217-2202e7110675,admin.clinic.basicInfo.district,km,ស្រុក,2026-01-30 09:29:34.438467+00,2026-01-30 09:29:39.632081+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+208,4af502da-23cc-410d-bb2e-50cef11038ec,admin.clinic.basicInfo.district,vi,Quận/Huyện,2026-01-30 09:29:34.441592+00,2026-01-30 09:29:39.635608+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+209,1b6c7a03-6be8-467f-ad81-4ef2c677bf78,admin.clinic.basicInfo.email,vi,Email,2026-01-30 09:29:54.17123+00,2026-01-30 09:29:54.17123+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+210,7df898be-9a0d-4e15-b2b4-6decfd14874d,admin.clinic.basicInfo.email,en,Email,2026-01-30 09:29:54.180871+00,2026-01-30 09:29:54.180871+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+211,4435f510-af65-41fc-aa7b-227a9499da73,admin.clinic.basicInfo.email,km,អ៊ីមែល,2026-01-30 09:29:54.186701+00,2026-01-30 09:29:54.186701+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+212,32f14888-9024-4579-a451-83522ca066da,admin.clinic.basicInfo.phone,en,Phone Number,2026-01-30 09:30:09.036593+00,2026-01-30 09:30:09.036593+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+213,f8f6fa91-bbbc-4900-82a2-6a071e34c848,admin.clinic.basicInfo.phone,vi,Số điện thoại,2026-01-30 09:30:09.041302+00,2026-01-30 09:30:09.041302+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+214,20b050d1-fa02-4961-8f21-c7a9c8ef3b81,admin.clinic.basicInfo.phone,km,លេខទូរស័ព្ទ,2026-01-30 09:30:09.046209+00,2026-01-30 09:30:09.046209+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+215,d4e6d448-d82d-45aa-beda-4c1a88569683,admin.clinic.basicInfo.shortName,en,Short Name,2026-01-30 09:30:27.63544+00,2026-01-30 09:30:48.354906+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+216,f3d80984-b638-4b76-a3f9-043faf8b8959,admin.clinic.basicInfo.shortName,km,ឈ្មោះខ្លី,2026-01-30 09:30:27.618568+00,2026-01-30 09:30:48.366849+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+217,73e9aa54-a178-412b-8cbc-abe5c0b249c6,admin.clinic.basicInfo.shortName,vi,Tên viết tắt,2026-01-30 09:30:27.601863+00,2026-01-30 09:30:48.367346+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+218,3773fa52-0572-4bfa-b9f1-df72f8c0402a,admin.clinic.basicInfo.title,vi,Thông tin cơ bản,2026-01-30 09:31:14.658292+00,2026-01-30 09:31:14.658292+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+219,0a68819d-9209-40eb-8630-b2027228d480,admin.clinic.basicInfo.title,en,Basic Information,2026-01-30 09:31:14.665115+00,2026-01-30 09:31:14.665115+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+220,1408b92c-7427-4cfd-8941-2905ad94ec91,admin.clinic.basicInfo.title,km,ព័ត៌មានមូលដ្ឋាន,2026-01-30 09:31:14.681464+00,2026-01-30 09:31:14.681464+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+221,1e7d0a31-e09f-4347-a0a0-d4f38325ac25,admin.clinic.basicInfo.timezone,en,Timezone,2026-01-30 09:30:50.334631+00,2026-01-30 09:31:31.141702+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+222,53f4724c-8fc2-44c7-b510-2cc8afafcce3,admin.clinic.basicInfo.timezone,km,តំបន់ពេលវេលា,2026-01-30 09:30:50.337695+00,2026-01-30 09:31:31.142165+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+223,f5399372-814c-42a5-bae6-ffab9c9805b7,admin.clinic.basicInfo.timezone,vi,Múi giờ,2026-01-30 09:30:50.32353+00,2026-01-30 09:31:31.1432+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+224,7af47a7f-a029-415c-a799-b28fbb1a062a,admin.clinic.common.addNew,km,បន្ថែមថ្មី,2026-01-30 09:31:34.445577+00,2026-01-30 09:31:56.876206+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+225,698a259e-bac7-4870-82cd-bdce14b0dc5b,admin.clinic.common.addNew,en,Add New,2026-01-30 09:31:34.435439+00,2026-01-30 09:31:56.87661+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+226,04c25a52-b7ec-47f0-b9d0-b55e1cb8728d,admin.clinic.common.addNew,vi,Thêm mới,2026-01-30 09:31:34.449502+00,2026-01-30 09:31:56.8744+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+227,8c621167-0de9-4a7c-9fcf-8681f0dd9d1c,admin.clinic.common.saving,vi,Đang lưu...,2026-01-30 09:32:04.321047+00,2026-01-30 09:32:04.321047+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+228,419e7fc3-6e5f-43d5-ae49-35e9e0fdc3cb,admin.clinic.common.saving,en,Saving...,2026-01-30 09:32:04.313212+00,2026-01-30 09:32:04.313212+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+229,73307fd1-3f14-4533-80ec-0648124ddbcb,admin.clinic.common.saving,km,កំពុងរក្សាទុក,2026-01-30 09:32:04.321833+00,2026-01-30 09:32:04.321833+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+230,a02baa04-8625-4479-ab42-123ad463c9a4,admin.clinic.common.update,vi,Cập nhật,2026-01-30 09:32:20.16278+00,2026-01-30 09:32:20.16278+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+231,8534f0f9-489d-45b3-83dc-fc9f3ffc604c,admin.clinic.common.update,km,ធ្វើបច្ចុប្បន្នភាព,2026-01-30 09:32:20.183908+00,2026-01-30 09:32:20.183908+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+232,74718426-2bb2-4f36-9042-4930da8953d8,admin.clinic.common.update,en,Update,2026-01-30 09:32:20.183858+00,2026-01-30 09:32:20.183858+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+233,110d5ed4-a4e2-4117-9164-b7378ae14e24,admin.clinic.fee.code,en,Code,2026-01-30 09:32:52.628254+00,2026-01-30 09:32:52.628254+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+234,c263c7a2-97dc-46d4-95b9-345e08ce2d5e,admin.clinic.fee.code,vi,Mã,2026-01-30 09:32:52.638869+00,2026-01-30 09:32:52.638869+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+235,57982b03-225f-4717-bfaa-a4b42b0ee9c7,admin.clinic.fee.code,km,កូដ,2026-01-30 09:32:52.659801+00,2026-01-30 09:32:52.659801+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+236,8c0ae21c-43c4-4e16-a896-cbebaf605acd,admin.clinic.fee.create,vi,Tạo tiền công khám,2026-01-30 09:33:07.041481+00,2026-01-30 09:33:07.041481+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+237,cb2edce0-cf27-459c-8ff5-586f4468ee2a,admin.clinic.fee.create,en,Create Fee,2026-01-30 09:33:07.032997+00,2026-01-30 09:33:07.032997+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+238,12adf29e-348a-4927-8711-3ef788e44a39,admin.clinic.fee.create,km,បង្កើតថ្លៃសេវា,2026-01-30 09:33:07.051365+00,2026-01-30 09:33:07.051365+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+239,a9f30eac-7b9b-4655-bdb0-ad5fb8f9fc88,admin.clinic.fee.baseFee,vi,Tiền công,2026-01-30 09:32:38.147502+00,2026-01-30 09:33:19.065092+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+240,782b66c1-709d-4401-9e23-7c2c5554d2e8,admin.clinic.fee.baseFee,en,Base Fee,2026-01-30 09:32:38.135624+00,2026-01-30 09:33:19.067158+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+241,4d2466df-e46c-455c-85d0-9c6fad1f850b,admin.clinic.fee.baseFee,km,ថ្លៃដើម,2026-01-30 09:32:38.121375+00,2026-01-30 09:33:19.067856+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+242,c8c25a9f-035c-4c2b-9d71-dcb46f3e4563,admin.clinic.fee.currency,en,VND,2026-01-30 09:33:58.512258+00,2026-01-30 09:33:58.512258+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+243,2125fb08-8515-4e3f-8899-ccc023888bfa,admin.clinic.fee.currency,vi,VND,2026-01-30 09:33:58.518557+00,2026-01-30 09:33:58.518557+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+244,14d6a17b-6955-47f8-b24a-e31bead3423b,admin.clinic.fee.currency,km,រូបិយប័ណ្ណ វៀតណាម,2026-01-30 09:33:58.543552+00,2026-01-30 09:33:58.543552+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+245,ebf6ab92-fd4c-4bd5-a25f-6b535281063a,admin.clinic.fee.edit,en,Edit Fee,2026-01-30 09:34:18.474961+00,2026-01-30 09:34:18.474961+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+246,ab547014-a430-4755-84d7-6fec17e7cc2e,admin.clinic.fee.edit,vi,Chỉnh sửa tiền công khám,2026-01-30 09:34:18.48698+00,2026-01-30 09:34:18.48698+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+247,72504613-0cb6-400a-94dd-caac55a0abcb,admin.clinic.fee.edit,km,ថ្លៃកែសម្រួល,2026-01-30 09:34:18.489634+00,2026-01-30 09:34:18.489634+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+248,89cfb150-4dc7-4b48-998b-46157e0f46ba,admin.clinic.fee.examType,vi,Chuyên khám,2026-01-30 09:34:33.987662+00,2026-01-30 09:34:33.987662+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+249,752c03f8-46c7-45aa-8412-be9455a71cec,admin.clinic.fee.examType,en,Examination Type,2026-01-30 09:34:33.993671+00,2026-01-30 09:34:33.993671+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+250,e0dc06ff-3782-4065-bef4-12403f316598,admin.clinic.fee.examType,km,ប្រភេទប្រឡង,2026-01-30 09:34:34.009739+00,2026-01-30 09:34:34.009739+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+251,fe9ebab1-b3b2-4849-bab1-63cc9679fb83,admin.clinic.fee.insuranceFee,en,Insurance Fee,2026-01-30 09:34:52.016265+00,2026-01-30 09:34:52.016265+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+252,a91e7de8-8652-470c-9645-c8115c969146,admin.clinic.fee.insuranceFee,vi,Phí BHYT,2026-01-30 09:34:52.02617+00,2026-01-30 09:34:52.02617+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+253,6114d197-0217-4df4-8bcc-f4a8ec4995d6,admin.clinic.fee.insuranceFee,km,Insurance Fee,2026-01-30 09:34:52.025955+00,2026-01-30 09:34:52.025955+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+254,0564e92d-60b4-4fe0-84b2-971ecdebb01e,admin.clinic.fee.noExamTypes,vi,Chưa có chuyên khám nào.,2026-01-30 09:35:03.522633+00,2026-01-30 09:35:03.522633+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+255,ca247a0d-c286-434c-9a93-a12e4204baf4,admin.clinic.fee.noExamTypes,en,No examination types yet.,2026-01-30 09:35:03.525007+00,2026-01-30 09:35:03.525007+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+256,45b985c1-554d-4304-ae75-22ccb917aa38,admin.clinic.fee.noExamTypes,km,មិនទាន់មានប្រភេទប្រឡងនៅឡើយទេ។,2026-01-30 09:35:03.536853+00,2026-01-30 09:35:03.536853+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+257,ea615630-d0ba-4c82-ad6d-692e4289457e,admin.clinic.general.appointment.requirePhoneVerification,vi,Yêu cầu xác minh số điện thoại,2026-01-30 09:35:05.73361+00,2026-01-30 09:35:05.73361+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+258,d51414e7-a38e-47d5-b5ca-a254038ccb8d,admin.clinic.general.appointment.requirePhoneVerification,en,Require Phone Verification,2026-01-30 09:35:06.131048+00,2026-01-30 09:35:06.131048+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+259,99099b07-1708-4e98-93cf-3161d5ef5194,admin.clinic.general.appointment.requirePhoneVerification,km,ទាមទារការផ្ទៀងផ្ទាត់តាមទូរស័ព្ទ,2026-01-30 09:35:06.162139+00,2026-01-30 09:35:06.162139+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+260,e8c9c6c9-c67e-4ace-910e-f44c86d8c76e,admin.clinic.fee.noExamTypesHint,km,"សូមបន្ថែមប្រភេទប្រឡងក្នុងផ្ទាំង ""ប្រភេទប្រឡង"" មុនពេលកំណត់ថ្លៃសេវា",2026-01-30 09:35:55.15703+00,2026-01-30 09:35:55.15703+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+261,cd347534-eb46-49c3-b4c1-5cecad31829d,admin.clinic.fee.noExamTypesHint,en,"Please add examination types in the ""Examination Types"" tab before configuring fees.",2026-01-30 09:35:55.160959+00,2026-01-30 09:35:55.160959+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+262,2765b526-7b20-4b6d-80ff-896416c9de08,admin.clinic.fee.noExamTypesHint,vi,"Vui lòng thêm chuyên khám trong tab ""Chuyên khám"" trước khi cấu hình tiền công khám.",2026-01-30 09:35:55.175488+00,2026-01-30 09:35:55.175488+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+263,7636dd92-451f-4c48-af24-d03cc0c69eaa,admin.clinic.fee.noResults,en,No matching examination types found.,2026-01-30 09:36:22.608557+00,2026-01-30 09:36:22.608557+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+264,e48513ca-26c4-4030-8c01-5a49f391da94,admin.clinic.fee.noResults,vi,Không tìm thấy chuyên khám phù hợp.,2026-01-30 09:36:22.610551+00,2026-01-30 09:36:22.610551+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+265,02ea8c99-8bc2-4d4f-814f-b35be14927f6,admin.clinic.fee.noResults,km,រកមិនឃើញប្រភេទប្រឡងដែលត្រូវគ្នាទេ,2026-01-30 09:36:22.624503+00,2026-01-30 09:36:22.624503+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+266,474e9fb3-d91b-4af4-834e-0116a372c3a1,admin.clinic.fee.notConfigured,km,មិន​បាន​កំណត់​រចនាសម្ព័ន្ធ,2026-01-30 09:36:44.049444+00,2026-01-30 09:36:44.049444+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+267,46c59de6-50b8-4841-b606-ec2a2d2b941a,admin.clinic.fee.notConfigured,en,Not Configured,2026-01-30 09:36:44.053592+00,2026-01-30 09:36:44.053592+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+268,56ef6759-cec4-4f2b-bf59-d034b8bacb25,admin.clinic.fee.notConfigured,vi,Chưa cấu hình,2026-01-30 09:36:44.052652+00,2026-01-30 09:36:44.052652+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+269,c8ac68ed-408f-46c2-9887-c37aa6ae13de,admin.clinic.general.appointment.maxAdvanceDays,en,Max Advance Booking Days,2026-01-30 09:36:54.922665+00,2026-01-30 09:37:35.189118+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+270,b898d245-dfbf-40ae-8abb-0bcbdc0a89ad,admin.clinic.general.appointment.maxAdvanceDays,km,ចំនួនថ្ងៃអតិបរមាសម្រាប់កក់ជាមុន,2026-01-30 09:36:54.92327+00,2026-01-30 09:37:35.194195+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+271,288f0bf7-7509-4ca9-a75c-41b20e1deb20,admin.clinic.fee.searchPlaceholder,vi,Tìm kiếm chuyên khám...,2026-01-30 09:37:03.037906+00,2026-01-30 09:37:03.037906+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+272,44efbe2e-7fe1-4b7a-ac23-69c642bdd9f1,admin.clinic.fee.searchPlaceholder,en,Search examination type...,2026-01-30 09:37:03.03759+00,2026-01-30 09:37:03.03759+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+273,08f0c50e-ef6f-46ba-99e8-074ab5623c56,admin.clinic.fee.searchPlaceholder,km,ប្រភេទនៃការពិនិត្យ...,2026-01-30 09:37:03.046255+00,2026-01-30 09:37:03.046255+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+274,79acf958-6fd1-486e-bc7b-cb9d23f903b6,admin.clinic.fee.specialty,vi,Chuyên khoa,2026-01-30 09:37:27.791645+00,2026-01-30 09:37:27.791645+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+275,1831e732-d8ee-480b-88e5-f12d845733ee,admin.clinic.fee.specialty,en,Specialty,2026-01-30 09:37:27.79875+00,2026-01-30 09:37:27.79875+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+276,acfe8d97-5661-46a5-815f-b36420fb719d,admin.clinic.fee.specialty,km,ឯកទេស,2026-01-30 09:37:27.806162+00,2026-01-30 09:37:27.806162+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+277,dc47a666-7dc4-4add-867b-822ab6e78eb8,admin.clinic.general.appointment.maxAdvanceDays,vi,Số ngày đặt trước tối đa,2026-01-30 09:36:54.927419+00,2026-01-30 09:37:35.181079+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+278,1b650f15-ed15-449b-a368-3decc26f6982,admin.clinic.fee.total,vi,Tổng cộng,2026-01-30 09:38:38.190501+00,2026-01-30 09:38:38.190501+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+279,664df3d7-2ca1-48ad-9545-1e70a99c29cf,admin.clinic.fee.total,en,Total,2026-01-30 09:38:38.201892+00,2026-01-30 09:38:38.201892+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+280,124ec141-f195-4529-9d3e-c5f7c84f5191,admin.clinic.fee.total,km,សរុប,2026-01-30 09:38:38.205419+00,2026-01-30 09:38:38.205419+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+281,32af23e7-cc46-459a-9984-4e4c23d31463,admin.clinic.general.appointment.description,en,Configure default parameters for appointment booking.,2026-01-30 09:38:41.567545+00,2026-01-30 09:38:41.567545+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+282,54d3720c-ed90-47cf-8437-ab42185f792d,admin.clinic.general.appointment.description,vi,Cấu hình các thông số mặc định cho việc đặt lịch hẹn.,2026-01-30 09:38:41.567352+00,2026-01-30 09:38:41.567352+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+283,d57a42ff-4946-4c81-a16a-29929fd4d777,admin.clinic.general.appointment.description,km,កំណត់រចនាសម្ព័ន្ធប៉ារ៉ាម៉ែត្រលំនាំដើមសម្រាប់ការកក់ការណាត់ជួប,2026-01-30 09:38:41.571354+00,2026-01-30 09:38:41.571354+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+284,527c2c9a-0061-4475-bcc5-247282a0d6f2,admin.clinic.general.appointment.autoCancelMinutes,vi,Tự động hủy sau (phút),2026-01-30 09:39:00.951698+00,2026-01-30 09:39:00.951698+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+285,dd760df7-5d60-4ea8-af64-ad82f98ccf31,admin.clinic.general.appointment.autoCancelMinutes,km,បោះបង់ដោយស្វ័យប្រវត្តិបន្ទាប់ពី (នាទី),2026-01-30 09:39:00.956423+00,2026-01-30 09:39:00.956423+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+286,ccda3c95-aaf9-4e39-a7d5-0a09de2d8119,admin.clinic.general.appointment.autoCancelMinutes,en,Auto Cancel After (minutes),2026-01-30 09:39:00.958084+00,2026-01-30 09:39:00.958084+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+287,6bcad0cc-1fef-46b4-9660-cb7c2a343274,admin.clinic.fee.updateError,en,Unable to update examination fee.,2026-01-30 09:39:25.932192+00,2026-01-30 09:39:25.932192+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+288,c8521935-d1dd-4e1b-b562-acafad9a0324,admin.clinic.fee.updateError,vi,Không thể cập nhật tiền công khám.,2026-01-30 09:39:25.930171+00,2026-01-30 09:39:25.930171+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+289,128aa2a7-0cc9-48ae-83e1-720fb2aab3f3,admin.clinic.fee.updateError,km,មិនអាចធ្វើបច្ចុប្បន្នភាពថ្លៃសាកល្បងបានទេ,2026-01-30 09:39:25.950874+00,2026-01-30 09:39:25.950874+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+290,8ca3fb4f-7c94-4b1d-9ad7-b04566915bef,admin.clinic.general.appointment.allowOnlineBookingDesc,en,Patients can book appointments through website/app.,2026-01-30 09:39:39.682806+00,2026-01-30 09:39:39.682806+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+291,ef276f70-37ef-45cf-b77c-7ecf261699a2,admin.clinic.general.appointment.allowOnlineBookingDesc,km,អ្នកជំងឺអាចកក់ការណាត់ជួបតាមរយៈគេហទំព័រ/កម្មវិធី,2026-01-30 09:39:39.687895+00,2026-01-30 09:39:39.687895+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+292,24dbf78d-f653-48f3-8161-9a4c2de817c7,admin.clinic.general.appointment.allowOnlineBookingDesc,vi,Bệnh nhân có thể tự đặt lịch qua trang web/app.,2026-01-30 09:39:39.691541+00,2026-01-30 09:39:39.691541+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+293,d0986b9e-80b7-4171-81ee-d3b62b981d3c,admin.clinic.general.appointment.allowOnlineBooking,en,Allow Online Booking,2026-01-30 09:40:04.010874+00,2026-01-30 09:40:04.010874+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+294,e5338c64-f164-44d1-9576-c1fd56613f19,admin.clinic.general.appointment.allowOnlineBooking,vi,Cho phép đặt lịch trực tuyến,2026-01-30 09:40:04.020484+00,2026-01-30 09:40:04.020484+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+295,60a27ac7-477a-46b4-9a7e-280b351c6cad,admin.clinic.general.appointment.allowOnlineBooking,km,អនុញ្ញាតឱ្យកក់តាមអ៊ីនធឺណិត,2026-01-30 09:40:04.021466+00,2026-01-30 09:40:04.021466+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+296,9328cb34-a923-481d-87e2-75867c59bc50,admin.clinic.fee.title,km,ថ្លៃពិនិត្យវេជ្ជសាស្រ្ត,2026-01-30 09:41:24.411207+00,2026-01-30 09:41:24.411207+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+297,fbc6c1cc-d641-4a81-9a8b-1d031c58aef0,admin.clinic.fee.title,vi,Tiền công khám,2026-01-30 09:41:24.421281+00,2026-01-30 09:41:24.421281+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+298,bd1f6b3b-d0ee-47e6-99de-a396588f5625,admin.clinic.fee.title,en,Examination Fees,2026-01-30 09:41:24.423862+00,2026-01-30 09:41:24.423862+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+299,c70e4854-600e-4ccf-8540-043410aa6d63,admin.clinic.fee.updateSuccess,vi,Đã cập nhật tiền công khám.,2026-01-30 09:40:04.267154+00,2026-01-30 09:42:07.63324+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+300,58ca08d1-518e-40b4-9713-13f40d27d7c3,admin.clinic.fee.updateSuccess,en,Examination fee updated successfully.,2026-01-30 09:40:04.275468+00,2026-01-30 09:42:07.646406+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+301,add6c772-26e0-4b92-b636-674278ed6312,admin.clinic.fee.updateSuccess,km,កម្រៃពិនិត្យត្រូវបានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ,2026-01-30 09:40:04.279359+00,2026-01-30 09:42:07.647229+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+302,7c6ac82b-8a20-4e71-9dd5-1b7628bc3c5b,common.website,vi,Website,2026-01-31 03:10:06.058505+00,2026-01-31 03:10:26.548597+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+303,43635414-1fc4-4842-8ed9-cfb67a5c061a,common.website,en,Website,2026-01-31 03:10:06.458616+00,2026-01-31 03:10:26.553678+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+304,c75d58b1-7f5e-41d7-a4df-96facb0d0031,common.website,km,គេហទំព័រ,2026-01-31 03:10:06.065579+00,2026-01-31 03:10:26.561427+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+305,80fedd1c-c43e-45ad-9622-180e082d3d91,common.tempPassword,en,Temporary Password,2026-01-31 03:11:04.518471+00,2026-01-31 03:11:04.518471+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+306,8deaa88e-d0ce-40fa-9239-063db9fa3558,common.tempPassword,vi,Mật khẩu tạm,2026-01-31 03:11:04.518818+00,2026-01-31 03:11:04.518818+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+307,8f19878f-fb41-4067-919f-14d93de93886,common.tempPassword,km,ពាក្យសម្ងាត់បណ្តោះអាសន្ន,2026-01-31 03:11:04.524887+00,2026-01-31 03:11:04.524887+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+308,3063ea28-ad11-4e2f-be3c-5b1b0aed8227,common.success,km,ជោគជ័យ,2026-01-31 03:12:55.720006+00,2026-01-31 03:12:55.720006+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+309,23b9c5ae-b417-42b1-894f-9534f6d58396,common.success,en,Success,2026-01-31 03:12:55.720292+00,2026-01-31 03:12:55.720292+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+310,28fd1b80-5555-4c3f-987c-08ea85a909f3,common.success,vi,Thành công,2026-01-31 03:12:55.720798+00,2026-01-31 03:12:55.720798+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+311,b760abbe-8e81-431d-ab93-0bd7d47156c9,common.shortNamePlaceholder,km,ឧ. សហគ្រាសសុខភាព ABC,2026-01-31 03:13:31.811267+00,2026-01-31 03:13:31.811267+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+312,61e95bc5-716b-42b3-a185-b492a328ff43,common.shortNamePlaceholder,en,"e.g., ABC Healthcare",2026-01-31 03:13:31.817877+00,2026-01-31 03:13:31.817877+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+313,5bd7f127-0523-4a2d-bdef-f9909e483647,common.shortNamePlaceholder,vi,VD: ABC Healthcare,2026-01-31 03:13:31.815955+00,2026-01-31 03:13:31.815955+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+314,3e8005d7-702e-4673-a2be-cfdc00654913,common.shortName,vi,Tên viết tắt,2026-01-31 03:13:55.894662+00,2026-01-31 03:13:55.894662+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+315,3977a9a4-01d5-456c-91b2-b55473cef360,common.shortName,en,Short Name,2026-01-31 03:13:55.900128+00,2026-01-31 03:13:55.900128+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+316,7adf2d71-09e3-4bf4-8aca-025fee4bee2d,common.shortName,km,ឈ្មោះខ្លី,2026-01-31 03:13:55.900805+00,2026-01-31 03:13:55.900805+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+317,87fcb98a-fc7d-458f-acab-d3f33eed6571,common.sharePatientIndexDesc,vi,Cho phép chia sẻ bệnh nhân giữa các phòng khám trong cùng đơn vị,2026-01-31 03:14:43.284349+00,2026-01-31 03:14:43.284349+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+318,86d01919-0e4b-4858-94ce-187c7d67de73,common.sharePatientIndexDesc,en,Allow sharing patients between clinics in the same organization,2026-01-31 03:14:43.291459+00,2026-01-31 03:14:43.291459+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+319,179310be-c53c-4616-818b-f8d14404421c,common.sharePatientIndexDesc,km,អនុញ្ញាតឱ្យចែករំលែកអ្នកជំងឺរវាងមន្ទីរពិគ្រោះក្នុងអង្គការដូចគ្នា,2026-01-31 03:14:43.29758+00,2026-01-31 03:14:43.29758+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+320,184d7ef7-dc2d-4a09-8806-dfb8dd77e5a9,common.sharePatientIndex,vi,Chia sẻ hồ sơ bệnh nhân,2026-01-31 03:15:40.780183+00,2026-01-31 03:15:40.780183+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+321,5cef7b47-e6eb-4fd5-951d-4f5645163d62,common.sharePatientIndex,en,Share Patient Index,2026-01-31 03:15:40.786884+00,2026-01-31 03:15:40.786884+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+322,58e26673-4d31-4c5e-8470-b7c29532bd53,common.sharePatientIndex,km,ចែករំលែកសន្ទស្សន៍ របស់អ្នកជម្ងឺ,2026-01-31 03:15:40.792943+00,2026-01-31 03:15:40.792943+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+323,576eba42-e975-4d79-a0b6-92ed2c250461,common.selectStatus,vi,Chọn trạng thái,2026-01-31 03:16:07.326002+00,2026-01-31 03:16:07.326002+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+324,a26f9267-3c65-4b08-a861-cd51fa1f5c39,common.selectStatus,en,Select status,2026-01-31 03:16:07.326718+00,2026-01-31 03:16:07.326718+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+325,65e05c38-9a0b-4a36-94ad-4bfef5a05182,common.selectStatus,km,ជ្រើសរើសស្ថានភាព,2026-01-31 03:16:07.343107+00,2026-01-31 03:16:07.343107+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+326,39438c99-ff99-434d-9649-d96ce12b8693,common.selectProvince,vi,Chọn tỉnh/thành phố,2026-01-31 03:16:34.743419+00,2026-01-31 03:16:34.743419+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+327,97e7d958-a0da-4f61-bc07-74aee6c22a17,common.addressPlaceholder,vi,Nhập địa chỉ,2026-01-31 03:17:22.436223+00,2026-01-31 03:17:22.436223+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+328,f4221a85-fdae-4d28-b8db-cdd28225761d,common.addressPlaceholder,en,Enter address,2026-01-31 03:17:22.437371+00,2026-01-31 03:17:22.437371+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+329,893bb5c0-7516-43b7-a5aa-d10bfc39cad1,common.adminEmail,vi,Email Admin,2026-01-31 03:17:57.511839+00,2026-01-31 03:17:57.511839+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+330,aba1d3c0-0afc-4658-8fb5-78c1cd43f21d,common.adminEmail,km,អ៊ីមែលអ្នកគ្រប់គ្រង,2026-01-31 03:17:57.511839+00,2026-01-31 03:17:57.511839+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+331,c2fe7ef2-305d-4985-8c70-951cc89d38fc,common.adminEmail,en,Admin Email,2026-01-31 03:17:57.520405+00,2026-01-31 03:17:57.520405+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+332,12f64764-4f82-4b28-ab56-f327db02a10a,common.selectOwnershipType,km,ជ្រើសរើសប្រភេទម្ចាស់កម្មសិទ្ធិ,2026-01-31 03:16:57.455658+00,2026-01-31 03:38:55.853349+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+333,e3150a3a-a391-46f2-a08a-5576824adc26,common.selectOwnershipType,vi,Chọn loại sở hữu,2026-01-31 03:16:57.45298+00,2026-01-31 03:38:55.857968+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+334,c820b0a2-3dfb-4803-97e4-abbf4a36b6d1,common.selectOwner,en,Select user as owner,2026-01-31 03:17:41.491421+00,2026-01-31 03:39:12.735523+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+335,2f418c70-2b29-4e82-929c-dae93acf4283,common.selectOwner,km,ជ្រើសរើសអ្នកប្រើជាម្ចាស់,2026-01-31 03:17:41.496402+00,2026-01-31 03:39:12.744748+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+336,716e641e-55db-4ae6-bc13-f1bffda7b628,common.selectProvince,km,ជ្រើសរើសខេត្ត/ទីក្រុង,2026-01-31 03:16:34.754513+00,2026-01-31 03:16:34.754513+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+337,65f0d12f-b55d-482c-9d83-f0340b511107,common.addressPlaceholder,km,បញ្ចូលអាស័យដ្ឋាន,2026-01-31 03:17:22.424621+00,2026-01-31 03:17:22.424621+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+338,756f8e0e-e439-42ac-8fe1-a20b83de340c,common.selectProvince,en,Select province/city,2026-01-31 03:16:34.758597+00,2026-01-31 03:16:34.758597+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+339,25ff6eca-a233-4438-a792-2d5c22d990fa,common.selectMonth,en,Select month,2026-01-31 03:18:31.235543+00,2026-01-31 03:18:31.235543+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+340,d551c742-8a19-4fde-885a-676462363810,common.selectMonth,vi,Chọn tháng,2026-01-31 03:18:31.228366+00,2026-01-31 03:18:31.228366+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+341,d61aea2d-38bb-485c-a8a7-de3079fa98cc,common.selectMonth,km,ជ្រើសរើសខែ,2026-01-31 03:18:31.239618+00,2026-01-31 03:18:31.239618+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+342,5a1e210a-e6d4-4ba0-8636-47935c084f96,common.adminEmailHint,km,អ៊ីមែលនេះនឹងត្រូវបានផ្តល់សិទ្ធិអ្នកគ្រប់គ្រង បន្ទាប់ពីការចុះឈ្មោះគណនីបានបញ្ចប់,2026-01-31 03:18:57.190796+00,2026-01-31 03:18:57.190796+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+343,4e29e3b1-ef3c-4b2a-b2a3-16cf532a7a91,common.adminEmailHint,vi,Email này sẽ được ghi nhận để gán quyền Admin sau khi họ đăng ký tài khoản.,2026-01-31 03:18:57.189676+00,2026-01-31 03:18:57.189676+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+344,ea4f6245-df01-461a-a01b-0d2dfff98cd4,common.adminEmailHint,en,This email will be assigned admin rights after account registration.,2026-01-31 03:18:57.193834+00,2026-01-31 03:18:57.193834+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+345,1c916fc1-9462-442a-b24b-4942fe71b512,common.selectCountryFirst,vi,Chọn quốc gia trước,2026-01-31 03:18:59.026032+00,2026-01-31 03:18:59.026032+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+346,c5a22d85-6652-48e1-a9c9-fb37b4321bcf,common.selectCountryFirst,km,ជ្រើសរើសប្រទេសជាមុន,2026-01-31 03:18:59.030486+00,2026-01-31 03:18:59.030486+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+347,5190d380-5d95-4fd2-8074-011eea842622,common.selectCountryFirst,en,Select country first,2026-01-31 03:18:59.030505+00,2026-01-31 03:18:59.030505+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+348,01b53852-13e2-4716-be63-a0bbda97a308,common.selectCountry,vi,Chọn quốc gia,2026-01-31 03:19:27.587781+00,2026-01-31 03:19:27.587781+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+349,1cf6bc3f-2ee6-4175-9022-66c22105fb3e,common.selectCountry,en,Select country,2026-01-31 03:19:27.591056+00,2026-01-31 03:19:27.591056+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+350,cff97d87-4c03-4104-8f91-ffabfa32042f,common.selectCountry,km,ជ្រើសរើសប្រទេស,2026-01-31 03:19:27.595861+00,2026-01-31 03:19:27.595861+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+351,6e2c5a99-04e0-420d-b1bb-ba043e3de837,common.appointment,vi,lượt,2026-01-31 03:19:41.44815+00,2026-01-31 03:19:41.44815+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+352,6fc144ca-3d7f-49bf-bcde-5fc27db05225,common.appointment,en,appointment,2026-01-31 03:19:41.453152+00,2026-01-31 03:19:41.453152+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+353,a3db93b9-12c4-4acb-9bb5-de0fe86037da,common.appointment,km,ការណាត់ជួប,2026-01-31 03:19:41.45679+00,2026-01-31 03:19:41.45679+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+354,d689b690-e83e-488d-8c57-caea9e32418d,common.search,km,ស្វែងរកស្វែងរក ឬស្រាវជ្រាវ,2026-01-31 03:19:54.522931+00,2026-01-31 03:19:54.522931+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+355,40bccc02-56bb-4cce-9feb-5ea61f9c2d4a,common.search,lo,ຄົ້ນຫາ,2026-01-31 03:19:54.523802+00,2026-01-31 03:19:54.523802+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+356,cd2be06e-e03d-4fee-bd05-603234f8e7ab,common.search,en,Search,2026-01-31 03:19:54.522479+00,2026-01-31 03:19:54.522479+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+357,88f9df1c-1ab3-44c2-956b-142ccd5bcf38,common.search,vi,Tìm kiếm,2026-01-31 03:19:54.526568+00,2026-01-31 03:19:54.526568+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+358,eb1b04c0-c69f-4a39-b037-6748cd6ccf2a,common.search,my,ရှာမည်,2026-01-31 03:19:54.530285+00,2026-01-31 03:19:54.530285+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+359,c8dd417b-9c82-4495-8a5c-c79f3423f622,common.selectClinicType,km,ជ្រើសរើសប្រភេទគ្លីនិក,2026-01-31 03:20:20.456396+00,2026-01-31 03:20:20.456396+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+360,17a1644b-e40e-4cfd-a700-f151571a8d04,common.selectClinicType,vi,Chọn loại phòng khám,2026-01-31 03:20:20.456396+00,2026-01-31 03:20:20.456396+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+361,7a6aeab7-b729-4a1f-a61a-84103d26a33a,common.selectClinicType,en,Select clinic type,2026-01-31 03:20:20.458754+00,2026-01-31 03:20:20.458754+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+362,4c48b770-9555-4832-8d7d-6240203c3783,common.reason,vi,Lý do,2026-01-31 03:20:44.949537+00,2026-01-31 03:20:44.949537+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+363,312229f8-6c8e-4c3f-9361-416137e8ad20,common.reason,km,ហេតុផល,2026-01-31 03:20:44.953626+00,2026-01-31 03:20:44.953626+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+364,7541c822-11f1-4f6b-90e4-9056f1f61cdb,common.reason,en,Reason,2026-01-31 03:20:44.95441+00,2026-01-31 03:20:44.95441+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+365,09356c07-a9b2-4d70-acd9-eca20819315b,common.public,km,សាធារណៈ,2026-01-31 03:20:59.528488+00,2026-01-31 03:20:59.528488+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+366,a22dad0a-9a2c-4602-94ed-6abc3c1d729b,common.public,en,Public,2026-01-31 03:20:59.53219+00,2026-01-31 03:20:59.53219+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+367,1f654b33-b7f3-4f15-a2da-60c66a2d6df0,common.public,vi,Công lập,2026-01-31 03:20:59.556108+00,2026-01-31 03:20:59.556108+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+368,3c20afda-e4df-49d4-9769-43094faf909e,common.appointments,en,appointments,2026-01-31 03:21:11.634523+00,2026-01-31 03:21:11.634523+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+369,65ef5ebc-4a0e-442e-b0bf-4eeb70f2bfef,common.appointments,km,ការណាត់ជួបចំនួនច្រើន,2026-01-31 03:21:11.635146+00,2026-01-31 03:21:11.635146+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+370,ddf76f84-4c84-4bf1-ae1e-9cb1655f4fb0,common.appointments,vi,lượt khám,2026-01-31 03:21:11.633376+00,2026-01-31 03:21:11.633376+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+371,20a5f4ec-25b6-4bb4-b5bb-12cb9aa71510,common.province,en,Province / City,2026-01-31 03:21:20.079874+00,2026-01-31 03:21:20.079874+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+372,58bd968a-82a3-4c68-ab2c-a9601c8d943c,common.province,vi,Tỉnh / Thành phố,2026-01-31 03:21:20.078673+00,2026-01-31 03:21:20.078673+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+373,b09a6001-4b76-46bc-aaed-b009e7e701a1,common.province,km,ខេត្ត ឬក្រុង,2026-01-31 03:21:20.087669+00,2026-01-31 03:21:20.087669+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+374,80ea0492-4599-4322-b6cb-463c9908a9dc,common.processing,vi,Đang xử lý...,2026-01-31 03:21:49.159877+00,2026-01-31 03:21:49.159877+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+375,e0036997-5153-41c0-81ae-3791b75dfb0f,common.processing,en,Processing...,2026-01-31 03:21:49.163852+00,2026-01-31 03:21:49.163852+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+376,abfe07af-9f61-4b61-a64c-c6f8e42dd0e4,common.processing,km,កំពុងដំណើរការ,2026-01-31 03:21:49.168124+00,2026-01-31 03:21:49.168124+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+377,c754106d-767d-4044-a897-ff47abfcef32,common.private,vi,Tư nhân,2026-01-31 03:22:02.510704+00,2026-01-31 03:22:02.510704+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+378,46af5a0d-881b-485d-809a-271cc20ce54e,common.private,en,Private,2026-01-31 03:22:02.510902+00,2026-01-31 03:22:02.510902+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+379,05751718-a26d-407a-b268-21d78adea0ed,common.private,km,ឯកជន,2026-01-31 03:22:02.513033+00,2026-01-31 03:22:02.513033+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+380,2ae3ea20-5dcd-4531-9419-3fcfa03c6d40,common.paymentRefPlaceholder,vi,"VD: TK123456, Chuyển khoản...",2026-01-31 03:22:30.448147+00,2026-01-31 03:22:30.448147+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+381,2e413552-c9e3-48a4-a1e9-6bcde0f14961,common.paymentRefPlaceholder,km,"ឧ. គំនូស TK123456, ផ្ទេរប្រាក់តាមធនាគារ។",2026-01-31 03:22:30.450294+00,2026-01-31 03:22:30.450294+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+382,0b5f5539-7559-40a1-9178-f4c7d9748c5e,common.paymentRefPlaceholder,en,"e.g., TK123456, Bank transfer...",2026-01-31 03:22:30.453957+00,2026-01-31 03:22:30.453957+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+383,638dd0e1-6311-45ef-ada5-100d05ca605e,common.paymentRef,en,Payment Reference,2026-01-31 03:24:53.413411+00,2026-01-31 03:25:13.764239+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+384,d827a60d-3572-489e-986b-347d6c0d3be7,common.paymentRef,vi,Mã giao dịch / Tham chiếu,2026-01-31 03:24:53.4071+00,2026-01-31 03:25:13.769843+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+385,ace86b3c-c8a4-4997-85ff-7082fd809eae,common.paymentRef,km,លេខយោងសម្រាប់ការទូទាត់,2026-01-31 03:24:53.418662+00,2026-01-31 03:25:13.77761+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+386,1e9d53d7-4cbf-4ed2-b6e3-59b8007fb8ac,common.centralizedBilling,en,Centralized Billing,2026-01-31 03:25:15.951373+00,2026-01-31 03:25:15.951373+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+387,c81bf593-947f-4d56-ba3b-a7afbc43c53e,common.centralizedBilling,vi,Thanh toán tập trung,2026-01-31 03:25:15.961511+00,2026-01-31 03:25:15.961511+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+388,03596ba2-fe6b-44b8-9464-1e8f318966be,common.centralizedBilling,km,ការចេញវិក្កយបត្ររួមតែមួយ,2026-01-31 03:25:15.968282+00,2026-01-31 03:25:15.968282+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+389,8eccd492-95fc-41c0-8435-a5fa5f0c3d1a,common.password,vi,Mật khẩu,2026-01-31 03:25:34.506238+00,2026-01-31 03:25:34.506238+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+390,672aad52-b852-41e9-ab02-2980744c0678,common.password,km,ពាក្យសម្ងាត់,2026-01-31 03:25:34.520798+00,2026-01-31 03:25:34.520798+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+391,6392d524-7305-45a3-91b6-da658f41fbdc,common.password,en,Password,2026-01-31 03:25:34.520559+00,2026-01-31 03:25:34.520559+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+392,df081176-b470-4fef-8cd3-0484178b00b5,common.ownershipType,vi,Loại sở hữu,2026-01-31 03:26:00.286358+00,2026-01-31 03:26:00.286358+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+393,1b2b0ade-3e8c-4f1f-9d2c-c1d68dc66529,common.ownershipType,en,Ownership Type,2026-01-31 03:26:00.301395+00,2026-01-31 03:26:00.301395+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+394,e7d44b3b-2f13-4206-aaf6-38ed85849a7d,common.ownershipType,km,ប្រភេទម្ចាស់កម្មសិទ្ធិ,2026-01-31 03:26:00.306118+00,2026-01-31 03:26:00.306118+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+395,7bd5f87e-5451-4a16-8fc7-ec5e72b1e5b9,common.centralizedBillingDesc,en,Manage billing centrally for all clinics,2026-01-31 03:26:11.222855+00,2026-01-31 03:26:11.222855+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+396,918937bb-a4da-4698-a101-bcfde552ae02,common.selectOwner,vi,Chọn người dùng làm chủ sở hữu,2026-01-31 03:17:41.489473+00,2026-01-31 03:39:12.740685+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+397,6bbf9973-903f-4cc2-b2a0-b5d540577af9,common.centralizedBillingDesc,km,គ្រប់គ្រងការចេញវិក្កយបត្រតែមួយសម្រាប់គ្លីនិកទាំងអស់,2026-01-31 03:26:11.225563+00,2026-01-31 03:26:11.225563+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+398,fea7f332-40bc-4e6e-9e5a-82a916a7787d,common.centralizedBillingDesc,vi,Quản lý thanh toán tập trung cho tất cả phòng khám,2026-01-31 03:26:11.224082+00,2026-01-31 03:26:11.224082+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+399,552af876-42e3-48dc-b04b-d1e6d5a6d1bf,common.changePasswordHint,en,User should change password after first login,2026-01-31 03:26:42.771678+00,2026-01-31 03:26:42.771678+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+400,f5838673-633b-46c6-943d-5008ba8e8924,common.changePasswordHint,vi,Người dùng nên đổi mật khẩu sau khi đăng nhập lần đầu,2026-01-31 03:26:42.775885+00,2026-01-31 03:26:42.775885+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+401,b5b0abf7-85b9-4780-a8d7-7aea436d699d,common.changePasswordHint,km,អ្នកប្រើគួរផ្លាស់ប្តូរពាក្យសម្ងាត់ បន្ទាប់ពីចូលប្រើប្រាស់លើកដំបូង,2026-01-31 03:26:42.79459+00,2026-01-31 03:26:42.79459+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+402,cd163c04-1297-4302-b99c-fdea2640bdec,common.clinicName,km,ឈ្មោះគ្លីនិក,2026-01-31 03:27:16.194163+00,2026-01-31 03:27:16.194163+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+403,d63e8bec-1151-46b4-b569-12e55ddcb0d2,common.clinicName,en,Clinic Name,2026-01-31 03:27:16.196343+00,2026-01-31 03:27:16.196343+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+404,f53503ef-abcb-4ed0-9add-fa072ce0f687,common.clinicName,vi,Tên phòng khám,2026-01-31 03:27:16.196044+00,2026-01-31 03:27:16.196044+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+405,344e9289-0319-451e-8641-deca9ae6213a,common.ownerDesc,vi,Chủ sở hữu có toàn quyền quản lý đơn vị và các phòng khám trực thuộc,2026-01-31 03:27:15.345352+00,2026-01-31 03:27:37.737599+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+406,ed9666fe-a803-48d7-bee3-86784576621c,common.ownerDesc,en,Owner has full control over the organization and its clinics,2026-01-31 03:27:15.344093+00,2026-01-31 03:27:37.751094+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+407,c6e5f7cf-e974-460e-8b8e-a24fa0d24257,common.ownerDesc,km,ការត្រួតត្រាផ្ទាល់ពីម្ចាស់ស្ថាប័ណ្ណ,2026-01-31 03:27:37.759607+00,2026-01-31 03:27:37.759607+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+408,58e08a36-08ea-45e5-9122-f9bcef0b23f4,common.clinicNamePlaceholder,en,"e.g., ABC General Clinic",2026-01-31 03:27:46.380129+00,2026-01-31 03:27:46.380129+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+409,21222277-8f7b-46f4-9188-50321fd346ca,common.clinicNamePlaceholder,km,ឧទាហរណ៍៖ គ្លីនិកទូទៅ ABC,2026-01-31 03:27:46.387039+00,2026-01-31 03:27:46.387039+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+410,d6df9923-c08a-4968-9434-c950e664a610,common.clinicNamePlaceholder,vi,VD: Phòng khám Đa khoa ABC,2026-01-31 03:27:46.387018+00,2026-01-31 03:27:46.387018+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+411,01566a61-1f76-4a76-9071-a4e1018ad5dc,common.owner,vi,Chủ sở hữu,2026-01-31 03:27:57.713583+00,2026-01-31 03:27:57.713583+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+412,0ce43f94-4355-49b5-9618-4108649f320a,common.owner,km,ម្ចាស់,2026-01-31 03:27:57.716879+00,2026-01-31 03:27:57.716879+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+413,b6598ef0-9006-438a-8b2b-f9b14aeafee7,common.owner,en,Owner,2026-01-31 03:27:57.71836+00,2026-01-31 03:27:57.71836+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+414,162c179c-9c15-4d0e-a230-09bba3d5656f,common.copied,vi,Đã sao chép,2026-01-31 03:28:13.014069+00,2026-01-31 03:28:13.014069+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+415,ad08f197-c4e6-4d05-88a7-979574fd99e4,common.copied,en,Copied,2026-01-31 03:28:13.012905+00,2026-01-31 03:28:13.012905+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+416,6f2647e6-2be8-4acf-aef6-d7139bc4f07f,common.copied,km,បានចម្លង,2026-01-31 03:28:13.017792+00,2026-01-31 03:28:13.017792+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+417,e9e4cedc-6c0d-439b-a116-1bf05c5abd54,common.over,vi,Trên,2026-01-31 03:28:16.39253+00,2026-01-31 03:28:16.39253+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+418,6713dd35-b417-495b-bcc4-ffadfc65903a,common.over,km,លើ,2026-01-31 03:28:16.401226+00,2026-01-31 03:28:16.401226+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+419,353d6740-c1af-46c2-96e4-d0ee1769a95b,common.over,en,Over,2026-01-31 03:28:16.40668+00,2026-01-31 03:28:16.40668+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+420,803726fa-8590-40c2-8d36-5dac882eed9f,common.copyCredentials,km,ចម្លងព័ត៌មានចូលប្រើ,2026-01-31 03:29:00.394344+00,2026-01-31 03:29:00.394344+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+421,45eee098-7723-4972-8394-c7180a9e13ff,common.copyCredentials,en,Copy login credentials,2026-01-31 03:29:00.400857+00,2026-01-31 03:29:00.400857+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+422,855d5555-71b6-4cd0-9c15-b04e4f25fc61,common.copyCredentials,vi,Sao chép thông tin đăng nhập,2026-01-31 03:29:00.413585+00,2026-01-31 03:29:00.413585+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+423,89978090-a470-41ea-a16c-6dcd411e15c0,common.notesPlaceholder,vi,Nhập ghi chú...,2026-01-31 03:29:02.502148+00,2026-01-31 03:29:02.502148+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+424,f84fbeb3-8159-4f12-b3d4-802397a69b14,common.notesPlaceholder,en,Enter notes...,2026-01-31 03:29:02.524211+00,2026-01-31 03:29:02.524211+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+425,f43c5d12-7c4a-42b4-bb3b-ecad0ae9ff3d,common.notesPlaceholder,km,បញ្ជូលលើកំណត់ត្រា,2026-01-31 03:29:02.53469+00,2026-01-31 03:29:02.53469+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+426,02871da7-b424-4ada-a41a-831beb374bf8,common.noData,vi,Không có dữ liệu,2026-01-31 03:29:20.656575+00,2026-01-31 03:29:20.656575+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+427,c2a5565d-2652-407c-9e1b-0b56ae5e3221,common.noData,en,No data,2026-01-31 03:29:20.665764+00,2026-01-31 03:29:20.665764+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+428,d8589338-4c9e-4813-8d4c-8fe57c17140a,common.noData,km,គ្មានទិន្នន័យ,2026-01-31 03:29:20.677339+00,2026-01-31 03:29:20.677339+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+429,3c20dc81-a76c-46a1-8b53-27346c0ed06f,common.country,vi,Quốc gia,2026-01-31 03:29:31.847852+00,2026-01-31 03:29:31.847852+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+430,0f56a169-2b9e-425a-b672-99f0338894ce,common.country,km,ប្រទេស,2026-01-31 03:29:31.849829+00,2026-01-31 03:29:31.849829+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+431,76af8238-64a7-401b-b03b-9d9b193b8b86,common.country,en,Country,2026-01-31 03:29:31.857058+00,2026-01-31 03:29:31.857058+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+432,7aa6a024-a082-4018-a207-eb2635264912,common.month,vi,Tháng,2026-01-31 03:29:32.058353+00,2026-01-31 03:29:32.058353+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+433,7de200a4-7ebd-43ac-b540-e17d7a41480b,common.month,km,ខែ,2026-01-31 03:29:32.07455+00,2026-01-31 03:29:32.07455+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+434,33d0ecb3-52a9-4e63-9e70-54e7a9c9efe7,common.month,en,Month,2026-01-31 03:29:32.079127+00,2026-01-31 03:29:32.079127+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+435,37facbba-6a61-4d63-8da9-b86360d08cbc,common.creating,km,កំពុងបង្កើត…,2026-01-31 03:30:03.47358+00,2026-01-31 03:30:03.47358+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+436,4125dbfd-1630-4f76-8275-15ef0d127947,common.creating,en,Creating...,2026-01-31 03:30:03.486679+00,2026-01-31 03:30:03.486679+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+437,91b1d920-7ea1-4141-940b-7111f364f541,common.creating,vi,Đang tạo...,2026-01-31 03:30:03.492873+00,2026-01-31 03:30:03.492873+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+438,b87ee3d1-3556-48ab-bcfd-c49f82dd10aa,common.enterReason,en,Enter reason...,2026-01-31 03:30:29.024431+00,2026-01-31 03:30:29.024431+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+439,aabc4b69-f40c-4431-ad8b-cd7e92602bc8,common.enterReason,vi,Nhập lý do...,2026-01-31 03:30:29.033342+00,2026-01-31 03:30:29.033342+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+440,1ef90708-24f7-4510-9516-5217b3df8eb0,common.enterReason,km,បញ្ចូលហេតុផល…,2026-01-31 03:30:29.033077+00,2026-01-31 03:30:29.033077+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+441,cfbc8d8e-1b21-4067-825e-ab53938dc288,common.maxClinics,km,ម៉ាក គ្លីនីក,2026-01-31 03:30:29.929014+00,2026-01-31 03:30:29.929014+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+442,f1764fb9-36f4-40ce-9894-beb1a4d8e106,common.maxClinics,en,Max Clinics,2026-01-31 03:30:29.930091+00,2026-01-31 03:30:29.930091+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+443,a81875b5-e139-442f-8032-8d4a21bbdb68,common.maxClinics,vi,Giới hạn phòng khám,2026-01-31 03:30:29.937013+00,2026-01-31 03:30:29.937013+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+444,27c31d80-3c80-479e-aabe-98239e867ffb,common.foreign,vi,Nước ngoài,2026-01-31 03:31:00.602505+00,2026-01-31 03:31:00.602505+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+445,cc1b9b5d-c049-4416-9bd6-0904846521a8,common.foreign,km,បរទេស,2026-01-31 03:31:00.60889+00,2026-01-31 03:31:00.60889+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+446,6ecf0d21-3d0c-4e16-82b2-2cd29dc988ad,common.foreign,en,Foreign,2026-01-31 03:31:00.618597+00,2026-01-31 03:31:00.618597+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+447,3611d789-ad45-4900-939a-d9756c254fb6,common.longitude,en,Longitude,2026-01-31 03:31:13.654779+00,2026-01-31 03:31:13.654779+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+448,b1af288c-dca0-41d9-b5e9-cddcd704e85f,common.longitude,vi,Kinh độ,2026-01-31 03:31:13.656016+00,2026-01-31 03:31:13.656016+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+449,91136ac9-95fa-45e6-96db-026a4da2f2b3,common.longitude,km,រយៈបណ្តោយ,2026-01-31 03:31:13.660726+00,2026-01-31 03:31:13.660726+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+450,db16ba78-2954-48e4-b438-9315e713b204,common.fullName,en,Full Name,2026-01-31 03:31:24.567665+00,2026-01-31 03:31:24.567665+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+451,8300f6d3-ddeb-4850-95da-084565450a6f,common.fullName,km,ឈ្មោះពេញ,2026-01-31 03:31:24.576142+00,2026-01-31 03:31:24.576142+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+452,9e325eda-35a6-4786-88b8-f45def62c218,common.fullName,vi,Họ và tên,2026-01-31 03:31:24.57952+00,2026-01-31 03:31:24.57952+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+453,949d9e67-d60c-44cc-84e8-53897d0c24ee,common.latitude,vi,Vĩ độ,2026-01-31 03:31:56.270797+00,2026-01-31 03:31:56.270797+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+454,c98c1efb-1596-4b14-a382-8d638ba0e1f0,common.latitude,en,Latitude,2026-01-31 03:31:56.28169+00,2026-01-31 03:31:56.28169+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+455,ebb8ff18-0452-47fa-bf2c-898366b1bccb,common.latitude,km,រយៈទទឹង,2026-01-31 03:31:56.306054+00,2026-01-31 03:31:56.306054+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+456,f1c7f531-9b73-40c3-90b5-a2a0f4586d54,common.jointVenture,vi,Liên doanh,2026-01-31 03:33:14.334838+00,2026-01-31 03:33:14.334838+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+457,2f21f3ec-0879-469f-b86c-a22bb1fce36f,common.jointVenture,en,Joint Venture,2026-01-31 03:33:14.348132+00,2026-01-31 03:33:14.348132+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+458,e906eb8b-c3b2-4d93-b03c-e4eb8cc07efe,common.jointVenture,km,ការចូលរួមគម្រោងរួមគ្នា,2026-01-31 03:33:14.353336+00,2026-01-31 03:33:14.353336+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+459,0c804cda-8e75-4c5f-a8fd-5a56b7d03390,common.fullNamePlaceholder,en,Nguyen Van A,2026-01-31 03:34:24.127829+00,2026-01-31 04:28:42.089584+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+460,10732058-506d-4c77-8254-4be1cd65ac59,admin.appointments.booking.notFound,en,Not found,2026-02-05 07:41:12.082074+00,2026-02-05 07:41:12.082074+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+461,d95e2d79-faeb-47fc-b3aa-d473f12f4288,admin.appointments.booking.notFound,km,រកមិនឃើញ,2026-02-05 07:41:12.09018+00,2026-02-05 07:41:12.09018+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+462,6faefcf1-363c-496c-89b8-1c8ada9b3dfe,common.selectOwnershipType,en,Select ownership type,2026-01-31 03:16:57.47091+00,2026-01-31 03:38:55.859264+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+463,3342f3d6-5de4-417b-9d60-fa90826ac450,common.fullNamePlaceholder,km,Nguyen Van A,2026-01-31 03:34:24.127066+00,2026-01-31 04:28:42.040917+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+464,9d79447c-8b26-4161-b7dd-0e047ae39694,common.fullNamePlaceholder,vi,Nguyễn Văn A,2026-01-31 03:34:24.123379+00,2026-01-31 04:28:42.074686+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+465,c6d368e3-74ee-453c-8f39-4d38e4d72a15,admin.appointments.booking.alreadyBooked,en,Already booked,2026-02-05 07:32:05.395837+00,2026-02-05 07:32:05.395837+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+466,9eb5145b-5056-4e51-8f6f-3c727a2b59c9,admin.appointments.booking.alreadyBooked,vi,Đã có lịch,2026-02-05 07:32:05.397423+00,2026-02-05 07:32:05.397423+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+467,95310b5c-78a8-458b-a4f8-f0345ca16f13,admin.appointments.booking.alreadyBooked,km,ណាត់រួចរាល់,2026-02-05 07:32:05.395811+00,2026-02-05 07:32:05.395811+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+468,0a524faf-c806-460f-9cd1-3566ba6cbf9b,admin.appointments.booking.appointmentDate,en,Appointment Date,2026-02-05 07:32:23.564611+00,2026-02-05 07:32:23.564611+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+469,c019dbdb-ed60-4571-ac2f-9d369e1c850e,admin.appointments.booking.appointmentDate,vi,Ngày hẹn,2026-02-05 07:32:23.572754+00,2026-02-05 07:32:23.572754+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+470,b59a9350-05e9-4604-a22a-521168ee15d8,admin.appointments.booking.appointmentDate,km,កាលបរិច្ឆេទណាត់,2026-02-05 07:32:23.588897+00,2026-02-05 07:32:23.588897+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+471,8c438b1f-1fc2-43e7-ad6a-b65658294d06,admin.appointments.booking.appointmentTime,vi,Giờ hẹn,2026-02-05 07:32:33.069708+00,2026-02-05 07:32:33.069708+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+472,8898065a-1548-4b0b-bfe0-4aaac4452863,admin.appointments.booking.appointmentTime,en,Appointment Time,2026-02-05 07:32:33.073002+00,2026-02-05 07:32:33.073002+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+473,0b7f4a15-feee-4c18-b085-4e094c14598e,admin.appointments.booking.appointmentTime,km,ម៉ោងណាត់,2026-02-05 07:32:33.080582+00,2026-02-05 07:32:33.080582+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+474,dca3bb8f-f801-4d0f-aa6e-2e7c2019ff42,admin.appointments.booking.book,vi,Đặt lịch hẹn,2026-02-05 07:32:46.966026+00,2026-02-05 07:32:46.966026+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+475,791dde8d-b5a3-4bc2-ad24-3a8642d9cefb,admin.appointments.booking.book,en,Book Appointment,2026-02-05 07:32:46.972501+00,2026-02-05 07:32:46.972501+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+476,2804ed38-13ef-42ad-8bbe-5596c63ab090,admin.appointments.booking.book,km,ដាក់ណាត់,2026-02-05 07:32:46.977428+00,2026-02-05 07:32:46.977428+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+477,2af0037c-3bbe-4a26-b310-226a8ed1739e,admin.appointments.booking.chiefComplaint,vi,Lý do khám,2026-02-05 07:33:11.345716+00,2026-02-05 07:33:11.345716+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+478,699bdde6-2868-4ff7-9e78-010c63ad4c5b,admin.appointments.booking.chiefComplaint,km,អាការៈ,2026-02-05 07:33:11.353556+00,2026-02-05 07:33:11.353556+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+479,d1ea62b3-1365-463f-8130-faa38522449a,admin.appointments.booking.chiefComplaint,en,Chief Complaint,2026-02-05 07:33:11.352179+00,2026-02-05 07:33:11.352179+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+480,10229626-4b8e-4fe4-ac28-1539d2ec20de,admin.appointments.booking.chiefComplaintPlaceholder,km,ពិពណ៌នាអំពីរោគសញ្ញា ឬមូលហេតុដែលមកព្យាបាល,2026-02-05 07:37:15.425638+00,2026-02-05 07:37:15.425638+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+481,1794c918-c737-408b-be87-90f82c421e54,admin.appointments.booking.chiefComplaintPlaceholder,vi,Mô tả triệu chứng hoặc lý do khám...,2026-02-05 07:37:15.423513+00,2026-02-05 07:37:15.423513+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+482,b3960286-7191-4e0e-bcd4-2cdec6202bbe,admin.appointments.booking.chiefComplaintPlaceholder,en,Describe symptoms or reason for visit...,2026-02-05 07:37:15.439176+00,2026-02-05 07:37:15.439176+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+483,05889662-76eb-4aeb-a1e4-0b689a6d8970,admin.appointments.booking.conflictWithOther,en,Conflict with another patient,2026-02-05 07:37:58.661697+00,2026-02-05 07:37:58.661697+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+484,4a026424-d999-42e1-952f-de06b07dfa1b,admin.appointments.booking.conflictWithOther,vi,Trùng lịch với bệnh nhân khác,2026-02-05 07:37:58.667513+00,2026-02-05 07:37:58.667513+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+485,effd2ef0-6bd5-40a5-8629-3e8c8163f105,admin.appointments.booking.conflictWithOther,km,ផ្ទួនម៉ោងជាមួយអ្នកជម្ងឺផ្សេង,2026-02-05 07:37:58.679339+00,2026-02-05 07:37:58.679339+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+486,88aea098-e4e0-4dc8-a6e5-0394d64abe5b,admin.appointments.booking.dateRequired,en,Please select a date,2026-02-05 07:38:18.218806+00,2026-02-05 07:38:18.218806+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+487,2a183a11-79ac-4bfc-96ac-4be9989f02ed,admin.appointments.booking.dateRequired,vi,Vui lòng chọn ngày,2026-02-05 07:38:18.219182+00,2026-02-05 07:38:18.219182+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+488,f517405b-3564-4d24-8484-df3edea49f36,admin.appointments.booking.dateRequired,km,សូមចុចកាលបរិច្ឆេទ,2026-02-05 07:38:18.223515+00,2026-02-05 07:38:18.223515+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+489,758aca7a-7fc3-4441-9854-9650b5cbcd13,admin.appointments.booking.doctor,vi,Bác sĩ,2026-02-05 07:38:30.1208+00,2026-02-05 07:38:30.1208+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+490,22be4dce-2376-48dc-b7e6-c2b276dba0eb,admin.appointments.booking.doctor,en,Doctor,2026-02-05 07:38:30.128572+00,2026-02-05 07:38:30.128572+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+491,b4f31498-0d28-407a-afe6-d7515e601dc6,admin.appointments.booking.doctor,km,វិជ្ជបណ្ឌិត,2026-02-05 07:38:30.132129+00,2026-02-05 07:38:30.132129+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+492,a281a03e-3f22-4ab7-af58-21f7f6e476a1,admin.appointments.booking.emergency,vi,Cấp cứu,2026-02-05 07:38:41.234674+00,2026-02-05 07:38:41.234674+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+493,ba9bfd3a-5427-4c27-98c8-0615606f1739,admin.appointments.booking.emergency,km,សង្គ្រោះបន្ទាន់,2026-02-05 07:38:41.243151+00,2026-02-05 07:38:41.243151+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+494,79731baa-ca60-451c-8b2e-6b1bbb6f6676,admin.appointments.booking.emergency,en,Emergency,2026-02-05 07:38:41.278158+00,2026-02-05 07:38:41.278158+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+495,b017c41b-9b27-4cd3-9dee-54e32f72d27d,admin.appointments.booking.enterAtLeast2Chars,km,បញ្ចូលយ៉ាងតិច ២ អក្សរ,2026-02-05 07:39:11.330582+00,2026-02-05 07:39:11.330582+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+496,1681f3db-c52b-4d88-ad74-78b5a92222c1,admin.appointments.booking.enterAtLeast2Chars,vi,Nhập ít nhất 2 ký tự,2026-02-05 07:39:11.332584+00,2026-02-05 07:39:11.332584+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+497,0e01b715-9aeb-4b82-b844-de8548d7cc4d,admin.appointments.booking.enterAtLeast2Chars,en,Enter at least 2 characters,2026-02-05 07:39:11.333171+00,2026-02-05 07:39:11.333171+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+498,68c5a1fa-db50-4071-80d6-9aa1ddd5ec29,admin.appointments.booking.enterNameCodePhone,vi,"Nhập tên, mã BN hoặc SĐT...",2026-02-05 07:39:39.322194+00,2026-02-05 07:39:39.322194+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+499,5f2b07a9-425d-4f3b-a697-0c01e649e1a7,admin.appointments.booking.enterNameCodePhone,en,"Enter name, code or phone...",2026-02-05 07:39:39.327596+00,2026-02-05 07:39:39.327596+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+500,096da92a-1de9-48e3-945e-59594fe484d0,admin.appointments.booking.enterNameCodePhone,km,បញ្ចូលឈ្មោះ លេខកូដ ឬ លេខទូរស័ព្ទ,2026-02-05 07:39:39.327364+00,2026-02-05 07:39:39.327364+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+501,61b22b03-8a9e-4f7d-92a3-4ce227193ec1,admin.appointments.booking.followUp,vi,Tái khám,2026-02-05 07:39:54.004717+00,2026-02-05 07:39:54.004717+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+502,ce24309a-9371-423b-adfc-9715de62df04,admin.appointments.booking.followUp,km,តាមដាន,2026-02-05 07:39:54.009045+00,2026-02-05 07:39:54.009045+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+503,33f0aede-49bf-4594-83f5-0b2244187b33,admin.appointments.booking.followUp,en,Follow-up,2026-02-05 07:39:54.013898+00,2026-02-05 07:39:54.013898+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+504,e9d8f825-77c6-42c9-ba3c-e0fbefc9f8af,admin.appointments.booking.notes,vi,Ghi chú,2026-02-05 07:40:04.821332+00,2026-02-05 07:40:04.821332+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+505,2ebf927c-2256-436e-b064-e45332d1fbf8,admin.appointments.booking.notes,km,កត់ត្រា,2026-02-05 07:40:04.825194+00,2026-02-05 07:40:04.825194+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+506,a75e8e59-01ed-4816-8222-2938c06c7c01,admin.appointments.booking.notes,en,Notes,2026-02-05 07:40:04.832154+00,2026-02-05 07:40:04.832154+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+507,df8fe888-2945-4864-8b46-162c36576f7c,admin.appointments.booking.notesPlaceholder,vi,Ghi chú thêm (nếu có)...,2026-02-05 07:40:58.296614+00,2026-02-05 07:40:58.296614+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+508,cd61d7d6-1ac4-44e1-bb64-996a5a970e3e,admin.appointments.booking.notesPlaceholder,en,Additional notes (if any)...,2026-02-05 07:40:58.30249+00,2026-02-05 07:40:58.30249+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+509,249dc7f1-0fff-4dd7-86d4-5a14fe748981,admin.appointments.booking.notesPlaceholder,km,កត់ត្រាបន្ថែម (ប្រសិនបើមាន),2026-02-05 07:40:58.314253+00,2026-02-05 07:40:58.314253+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+510,a608f9ab-f55c-4cda-9f16-ee9a198a19a0,admin.appointments.booking.notFound,vi,Không tìm thấy,2026-02-05 07:41:12.092453+00,2026-02-05 07:41:12.092453+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+511,07724313-62bc-46dd-bb8d-3dce52fb5519,admin.appointments.booking.patient,en,Patient,2026-02-05 07:41:21.745235+00,2026-02-05 07:41:21.745235+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+512,80bf55ec-8137-4634-8d39-a9df37d1b909,admin.appointments.booking.patient,vi,Bệnh nhân,2026-02-05 07:41:21.748743+00,2026-02-05 07:41:21.748743+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+513,f72b6a5c-7d5b-48fa-8db2-c6b385965d1d,admin.appointments.booking.patient,km,អ្នកជម្ងឺ,2026-02-05 07:41:21.756277+00,2026-02-05 07:41:21.756277+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+514,69bb8081-7b70-4b03-81c9-5d4b31e32b60,admin.appointments.booking.patientRequired,vi,Vui lòng chọn bệnh nhân,2026-02-05 07:41:42.933732+00,2026-02-05 07:41:42.933732+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+515,0c642076-dcfe-48f1-825e-cb16eeba822f,admin.appointments.booking.patientRequired,en,Please select a patient,2026-02-05 07:41:43.106473+00,2026-02-05 07:41:43.106473+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+516,ef0e10e1-4b5f-459e-964e-795dd588079a,admin.appointments.booking.processing,km,កំពុងដំណើរការ,2026-02-05 07:41:58.423753+00,2026-02-05 07:41:58.423753+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+517,b07d90ae-25bf-4926-9ee1-d74889178bef,admin.appointments.booking.patientRequired,km,សូមជ្រើសរើសអ្នកជម្ងឺ,2026-02-05 07:41:43.285096+00,2026-02-05 07:41:43.285096+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+518,55f93317-331b-4a3e-b9bb-6edd1d153371,admin.appointments.booking.processing,en,Processing...,2026-02-05 07:41:58.398363+00,2026-02-05 07:41:58.398363+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+519,b27dd9ef-5e38-4337-9889-6f3639052bbe,admin.appointments.booking.processing,vi,Đang xử lý...,2026-02-05 07:41:58.406696+00,2026-02-05 07:41:58.406696+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+520,4dfaaf5f-4171-454c-afc1-375469a6a867,admin.appointments.booking.scheduled,en,Scheduled,2026-02-05 07:43:05.254671+00,2026-02-05 07:43:05.254671+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+521,df2e4268-77d2-4178-8efe-9d9c846171b8,admin.appointments.booking.scheduled,vi,Đặt lịch trước,2026-02-05 07:43:05.254499+00,2026-02-05 07:43:05.254499+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+522,a81a4be5-d833-486d-8657-ae14e6b51c19,admin.appointments.booking.scheduled,km,កំណត់កាលបរិច្ឆេទមុន,2026-02-05 07:43:05.258249+00,2026-02-05 07:43:05.258249+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+523,792eba37-5262-41a6-8f95-53b00ac064c1,admin.appointments.booking.searching,en,Searching...,2026-02-05 07:43:39.853812+00,2026-02-05 07:43:39.853812+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+524,0b12462c-28d4-4e45-b4d0-446f93e16fe6,admin.appointments.booking.searching,km,កំពុងស្វែងរក,2026-02-05 07:43:39.85577+00,2026-02-05 07:43:39.85577+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+525,8156a89b-2790-4e67-922d-34b7968c955a,admin.appointments.booking.searching,vi,Đang tìm...,2026-02-05 07:43:39.861273+00,2026-02-05 07:43:39.861273+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+526,4fad7270-ef00-4867-9488-9645876c4bb0,admin.appointments.booking.searchPatient,en,Search patient...,2026-02-05 07:43:53.130355+00,2026-02-05 07:43:53.130355+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+527,99644ae9-cf28-4374-8a83-f02b1b8e2e7e,admin.appointments.booking.searchPatient,vi,Tìm bệnh nhân...,2026-02-05 07:43:53.143396+00,2026-02-05 07:43:53.143396+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+528,9028b6ef-8c48-4a43-a153-b24b96f8c274,admin.appointments.booking.searchPatient,km,ស្វែងរកអ្នកជម្ងឺ,2026-02-05 07:43:53.151067+00,2026-02-05 07:43:53.151067+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+529,e4662f9a-0230-41f1-8aea-f66a22ef83c2,admin.appointments.booking.selectDate,en,Select date,2026-02-05 07:44:12.259714+00,2026-02-05 07:44:12.259714+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+530,7dddd576-2168-4dc4-92f2-7a97b22ce474,admin.appointments.booking.selectDate,vi,Chọn ngày,2026-02-05 07:44:12.286834+00,2026-02-05 07:44:12.286834+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+531,82aef63b-bad2-40c6-9339-e29be9fca7e0,admin.appointments.booking.selectDate,km,ជ្រើសរើសកាលបរិច្ឆេទ,2026-02-05 07:44:12.277236+00,2026-02-05 07:44:12.277236+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+532,a0fc6025-7c5a-40c3-8067-66f5097090d9,admin.appointments.booking.selectDoctorOptional,vi,Chọn bác sĩ (không bắt buộc),2026-02-05 07:44:28.675863+00,2026-02-05 07:44:28.675863+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+533,eb5e25eb-4c60-4a86-9ef4-8ead794ffd9f,admin.appointments.booking.selectDoctorOptional,km,ជ្រើសរើសវិជ្ជបណ្ឌិត,2026-02-05 07:44:28.677013+00,2026-02-05 07:44:28.677013+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+534,9b2e3398-d5fe-4ca4-ade4-37f7966900b2,admin.appointments.booking.selectDoctorOptional,en,Select doctor (optional),2026-02-05 07:44:28.666772+00,2026-02-05 07:44:28.666772+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+535,a61cb852-17db-4277-938a-b15e02e0d791,admin.appointments.booking.selectTime,vi,Chọn giờ,2026-02-05 07:44:41.515939+00,2026-02-05 07:44:41.515939+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+536,190d8bb9-f388-423a-b856-b76044bf04b5,admin.appointments.booking.selectTime,km,ជ្រើសរើសម៉ោង,2026-02-05 07:44:41.518665+00,2026-02-05 07:44:41.518665+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+537,acdc2d56-4ec7-408d-9a31-451ddf5564aa,admin.appointments.booking.selectTime,en,Select time,2026-02-05 07:44:41.51518+00,2026-02-05 07:44:41.51518+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+538,ba38e40b-393c-4337-a192-7192cd845a72,admin.appointments.booking.timeRequired,km,សូមជ្រើសរើសម៉ោង,2026-02-05 07:44:56.841249+00,2026-02-05 07:44:56.841249+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+539,7ed18ecc-c947-4c90-afd2-22fa2b69b768,admin.appointments.booking.timeRequired,vi,Vui lòng chọn giờ,2026-02-05 07:44:56.845582+00,2026-02-05 07:44:56.845582+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+540,5fc76cf5-d9aa-42b1-a1d2-98c24fb3f2f3,admin.appointments.booking.timeRequired,en,Please select a time,2026-02-05 07:44:56.847883+00,2026-02-05 07:44:56.847883+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+541,ba6a332e-6f78-4738-bb8c-b55429cf49ae,admin.appointments.booking.visitType,vi,Loại khám,2026-02-05 07:45:26.22642+00,2026-02-05 07:45:26.22642+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+542,4318b044-370a-4517-a81c-25501aaeaf0e,admin.appointments.booking.visitType,en,Visit Type,2026-02-05 07:45:26.233222+00,2026-02-05 07:45:26.233222+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+543,eaa8111a-61db-473d-8949-57de61988e0c,admin.appointments.booking.visitType,km,ប្រភេទនៃពិនិត្យ,2026-02-05 07:45:26.244851+00,2026-02-05 07:45:26.244851+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+544,67ec5170-79d9-47fa-bd2c-76eb32732750,admin.appointments.booking.walkIn,vi,Đến trực tiếp,2026-02-05 07:45:42.543737+00,2026-02-05 07:45:42.543737+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+545,f5d06774-dbad-479d-9748-80f86a5e7b22,admin.appointments.booking.walkIn,en,Walk-in,2026-02-05 07:45:42.552282+00,2026-02-05 07:45:42.552282+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+546,1145b190-33b0-4f02-bb2a-743759555762,admin.appointments.booking.walkIn,km,មកពិនិត្យផ្ទាល់,2026-02-05 07:45:42.552827+00,2026-02-05 07:45:42.552827+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+547,b4c24041-6ca3-4b67-88c5-1f101abf6b6c,admin.appointments.doctorWeek.allDoctors,km,វិជ្ជបណ្ឌិតទាំងអស់,2026-02-05 07:46:00.398348+00,2026-02-05 07:46:00.398348+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+548,13ebe13a-2f16-416a-bb8c-ce38d57071b5,admin.appointments.doctorWeek.allDoctors,en,All doctors,2026-02-05 07:46:00.555051+00,2026-02-05 07:46:00.555051+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+549,d2429bdf-75ff-46af-a39c-fd8fffd6055e,admin.appointments.doctorWeek.allDoctors,vi,Tất cả bác sĩ,2026-02-05 07:46:00.555046+00,2026-02-05 07:46:00.555046+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+550,39d7e4eb-a3f2-4d1b-a768-63f240eefd2b,admin.appointments.doctorWeek.appointments,en,appointments,2026-02-05 07:46:11.778277+00,2026-02-05 07:46:11.778277+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+551,0a634038-d7b4-4225-9bb5-79ed9cee4e56,admin.appointments.doctorWeek.appointments,vi,lịch hẹn,2026-02-05 07:46:11.778281+00,2026-02-05 07:46:11.778281+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+552,8964f09b-98b6-4ca3-8ad4-7053b2e790f3,admin.appointments.doctorWeek.appointments,km,ការណាត់,2026-02-05 07:46:11.78192+00,2026-02-05 07:46:11.78192+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+553,a3c18ce6-4013-455d-ba01-eb064b513ba8,admin.appointments.doctorWeek.dragToMove,vi,Kéo để dời lịch,2026-02-05 07:48:55.774362+00,2026-02-05 07:48:55.774362+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+554,544b06a8-e4ca-421f-8079-e9cc78b36d93,admin.appointments.doctorWeek.dragToMove,en,Drag to reschedule,2026-02-05 07:48:55.789065+00,2026-02-05 07:48:55.789065+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+555,95fd1cc8-a14a-4c83-bc5b-c2434e9636f2,admin.appointments.doctorWeek.dragToMove,km,អូសដើម្បីប្តូរកាលវិភាគ,2026-02-05 07:48:55.793696+00,2026-02-05 07:48:55.793696+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+556,be40fb3f-7fb1-4836-bfe5-2cc074d9cb90,admin.appointments.doctorWeek.movingAppointment,km,ផ្លាស់ប្ដូរការណាត់,2026-02-05 07:51:04.875872+00,2026-02-05 07:51:04.875872+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+557,78a92266-f07e-47af-b1d4-d7fd2f7460dd,admin.appointments.doctorWeek.movingAppointment,vi,Đang di chuyển lịch hẹn của,2026-02-05 07:51:04.907514+00,2026-02-05 07:51:04.907514+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+558,c0ae8ef6-5d36-4ea4-9ba5-d8267371cb60,admin.appointments.doctorWeek.dragToReschedule,vi,Kéo thả để dời lịch,2026-02-05 07:49:09.349144+00,2026-02-05 07:49:41.767612+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+559,e36c9991-ef33-47c6-84f3-073daa035fcc,admin.appointments.doctorWeek.dragToReschedule,km,អូសដើម្បីប្តូរកាលវិភាគ,2026-02-05 07:49:41.776858+00,2026-02-05 07:49:41.776858+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+560,69e501a6-aa2d-4d75-86b0-68111845be02,admin.appointments.doctorWeek.dragToReschedule,en,Drag to reschedule,2026-02-05 07:49:09.365367+00,2026-02-05 07:49:41.771576+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+561,17ce778a-7636-4271-8a45-03cb07250049,admin.appointments.doctorWeek.empty,en,Empty,2026-02-05 07:50:12.924886+00,2026-02-05 07:50:12.924886+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+562,c7133526-40e0-4076-9865-7d93e0be0705,admin.appointments.doctorWeek.empty,vi,Trống,2026-02-05 07:50:12.924623+00,2026-02-05 07:50:12.924623+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+563,611b6526-0ecc-422f-baa3-6f13ccd08676,admin.appointments.doctorWeek.empty,km,ទំនេរ,2026-02-05 07:50:12.951431+00,2026-02-05 07:50:12.951431+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+564,cf0caf21-b3b3-4640-b20c-71b51602cc63,admin.appointments.doctorWeek.more,en,more,2026-02-05 07:50:24.266611+00,2026-02-05 07:50:24.266611+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+565,e3701006-01f5-41e9-95e5-de32f1925163,admin.appointments.doctorWeek.more,km,បន្ថែម,2026-02-05 07:50:24.27652+00,2026-02-05 07:50:24.27652+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+566,b4c50432-2335-4df9-83c6-c80d795adc41,admin.appointments.doctorWeek.more,vi,khác,2026-02-05 07:50:24.27989+00,2026-02-05 07:50:24.27989+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+567,91508f9a-cd76-47a8-a240-d283582d3ff1,admin.appointments.doctorWeek.movingAppointment,en,Moving appointment for,2026-02-05 07:51:04.932459+00,2026-02-05 07:51:04.932459+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+568,a004c483-c351-403a-8177-1ffb7e2b64c0,admin.appointments.doctorWeek.noDoctorsAssigned,vi,Chưa có bác sĩ nào được phân công.,2026-02-05 07:51:25.926328+00,2026-02-05 07:51:25.926328+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+569,d6100d06-b204-4e6a-8db0-a4eabe38f55f,admin.appointments.doctorWeek.noDoctorsAssigned,en,No doctors assigned.,2026-02-05 07:51:25.937189+00,2026-02-05 07:51:25.937189+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+570,ffd4ab89-6463-4a50-bf0f-6dbc967bc26e,admin.appointments.doctorWeek.noDoctorsAssigned,km,មិនមានវិជ្ជបណ្ឌិត,2026-02-05 07:51:25.943666+00,2026-02-05 07:51:25.943666+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+571,9afd1e49-d4de-4d39-8480-82749d21f709,admin.appointments.doctorWeek.selectDoctor,en,Select doctor,2026-02-05 08:00:03.442259+00,2026-02-05 08:00:03.442259+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+572,709975bc-b503-4b70-a5c4-fc5ae41b9c76,admin.appointments.doctorWeek.selectDoctor,vi,Chọn bác sĩ,2026-02-05 08:00:03.435425+00,2026-02-05 08:00:03.435425+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+573,06bb102a-64d3-4d4a-8829-da1671a45da1,admin.appointments.doctorWeek.selectDoctor,km,ជ្រើសរើសវិជ្ជបណ្ឌិត,2026-02-05 08:00:03.509837+00,2026-02-05 08:00:03.509837+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+574,0aad7087-7374-440b-a38a-0d0bc8b585e9,admin.appointments.recurring.attendingDoctor,vi,Bác sĩ phụ trách,2026-02-06 03:15:50.131006+00,2026-02-06 03:15:50.131006+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+575,7153fe28-b2ed-4de1-8795-f866a05b4732,admin.appointments.recurring.attendingDoctor,km,វិជ្ជបណ្ឌិតទទួលពិនិត្យ,2026-02-06 03:15:50.164444+00,2026-02-06 03:15:50.164444+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+576,fc0269d7-3d37-457d-b66f-a71bd6263e6e,admin.appointments.recurring.attendingDoctor,en,Attending Doctor,2026-02-06 03:15:50.175043+00,2026-02-06 03:15:50.175043+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+577,5e6ed55b-cfde-4e59-84c3-8bfdcff473ed,admin.appointments.weekly.conflictWarning,km,ការព្រមានអំពីបញ្ហា,2026-02-06 03:42:29.709893+00,2026-02-06 03:42:29.709893+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+578,d73e8449-a3b6-4126-826d-baed7f27245d,admin.appointments.weekly.conflictWarning,vi,Cảnh báo trùng lịch,2026-02-06 03:42:29.709152+00,2026-02-06 03:42:29.709152+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+579,d6de77cb-63fc-448d-a895-cf420c8adfe7,admin.appointments.weekly.conflictWarning,en,Conflict Warning,2026-02-06 03:42:30.124288+00,2026-02-06 03:42:30.124288+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+580,dfbb5f0a-6a35-4f18-a6bc-5344dc267f8e,admin.appointments.weekly.createForWeeks,vi,Tạo lịch cho {weeks} tuần liên tiếp,2026-02-06 03:43:02.646873+00,2026-02-06 03:43:02.646873+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+581,02658334-2581-4dec-8402-d8f6b5b69d2d,admin.appointments.weekly.createForWeeks,km,បង្កើតរយៈពេល {សប្តាហ៍} សប្តាហ៍ជាប់ៗគ្នា។,2026-02-06 03:43:02.692838+00,2026-02-06 03:43:02.692838+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+582,b90e8503-7b15-4751-a560-cb623e9d70c9,admin.appointments.weekly.createForWeeks,en,Create for {weeks} consecutive weeks,2026-02-06 03:43:02.651067+00,2026-02-06 03:43:02.651067+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+583,55ca5756-9dae-4163-b4e4-52d35cb93975,admin.appointments.weekly.dayOfWeek,en,Day of Week,2026-02-06 03:44:10.283605+00,2026-02-06 03:44:10.283605+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+584,09fcb34c-1104-491f-9d9b-49665d1ccc59,admin.appointments.weekly.dayOfWeek,km,ថ្ងៃនៃសប្តាហ៍,2026-02-06 03:44:10.692559+00,2026-02-06 03:44:10.692559+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+585,bb55fc33-7b15-482f-a6cd-8cf96ecab347,admin.appointments.weekly.dayOfWeek,vi,Ngày trong tuần,2026-02-06 03:44:10.706676+00,2026-02-06 03:44:10.706676+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+586,25349704-0909-438c-a9d0-5e754394161a,admin.appointments.weekly.days.friday,en,Friday,2026-02-06 03:44:26.898204+00,2026-02-06 03:44:26.898204+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+587,497d98c7-829f-419a-ae0c-0a43f1d35682,admin.appointments.weekly.days.friday,vi,Thứ Sáu,2026-02-06 03:44:26.904995+00,2026-02-06 03:44:26.904995+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+588,91923e8f-ae58-4aa3-ac49-c355aee54114,admin.appointments.weekly.days.friday,km,ថ្ងៃសុក្រ,2026-02-06 03:44:27.138371+00,2026-02-06 03:44:27.138371+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+589,7dc62170-9813-4e1a-82bc-8c4a8834c25f,admin.appointments.weekly.days.monday,vi,Thứ Hai,2026-02-06 03:45:01.706713+00,2026-02-06 03:45:01.706713+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+590,15d0631c-e710-406d-af03-0835007c509d,admin.appointments.weekly.days.monday,en,Monday,2026-02-06 03:45:01.710332+00,2026-02-06 03:45:01.710332+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+591,7afb268a-a157-47b7-9d4e-061a83d5c8ef,admin.appointments.weekly.days.monday,km,ថ្ងៃច័ន្ទ,2026-02-06 03:45:02.107636+00,2026-02-06 03:45:02.107636+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+592,1681c049-01a3-4b64-ba8a-d7f5ef7e047f,admin.appointments.weekly.days.saturday,en,Saturday,2026-02-06 03:45:20.555476+00,2026-02-06 03:45:20.555476+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+593,54793324-b3a5-4470-baa4-04931b33808c,admin.appointments.weekly.days.saturday,vi,Thứ Bảy,2026-02-06 03:45:20.557565+00,2026-02-06 03:45:20.557565+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+594,13d467bd-e3ca-4da8-9bf2-8989728768a2,admin.appointments.weekly.days.saturday,km,ថ្ងៃសៅរ៍,2026-02-06 03:45:20.558353+00,2026-02-06 03:45:20.558353+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+595,a722cef0-bc5e-4bec-88d3-96e6b46ffa4e,admin.appointments.weekly.days.sunday,en,Sunday,2026-02-06 03:45:36.160263+00,2026-02-06 03:45:36.160263+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+596,23196381-2b82-468a-8e4c-5e4a232316f5,admin.appointments.weekly.days.sunday,vi,Chủ Nhật,2026-02-06 03:45:36.164293+00,2026-02-06 03:45:36.164293+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+597,191b8c10-d4a3-4c98-b2eb-8b12fbbac2b8,admin.appointments.weekly.days.sunday,km,ថ្ងៃអាទិត្យ,2026-02-06 03:45:36.167469+00,2026-02-06 03:45:36.167469+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+598,80cf702c-4704-42ed-8d0b-257f970317f7,admin.appointments.weekly.days.thursday,en,Thursday,2026-02-06 03:45:50.235425+00,2026-02-06 03:45:50.235425+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+599,15098f0d-5b55-497d-bd5b-7887554ba9b3,admin.appointments.weekly.days.thursday,km,ថ្ងៃព្រហស្បតិ៍,2026-02-06 03:45:50.238851+00,2026-02-06 03:45:50.238851+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+600,20241417-f28e-4369-902b-a80a2307b868,admin.appointments.weekly.days.thursday,vi,Thứ Năm,2026-02-06 03:45:50.242353+00,2026-02-06 03:45:50.242353+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+601,8f7ceed1-13b2-41c5-af93-b6717ff14137,admin.appointments.weekly.days.tuesday,en,Tuesday,2026-02-06 03:46:07.907946+00,2026-02-06 03:46:07.907946+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+602,aa6c7abd-b723-471b-be4c-7f961febb08c,admin.appointments.weekly.days.tuesday,vi,Thứ Ba,2026-02-06 03:46:07.90905+00,2026-02-06 03:46:07.90905+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+603,040b064c-5569-4e77-9960-855bff6d7eb2,admin.appointments.weekly.days.tuesday,km,ថ្ងៃអង្គារ,2026-02-06 03:46:07.937086+00,2026-02-06 03:46:07.937086+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+604,75d4e3ad-bdd9-4560-8c61-779d33846280,admin.appointments.recurring.dateUsedForMonths,vi,Ngày này sẽ dùng cho các tháng tiếp theo,2026-02-06 03:46:38.208282+00,2026-02-06 03:46:38.208282+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+605,a97872cb-6c07-4f43-8e13-b8ea94e247da,admin.appointments.recurring.dateUsedForMonths,km,កាលបរិច្ឆេទនេះនឹងត្រូវបានប្រើសម្រាប់ខែបន្ទាប់,2026-02-06 03:46:38.215405+00,2026-02-06 03:46:38.215405+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+606,c67cecf6-19d1-4840-8385-0d35162d3f36,admin.appointments.recurring.dateUsedForMonths,en,This date will be used for following months,2026-02-06 03:46:38.205212+00,2026-02-06 03:46:38.205212+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+607,ada342a8-f6e3-4bca-a0d6-637036348672,admin.appointments.recurring.deselectAll,km,ដកការជ្រើសរើស,2026-02-06 03:46:54.057751+00,2026-02-06 03:46:54.057751+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+608,99cb502d-a09d-4c4c-81f1-6ab8aa1eec83,admin.appointments.recurring.deselectAll,en,Deselect,2026-02-06 03:46:54.06615+00,2026-02-06 03:46:54.06615+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+609,2d36f630-466c-4d54-acfc-dddaf77d1a0a,admin.appointments.recurring.deselectAll,vi,Bỏ chọn,2026-02-06 03:46:54.069732+00,2026-02-06 03:46:54.069732+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+610,536e4ca1-e549-4973-895a-8f88d1b5a98c,admin.appointments.recurring.enterServiceName,vi,Nhập tên dịch vụ...,2026-02-06 03:47:13.345762+00,2026-02-06 03:47:13.345762+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+611,4488a98d-63cc-4e82-83d9-228aaac7b0f9,admin.appointments.recurring.enterServiceName,en,Enter service name...,2026-02-06 03:47:13.346402+00,2026-02-06 03:47:13.346402+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+612,ddbb008f-b81c-426d-aaec-c41563ac1845,admin.appointments.recurring.enterServiceName,km,បញ្ចូលឈ្មោះសេវាកម្ម...,2026-02-06 03:47:13.353071+00,2026-02-06 03:47:13.353071+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+613,eced0684-7639-461f-b423-8644f53cf8a0,admin.appointments.recurring.fixedTimeForAll,vi,Giờ cố định cho tất cả lịch,2026-02-06 03:47:32.481144+00,2026-02-06 03:47:32.481144+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+614,de7ec2b1-907b-474e-8e7e-f960cb3e00c9,admin.appointments.recurring.fixedTimeForAll,km,ពេលវេលាកំណត់សម្រាប់ការណាត់ជួបទាំងអស់,2026-02-06 03:47:32.482531+00,2026-02-06 03:47:32.482531+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+615,5f315db6-d90b-4a47-b955-69e3f112480e,admin.appointments.recurring.fixedTimeForAll,en,Fixed time for all appointments,2026-02-06 03:47:32.492462+00,2026-02-06 03:47:32.492462+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+616,33ac4d12-d4c1-49bb-91e1-8d448cea2b4c,admin.appointments.recurring.infoDesc,vi,Hệ thống sẽ tự động sắp xếp theo các tháng bạn chọn.,2026-02-06 03:47:50.693743+00,2026-02-06 03:47:50.693743+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+617,c81251cc-f3b4-437d-b8f4-e393282b244b,admin.appointments.recurring.infoDesc,en,System will automatically schedule based on selected months.,2026-02-06 03:47:50.694178+00,2026-02-06 03:47:50.694178+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+618,37345c10-c083-4ac3-ba67-f047af34b50a,admin.appointments.recurring.infoDesc,km,ប្រព័ន្ធនឹងកំណត់កាលវិភាគដោយស្វ័យប្រវត្តិដោយផ្អែកលើខែដែលបានជ្រើសរើស,2026-02-06 03:47:50.703552+00,2026-02-06 03:47:50.703552+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+619,fb5e9ed3-009a-4086-a2a3-fc6dd0391bc5,admin.appointments.recurring.infoTitle,en,Create multiple follow-up appointments at once,2026-02-06 03:48:07.059022+00,2026-02-06 03:48:07.059022+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+620,97047fa6-61cc-472c-a61e-6deb64f5d5eb,admin.appointments.recurring.infoTitle,km,Create multiple follow-up appointments at once,2026-02-06 03:48:07.062243+00,2026-02-06 03:48:07.062243+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+621,5ebb84b0-05b8-4c47-9426-97bd35503127,admin.appointments.recurring.infoTitle,vi,Tạo nhiều lịch tái khám cùng lúc,2026-02-06 03:48:07.075555+00,2026-02-06 03:48:07.075555+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+622,7d6eed19-4c51-425b-85e1-348cbc958233,admin.appointments.recurring.noMonthSelected,vi,Chọn tháng để xem danh sách ngày,2026-02-06 03:48:20.812199+00,2026-02-06 03:48:20.812199+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+623,2e8ce783-c920-456b-89e2-ca7e33868bfa,admin.appointments.recurring.scheduledDates,vi,Các ngày sẽ đặt lịch,2026-02-06 03:48:33.845344+00,2026-02-06 03:48:33.845344+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+624,de411d32-8c70-43d4-80d5-b7a6d1dc70e3,admin.appointments.recurring.selectAll,km,ជ្រើសរើសទាំងអស់,2026-02-06 03:48:47.155343+00,2026-02-06 03:48:47.155343+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+625,e5a3ee67-c877-4d21-813a-ec380d5c8fd4,admin.appointments.recurring.selectAtLeast1Month,en,Select at least 1 month,2026-02-06 03:49:02.12578+00,2026-02-06 03:49:02.12578+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+626,68028bf3-d315-4ed9-b202-bf1eebe6b4c1,admin.appointments.recurring.selectServiceType,km,ជ្រើសរើសប្រភេទសេវាកម្មដែលកើតឡើងដដែលៗ,2026-02-06 03:49:30.365043+00,2026-02-06 03:49:30.365043+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+627,5606f605-5841-46b0-897b-6e986e1caa06,admin.appointments.recurring.serviceName,km,ឈ្មោះសេវាកម្ម,2026-02-06 03:49:42.299377+00,2026-02-06 03:49:42.299377+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+628,2c484389-934e-4e52-95bd-7d5ab7021869,admin.appointments.recurring.services.aesthetic,en,Aesthetic follow-up,2026-02-06 03:49:55.396376+00,2026-02-06 03:49:55.396376+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+629,52334f5a-05c4-49f2-b1c6-ba75186b79e0,admin.appointments.recurring.services.dental,km,ការពិនិត្យធ្មេញ,2026-02-06 03:50:37.690265+00,2026-02-06 03:50:37.690265+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+630,801737ce-17e1-46e6-9717-237f932536d1,admin.appointments.recurring.services.orthodontic,en,Orthodontic checkup,2026-02-06 03:50:53.986244+00,2026-02-06 03:50:53.986244+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+631,d42e6513-73e0-4429-8cb5-0cf895251bd1,admin.appointments.recurring.services.warranty,km,ការធានា,2026-02-06 03:51:10.182777+00,2026-02-06 03:51:10.182777+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+632,0c7b37fc-db96-4403-a5e1-98ef92aa7300,admin.appointments.recurring.serviceType,vi,Loại dịch vụ,2026-02-06 03:51:23.020398+00,2026-02-06 03:51:23.020398+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+633,b567079c-73a3-4c6c-b0c3-93ad02f25fce,admin.appointments.recurring.startDate,vi,Ngày bắt đầu,2026-02-06 03:51:36.435089+00,2026-02-06 03:51:36.435089+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+634,02f125f2-fa18-45dd-980c-faec2b1a533f,admin.appointments.recurring.submit,en,Book Recurring Follow-up,2026-02-06 03:51:49.554971+00,2026-02-06 03:51:49.554971+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+635,43b53a21-9771-4c35-9fe1-dc27d2aa0bee,admin.appointments.recurring.year,en,Year,2026-02-06 03:52:01.463502+00,2026-02-06 03:52:01.463502+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+636,0a0a868b-7a61-49e5-9f7c-f55d691c1685,admin.appointments.doctorWeek.tempCustomer,en,Temp customer,2026-02-06 03:54:31.541475+00,2026-02-06 03:54:31.541475+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+637,d28a4da4-53a8-4caf-a760-d41244341e67,admin.appointments.doctorWeek.tempNoPatientRecord,en,No patient record yet,2026-02-06 03:54:49.283595+00,2026-02-06 03:54:49.283595+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+638,d9bf9cff-d9a7-4556-b84b-08bd931d91de,admin.appointments.doctorWeek.tempNoRecord,en,Temp schedule (no patient record),2026-02-06 03:55:11.830078+00,2026-02-06 03:55:11.830078+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+639,f18f43c5-15fa-413a-8a21-64fefe185583,admin.appointments.doctorWeek.thisWeek,en,This week,2026-02-06 04:01:00.613769+00,2026-02-06 04:01:00.613769+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+640,2a6818ac-fbf0-4417-a663-6a230c6d1513,admin.appointments.recurring.noMonthSelected,km,ជ្រើសរើសខែដើម្បីមើលបញ្ជីកាលបរិច្ឆេទ,2026-02-06 03:48:20.819598+00,2026-02-06 03:48:20.819598+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+641,096aeb73-475f-4008-b851-2aa730ca253a,admin.appointments.recurring.scheduledDates,en,Scheduled Dates,2026-02-06 03:48:33.84861+00,2026-02-06 03:48:33.84861+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+642,eaa317d0-f39c-4a96-8577-dc328075b7a3,admin.appointments.recurring.selectAtLeast1Month,vi,Chọn ít nhất 1 tháng,2026-02-06 03:49:02.112007+00,2026-02-06 03:49:02.112007+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+643,8ffbdbe4-8688-4f59-a8b4-cf2fdaaa3ed4,admin.appointments.recurring.selectMonths,km,ជ្រើសរើសខែបន្ទាប់,2026-02-06 03:49:16.208507+00,2026-02-06 03:49:16.208507+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+644,d73eca61-0147-425d-84da-5d8d94678db3,admin.appointments.recurring.selectServiceType,en,Select recurring service type,2026-02-06 03:49:30.360136+00,2026-02-06 03:49:30.360136+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+645,90931630-69d2-4c0f-a162-32eb5ea09850,admin.appointments.recurring.services.aesthetic,vi,Thẩm mỹ định kỳ,2026-02-06 03:49:55.405788+00,2026-02-06 03:49:55.405788+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+646,1de34577-cb26-4ba1-92a3-49cfb0b9714f,admin.appointments.recurring.services.checkup,en,Health checkup,2026-02-06 03:50:08.872896+00,2026-02-06 03:50:08.872896+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+647,633c399e-b0ff-4095-8be4-4dd769232a4f,admin.appointments.recurring.services.custom,en,Custom,2026-02-06 03:50:22.746302+00,2026-02-06 03:50:22.746302+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+648,253e1c89-5469-440e-882d-78966aa1a44b,admin.appointments.recurring.services.dental,en,Dental checkup,2026-02-06 03:50:37.688649+00,2026-02-06 03:50:37.688649+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+649,76021b24-977a-4b80-8df2-46d0d33311c2,admin.appointments.recurring.services.orthodontic,km,ការពិនិត្យធ្មេញ,2026-02-06 03:50:53.97563+00,2026-02-06 03:50:53.97563+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+650,8312927d-4915-4d35-96d6-6b646b0a0681,admin.appointments.recurring.services.warranty,vi,Bảo hành,2026-02-06 03:51:10.18337+00,2026-02-06 03:51:10.18337+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+651,bc83e877-afe4-4ecb-9894-0ed607ba3939,admin.appointments.recurring.startDate,en,Start Date,2026-02-06 03:51:36.431004+00,2026-02-06 03:51:36.431004+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+652,782be391-e79b-4239-b3c8-23d656d39c38,admin.appointments.recurring.submit,vi,Đặt lịch tái khám định kỳ,2026-02-06 03:51:49.54687+00,2026-02-06 03:51:49.54687+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+653,fa109c6a-b305-4aac-9b34-ac54f3112029,admin.appointments.recurring.year,vi,Năm,2026-02-06 03:52:01.448634+00,2026-02-06 03:52:01.448634+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+654,3e79c4fe-248c-471b-8150-3bf89dcd058b,admin.appointments.doctorWeek.tempCustomer,vi,Khách tạm,2026-02-06 03:54:31.959748+00,2026-02-06 03:54:31.959748+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+655,f8d974c2-e4d0-4481-b328-88e19e576fd9,admin.appointments.doctorWeek.tempNoPatientRecord,km,មិនទាន់មានកំណត់ត្រាអ្នកជំងឺនៅឡើយទេ,2026-02-06 03:54:49.28679+00,2026-02-06 03:54:49.28679+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+656,6621f14f-b01b-4f98-918a-b95640c62693,admin.appointments.doctorWeek.tempNoRecord,km,កាលវិភាគសីតុណ្ហភាព (មិនមានកំណត់ត្រាអ្នកជំងឺ),2026-02-06 03:55:11.81965+00,2026-02-06 03:55:11.81965+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+657,df5530ae-cc3c-407e-ae9d-0d8b3a2b3ef2,admin.appointments.recurring.noMonthSelected,en,Select months to see date list,2026-02-06 03:48:20.832601+00,2026-02-06 03:48:20.832601+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+658,f49be272-a384-47a1-b0e4-5585cf9f8841,admin.appointments.recurring.scheduledDates,km,កាលបរិច្ឆេទដែលបានគ្រោងទុក,2026-02-06 03:48:33.859257+00,2026-02-06 03:48:33.859257+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+659,2044e856-78cb-4e94-8aa8-5708c79eaee3,admin.appointments.recurring.selectAll,en,Select all,2026-02-06 03:48:47.152197+00,2026-02-06 03:48:47.152197+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+660,5578b55a-c8b5-429d-b07b-1a41f60412df,admin.appointments.recurring.selectAtLeast1Month,km,ជ្រើសរើសយ៉ាងហោចណាស់ 1 ខែ,2026-02-06 03:49:02.119067+00,2026-02-06 03:49:02.119067+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+661,8cd6ba0a-53f9-423a-82de-f2d23982890c,admin.appointments.recurring.selectMonths,en,Select follow-up months,2026-02-06 03:49:16.210871+00,2026-02-06 03:49:16.210871+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+662,72663a30-eb96-4454-b985-a0f7c9b69f53,admin.appointments.recurring.selectServiceType,vi,Chọn loại dịch vụ định kỳ,2026-02-06 03:49:30.361171+00,2026-02-06 03:49:30.361171+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+663,10733bb9-a9b5-40f9-8e8d-fae937b2514e,admin.appointments.recurring.serviceName,vi,Tên dịch vụ,2026-02-06 03:49:42.297977+00,2026-02-06 03:49:42.297977+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+664,47c20024-44de-4f8e-b3ab-0f35cbc20f97,admin.appointments.recurring.services.checkup,km,ការពិនិត្យសុខភាព,2026-02-06 03:50:08.874198+00,2026-02-06 03:50:08.874198+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+665,47e524b5-aaea-4c66-b248-b0ddde57b523,admin.appointments.recurring.services.custom,km,ផ្ទាល់ខ្លួន,2026-02-06 03:50:22.740846+00,2026-02-06 03:50:22.740846+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+666,f2bee1b3-35fc-4a92-8626-d0e93cbd84cb,admin.appointments.recurring.services.orthodontic,vi,Chỉnh nha định kỳ,2026-02-06 03:50:53.993254+00,2026-02-06 03:50:53.993254+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+667,75ad52f9-1c28-4154-9b5b-1182a6b06d02,admin.appointments.recurring.services.warranty,en,Warranty,2026-02-06 03:51:10.189271+00,2026-02-06 03:51:10.189271+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+668,e6e88650-343c-481b-93b2-95fa3de73eeb,admin.appointments.recurring.serviceType,en,Service Type,2026-02-06 03:51:23.009701+00,2026-02-06 03:51:23.009701+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+669,f7e7f64a-02b4-4a16-9c95-c6ae633f43e4,admin.appointments.recurring.submit,km,សៀវភៅបន្តបន្ទាប់ទៀត,2026-02-06 03:51:49.559101+00,2026-02-06 03:51:49.559101+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+670,491dcbec-f3b8-4f76-8db1-18139f075394,admin.appointments.recurring.year,km,ឆ្នាំ,2026-02-06 03:52:01.460456+00,2026-02-06 03:52:01.460456+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+671,fc24ad18-59c8-4af6-88a7-77ed623457e4,admin.appointments.doctorWeek.tempCustomer,km,អតិថិជនបណ្ដោះអាសន្ន,2026-02-06 03:54:31.534785+00,2026-02-06 03:54:31.534785+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+672,a2339c5a-fb3d-410b-bbbe-933b2bc97996,admin.appointments.doctorWeek.tempNoRecord,vi,Lịch tạm (chưa có hồ sơ),2026-02-06 03:55:11.821691+00,2026-02-06 03:55:11.821691+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+673,4efd7973-9f3d-4824-a39f-fdb5d1efe504,admin.appointments.doctorWeek.dropToReschedule,km,ទម្លាក់ទៅចន្លោះថ្មីដើម្បីរៀបចំកាលវិភាគឡើងវិញ,2026-02-06 03:58:02.720358+00,2026-02-06 03:58:02.720358+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+674,e306444a-eeb3-4dd5-91fb-b5dd9d9a6644,admin.appointments.doctorWeek.tempSchedule,km,បណ្ដោះអាសន្នកាលវិភាគ,2026-02-06 04:00:42.791775+00,2026-02-06 04:00:42.791775+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+675,b457f0c1-d73a-4ada-94d7-ae1644a46552,admin.appointments.recurring.selectAll,vi,Chọn tất cả,2026-02-06 03:48:47.165265+00,2026-02-06 03:48:47.165265+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+676,7ce14b16-f55e-4dff-867d-2789b4255dd7,admin.appointments.recurring.selectMonths,vi,Chọn các tháng tái khám,2026-02-06 03:49:16.204868+00,2026-02-06 03:49:16.204868+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+677,ba1b2664-a398-4006-afe5-4c58c31c5964,admin.appointments.recurring.serviceName,en,Service Name,2026-02-06 03:49:42.304835+00,2026-02-06 03:49:42.304835+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+678,723c308f-1ca6-47f6-a971-20afaac1f7ae,admin.appointments.recurring.services.aesthetic,km,ការតាមដានសោភ័ណភាព,2026-02-06 03:49:55.404401+00,2026-02-06 03:49:55.404401+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+679,dc8b0260-5da8-4766-8017-dc6bca87d886,admin.appointments.recurring.services.checkup,vi,Khám sức khỏe định kỳ,2026-02-06 03:50:08.857428+00,2026-02-06 03:50:08.857428+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+680,2c0c015d-79a2-49de-bf33-bd7fb6c0a8d6,admin.appointments.recurring.services.custom,vi,Tùy chỉnh,2026-02-06 03:50:22.7399+00,2026-02-06 03:50:22.7399+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+681,9dd5ba53-1faf-4e5d-b8b7-0b8f0c035ff9,admin.appointments.recurring.services.dental,vi,Nha khoa định kỳ,2026-02-06 03:50:37.697258+00,2026-02-06 03:50:37.697258+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+682,945ebd00-3acc-4cd8-b8b9-b562fcb1fe9d,admin.appointments.recurring.serviceType,km,ប្រភេទសេវាកម្ម,2026-02-06 03:51:23.018496+00,2026-02-06 03:51:23.018496+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+683,d98ee98b-c13e-46aa-9f7c-93eb3584dc91,admin.appointments.recurring.startDate,km,កាលបរិច្ឆេទចាប់ផ្តើម,2026-02-06 03:51:36.421835+00,2026-02-06 03:51:36.421835+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+684,f7208ffd-0481-4e4a-8aeb-8025442d67f5,admin.appointments.doctorWeek.tempNoPatientRecord,vi,Chưa có hồ sơ bệnh nhân,2026-02-06 03:54:49.283942+00,2026-02-06 03:54:49.283942+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+685,53973954-b53a-4b53-ba5f-74a0cd474095,admin.appointments.doctorWeek.dropToReschedule,vi,Thả vào ô mới để dời lịch.,2026-02-06 03:58:02.302522+00,2026-02-06 03:58:02.302522+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+686,52ea51a3-1da1-41a1-8866-60ee340b7964,admin.appointments.doctorWeek.dropToReschedule,en,Drop to new slot to reschedule.,2026-02-06 03:58:02.302661+00,2026-02-06 03:58:02.302661+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+687,8fecc88f-6933-4643-8b78-33190c886b38,admin.appointments.doctorWeek.tempSchedule,en,Temp Schedule,2026-02-06 04:00:42.381746+00,2026-02-06 04:00:42.381746+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+688,89ff8815-5cf4-445a-a952-6249143d95b1,admin.appointments.doctorWeek.tempSchedule,vi,Lịch tạm,2026-02-06 04:00:42.382688+00,2026-02-06 04:00:42.382688+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+689,b662ff31-a3ba-4571-9863-f87d58b3e090,admin.appointments.doctorWeek.thisWeek,vi,Tuần này,2026-02-06 04:01:00.613767+00,2026-02-06 04:01:00.613767+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+690,498a01da-4d8f-4c03-849d-035e79dc4e19,admin.appointments.doctorWeek.thisWeek,km,សប្តាហ៍នេះ,2026-02-06 04:01:00.619714+00,2026-02-06 04:01:00.619714+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+691,ffbe2e4b-2592-40a7-86ec-8a0bea8e614b,admin.appointments.doctorWeek.weeklyDoctorSchedule,en,7-Day Doctor Schedule,2026-02-06 04:01:18.918594+00,2026-02-06 04:01:18.918594+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+692,d3c2baff-e1ec-4008-bde2-1c4866096e18,admin.appointments.doctorWeek.weeklyDoctorSchedule,vi,Lịch hẹn 7 ngày theo bác sĩ,2026-02-06 04:01:18.919032+00,2026-02-06 04:01:18.919032+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+693,9c4e8aea-c2d2-4ce9-8d02-97fc8666f205,admin.appointments.doctorWeek.weeklyDoctorSchedule,km,កាលវិភាគវេជ្ជបណ្ឌិត ៧ ថ្ងៃ,2026-02-06 04:01:18.92369+00,2026-02-06 04:01:18.92369+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+694,f38d9dc9-2fb3-4100-9d36-653bdf639fe3,admin.nav.voucher,en,Voucher,2026-02-24 02:02:53.637814+00,2026-02-24 02:02:53.637814+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+695,76419696-b9b1-43e6-abcb-d2a8a89e418f,admin.nav.voucher,vi,Voucher,2026-02-24 02:02:53.687002+00,2026-02-24 02:02:53.687002+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+696,94babb66-ea61-48b5-a28d-cf492fedfd7f,admin.nav.voucher,lo,ວາວເຊີ,2026-02-24 02:02:53.687117+00,2026-02-24 02:02:53.687117+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+697,1d4cda88-e96e-409e-8b92-d746f34bf7aa,admin.nav.voucher,km,គូប៉ុង,2026-02-24 02:02:53.708253+00,2026-02-24 02:02:53.708253+00,,1c2593a7-1aad-457a-b536-9d568f49dd96
+698,31ce7f59-3e04-4ca8-9359-4f77f47a9ce4,admin.nav.voucher,my,ဘောက်ချာ,2026-02-24 02:02:53.752674+00,2026-02-24 02:02:53.752674+00,,1c2593a7-1aad-457a-b536-9d568f49dd96

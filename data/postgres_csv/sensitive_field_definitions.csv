@@ -1,0 +1,7 @@
+_excel_row_number,id,field_key,field_label,field_label_en,table_name,column_name,description,is_active,display_order,created_at,updated_at,created_by,updated_by
+2,45cc1873-4a6c-467c-8a19-f14f72d1b943,phone,Số điện thoại,Phone Number,patients,phone,Số điện thoại liên hệ của bệnh nhân,t,1,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,
+3,7566e80b-c390-4c4f-8550-330d161fb29b,email,Email,Email,patients,email,Địa chỉ email của bệnh nhân,t,2,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,
+4,f3cd5671-6025-4ae4-af8c-c478d0cc6959,address,Địa chỉ,Address,patients,address,Địa chỉ thường trú của bệnh nhân,t,3,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,
+5,1c5308ae-d34b-4113-9201-6e058516dd8d,date_of_birth,Ngày sinh,Date of Birth,patients,date_of_birth,Ngày tháng năm sinh của bệnh nhân,t,4,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,
+6,9a440da4-e434-4086-8b97-56254434589d,id_number,CCCD/CMND,ID Number,patients,id_number,Số căn cước công dân hoặc chứng minh nhân dân,t,5,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,
+7,6001abd0-4690-4604-a29c-6c2212893fd6,insurance_number,Số BHYT,Insurance Number,patients,insurance_number,Số thẻ bảo hiểm y tế,t,6,2026-01-24 04:55:04.174982+00,2026-01-24 04:55:04.174982+00,,

@@ -1,0 +1,2 @@
+_excel_row_number,id,clinic_id,name,name_short,partner_type,phone,email,contact_person,address,city,district,contract_code,partnership_type,commission_rate,notes,is_active,created_at,created_by,updated_at,updated_by,organization_id
+2,a135ae2f-54f6-4e87-bd22-efb08f0484c2,d5ac6269-d8cf-4821-ac8b-a6341e68987b,ABC Clinic,ABCCL,clinic,0912345678,billing.b2b@mytel.com.mm,Hoang Văn CX,ÂSA,Y,X,,both,,,t,2026-01-28 04:51:08.085438+00,,2026-01-28 04:51:08.085438+00,,

@@ -1,0 +1,1449 @@
+// Converted from schema.sql for dbdiagram.io
+// Source SQL had no explicit foreign key constraints; Ref lines below are inferred from common *_id naming.
+Project robo_raw {
+  database_type: "PostgreSQL"
+  Note: "Raw Excel import schema converted to DBML. Most columns are TEXT by design."
+}
+
+Table robo_raw.admin_help_templates {
+  _excel_row_number int [not null]
+  id text [pk]
+  topic text
+  title text
+  title_vi text
+  content text
+  content_vi text
+  is_active text
+  created_at text
+}
+
+Table robo_raw.ai_boundary_metadata {
+  _excel_row_number int [not null]
+  id text [pk]
+  version text
+  description text
+  views_included text
+  rpcs_included text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.appointment_requests {
+  _excel_row_number int [not null]
+  id text [pk]
+  organization_id text
+  clinic_id text
+  source text
+  source_reference text
+  patient_info text
+  preferred_date text
+  preferred_time_start text
+  preferred_time_end text
+  is_flexible_time text
+  department_hint text
+  service_hint text
+  doctor_preference_id text
+  symptom_data text
+  ai_consultation_result text
+  ai_summary text
+  status text
+  priority text
+  reviewed_by text
+  reviewed_at text
+  review_notes text
+  rejection_reason text
+  converted_appointment_id text
+  converted_patient_id text
+  converted_at text
+  converted_by text
+  expires_at text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.appointments {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  patient_id text
+  doctor_id text
+  appointment_date text
+  start_time text
+  end_time text
+  duration_minutes text
+  visit_type text
+  status text
+  service_id text
+  chief_complaint text
+  notes text
+  confirmed_at text
+  confirmed_by text
+  arrived_at text
+  checked_in_by text
+  completed_at text
+  cancelled_at text
+  cancelled_by text
+  cancellation_reason text
+  ai_suggested_duration text
+  ai_suggested_doctor_id text
+  ai_suggestion_accepted text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.beds {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  room_id text
+  bed_code text
+  bed_name text
+  bed_type text
+  is_active text
+  display_order text
+  notes text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.clinic_currencies {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  currency_code text
+  is_default text
+  exchange_rate_to_vnd text
+  display_order text
+  created_at text
+  created_by text
+  units_per_default_unit text
+}
+
+Table robo_raw.clinic_currency_rate_versions {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  currency_code text
+  effective_from text
+  units_per_default_unit text
+  created_at text
+  created_by text
+}
+
+Table robo_raw.clinic_feature_flags {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  feature_code text
+  is_enabled text
+  config text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.clinic_general_settings {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  timezone text
+  date_format text
+  time_format text
+  working_hours_start text
+  working_hours_end text
+  lunch_break_start text
+  lunch_break_end text
+  appointment_slot_duration text
+  max_advance_booking_days text
+  allow_online_booking text
+  require_phone_verification text
+  send_appointment_reminders text
+  reminder_hours_before text
+  auto_cancel_no_show_minutes text
+  created_at text
+  updated_at text
+  patient_code_prefix text
+  patient_code_min_length text
+  appointment_code_prefix text
+  appointment_code_min_length text
+  payment_code_prefix text
+  payment_code_min_length text
+  drug_code_prefix text
+  drug_code_min_length text
+  pharmacy_code_prefix text
+  pharmacy_code_min_length text
+  prescription_code_prefix text
+  prescription_code_min_length text
+  supplier_code_prefix text
+  supplier_code_min_length text
+  warehouse_code_prefix text
+  warehouse_code_min_length text
+  visit_code_prefix text
+  visit_code_min_length text
+  imaging_code_prefix text
+  imaging_code_min_length text
+  lab_code_prefix text
+  lab_code_min_length text
+  currency text
+  invoice_template_registry text
+}
+
+Table robo_raw.clinic_memberships {
+  _excel_row_number int [not null]
+  id text [pk]
+  user_id text
+  clinic_id text
+  is_active text
+  joined_at text
+  deactivated_at text
+  deactivation_reason text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.clinic_subscriptions {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  plan_id text
+  status text
+  started_at text
+  expires_at text
+  cancelled_at text
+  ai_calls_used_this_month text
+  ai_calls_reset_at text
+  payment_reference text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.clinic_type_ai_capabilities {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_type text
+  ai_capability text
+  is_allowed text
+  created_at text
+}
+
+Table robo_raw.clinic_type_modules {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_type text
+  module_code text
+  is_allowed text
+  created_at text
+}
+
+Table robo_raw.clinics {
+  _excel_row_number int [not null]
+  id text [pk]
+  name text
+  name_short text
+  license_number text
+  tax_id text
+  phone text
+  email text
+  address text
+  district text
+  city text
+  timezone text
+  currency text
+  locale text
+  patient_code_prefix text
+  patient_code_sequence text
+  status text
+  onboarded_at text
+  onboarded_by text
+  suspended_at text
+  suspended_reason text
+  offboarded_at text
+  offboarded_by text
+  offboarding_reason text
+  onboarding_template text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  deletion_reason text
+  is_demo text
+  demo_reset_at text
+  demo_expires_at text
+  clinic_type text
+  enabled_modules text
+  organization_id text
+  clinic_type_new text
+  latitude text
+  longitude text
+  logo_url text
+}
+
+Table robo_raw.crm_corporate_accounts {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  company_name text
+  tax_code text
+  address text
+  city text
+  phone text
+  email text
+  website text
+  industry text
+  employee_count text
+  contract_count text
+  total_revenue_vnd text
+  notes text
+  is_active text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.crm_loyalty_tiers {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  tier text
+  min_points text
+  discount_percent text
+  benefits text
+  is_active text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.diagnostic_machines {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  machine_code text
+  machine_name text
+  modality text
+  ae_title text
+  location text
+  manufacturer text
+  model text
+  serial_number text
+  is_active text
+  notes text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.diagnostic_walk_in_patients {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  queue_number text
+  status text
+  patient_id text
+  patient_name text
+  patient_phone text
+  patient_dob text
+  patient_gender text
+  patient_id_number text
+  arrival_time text
+  registered_at text
+  registered_by text
+  consulting_doctor_id text
+  consulting_room_id text
+  consultation_started_at text
+  consultation_ended_at text
+  clinical_notes text
+  diagnostic_order_id text
+  order_items text
+  total_amount text
+  payment_status text
+  paid_amount text
+  paid_at text
+  cashier_id text
+  invoice_number text
+  payment_method text
+  sample_collected_at text
+  sample_collector_id text
+  sample_notes text
+  sent_to_lab_at text
+  lab_received_at text
+  lab_completed_at text
+  result_ready_at text
+  result_delivered_at text
+  delivery_method text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  result_file_url text
+  reading_doctor_id text
+  reading_started_at text
+  reading_completed_at text
+  reading_interpretation text
+  reading_recommendations text
+  follow_up_date text
+  follow_up_notes text
+  prescription_notes text
+  currency_code text
+  lab_technician_id text
+  partner_lab_request_id text
+  imaging_technician_id text
+  pacs_integration text
+  result_verified_by text
+  result_verified_at text
+  soft_copy_sent_at text
+  soft_copy_sent_via text
+}
+
+Table robo_raw.doctor_schedules {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  doctor_id text
+  room_id text
+  day_of_week text
+  start_time text
+  end_time text
+  is_active text
+  notes text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.examination_zones {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  code text
+  name text
+  name_en text
+  description text
+  floor text
+  display_order text
+  is_active text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+}
+
+Table robo_raw.group_examinations {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  company_name text
+  company_tax_code text
+  company_address text
+  company_phone text
+  company_email text
+  contract_number text
+  contract_date text
+  contract_value text
+  session_name text
+  session_code text
+  exam_date text
+  expected_count text
+  actual_count text
+  service_package_id text
+  package_name text
+  package_price text
+  contact_name text
+  contact_phone text
+  contact_email text
+  payment_status text
+  total_amount text
+  paid_amount text
+  payment_notes text
+  status text
+  notes text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.lis_accession_counters {
+  _excel_row_number int [not null]
+  clinic_id text
+  date_key text
+  last_seq text
+}
+
+Table robo_raw.location_countries {
+  _excel_row_number int [not null]
+  id text [pk]
+  code text
+  name text
+  name_en text
+  phone_code text
+  is_active text
+  display_order text
+  created_at text
+  updated_at text
+  name_km text
+}
+
+Table robo_raw.location_provinces {
+  _excel_row_number int [not null]
+  id text [pk]
+  country_id text
+  code text
+  name text
+  name_en text
+  is_active text
+  display_order text
+  created_at text
+  updated_at text
+  name_km text
+}
+
+Table robo_raw.medical_records {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  visit_id text
+  patient_id text
+  doctor_id text
+  status text
+  chief_complaint text
+  present_illness text
+  ai_draft_present_illness text
+  examination_findings text
+  ai_draft_examination_findings text
+  ai_suggested_diagnosis text
+  confirmed_diagnosis text
+  diagnosis_confirmed_by text
+  diagnosis_confirmed_at text
+  diagnosis_icd_code text
+  treatment_plan text
+  ai_draft_treatment_plan text
+  doctor_notes text
+  ai_draft_notes text
+  follow_up_required text
+  follow_up_date text
+  follow_up_notes text
+  finalized_at text
+  finalized_by text
+  amendment_count text
+  last_amended_at text
+  amendment_reason text
+  schema_version text
+  record_version text
+  data_classification text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  deletion_reason text
+}
+
+Table robo_raw.organization_memberships {
+  _excel_row_number int [not null]
+  id text [pk]
+  organization_id text
+  user_id text
+  role text
+  is_active text
+  invited_at text
+  joined_at text
+  invited_by text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.organizations {
+  _excel_row_number int [not null]
+  id text [pk]
+  name text
+  name_short text
+  legal_name text
+  tax_id text
+  business_license text
+  email text
+  phone text
+  website text
+  address text
+  city text
+  country text
+  timezone text
+  locale text
+  currency text
+  share_patient_index text
+  centralized_billing text
+  max_clinics text
+  enabled_modules text
+  settings text
+  status text
+  onboarded_at text
+  suspended_at text
+  suspended_reason text
+  subscription_plan text
+  subscription_expires_at text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+  deleted_at text
+  deleted_by text
+  is_deleted text
+}
+
+Table robo_raw.paraclinical_orders {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  visit_id text
+  patient_id text
+  order_type text
+  service_id text
+  service_code text
+  service_name text
+  status text
+  priority text
+  ordered_by text
+  ordered_at text
+  collected_by text
+  collected_at text
+  processed_by text
+  processed_at text
+  completed_by text
+  completed_at text
+  cancelled_by text
+  cancelled_at text
+  cancellation_reason text
+  result_summary text
+  result_file_url text
+  result_data text
+  notes text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  ris_accession text
+  ris_placer_line_id text
+  walk_in_id text
+  lis_sent_at text
+  lis_received_at text
+  lis_machine_code text
+  lis_technician_code text
+  lis_approved_by text
+  lis_status text
+}
+
+Table robo_raw.partner_audit_logs {
+  _excel_row_number int [not null]
+  id text [pk]
+  partner_id text
+  clinic_id text
+  user_id text
+  action text
+  entity_type text
+  entity_id text
+  ip_address_hash text
+  user_agent text
+  metadata text
+  created_at text
+}
+
+Table robo_raw.partner_clinics {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  name text
+  name_short text
+  partner_type text
+  phone text
+  email text
+  contact_person text
+  address text
+  city text
+  district text
+  contract_code text
+  partnership_type text
+  commission_rate text
+  notes text
+  is_active text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+  organization_id text
+}
+
+Table robo_raw.partner_lab_requests {
+  _excel_row_number int [not null]
+  id text [pk]
+  partner_id text
+  clinic_id text
+  organization_id text
+  accession_number text
+  barcode text
+  patient_name text
+  patient_phone text
+  patient_dob text
+  patient_gender text
+  patient_id_number text
+  patient_address text
+  status text
+  priority text
+  sample_type text
+  collection_method text
+  clinical_notes text
+  requested_at text
+  confirmed_at text
+  sample_collected_at text
+  processing_started_at text
+  completed_at text
+  verified_at text
+  delivered_at text
+  cancelled_at text
+  cancellation_reason text
+  estimated_completion_at text
+  total_amount text
+  currency_code text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+}
+
+Table robo_raw.partner_onsite_collections {
+  _excel_row_number int [not null]
+  id text [pk]
+  request_id text
+  partner_id text
+  clinic_id text
+  collection_address text
+  collection_city text
+  collection_district text
+  location_notes text
+  contact_person text
+  contact_phone text
+  preferred_date text
+  preferred_time_start text
+  preferred_time_end text
+  scheduled_at text
+  assigned_collector_id text
+  assigned_at text
+  status text
+  departed_at text
+  arrived_at text
+  collected_at text
+  returned_to_lab_at text
+  collection_notes text
+  cancellation_reason text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+}
+
+Table robo_raw.partner_users {
+  _excel_row_number int [not null]
+  id text [pk]
+  partner_id text
+  user_id text
+  clinic_id text
+  organization_id text
+  role text
+  full_name text
+  email text
+  phone text
+  is_active text
+  last_login_at text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+}
+
+Table robo_raw.patient_question_templates {
+  _excel_row_number int [not null]
+  id text [pk]
+  category text
+  question_text text
+  question_text_vi text
+  display_order text
+  is_active text
+  created_at text
+}
+
+Table robo_raw.patients {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  patient_code text
+  full_name text
+  date_of_birth text
+  gender text
+  id_number text
+  id_type text
+  phone_primary text
+  phone_secondary text
+  email text
+  address text
+  district text
+  city text
+  emergency_contact_name text
+  emergency_contact_phone text
+  emergency_contact_relationship text
+  blood_type text
+  allergies_notes text
+  chronic_conditions_notes text
+  insurance_number text
+  insurance_provider text
+  insurance_expiry text
+  notes text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  deletion_reason text
+  patient_category text
+  telegram_chat_id text
+  telegram_username text
+}
+
+Table robo_raw.platform_admins {
+  _excel_row_number int [not null]
+  id text [pk]
+  user_id text
+  is_active text
+  created_at text
+  created_by text
+  updated_at text
+  deactivated_at text
+  deactivated_reason text
+}
+
+Table robo_raw.platform_pricing_config {
+  _excel_row_number int [not null]
+  id text [pk]
+  tier_name text
+  min_appointments text
+  max_appointments text
+  unit_price_vnd text
+  effective_from text
+  effective_to text
+  is_active text
+  description text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.profiles {
+  _excel_row_number int [not null]
+  id text [pk]
+  full_name text
+  display_name text
+  phone text
+  avatar_url text
+  license_number text
+  specialty text
+  title text
+  signature_url text
+  preferred_language text
+  notification_settings text
+  created_at text
+  updated_at text
+  is_deleted text
+  deleted_at text
+  user_id text
+  created_by text
+  academic_title text
+  sub_specialty text
+  years_of_experience text
+  position text
+  workplaces text
+  bio text
+  license_document_url text
+  email text
+}
+
+Table robo_raw.ref_clinic_type_features {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_type text
+  feature_code text
+  feature_name text
+  feature_name_vi text
+  description text
+  is_default_enabled text
+  display_order text
+}
+
+Table robo_raw.ref_currencies {
+  _excel_row_number int [not null]
+  id text [pk]
+  code text
+  name_vi text
+  name_en text
+  symbol text
+  decimal_places text
+  is_active text
+  display_order text
+  created_at text
+}
+
+Table robo_raw.ref_icd10_codes {
+  _excel_row_number int [not null]
+  id text [pk]
+  code text
+  name_vi text
+  name_en text
+  category text
+  chapter text
+  is_active text
+  display_order text
+  created_at text
+}
+
+Table robo_raw.rooms {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  room_code text
+  room_name text
+  room_type text
+  floor text
+  capacity text
+  is_active text
+  display_order text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.security_check_results {
+  _excel_row_number int [not null]
+  id text [pk]
+  category text
+  check_name text
+  status text
+  severity text
+  details text
+  detected_at text
+  is_blocking text
+}
+
+Table robo_raw.sensitive_field_definitions {
+  _excel_row_number int [not null]
+  id text [pk]
+  field_key text
+  field_label text
+  field_label_en text
+  table_name text
+  column_name text
+  description text
+  is_active text
+  display_order text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.service_catalog {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  code text
+  name text
+  name_en text
+  description text
+  category_id text
+  price_vnd text
+  min_price_vnd text
+  max_price_vnd text
+  is_taxable text
+  tax_rate_percent text
+  duration_minutes text
+  is_active text
+  requires_doctor text
+  display_order text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  name_km text
+  currency_code text
+  result_turnaround_minutes text
+  service_type text
+  price_amount text
+  price_effective_from text
+  display_converted_amount text
+  display_converted_currency_code text
+  display_fx_computed_at text
+  lab_subtype text
+}
+
+Table robo_raw.service_categories {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  name text
+  name_en text
+  description text
+  display_order text
+  is_active text
+  parent_id text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  name_km text
+}
+
+Table robo_raw.service_lab_indicators {
+  _excel_row_number int [not null]
+  id text [pk]
+  service_id text
+  clinic_id text
+  code text
+  name text
+  name_en text
+  name_km text
+  unit text
+  reference_range_text text
+  reference_range_low text
+  reference_range_high text
+  specimen_type text
+  method text
+  display_order text
+  is_active text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.service_package_items {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  package_id text
+  service_id text
+  quantity text
+  notes text
+  created_at text
+}
+
+Table robo_raw.service_packages {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  code text
+  name text
+  name_en text
+  description text
+  package_price_vnd text
+  original_price_vnd text
+  discount_percent text
+  is_active text
+  display_order text
+  valid_days text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+  name_km text
+  currency_code text
+}
+
+Table robo_raw.staff {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  full_name text
+  phone text
+  email text
+  role text
+  employee_code text
+  date_of_birth text
+  gender text
+  address text
+  id_card_number text
+  start_date text
+  end_date text
+  is_active text
+  academic_title text
+  specialty text
+  sub_specialty text
+  years_of_experience text
+  license_number text
+  license_document_url text
+  position text
+  workplaces text
+  bio text
+  avatar_url text
+  nursing_certificate text
+  nursing_level text
+  user_id text
+  created_at text
+  created_by text
+  updated_at text
+  updated_by text
+  pharmacy_degree text
+  pharmacy_certificate text
+  pharmacy_license_number text
+  pharmacy_specialization text
+}
+
+Table robo_raw.subscription_plans {
+  _excel_row_number int [not null]
+  id text [pk]
+  plan_code text
+  name text
+  name_en text
+  description text
+  price_monthly_vnd text
+  price_yearly_vnd text
+  max_staff text
+  max_patients text
+  max_appointments_per_month text
+  max_storage_gb text
+  ai_level text
+  ai_calls_per_month text
+  features text
+  display_order text
+  is_active text
+  is_public text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.tasks {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  board_id text
+  parent_task_id text
+  title text
+  description text
+  status text
+  priority text
+  assigned_to text
+  created_by text
+  due_date text
+  due_time text
+  started_at text
+  completed_at text
+  display_order text
+  cover_color text
+  created_at text
+  updated_at text
+}
+
+Table robo_raw.translations {
+  _excel_row_number int [not null]
+  id text [pk]
+  translation_key text
+  language_code text
+  value text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+}
+
+Table robo_raw.user_roles {
+  _excel_row_number int [not null]
+  id text [pk]
+  user_id text
+  clinic_id text
+  role text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.visits {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  patient_id text
+  appointment_id text
+  doctor_id text
+  visit_number text
+  visit_date text
+  check_in_time text
+  check_out_time text
+  visit_type text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+Table robo_raw.vital_signs {
+  _excel_row_number int [not null]
+  id text [pk]
+  clinic_id text
+  visit_id text
+  patient_id text
+  recorded_at text
+  recorded_by text
+  blood_pressure_systolic text
+  blood_pressure_diastolic text
+  heart_rate text
+  respiratory_rate text
+  temperature_celsius text
+  oxygen_saturation text
+  weight_kg text
+  height_cm text
+  bmi text
+  notes text
+  ai_anomaly_detected text
+  ai_anomaly_notes text
+  anomaly_reviewed_by text
+  anomaly_reviewed_at text
+  created_at text
+  updated_at text
+  created_by text
+  updated_by text
+  is_deleted text
+  deleted_at text
+  deleted_by text
+}
+
+// Inferred relationships
+Ref: robo_raw.appointment_requests.organization_id > robo_raw.organizations.id
+Ref: robo_raw.appointment_requests.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.appointment_requests.reviewed_by > robo_raw.profiles.id
+Ref: robo_raw.appointment_requests.converted_appointment_id > robo_raw.appointments.id
+Ref: robo_raw.appointment_requests.converted_patient_id > robo_raw.patients.id
+Ref: robo_raw.appointment_requests.converted_by > robo_raw.profiles.id
+Ref: robo_raw.appointment_requests.created_by > robo_raw.profiles.id
+Ref: robo_raw.appointment_requests.updated_by > robo_raw.profiles.id
+Ref: robo_raw.appointment_requests.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.appointments.patient_id > robo_raw.patients.id
+Ref: robo_raw.appointments.doctor_id > robo_raw.staff.id
+Ref: robo_raw.appointments.service_id > robo_raw.service_catalog.id
+Ref: robo_raw.appointments.confirmed_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.checked_in_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.cancelled_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.ai_suggested_doctor_id > robo_raw.staff.id
+Ref: robo_raw.appointments.created_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.updated_by > robo_raw.profiles.id
+Ref: robo_raw.appointments.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.beds.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.beds.room_id > robo_raw.rooms.id
+Ref: robo_raw.beds.created_by > robo_raw.profiles.id
+Ref: robo_raw.beds.updated_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_currencies.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_currencies.created_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_currency_rate_versions.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_currency_rate_versions.created_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_feature_flags.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_general_settings.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_memberships.user_id > robo_raw.profiles.id
+Ref: robo_raw.clinic_memberships.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_memberships.created_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_memberships.updated_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_memberships.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_subscriptions.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.clinic_subscriptions.plan_id > robo_raw.subscription_plans.id
+Ref: robo_raw.clinic_subscriptions.created_by > robo_raw.profiles.id
+Ref: robo_raw.clinic_subscriptions.updated_by > robo_raw.profiles.id
+Ref: robo_raw.clinics.created_by > robo_raw.profiles.id
+Ref: robo_raw.clinics.updated_by > robo_raw.profiles.id
+Ref: robo_raw.clinics.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.clinics.organization_id > robo_raw.organizations.id
+Ref: robo_raw.crm_corporate_accounts.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.crm_corporate_accounts.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.crm_corporate_accounts.created_by > robo_raw.profiles.id
+Ref: robo_raw.crm_corporate_accounts.updated_by > robo_raw.profiles.id
+Ref: robo_raw.crm_loyalty_tiers.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.crm_loyalty_tiers.created_by > robo_raw.profiles.id
+Ref: robo_raw.crm_loyalty_tiers.updated_by > robo_raw.profiles.id
+Ref: robo_raw.diagnostic_machines.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.diagnostic_machines.created_by > robo_raw.profiles.id
+Ref: robo_raw.diagnostic_machines.updated_by > robo_raw.profiles.id
+Ref: robo_raw.diagnostic_walk_in_patients.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.diagnostic_walk_in_patients.patient_id > robo_raw.patients.id
+Ref: robo_raw.diagnostic_walk_in_patients.created_by > robo_raw.profiles.id
+Ref: robo_raw.diagnostic_walk_in_patients.updated_by > robo_raw.profiles.id
+Ref: robo_raw.diagnostic_walk_in_patients.partner_lab_request_id > robo_raw.partner_lab_requests.id
+Ref: robo_raw.doctor_schedules.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.doctor_schedules.doctor_id > robo_raw.staff.id
+Ref: robo_raw.doctor_schedules.room_id > robo_raw.rooms.id
+Ref: robo_raw.doctor_schedules.created_by > robo_raw.profiles.id
+Ref: robo_raw.doctor_schedules.updated_by > robo_raw.profiles.id
+Ref: robo_raw.examination_zones.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.examination_zones.created_by > robo_raw.profiles.id
+Ref: robo_raw.examination_zones.updated_by > robo_raw.profiles.id
+Ref: robo_raw.group_examinations.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.group_examinations.service_package_id > robo_raw.service_packages.id
+Ref: robo_raw.group_examinations.created_by > robo_raw.profiles.id
+Ref: robo_raw.group_examinations.updated_by > robo_raw.profiles.id
+Ref: robo_raw.group_examinations.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.lis_accession_counters.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.location_provinces.country_id > robo_raw.location_countries.id
+Ref: robo_raw.medical_records.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.medical_records.visit_id > robo_raw.visits.id
+Ref: robo_raw.medical_records.patient_id > robo_raw.patients.id
+Ref: robo_raw.medical_records.doctor_id > robo_raw.staff.id
+Ref: robo_raw.medical_records.created_by > robo_raw.profiles.id
+Ref: robo_raw.medical_records.updated_by > robo_raw.profiles.id
+Ref: robo_raw.medical_records.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.organization_memberships.organization_id > robo_raw.organizations.id
+Ref: robo_raw.organization_memberships.user_id > robo_raw.profiles.id
+Ref: robo_raw.organizations.created_by > robo_raw.profiles.id
+Ref: robo_raw.organizations.updated_by > robo_raw.profiles.id
+Ref: robo_raw.organizations.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.paraclinical_orders.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.paraclinical_orders.visit_id > robo_raw.visits.id
+Ref: robo_raw.paraclinical_orders.patient_id > robo_raw.patients.id
+Ref: robo_raw.paraclinical_orders.service_id > robo_raw.service_catalog.id
+Ref: robo_raw.paraclinical_orders.cancelled_by > robo_raw.profiles.id
+Ref: robo_raw.paraclinical_orders.created_by > robo_raw.profiles.id
+Ref: robo_raw.paraclinical_orders.updated_by > robo_raw.profiles.id
+Ref: robo_raw.paraclinical_orders.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.partner_audit_logs.partner_id > robo_raw.partner_clinics.id
+Ref: robo_raw.partner_audit_logs.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.partner_audit_logs.user_id > robo_raw.profiles.id
+Ref: robo_raw.partner_clinics.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.partner_clinics.created_by > robo_raw.profiles.id
+Ref: robo_raw.partner_clinics.updated_by > robo_raw.profiles.id
+Ref: robo_raw.partner_clinics.organization_id > robo_raw.organizations.id
+Ref: robo_raw.partner_lab_requests.partner_id > robo_raw.partner_clinics.id
+Ref: robo_raw.partner_lab_requests.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.partner_lab_requests.organization_id > robo_raw.organizations.id
+Ref: robo_raw.partner_lab_requests.created_by > robo_raw.profiles.id
+Ref: robo_raw.partner_lab_requests.updated_by > robo_raw.profiles.id
+Ref: robo_raw.partner_onsite_collections.request_id > robo_raw.partner_lab_requests.id
+Ref: robo_raw.partner_onsite_collections.partner_id > robo_raw.partner_clinics.id
+Ref: robo_raw.partner_onsite_collections.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.partner_onsite_collections.created_by > robo_raw.profiles.id
+Ref: robo_raw.partner_onsite_collections.updated_by > robo_raw.profiles.id
+Ref: robo_raw.partner_users.partner_id > robo_raw.partner_clinics.id
+Ref: robo_raw.partner_users.user_id > robo_raw.profiles.id
+Ref: robo_raw.partner_users.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.partner_users.organization_id > robo_raw.organizations.id
+Ref: robo_raw.partner_users.created_by > robo_raw.profiles.id
+Ref: robo_raw.partner_users.updated_by > robo_raw.profiles.id
+Ref: robo_raw.patients.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.patients.created_by > robo_raw.profiles.id
+Ref: robo_raw.patients.updated_by > robo_raw.profiles.id
+Ref: robo_raw.patients.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.platform_admins.user_id > robo_raw.profiles.id
+Ref: robo_raw.platform_admins.created_by > robo_raw.profiles.id
+Ref: robo_raw.profiles.user_id > robo_raw.profiles.id
+Ref: robo_raw.profiles.created_by > robo_raw.profiles.id
+Ref: robo_raw.rooms.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.rooms.created_by > robo_raw.profiles.id
+Ref: robo_raw.rooms.updated_by > robo_raw.profiles.id
+Ref: robo_raw.sensitive_field_definitions.created_by > robo_raw.profiles.id
+Ref: robo_raw.sensitive_field_definitions.updated_by > robo_raw.profiles.id
+Ref: robo_raw.service_catalog.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.service_catalog.category_id > robo_raw.service_categories.id
+Ref: robo_raw.service_catalog.created_by > robo_raw.profiles.id
+Ref: robo_raw.service_catalog.updated_by > robo_raw.profiles.id
+Ref: robo_raw.service_catalog.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.service_categories.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.service_categories.created_by > robo_raw.profiles.id
+Ref: robo_raw.service_categories.updated_by > robo_raw.profiles.id
+Ref: robo_raw.service_categories.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.service_lab_indicators.service_id > robo_raw.service_catalog.id
+Ref: robo_raw.service_lab_indicators.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.service_lab_indicators.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.service_lab_indicators.created_by > robo_raw.profiles.id
+Ref: robo_raw.service_lab_indicators.updated_by > robo_raw.profiles.id
+Ref: robo_raw.service_package_items.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.service_package_items.package_id > robo_raw.service_packages.id
+Ref: robo_raw.service_package_items.service_id > robo_raw.service_catalog.id
+Ref: robo_raw.service_packages.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.service_packages.created_by > robo_raw.profiles.id
+Ref: robo_raw.service_packages.updated_by > robo_raw.profiles.id
+Ref: robo_raw.service_packages.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.staff.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.staff.user_id > robo_raw.profiles.id
+Ref: robo_raw.staff.created_by > robo_raw.profiles.id
+Ref: robo_raw.staff.updated_by > robo_raw.profiles.id
+Ref: robo_raw.tasks.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.tasks.parent_task_id > robo_raw.tasks.id
+Ref: robo_raw.tasks.created_by > robo_raw.profiles.id
+Ref: robo_raw.translations.created_by > robo_raw.profiles.id
+Ref: robo_raw.translations.updated_by > robo_raw.profiles.id
+Ref: robo_raw.user_roles.user_id > robo_raw.profiles.id
+Ref: robo_raw.user_roles.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.user_roles.created_by > robo_raw.profiles.id
+Ref: robo_raw.user_roles.updated_by > robo_raw.profiles.id
+Ref: robo_raw.user_roles.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.visits.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.visits.patient_id > robo_raw.patients.id
+Ref: robo_raw.visits.appointment_id > robo_raw.appointments.id
+Ref: robo_raw.visits.doctor_id > robo_raw.staff.id
+Ref: robo_raw.visits.created_by > robo_raw.profiles.id
+Ref: robo_raw.visits.updated_by > robo_raw.profiles.id
+Ref: robo_raw.visits.deleted_by > robo_raw.profiles.id
+Ref: robo_raw.vital_signs.clinic_id > robo_raw.clinics.id
+Ref: robo_raw.vital_signs.visit_id > robo_raw.visits.id
+Ref: robo_raw.vital_signs.patient_id > robo_raw.patients.id
+Ref: robo_raw.vital_signs.recorded_by > robo_raw.profiles.id
+Ref: robo_raw.vital_signs.anomaly_reviewed_by > robo_raw.profiles.id
+Ref: robo_raw.vital_signs.created_by > robo_raw.profiles.id
+Ref: robo_raw.vital_signs.updated_by > robo_raw.profiles.id
+Ref: robo_raw.vital_signs.deleted_by > robo_raw.profiles.id

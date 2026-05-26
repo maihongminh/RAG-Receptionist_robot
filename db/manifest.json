@@ -1,0 +1,5699 @@
+{
+  "schema": "robo_raw",
+  "tables": [
+    {
+      "sheet": "admin_help_templates",
+      "table": "admin_help_templates",
+      "rows": 7,
+      "cols": 8,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "topic",
+          "name": "topic"
+        },
+        {
+          "index": 3,
+          "original": "title",
+          "name": "title"
+        },
+        {
+          "index": 4,
+          "original": "title_vi",
+          "name": "title_vi"
+        },
+        {
+          "index": 5,
+          "original": "content",
+          "name": "content"
+        },
+        {
+          "index": 6,
+          "original": "content_vi",
+          "name": "content_vi"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/admin_help_templates.csv"
+    },
+    {
+      "sheet": "ai_boundary_metadata",
+      "table": "ai_boundary_metadata",
+      "rows": 6,
+      "cols": 7,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "version",
+          "name": "version"
+        },
+        {
+          "index": 3,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 4,
+          "original": "views_included",
+          "name": "views_included"
+        },
+        {
+          "index": 5,
+          "original": "rpcs_included",
+          "name": "rpcs_included"
+        },
+        {
+          "index": 6,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 7,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/ai_boundary_metadata.csv"
+    },
+    {
+      "sheet": "appointment_requests",
+      "table": "appointment_requests",
+      "rows": 4,
+      "cols": 34,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "organization_id",
+          "name": "organization_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "source",
+          "name": "source"
+        },
+        {
+          "index": 5,
+          "original": "source_reference",
+          "name": "source_reference"
+        },
+        {
+          "index": 6,
+          "original": "patient_info",
+          "name": "patient_info"
+        },
+        {
+          "index": 7,
+          "original": "preferred_date",
+          "name": "preferred_date"
+        },
+        {
+          "index": 8,
+          "original": "preferred_time_start",
+          "name": "preferred_time_start"
+        },
+        {
+          "index": 9,
+          "original": "preferred_time_end",
+          "name": "preferred_time_end"
+        },
+        {
+          "index": 10,
+          "original": "is_flexible_time",
+          "name": "is_flexible_time"
+        },
+        {
+          "index": 11,
+          "original": "department_hint",
+          "name": "department_hint"
+        },
+        {
+          "index": 12,
+          "original": "service_hint",
+          "name": "service_hint"
+        },
+        {
+          "index": 13,
+          "original": "doctor_preference_id",
+          "name": "doctor_preference_id"
+        },
+        {
+          "index": 14,
+          "original": "symptom_data",
+          "name": "symptom_data"
+        },
+        {
+          "index": 15,
+          "original": "ai_consultation_result",
+          "name": "ai_consultation_result"
+        },
+        {
+          "index": 16,
+          "original": "ai_summary",
+          "name": "ai_summary"
+        },
+        {
+          "index": 17,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 18,
+          "original": "priority",
+          "name": "priority"
+        },
+        {
+          "index": 19,
+          "original": "reviewed_by",
+          "name": "reviewed_by"
+        },
+        {
+          "index": 20,
+          "original": "reviewed_at",
+          "name": "reviewed_at"
+        },
+        {
+          "index": 21,
+          "original": "review_notes",
+          "name": "review_notes"
+        },
+        {
+          "index": 22,
+          "original": "rejection_reason",
+          "name": "rejection_reason"
+        },
+        {
+          "index": 23,
+          "original": "converted_appointment_id",
+          "name": "converted_appointment_id"
+        },
+        {
+          "index": 24,
+          "original": "converted_patient_id",
+          "name": "converted_patient_id"
+        },
+        {
+          "index": 25,
+          "original": "converted_at",
+          "name": "converted_at"
+        },
+        {
+          "index": 26,
+          "original": "converted_by",
+          "name": "converted_by"
+        },
+        {
+          "index": 27,
+          "original": "expires_at",
+          "name": "expires_at"
+        },
+        {
+          "index": 28,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 29,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 30,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 31,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 32,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 33,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 34,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/appointment_requests.csv"
+    },
+    {
+      "sheet": "appointments",
+      "table": "appointments",
+      "rows": 11,
+      "cols": 31,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 4,
+          "original": "doctor_id",
+          "name": "doctor_id"
+        },
+        {
+          "index": 5,
+          "original": "appointment_date",
+          "name": "appointment_date"
+        },
+        {
+          "index": 6,
+          "original": "start_time",
+          "name": "start_time"
+        },
+        {
+          "index": 7,
+          "original": "end_time",
+          "name": "end_time"
+        },
+        {
+          "index": 8,
+          "original": "duration_minutes",
+          "name": "duration_minutes"
+        },
+        {
+          "index": 9,
+          "original": "visit_type",
+          "name": "visit_type"
+        },
+        {
+          "index": 10,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 11,
+          "original": "service_id",
+          "name": "service_id"
+        },
+        {
+          "index": 12,
+          "original": "chief_complaint",
+          "name": "chief_complaint"
+        },
+        {
+          "index": 13,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 14,
+          "original": "confirmed_at",
+          "name": "confirmed_at"
+        },
+        {
+          "index": 15,
+          "original": "confirmed_by",
+          "name": "confirmed_by"
+        },
+        {
+          "index": 16,
+          "original": "arrived_at",
+          "name": "arrived_at"
+        },
+        {
+          "index": 17,
+          "original": "checked_in_by",
+          "name": "checked_in_by"
+        },
+        {
+          "index": 18,
+          "original": "completed_at",
+          "name": "completed_at"
+        },
+        {
+          "index": 19,
+          "original": "cancelled_at",
+          "name": "cancelled_at"
+        },
+        {
+          "index": 20,
+          "original": "cancelled_by",
+          "name": "cancelled_by"
+        },
+        {
+          "index": 21,
+          "original": "cancellation_reason",
+          "name": "cancellation_reason"
+        },
+        {
+          "index": 22,
+          "original": "ai_suggested_duration",
+          "name": "ai_suggested_duration"
+        },
+        {
+          "index": 23,
+          "original": "ai_suggested_doctor_id",
+          "name": "ai_suggested_doctor_id"
+        },
+        {
+          "index": 24,
+          "original": "ai_suggestion_accepted",
+          "name": "ai_suggestion_accepted"
+        },
+        {
+          "index": 25,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 26,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 27,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 28,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 29,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 30,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 31,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/appointments.csv"
+    },
+    {
+      "sheet": "beds",
+      "table": "beds",
+      "rows": 2,
+      "cols": 13,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "room_id",
+          "name": "room_id"
+        },
+        {
+          "index": 4,
+          "original": "bed_code",
+          "name": "bed_code"
+        },
+        {
+          "index": 5,
+          "original": "bed_name",
+          "name": "bed_name"
+        },
+        {
+          "index": 6,
+          "original": "bed_type",
+          "name": "bed_type"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 9,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 12,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 13,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/beds.csv"
+    },
+    {
+      "sheet": "clinic_currencies",
+      "table": "clinic_currencies",
+      "rows": 3,
+      "cols": 9,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "currency_code",
+          "name": "currency_code"
+        },
+        {
+          "index": 4,
+          "original": "is_default",
+          "name": "is_default"
+        },
+        {
+          "index": 5,
+          "original": "exchange_rate_to_vnd",
+          "name": "exchange_rate_to_vnd"
+        },
+        {
+          "index": 6,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 7,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 8,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 9,
+          "original": "units_per_default_unit",
+          "name": "units_per_default_unit"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_currencies.csv"
+    },
+    {
+      "sheet": "clinic_currency_rate_versions",
+      "table": "clinic_currency_rate_versions",
+      "rows": 4,
+      "cols": 7,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "currency_code",
+          "name": "currency_code"
+        },
+        {
+          "index": 4,
+          "original": "effective_from",
+          "name": "effective_from"
+        },
+        {
+          "index": 5,
+          "original": "units_per_default_unit",
+          "name": "units_per_default_unit"
+        },
+        {
+          "index": 6,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 7,
+          "original": "created_by",
+          "name": "created_by"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_currency_rate_versions.csv"
+    },
+    {
+      "sheet": "clinic_feature_flags",
+      "table": "clinic_feature_flags",
+      "rows": 94,
+      "cols": 7,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "feature_code",
+          "name": "feature_code"
+        },
+        {
+          "index": 4,
+          "original": "is_enabled",
+          "name": "is_enabled"
+        },
+        {
+          "index": 5,
+          "original": "config",
+          "name": "config"
+        },
+        {
+          "index": 6,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 7,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_feature_flags.csv"
+    },
+    {
+      "sheet": "clinic_general_settings",
+      "table": "clinic_general_settings",
+      "rows": 2,
+      "cols": 42,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "timezone",
+          "name": "timezone"
+        },
+        {
+          "index": 4,
+          "original": "date_format",
+          "name": "date_format"
+        },
+        {
+          "index": 5,
+          "original": "time_format",
+          "name": "time_format"
+        },
+        {
+          "index": 6,
+          "original": "working_hours_start",
+          "name": "working_hours_start"
+        },
+        {
+          "index": 7,
+          "original": "working_hours_end",
+          "name": "working_hours_end"
+        },
+        {
+          "index": 8,
+          "original": "lunch_break_start",
+          "name": "lunch_break_start"
+        },
+        {
+          "index": 9,
+          "original": "lunch_break_end",
+          "name": "lunch_break_end"
+        },
+        {
+          "index": 10,
+          "original": "appointment_slot_duration",
+          "name": "appointment_slot_duration"
+        },
+        {
+          "index": 11,
+          "original": "max_advance_booking_days",
+          "name": "max_advance_booking_days"
+        },
+        {
+          "index": 12,
+          "original": "allow_online_booking",
+          "name": "allow_online_booking"
+        },
+        {
+          "index": 13,
+          "original": "require_phone_verification",
+          "name": "require_phone_verification"
+        },
+        {
+          "index": 14,
+          "original": "send_appointment_reminders",
+          "name": "send_appointment_reminders"
+        },
+        {
+          "index": 15,
+          "original": "reminder_hours_before",
+          "name": "reminder_hours_before"
+        },
+        {
+          "index": 16,
+          "original": "auto_cancel_no_show_minutes",
+          "name": "auto_cancel_no_show_minutes"
+        },
+        {
+          "index": 17,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 18,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 19,
+          "original": "patient_code_prefix",
+          "name": "patient_code_prefix"
+        },
+        {
+          "index": 20,
+          "original": "patient_code_min_length",
+          "name": "patient_code_min_length"
+        },
+        {
+          "index": 21,
+          "original": "appointment_code_prefix",
+          "name": "appointment_code_prefix"
+        },
+        {
+          "index": 22,
+          "original": "appointment_code_min_length",
+          "name": "appointment_code_min_length"
+        },
+        {
+          "index": 23,
+          "original": "payment_code_prefix",
+          "name": "payment_code_prefix"
+        },
+        {
+          "index": 24,
+          "original": "payment_code_min_length",
+          "name": "payment_code_min_length"
+        },
+        {
+          "index": 25,
+          "original": "drug_code_prefix",
+          "name": "drug_code_prefix"
+        },
+        {
+          "index": 26,
+          "original": "drug_code_min_length",
+          "name": "drug_code_min_length"
+        },
+        {
+          "index": 27,
+          "original": "pharmacy_code_prefix",
+          "name": "pharmacy_code_prefix"
+        },
+        {
+          "index": 28,
+          "original": "pharmacy_code_min_length",
+          "name": "pharmacy_code_min_length"
+        },
+        {
+          "index": 29,
+          "original": "prescription_code_prefix",
+          "name": "prescription_code_prefix"
+        },
+        {
+          "index": 30,
+          "original": "prescription_code_min_length",
+          "name": "prescription_code_min_length"
+        },
+        {
+          "index": 31,
+          "original": "supplier_code_prefix",
+          "name": "supplier_code_prefix"
+        },
+        {
+          "index": 32,
+          "original": "supplier_code_min_length",
+          "name": "supplier_code_min_length"
+        },
+        {
+          "index": 33,
+          "original": "warehouse_code_prefix",
+          "name": "warehouse_code_prefix"
+        },
+        {
+          "index": 34,
+          "original": "warehouse_code_min_length",
+          "name": "warehouse_code_min_length"
+        },
+        {
+          "index": 35,
+          "original": "visit_code_prefix",
+          "name": "visit_code_prefix"
+        },
+        {
+          "index": 36,
+          "original": "visit_code_min_length",
+          "name": "visit_code_min_length"
+        },
+        {
+          "index": 37,
+          "original": "imaging_code_prefix",
+          "name": "imaging_code_prefix"
+        },
+        {
+          "index": 38,
+          "original": "imaging_code_min_length",
+          "name": "imaging_code_min_length"
+        },
+        {
+          "index": 39,
+          "original": "lab_code_prefix",
+          "name": "lab_code_prefix"
+        },
+        {
+          "index": 40,
+          "original": "lab_code_min_length",
+          "name": "lab_code_min_length"
+        },
+        {
+          "index": 41,
+          "original": "currency",
+          "name": "currency"
+        },
+        {
+          "index": 42,
+          "original": "invoice_template_registry",
+          "name": "invoice_template_registry"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_general_settings.csv"
+    },
+    {
+      "sheet": "clinic_memberships",
+      "table": "clinic_memberships",
+      "rows": 24,
+      "cols": 14,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 5,
+          "original": "joined_at",
+          "name": "joined_at"
+        },
+        {
+          "index": 6,
+          "original": "deactivated_at",
+          "name": "deactivated_at"
+        },
+        {
+          "index": 7,
+          "original": "deactivation_reason",
+          "name": "deactivation_reason"
+        },
+        {
+          "index": 8,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 9,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 10,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 11,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 12,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 13,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 14,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_memberships.csv"
+    },
+    {
+      "sheet": "clinic_subscriptions",
+      "table": "clinic_subscriptions",
+      "rows": 8,
+      "cols": 14,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "plan_id",
+          "name": "plan_id"
+        },
+        {
+          "index": 4,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 5,
+          "original": "started_at",
+          "name": "started_at"
+        },
+        {
+          "index": 6,
+          "original": "expires_at",
+          "name": "expires_at"
+        },
+        {
+          "index": 7,
+          "original": "cancelled_at",
+          "name": "cancelled_at"
+        },
+        {
+          "index": 8,
+          "original": "ai_calls_used_this_month",
+          "name": "ai_calls_used_this_month"
+        },
+        {
+          "index": 9,
+          "original": "ai_calls_reset_at",
+          "name": "ai_calls_reset_at"
+        },
+        {
+          "index": 10,
+          "original": "payment_reference",
+          "name": "payment_reference"
+        },
+        {
+          "index": 11,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 12,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 13,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 14,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_subscriptions.csv"
+    },
+    {
+      "sheet": "clinic_type_ai_capabilities",
+      "table": "clinic_type_ai_capabilities",
+      "rows": 25,
+      "cols": 5,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_type",
+          "name": "clinic_type"
+        },
+        {
+          "index": 3,
+          "original": "ai_capability",
+          "name": "ai_capability"
+        },
+        {
+          "index": 4,
+          "original": "is_allowed",
+          "name": "is_allowed"
+        },
+        {
+          "index": 5,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_type_ai_capabilities.csv"
+    },
+    {
+      "sheet": "clinic_type_modules",
+      "table": "clinic_type_modules",
+      "rows": 39,
+      "cols": 5,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_type",
+          "name": "clinic_type"
+        },
+        {
+          "index": 3,
+          "original": "module_code",
+          "name": "module_code"
+        },
+        {
+          "index": 4,
+          "original": "is_allowed",
+          "name": "is_allowed"
+        },
+        {
+          "index": 5,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/clinic_type_modules.csv"
+    },
+    {
+      "sheet": "clinics",
+      "table": "clinics",
+      "rows": 8,
+      "cols": 42,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 3,
+          "original": "name_short",
+          "name": "name_short"
+        },
+        {
+          "index": 4,
+          "original": "license_number",
+          "name": "license_number"
+        },
+        {
+          "index": 5,
+          "original": "tax_id",
+          "name": "tax_id"
+        },
+        {
+          "index": 6,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 7,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 8,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 9,
+          "original": "district",
+          "name": "district"
+        },
+        {
+          "index": 10,
+          "original": "city",
+          "name": "city"
+        },
+        {
+          "index": 11,
+          "original": "timezone",
+          "name": "timezone"
+        },
+        {
+          "index": 12,
+          "original": "currency",
+          "name": "currency"
+        },
+        {
+          "index": 13,
+          "original": "locale",
+          "name": "locale"
+        },
+        {
+          "index": 14,
+          "original": "patient_code_prefix",
+          "name": "patient_code_prefix"
+        },
+        {
+          "index": 15,
+          "original": "patient_code_sequence",
+          "name": "patient_code_sequence"
+        },
+        {
+          "index": 16,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 17,
+          "original": "onboarded_at",
+          "name": "onboarded_at"
+        },
+        {
+          "index": 18,
+          "original": "onboarded_by",
+          "name": "onboarded_by"
+        },
+        {
+          "index": 19,
+          "original": "suspended_at",
+          "name": "suspended_at"
+        },
+        {
+          "index": 20,
+          "original": "suspended_reason",
+          "name": "suspended_reason"
+        },
+        {
+          "index": 21,
+          "original": "offboarded_at",
+          "name": "offboarded_at"
+        },
+        {
+          "index": 22,
+          "original": "offboarded_by",
+          "name": "offboarded_by"
+        },
+        {
+          "index": 23,
+          "original": "offboarding_reason",
+          "name": "offboarding_reason"
+        },
+        {
+          "index": 24,
+          "original": "onboarding_template",
+          "name": "onboarding_template"
+        },
+        {
+          "index": 25,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 26,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 27,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 28,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 29,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 30,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 31,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 32,
+          "original": "deletion_reason",
+          "name": "deletion_reason"
+        },
+        {
+          "index": 33,
+          "original": "is_demo",
+          "name": "is_demo"
+        },
+        {
+          "index": 34,
+          "original": "demo_reset_at",
+          "name": "demo_reset_at"
+        },
+        {
+          "index": 35,
+          "original": "demo_expires_at",
+          "name": "demo_expires_at"
+        },
+        {
+          "index": 36,
+          "original": "clinic_type",
+          "name": "clinic_type"
+        },
+        {
+          "index": 37,
+          "original": "enabled_modules",
+          "name": "enabled_modules"
+        },
+        {
+          "index": 38,
+          "original": "organization_id",
+          "name": "organization_id"
+        },
+        {
+          "index": 39,
+          "original": "clinic_type_new",
+          "name": "clinic_type_new"
+        },
+        {
+          "index": 40,
+          "original": "latitude",
+          "name": "latitude"
+        },
+        {
+          "index": 41,
+          "original": "longitude",
+          "name": "longitude"
+        },
+        {
+          "index": 42,
+          "original": "logo_url",
+          "name": "logo_url"
+        }
+      ],
+      "csv": "data/postgres_csv/clinics.csv"
+    },
+    {
+      "sheet": "crm_corporate_accounts",
+      "table": "crm_corporate_accounts",
+      "rows": 2,
+      "cols": 22,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "company_name",
+          "name": "company_name"
+        },
+        {
+          "index": 4,
+          "original": "tax_code",
+          "name": "tax_code"
+        },
+        {
+          "index": 5,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 6,
+          "original": "city",
+          "name": "city"
+        },
+        {
+          "index": 7,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 8,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 9,
+          "original": "website",
+          "name": "website"
+        },
+        {
+          "index": 10,
+          "original": "industry",
+          "name": "industry"
+        },
+        {
+          "index": 11,
+          "original": "employee_count",
+          "name": "employee_count"
+        },
+        {
+          "index": 12,
+          "original": "contract_count",
+          "name": "contract_count"
+        },
+        {
+          "index": 13,
+          "original": "total_revenue_vnd",
+          "name": "total_revenue_vnd"
+        },
+        {
+          "index": 14,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 15,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 16,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 17,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 18,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 19,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 20,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 21,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 22,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/crm_corporate_accounts.csv"
+    },
+    {
+      "sheet": "crm_loyalty_tiers",
+      "table": "crm_loyalty_tiers",
+      "rows": 5,
+      "cols": 11,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "tier",
+          "name": "tier"
+        },
+        {
+          "index": 4,
+          "original": "min_points",
+          "name": "min_points"
+        },
+        {
+          "index": 5,
+          "original": "discount_percent",
+          "name": "discount_percent"
+        },
+        {
+          "index": 6,
+          "original": "benefits",
+          "name": "benefits"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 9,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 10,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 11,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/crm_loyalty_tiers.csv"
+    },
+    {
+      "sheet": "diagnostic_machines",
+      "table": "diagnostic_machines",
+      "rows": 9,
+      "cols": 16,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "machine_code",
+          "name": "machine_code"
+        },
+        {
+          "index": 4,
+          "original": "machine_name",
+          "name": "machine_name"
+        },
+        {
+          "index": 5,
+          "original": "modality",
+          "name": "modality"
+        },
+        {
+          "index": 6,
+          "original": "ae_title",
+          "name": "ae_title"
+        },
+        {
+          "index": 7,
+          "original": "location",
+          "name": "location"
+        },
+        {
+          "index": 8,
+          "original": "manufacturer",
+          "name": "manufacturer"
+        },
+        {
+          "index": 9,
+          "original": "model",
+          "name": "model"
+        },
+        {
+          "index": 10,
+          "original": "serial_number",
+          "name": "serial_number"
+        },
+        {
+          "index": 11,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 12,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 13,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 14,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 15,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 16,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/diagnostic_machines.csv"
+    },
+    {
+      "sheet": "diagnostic_walk_in_patients",
+      "table": "diagnostic_walk_in_patients",
+      "rows": 41,
+      "cols": 58,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "queue_number",
+          "name": "queue_number"
+        },
+        {
+          "index": 4,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 5,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 6,
+          "original": "patient_name",
+          "name": "patient_name"
+        },
+        {
+          "index": 7,
+          "original": "patient_phone",
+          "name": "patient_phone"
+        },
+        {
+          "index": 8,
+          "original": "patient_dob",
+          "name": "patient_dob"
+        },
+        {
+          "index": 9,
+          "original": "patient_gender",
+          "name": "patient_gender"
+        },
+        {
+          "index": 10,
+          "original": "patient_id_number",
+          "name": "patient_id_number"
+        },
+        {
+          "index": 11,
+          "original": "arrival_time",
+          "name": "arrival_time"
+        },
+        {
+          "index": 12,
+          "original": "registered_at",
+          "name": "registered_at"
+        },
+        {
+          "index": 13,
+          "original": "registered_by",
+          "name": "registered_by"
+        },
+        {
+          "index": 14,
+          "original": "consulting_doctor_id",
+          "name": "consulting_doctor_id"
+        },
+        {
+          "index": 15,
+          "original": "consulting_room_id",
+          "name": "consulting_room_id"
+        },
+        {
+          "index": 16,
+          "original": "consultation_started_at",
+          "name": "consultation_started_at"
+        },
+        {
+          "index": 17,
+          "original": "consultation_ended_at",
+          "name": "consultation_ended_at"
+        },
+        {
+          "index": 18,
+          "original": "clinical_notes",
+          "name": "clinical_notes"
+        },
+        {
+          "index": 19,
+          "original": "diagnostic_order_id",
+          "name": "diagnostic_order_id"
+        },
+        {
+          "index": 20,
+          "original": "order_items",
+          "name": "order_items"
+        },
+        {
+          "index": 21,
+          "original": "total_amount",
+          "name": "total_amount"
+        },
+        {
+          "index": 22,
+          "original": "payment_status",
+          "name": "payment_status"
+        },
+        {
+          "index": 23,
+          "original": "paid_amount",
+          "name": "paid_amount"
+        },
+        {
+          "index": 24,
+          "original": "paid_at",
+          "name": "paid_at"
+        },
+        {
+          "index": 25,
+          "original": "cashier_id",
+          "name": "cashier_id"
+        },
+        {
+          "index": 26,
+          "original": "invoice_number",
+          "name": "invoice_number"
+        },
+        {
+          "index": 27,
+          "original": "payment_method",
+          "name": "payment_method"
+        },
+        {
+          "index": 28,
+          "original": "sample_collected_at",
+          "name": "sample_collected_at"
+        },
+        {
+          "index": 29,
+          "original": "sample_collector_id",
+          "name": "sample_collector_id"
+        },
+        {
+          "index": 30,
+          "original": "sample_notes",
+          "name": "sample_notes"
+        },
+        {
+          "index": 31,
+          "original": "sent_to_lab_at",
+          "name": "sent_to_lab_at"
+        },
+        {
+          "index": 32,
+          "original": "lab_received_at",
+          "name": "lab_received_at"
+        },
+        {
+          "index": 33,
+          "original": "lab_completed_at",
+          "name": "lab_completed_at"
+        },
+        {
+          "index": 34,
+          "original": "result_ready_at",
+          "name": "result_ready_at"
+        },
+        {
+          "index": 35,
+          "original": "result_delivered_at",
+          "name": "result_delivered_at"
+        },
+        {
+          "index": 36,
+          "original": "delivery_method",
+          "name": "delivery_method"
+        },
+        {
+          "index": 37,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 38,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 39,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 40,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 41,
+          "original": "result_file_url",
+          "name": "result_file_url"
+        },
+        {
+          "index": 42,
+          "original": "reading_doctor_id",
+          "name": "reading_doctor_id"
+        },
+        {
+          "index": 43,
+          "original": "reading_started_at",
+          "name": "reading_started_at"
+        },
+        {
+          "index": 44,
+          "original": "reading_completed_at",
+          "name": "reading_completed_at"
+        },
+        {
+          "index": 45,
+          "original": "reading_interpretation",
+          "name": "reading_interpretation"
+        },
+        {
+          "index": 46,
+          "original": "reading_recommendations",
+          "name": "reading_recommendations"
+        },
+        {
+          "index": 47,
+          "original": "follow_up_date",
+          "name": "follow_up_date"
+        },
+        {
+          "index": 48,
+          "original": "follow_up_notes",
+          "name": "follow_up_notes"
+        },
+        {
+          "index": 49,
+          "original": "prescription_notes",
+          "name": "prescription_notes"
+        },
+        {
+          "index": 50,
+          "original": "currency_code",
+          "name": "currency_code"
+        },
+        {
+          "index": 51,
+          "original": "lab_technician_id",
+          "name": "lab_technician_id"
+        },
+        {
+          "index": 52,
+          "original": "partner_lab_request_id",
+          "name": "partner_lab_request_id"
+        },
+        {
+          "index": 53,
+          "original": "imaging_technician_id",
+          "name": "imaging_technician_id"
+        },
+        {
+          "index": 54,
+          "original": "pacs_integration",
+          "name": "pacs_integration"
+        },
+        {
+          "index": 55,
+          "original": "result_verified_by",
+          "name": "result_verified_by"
+        },
+        {
+          "index": 56,
+          "original": "result_verified_at",
+          "name": "result_verified_at"
+        },
+        {
+          "index": 57,
+          "original": "soft_copy_sent_at",
+          "name": "soft_copy_sent_at"
+        },
+        {
+          "index": 58,
+          "original": "soft_copy_sent_via",
+          "name": "soft_copy_sent_via"
+        }
+      ],
+      "csv": "data/postgres_csv/diagnostic_walk_in_patients.csv"
+    },
+    {
+      "sheet": "doctor_schedules",
+      "table": "doctor_schedules",
+      "rows": 30,
+      "cols": 13,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "doctor_id",
+          "name": "doctor_id"
+        },
+        {
+          "index": 4,
+          "original": "room_id",
+          "name": "room_id"
+        },
+        {
+          "index": 5,
+          "original": "day_of_week",
+          "name": "day_of_week"
+        },
+        {
+          "index": 6,
+          "original": "start_time",
+          "name": "start_time"
+        },
+        {
+          "index": 7,
+          "original": "end_time",
+          "name": "end_time"
+        },
+        {
+          "index": 8,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 9,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 12,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 13,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/doctor_schedules.csv"
+    },
+    {
+      "sheet": "examination_zones",
+      "table": "examination_zones",
+      "rows": 4,
+      "cols": 13,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 4,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 5,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 6,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 7,
+          "original": "floor",
+          "name": "floor"
+        },
+        {
+          "index": 8,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 9,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 12,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 13,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/examination_zones.csv"
+    },
+    {
+      "sheet": "group_examinations",
+      "table": "group_examinations",
+      "rows": 2,
+      "cols": 34,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "company_name",
+          "name": "company_name"
+        },
+        {
+          "index": 4,
+          "original": "company_tax_code",
+          "name": "company_tax_code"
+        },
+        {
+          "index": 5,
+          "original": "company_address",
+          "name": "company_address"
+        },
+        {
+          "index": 6,
+          "original": "company_phone",
+          "name": "company_phone"
+        },
+        {
+          "index": 7,
+          "original": "company_email",
+          "name": "company_email"
+        },
+        {
+          "index": 8,
+          "original": "contract_number",
+          "name": "contract_number"
+        },
+        {
+          "index": 9,
+          "original": "contract_date",
+          "name": "contract_date"
+        },
+        {
+          "index": 10,
+          "original": "contract_value",
+          "name": "contract_value"
+        },
+        {
+          "index": 11,
+          "original": "session_name",
+          "name": "session_name"
+        },
+        {
+          "index": 12,
+          "original": "session_code",
+          "name": "session_code"
+        },
+        {
+          "index": 13,
+          "original": "exam_date",
+          "name": "exam_date"
+        },
+        {
+          "index": 14,
+          "original": "expected_count",
+          "name": "expected_count"
+        },
+        {
+          "index": 15,
+          "original": "actual_count",
+          "name": "actual_count"
+        },
+        {
+          "index": 16,
+          "original": "service_package_id",
+          "name": "service_package_id"
+        },
+        {
+          "index": 17,
+          "original": "package_name",
+          "name": "package_name"
+        },
+        {
+          "index": 18,
+          "original": "package_price",
+          "name": "package_price"
+        },
+        {
+          "index": 19,
+          "original": "contact_name",
+          "name": "contact_name"
+        },
+        {
+          "index": 20,
+          "original": "contact_phone",
+          "name": "contact_phone"
+        },
+        {
+          "index": 21,
+          "original": "contact_email",
+          "name": "contact_email"
+        },
+        {
+          "index": 22,
+          "original": "payment_status",
+          "name": "payment_status"
+        },
+        {
+          "index": 23,
+          "original": "total_amount",
+          "name": "total_amount"
+        },
+        {
+          "index": 24,
+          "original": "paid_amount",
+          "name": "paid_amount"
+        },
+        {
+          "index": 25,
+          "original": "payment_notes",
+          "name": "payment_notes"
+        },
+        {
+          "index": 26,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 27,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 28,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 29,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 30,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 31,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 32,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 33,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 34,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/group_examinations.csv"
+    },
+    {
+      "sheet": "lis_accession_counters",
+      "table": "lis_accession_counters",
+      "rows": 2,
+      "cols": 3,
+      "columns": [
+        {
+          "index": 1,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 2,
+          "original": "date_key",
+          "name": "date_key"
+        },
+        {
+          "index": 3,
+          "original": "last_seq",
+          "name": "last_seq"
+        }
+      ],
+      "csv": "data/postgres_csv/lis_accession_counters.csv"
+    },
+    {
+      "sheet": "location_countries",
+      "table": "location_countries",
+      "rows": 3,
+      "cols": 10,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 3,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 4,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 5,
+          "original": "phone_code",
+          "name": "phone_code"
+        },
+        {
+          "index": 6,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 7,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 8,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 9,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 10,
+          "original": "name_km",
+          "name": "name_km"
+        }
+      ],
+      "csv": "data/postgres_csv/location_countries.csv"
+    },
+    {
+      "sheet": "location_provinces",
+      "table": "location_provinces",
+      "rows": 18,
+      "cols": 10,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "country_id",
+          "name": "country_id"
+        },
+        {
+          "index": 3,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 4,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 5,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 6,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 7,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 8,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 9,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 10,
+          "original": "name_km",
+          "name": "name_km"
+        }
+      ],
+      "csv": "data/postgres_csv/location_provinces.csv"
+    },
+    {
+      "sheet": "medical_records",
+      "table": "medical_records",
+      "rows": 8,
+      "cols": 39,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "visit_id",
+          "name": "visit_id"
+        },
+        {
+          "index": 4,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 5,
+          "original": "doctor_id",
+          "name": "doctor_id"
+        },
+        {
+          "index": 6,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 7,
+          "original": "chief_complaint",
+          "name": "chief_complaint"
+        },
+        {
+          "index": 8,
+          "original": "present_illness",
+          "name": "present_illness"
+        },
+        {
+          "index": 9,
+          "original": "ai_draft_present_illness",
+          "name": "ai_draft_present_illness"
+        },
+        {
+          "index": 10,
+          "original": "examination_findings",
+          "name": "examination_findings"
+        },
+        {
+          "index": 11,
+          "original": "ai_draft_examination_findings",
+          "name": "ai_draft_examination_findings"
+        },
+        {
+          "index": 12,
+          "original": "ai_suggested_diagnosis",
+          "name": "ai_suggested_diagnosis"
+        },
+        {
+          "index": 13,
+          "original": "confirmed_diagnosis",
+          "name": "confirmed_diagnosis"
+        },
+        {
+          "index": 14,
+          "original": "diagnosis_confirmed_by",
+          "name": "diagnosis_confirmed_by"
+        },
+        {
+          "index": 15,
+          "original": "diagnosis_confirmed_at",
+          "name": "diagnosis_confirmed_at"
+        },
+        {
+          "index": 16,
+          "original": "diagnosis_icd_code",
+          "name": "diagnosis_icd_code"
+        },
+        {
+          "index": 17,
+          "original": "treatment_plan",
+          "name": "treatment_plan"
+        },
+        {
+          "index": 18,
+          "original": "ai_draft_treatment_plan",
+          "name": "ai_draft_treatment_plan"
+        },
+        {
+          "index": 19,
+          "original": "doctor_notes",
+          "name": "doctor_notes"
+        },
+        {
+          "index": 20,
+          "original": "ai_draft_notes",
+          "name": "ai_draft_notes"
+        },
+        {
+          "index": 21,
+          "original": "follow_up_required",
+          "name": "follow_up_required"
+        },
+        {
+          "index": 22,
+          "original": "follow_up_date",
+          "name": "follow_up_date"
+        },
+        {
+          "index": 23,
+          "original": "follow_up_notes",
+          "name": "follow_up_notes"
+        },
+        {
+          "index": 24,
+          "original": "finalized_at",
+          "name": "finalized_at"
+        },
+        {
+          "index": 25,
+          "original": "finalized_by",
+          "name": "finalized_by"
+        },
+        {
+          "index": 26,
+          "original": "amendment_count",
+          "name": "amendment_count"
+        },
+        {
+          "index": 27,
+          "original": "last_amended_at",
+          "name": "last_amended_at"
+        },
+        {
+          "index": 28,
+          "original": "amendment_reason",
+          "name": "amendment_reason"
+        },
+        {
+          "index": 29,
+          "original": "schema_version",
+          "name": "schema_version"
+        },
+        {
+          "index": 30,
+          "original": "record_version",
+          "name": "record_version"
+        },
+        {
+          "index": 31,
+          "original": "data_classification",
+          "name": "data_classification"
+        },
+        {
+          "index": 32,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 33,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 34,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 35,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 36,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 37,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 38,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 39,
+          "original": "deletion_reason",
+          "name": "deletion_reason"
+        }
+      ],
+      "csv": "data/postgres_csv/medical_records.csv"
+    },
+    {
+      "sheet": "organization_memberships",
+      "table": "organization_memberships",
+      "rows": 18,
+      "cols": 10,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "organization_id",
+          "name": "organization_id"
+        },
+        {
+          "index": 3,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 4,
+          "original": "role",
+          "name": "role"
+        },
+        {
+          "index": 5,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 6,
+          "original": "invited_at",
+          "name": "invited_at"
+        },
+        {
+          "index": 7,
+          "original": "joined_at",
+          "name": "joined_at"
+        },
+        {
+          "index": 8,
+          "original": "invited_by",
+          "name": "invited_by"
+        },
+        {
+          "index": 9,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 10,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/organization_memberships.csv"
+    },
+    {
+      "sheet": "organizations",
+      "table": "organizations",
+      "rows": 6,
+      "cols": 33,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 3,
+          "original": "name_short",
+          "name": "name_short"
+        },
+        {
+          "index": 4,
+          "original": "legal_name",
+          "name": "legal_name"
+        },
+        {
+          "index": 5,
+          "original": "tax_id",
+          "name": "tax_id"
+        },
+        {
+          "index": 6,
+          "original": "business_license",
+          "name": "business_license"
+        },
+        {
+          "index": 7,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 8,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 9,
+          "original": "website",
+          "name": "website"
+        },
+        {
+          "index": 10,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 11,
+          "original": "city",
+          "name": "city"
+        },
+        {
+          "index": 12,
+          "original": "country",
+          "name": "country"
+        },
+        {
+          "index": 13,
+          "original": "timezone",
+          "name": "timezone"
+        },
+        {
+          "index": 14,
+          "original": "locale",
+          "name": "locale"
+        },
+        {
+          "index": 15,
+          "original": "currency",
+          "name": "currency"
+        },
+        {
+          "index": 16,
+          "original": "share_patient_index",
+          "name": "share_patient_index"
+        },
+        {
+          "index": 17,
+          "original": "centralized_billing",
+          "name": "centralized_billing"
+        },
+        {
+          "index": 18,
+          "original": "max_clinics",
+          "name": "max_clinics"
+        },
+        {
+          "index": 19,
+          "original": "enabled_modules",
+          "name": "enabled_modules"
+        },
+        {
+          "index": 20,
+          "original": "settings",
+          "name": "settings"
+        },
+        {
+          "index": 21,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 22,
+          "original": "onboarded_at",
+          "name": "onboarded_at"
+        },
+        {
+          "index": 23,
+          "original": "suspended_at",
+          "name": "suspended_at"
+        },
+        {
+          "index": 24,
+          "original": "suspended_reason",
+          "name": "suspended_reason"
+        },
+        {
+          "index": 25,
+          "original": "subscription_plan",
+          "name": "subscription_plan"
+        },
+        {
+          "index": 26,
+          "original": "subscription_expires_at",
+          "name": "subscription_expires_at"
+        },
+        {
+          "index": 27,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 28,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 29,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 30,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 31,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 32,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 33,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        }
+      ],
+      "csv": "data/postgres_csv/organizations.csv"
+    },
+    {
+      "sheet": "paraclinical_orders",
+      "table": "paraclinical_orders",
+      "rows": 9,
+      "cols": 41,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "visit_id",
+          "name": "visit_id"
+        },
+        {
+          "index": 4,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 5,
+          "original": "order_type",
+          "name": "order_type"
+        },
+        {
+          "index": 6,
+          "original": "service_id",
+          "name": "service_id"
+        },
+        {
+          "index": 7,
+          "original": "service_code",
+          "name": "service_code"
+        },
+        {
+          "index": 8,
+          "original": "service_name",
+          "name": "service_name"
+        },
+        {
+          "index": 9,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 10,
+          "original": "priority",
+          "name": "priority"
+        },
+        {
+          "index": 11,
+          "original": "ordered_by",
+          "name": "ordered_by"
+        },
+        {
+          "index": 12,
+          "original": "ordered_at",
+          "name": "ordered_at"
+        },
+        {
+          "index": 13,
+          "original": "collected_by",
+          "name": "collected_by"
+        },
+        {
+          "index": 14,
+          "original": "collected_at",
+          "name": "collected_at"
+        },
+        {
+          "index": 15,
+          "original": "processed_by",
+          "name": "processed_by"
+        },
+        {
+          "index": 16,
+          "original": "processed_at",
+          "name": "processed_at"
+        },
+        {
+          "index": 17,
+          "original": "completed_by",
+          "name": "completed_by"
+        },
+        {
+          "index": 18,
+          "original": "completed_at",
+          "name": "completed_at"
+        },
+        {
+          "index": 19,
+          "original": "cancelled_by",
+          "name": "cancelled_by"
+        },
+        {
+          "index": 20,
+          "original": "cancelled_at",
+          "name": "cancelled_at"
+        },
+        {
+          "index": 21,
+          "original": "cancellation_reason",
+          "name": "cancellation_reason"
+        },
+        {
+          "index": 22,
+          "original": "result_summary",
+          "name": "result_summary"
+        },
+        {
+          "index": 23,
+          "original": "result_file_url",
+          "name": "result_file_url"
+        },
+        {
+          "index": 24,
+          "original": "result_data",
+          "name": "result_data"
+        },
+        {
+          "index": 25,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 26,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 27,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 28,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 29,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 30,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 31,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 32,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 33,
+          "original": "ris_accession",
+          "name": "ris_accession"
+        },
+        {
+          "index": 34,
+          "original": "ris_placer_line_id",
+          "name": "ris_placer_line_id"
+        },
+        {
+          "index": 35,
+          "original": "walk_in_id",
+          "name": "walk_in_id"
+        },
+        {
+          "index": 36,
+          "original": "lis_sent_at",
+          "name": "lis_sent_at"
+        },
+        {
+          "index": 37,
+          "original": "lis_received_at",
+          "name": "lis_received_at"
+        },
+        {
+          "index": 38,
+          "original": "lis_machine_code",
+          "name": "lis_machine_code"
+        },
+        {
+          "index": 39,
+          "original": "lis_technician_code",
+          "name": "lis_technician_code"
+        },
+        {
+          "index": 40,
+          "original": "lis_approved_by",
+          "name": "lis_approved_by"
+        },
+        {
+          "index": 41,
+          "original": "lis_status",
+          "name": "lis_status"
+        }
+      ],
+      "csv": "data/postgres_csv/paraclinical_orders.csv"
+    },
+    {
+      "sheet": "partner_audit_logs",
+      "table": "partner_audit_logs",
+      "rows": 11,
+      "cols": 11,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "partner_id",
+          "name": "partner_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 5,
+          "original": "action",
+          "name": "action"
+        },
+        {
+          "index": 6,
+          "original": "entity_type",
+          "name": "entity_type"
+        },
+        {
+          "index": 7,
+          "original": "entity_id",
+          "name": "entity_id"
+        },
+        {
+          "index": 8,
+          "original": "ip_address_hash",
+          "name": "ip_address_hash"
+        },
+        {
+          "index": 9,
+          "original": "user_agent",
+          "name": "user_agent"
+        },
+        {
+          "index": 10,
+          "original": "metadata",
+          "name": "metadata"
+        },
+        {
+          "index": 11,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/partner_audit_logs.csv"
+    },
+    {
+      "sheet": "partner_clinics",
+      "table": "partner_clinics",
+      "rows": 2,
+      "cols": 21,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 4,
+          "original": "name_short",
+          "name": "name_short"
+        },
+        {
+          "index": 5,
+          "original": "partner_type",
+          "name": "partner_type"
+        },
+        {
+          "index": 6,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 7,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 8,
+          "original": "contact_person",
+          "name": "contact_person"
+        },
+        {
+          "index": 9,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 10,
+          "original": "city",
+          "name": "city"
+        },
+        {
+          "index": 11,
+          "original": "district",
+          "name": "district"
+        },
+        {
+          "index": 12,
+          "original": "contract_code",
+          "name": "contract_code"
+        },
+        {
+          "index": 13,
+          "original": "partnership_type",
+          "name": "partnership_type"
+        },
+        {
+          "index": 14,
+          "original": "commission_rate",
+          "name": "commission_rate"
+        },
+        {
+          "index": 15,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 16,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 17,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 18,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 19,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 20,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 21,
+          "original": "organization_id",
+          "name": "organization_id"
+        }
+      ],
+      "csv": "data/postgres_csv/partner_clinics.csv"
+    },
+    {
+      "sheet": "partner_lab_requests",
+      "table": "partner_lab_requests",
+      "rows": 9,
+      "cols": 33,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "partner_id",
+          "name": "partner_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "organization_id",
+          "name": "organization_id"
+        },
+        {
+          "index": 5,
+          "original": "accession_number",
+          "name": "accession_number"
+        },
+        {
+          "index": 6,
+          "original": "barcode",
+          "name": "barcode"
+        },
+        {
+          "index": 7,
+          "original": "patient_name",
+          "name": "patient_name"
+        },
+        {
+          "index": 8,
+          "original": "patient_phone",
+          "name": "patient_phone"
+        },
+        {
+          "index": 9,
+          "original": "patient_dob",
+          "name": "patient_dob"
+        },
+        {
+          "index": 10,
+          "original": "patient_gender",
+          "name": "patient_gender"
+        },
+        {
+          "index": 11,
+          "original": "patient_id_number",
+          "name": "patient_id_number"
+        },
+        {
+          "index": 12,
+          "original": "patient_address",
+          "name": "patient_address"
+        },
+        {
+          "index": 13,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 14,
+          "original": "priority",
+          "name": "priority"
+        },
+        {
+          "index": 15,
+          "original": "sample_type",
+          "name": "sample_type"
+        },
+        {
+          "index": 16,
+          "original": "collection_method",
+          "name": "collection_method"
+        },
+        {
+          "index": 17,
+          "original": "clinical_notes",
+          "name": "clinical_notes"
+        },
+        {
+          "index": 18,
+          "original": "requested_at",
+          "name": "requested_at"
+        },
+        {
+          "index": 19,
+          "original": "confirmed_at",
+          "name": "confirmed_at"
+        },
+        {
+          "index": 20,
+          "original": "sample_collected_at",
+          "name": "sample_collected_at"
+        },
+        {
+          "index": 21,
+          "original": "processing_started_at",
+          "name": "processing_started_at"
+        },
+        {
+          "index": 22,
+          "original": "completed_at",
+          "name": "completed_at"
+        },
+        {
+          "index": 23,
+          "original": "verified_at",
+          "name": "verified_at"
+        },
+        {
+          "index": 24,
+          "original": "delivered_at",
+          "name": "delivered_at"
+        },
+        {
+          "index": 25,
+          "original": "cancelled_at",
+          "name": "cancelled_at"
+        },
+        {
+          "index": 26,
+          "original": "cancellation_reason",
+          "name": "cancellation_reason"
+        },
+        {
+          "index": 27,
+          "original": "estimated_completion_at",
+          "name": "estimated_completion_at"
+        },
+        {
+          "index": 28,
+          "original": "total_amount",
+          "name": "total_amount"
+        },
+        {
+          "index": 29,
+          "original": "currency_code",
+          "name": "currency_code"
+        },
+        {
+          "index": 30,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 31,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 32,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 33,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/partner_lab_requests.csv"
+    },
+    {
+      "sheet": "partner_onsite_collections",
+      "table": "partner_onsite_collections",
+      "rows": 3,
+      "cols": 27,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "request_id",
+          "name": "request_id"
+        },
+        {
+          "index": 3,
+          "original": "partner_id",
+          "name": "partner_id"
+        },
+        {
+          "index": 4,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 5,
+          "original": "collection_address",
+          "name": "collection_address"
+        },
+        {
+          "index": 6,
+          "original": "collection_city",
+          "name": "collection_city"
+        },
+        {
+          "index": 7,
+          "original": "collection_district",
+          "name": "collection_district"
+        },
+        {
+          "index": 8,
+          "original": "location_notes",
+          "name": "location_notes"
+        },
+        {
+          "index": 9,
+          "original": "contact_person",
+          "name": "contact_person"
+        },
+        {
+          "index": 10,
+          "original": "contact_phone",
+          "name": "contact_phone"
+        },
+        {
+          "index": 11,
+          "original": "preferred_date",
+          "name": "preferred_date"
+        },
+        {
+          "index": 12,
+          "original": "preferred_time_start",
+          "name": "preferred_time_start"
+        },
+        {
+          "index": 13,
+          "original": "preferred_time_end",
+          "name": "preferred_time_end"
+        },
+        {
+          "index": 14,
+          "original": "scheduled_at",
+          "name": "scheduled_at"
+        },
+        {
+          "index": 15,
+          "original": "assigned_collector_id",
+          "name": "assigned_collector_id"
+        },
+        {
+          "index": 16,
+          "original": "assigned_at",
+          "name": "assigned_at"
+        },
+        {
+          "index": 17,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 18,
+          "original": "departed_at",
+          "name": "departed_at"
+        },
+        {
+          "index": 19,
+          "original": "arrived_at",
+          "name": "arrived_at"
+        },
+        {
+          "index": 20,
+          "original": "collected_at",
+          "name": "collected_at"
+        },
+        {
+          "index": 21,
+          "original": "returned_to_lab_at",
+          "name": "returned_to_lab_at"
+        },
+        {
+          "index": 22,
+          "original": "collection_notes",
+          "name": "collection_notes"
+        },
+        {
+          "index": 23,
+          "original": "cancellation_reason",
+          "name": "cancellation_reason"
+        },
+        {
+          "index": 24,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 25,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 26,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 27,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/partner_onsite_collections.csv"
+    },
+    {
+      "sheet": "partner_users",
+      "table": "partner_users",
+      "rows": 2,
+      "cols": 15,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "partner_id",
+          "name": "partner_id"
+        },
+        {
+          "index": 3,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 4,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 5,
+          "original": "organization_id",
+          "name": "organization_id"
+        },
+        {
+          "index": 6,
+          "original": "role",
+          "name": "role"
+        },
+        {
+          "index": 7,
+          "original": "full_name",
+          "name": "full_name"
+        },
+        {
+          "index": 8,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 9,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 10,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 11,
+          "original": "last_login_at",
+          "name": "last_login_at"
+        },
+        {
+          "index": 12,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 13,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 14,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 15,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/partner_users.csv"
+    },
+    {
+      "sheet": "patient_question_templates",
+      "table": "patient_question_templates",
+      "rows": 12,
+      "cols": 7,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "category",
+          "name": "category"
+        },
+        {
+          "index": 3,
+          "original": "question_text",
+          "name": "question_text"
+        },
+        {
+          "index": 4,
+          "original": "question_text_vi",
+          "name": "question_text_vi"
+        },
+        {
+          "index": 5,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 6,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 7,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/patient_question_templates.csv"
+    },
+    {
+      "sheet": "patients",
+      "table": "patients",
+      "rows": 11,
+      "cols": 35,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "patient_code",
+          "name": "patient_code"
+        },
+        {
+          "index": 4,
+          "original": "full_name",
+          "name": "full_name"
+        },
+        {
+          "index": 5,
+          "original": "date_of_birth",
+          "name": "date_of_birth"
+        },
+        {
+          "index": 6,
+          "original": "gender",
+          "name": "gender"
+        },
+        {
+          "index": 7,
+          "original": "id_number",
+          "name": "id_number"
+        },
+        {
+          "index": 8,
+          "original": "id_type",
+          "name": "id_type"
+        },
+        {
+          "index": 9,
+          "original": "phone_primary",
+          "name": "phone_primary"
+        },
+        {
+          "index": 10,
+          "original": "phone_secondary",
+          "name": "phone_secondary"
+        },
+        {
+          "index": 11,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 12,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 13,
+          "original": "district",
+          "name": "district"
+        },
+        {
+          "index": 14,
+          "original": "city",
+          "name": "city"
+        },
+        {
+          "index": 15,
+          "original": "emergency_contact_name",
+          "name": "emergency_contact_name"
+        },
+        {
+          "index": 16,
+          "original": "emergency_contact_phone",
+          "name": "emergency_contact_phone"
+        },
+        {
+          "index": 17,
+          "original": "emergency_contact_relationship",
+          "name": "emergency_contact_relationship"
+        },
+        {
+          "index": 18,
+          "original": "blood_type",
+          "name": "blood_type"
+        },
+        {
+          "index": 19,
+          "original": "allergies_notes",
+          "name": "allergies_notes"
+        },
+        {
+          "index": 20,
+          "original": "chronic_conditions_notes",
+          "name": "chronic_conditions_notes"
+        },
+        {
+          "index": 21,
+          "original": "insurance_number",
+          "name": "insurance_number"
+        },
+        {
+          "index": 22,
+          "original": "insurance_provider",
+          "name": "insurance_provider"
+        },
+        {
+          "index": 23,
+          "original": "insurance_expiry",
+          "name": "insurance_expiry"
+        },
+        {
+          "index": 24,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 25,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 26,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 27,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 28,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 29,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 30,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 31,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 32,
+          "original": "deletion_reason",
+          "name": "deletion_reason"
+        },
+        {
+          "index": 33,
+          "original": "patient_category",
+          "name": "patient_category"
+        },
+        {
+          "index": 34,
+          "original": "telegram_chat_id",
+          "name": "telegram_chat_id"
+        },
+        {
+          "index": 35,
+          "original": "telegram_username",
+          "name": "telegram_username"
+        }
+      ],
+      "csv": "data/postgres_csv/patients.csv"
+    },
+    {
+      "sheet": "platform_admins",
+      "table": "platform_admins",
+      "rows": 8,
+      "cols": 8,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 3,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 4,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 5,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 6,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 7,
+          "original": "deactivated_at",
+          "name": "deactivated_at"
+        },
+        {
+          "index": 8,
+          "original": "deactivated_reason",
+          "name": "deactivated_reason"
+        }
+      ],
+      "csv": "data/postgres_csv/platform_admins.csv"
+    },
+    {
+      "sheet": "platform_pricing_config",
+      "table": "platform_pricing_config",
+      "rows": 5,
+      "cols": 11,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "tier_name",
+          "name": "tier_name"
+        },
+        {
+          "index": 3,
+          "original": "min_appointments",
+          "name": "min_appointments"
+        },
+        {
+          "index": 4,
+          "original": "max_appointments",
+          "name": "max_appointments"
+        },
+        {
+          "index": 5,
+          "original": "unit_price_vnd",
+          "name": "unit_price_vnd"
+        },
+        {
+          "index": 6,
+          "original": "effective_from",
+          "name": "effective_from"
+        },
+        {
+          "index": 7,
+          "original": "effective_to",
+          "name": "effective_to"
+        },
+        {
+          "index": 8,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 9,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/platform_pricing_config.csv"
+    },
+    {
+      "sheet": "profiles",
+      "table": "profiles",
+      "rows": 26,
+      "cols": 25,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "full_name",
+          "name": "full_name"
+        },
+        {
+          "index": 3,
+          "original": "display_name",
+          "name": "display_name"
+        },
+        {
+          "index": 4,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 5,
+          "original": "avatar_url",
+          "name": "avatar_url"
+        },
+        {
+          "index": 6,
+          "original": "license_number",
+          "name": "license_number"
+        },
+        {
+          "index": 7,
+          "original": "specialty",
+          "name": "specialty"
+        },
+        {
+          "index": 8,
+          "original": "title",
+          "name": "title"
+        },
+        {
+          "index": 9,
+          "original": "signature_url",
+          "name": "signature_url"
+        },
+        {
+          "index": 10,
+          "original": "preferred_language",
+          "name": "preferred_language"
+        },
+        {
+          "index": 11,
+          "original": "notification_settings",
+          "name": "notification_settings"
+        },
+        {
+          "index": 12,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 13,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 14,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 15,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 16,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 17,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 18,
+          "original": "academic_title",
+          "name": "academic_title"
+        },
+        {
+          "index": 19,
+          "original": "sub_specialty",
+          "name": "sub_specialty"
+        },
+        {
+          "index": 20,
+          "original": "years_of_experience",
+          "name": "years_of_experience"
+        },
+        {
+          "index": 21,
+          "original": "position",
+          "name": "position"
+        },
+        {
+          "index": 22,
+          "original": "workplaces",
+          "name": "workplaces"
+        },
+        {
+          "index": 23,
+          "original": "bio",
+          "name": "bio"
+        },
+        {
+          "index": 24,
+          "original": "license_document_url",
+          "name": "license_document_url"
+        },
+        {
+          "index": 25,
+          "original": "email",
+          "name": "email"
+        }
+      ],
+      "csv": "data/postgres_csv/profiles.csv"
+    },
+    {
+      "sheet": "ref_clinic_type_features",
+      "table": "ref_clinic_type_features",
+      "rows": 80,
+      "cols": 8,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_type",
+          "name": "clinic_type"
+        },
+        {
+          "index": 3,
+          "original": "feature_code",
+          "name": "feature_code"
+        },
+        {
+          "index": 4,
+          "original": "feature_name",
+          "name": "feature_name"
+        },
+        {
+          "index": 5,
+          "original": "feature_name_vi",
+          "name": "feature_name_vi"
+        },
+        {
+          "index": 6,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 7,
+          "original": "is_default_enabled",
+          "name": "is_default_enabled"
+        },
+        {
+          "index": 8,
+          "original": "display_order",
+          "name": "display_order"
+        }
+      ],
+      "csv": "data/postgres_csv/ref_clinic_type_features.csv"
+    },
+    {
+      "sheet": "ref_currencies",
+      "table": "ref_currencies",
+      "rows": 11,
+      "cols": 9,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 3,
+          "original": "name_vi",
+          "name": "name_vi"
+        },
+        {
+          "index": 4,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 5,
+          "original": "symbol",
+          "name": "symbol"
+        },
+        {
+          "index": 6,
+          "original": "decimal_places",
+          "name": "decimal_places"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 9,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/ref_currencies.csv"
+    },
+    {
+      "sheet": "ref_icd10_codes",
+      "table": "ref_icd10_codes",
+      "rows": 14009,
+      "cols": 9,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 3,
+          "original": "name_vi",
+          "name": "name_vi"
+        },
+        {
+          "index": 4,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 5,
+          "original": "category",
+          "name": "category"
+        },
+        {
+          "index": 6,
+          "original": "chapter",
+          "name": "chapter"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 9,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/ref_icd10_codes.csv"
+    },
+    {
+      "sheet": "rooms",
+      "table": "rooms",
+      "rows": 7,
+      "cols": 13,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "room_code",
+          "name": "room_code"
+        },
+        {
+          "index": 4,
+          "original": "room_name",
+          "name": "room_name"
+        },
+        {
+          "index": 5,
+          "original": "room_type",
+          "name": "room_type"
+        },
+        {
+          "index": 6,
+          "original": "floor",
+          "name": "floor"
+        },
+        {
+          "index": 7,
+          "original": "capacity",
+          "name": "capacity"
+        },
+        {
+          "index": 8,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 9,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 12,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 13,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/rooms.csv"
+    },
+    {
+      "sheet": "security_check_results",
+      "table": "security_check_results",
+      "rows": 11,
+      "cols": 8,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "category",
+          "name": "category"
+        },
+        {
+          "index": 3,
+          "original": "check_name",
+          "name": "check_name"
+        },
+        {
+          "index": 4,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 5,
+          "original": "severity",
+          "name": "severity"
+        },
+        {
+          "index": 6,
+          "original": "details",
+          "name": "details"
+        },
+        {
+          "index": 7,
+          "original": "detected_at",
+          "name": "detected_at"
+        },
+        {
+          "index": 8,
+          "original": "is_blocking",
+          "name": "is_blocking"
+        }
+      ],
+      "csv": "data/postgres_csv/security_check_results.csv"
+    },
+    {
+      "sheet": "sensitive_field_definitions",
+      "table": "sensitive_field_definitions",
+      "rows": 7,
+      "cols": 13,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "field_key",
+          "name": "field_key"
+        },
+        {
+          "index": 3,
+          "original": "field_label",
+          "name": "field_label"
+        },
+        {
+          "index": 4,
+          "original": "field_label_en",
+          "name": "field_label_en"
+        },
+        {
+          "index": 5,
+          "original": "table_name",
+          "name": "table_name"
+        },
+        {
+          "index": 6,
+          "original": "column_name",
+          "name": "column_name"
+        },
+        {
+          "index": 7,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 8,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 9,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 10,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 11,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 12,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 13,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/sensitive_field_definitions.csv"
+    },
+    {
+      "sheet": "service_catalog",
+      "table": "service_catalog",
+      "rows": 715,
+      "cols": 33,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 4,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 5,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 6,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 7,
+          "original": "category_id",
+          "name": "category_id"
+        },
+        {
+          "index": 8,
+          "original": "price_vnd",
+          "name": "price_vnd"
+        },
+        {
+          "index": 9,
+          "original": "min_price_vnd",
+          "name": "min_price_vnd"
+        },
+        {
+          "index": 10,
+          "original": "max_price_vnd",
+          "name": "max_price_vnd"
+        },
+        {
+          "index": 11,
+          "original": "is_taxable",
+          "name": "is_taxable"
+        },
+        {
+          "index": 12,
+          "original": "tax_rate_percent",
+          "name": "tax_rate_percent"
+        },
+        {
+          "index": 13,
+          "original": "duration_minutes",
+          "name": "duration_minutes"
+        },
+        {
+          "index": 14,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 15,
+          "original": "requires_doctor",
+          "name": "requires_doctor"
+        },
+        {
+          "index": 16,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 17,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 18,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 19,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 20,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 21,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 22,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 23,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 24,
+          "original": "name_km",
+          "name": "name_km"
+        },
+        {
+          "index": 25,
+          "original": "currency_code",
+          "name": "currency_code"
+        },
+        {
+          "index": 26,
+          "original": "result_turnaround_minutes",
+          "name": "result_turnaround_minutes"
+        },
+        {
+          "index": 27,
+          "original": "service_type",
+          "name": "service_type"
+        },
+        {
+          "index": 28,
+          "original": "price_amount",
+          "name": "price_amount"
+        },
+        {
+          "index": 29,
+          "original": "price_effective_from",
+          "name": "price_effective_from"
+        },
+        {
+          "index": 30,
+          "original": "display_converted_amount",
+          "name": "display_converted_amount"
+        },
+        {
+          "index": 31,
+          "original": "display_converted_currency_code",
+          "name": "display_converted_currency_code"
+        },
+        {
+          "index": 32,
+          "original": "display_fx_computed_at",
+          "name": "display_fx_computed_at"
+        },
+        {
+          "index": 33,
+          "original": "lab_subtype",
+          "name": "lab_subtype"
+        }
+      ],
+      "csv": "data/postgres_csv/service_catalog.csv"
+    },
+    {
+      "sheet": "service_categories",
+      "table": "service_categories",
+      "rows": 43,
+      "cols": 16,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 4,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 5,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 6,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 7,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 8,
+          "original": "parent_id",
+          "name": "parent_id"
+        },
+        {
+          "index": 9,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 10,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 11,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 12,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 13,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 14,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 15,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 16,
+          "original": "name_km",
+          "name": "name_km"
+        }
+      ],
+      "csv": "data/postgres_csv/service_categories.csv"
+    },
+    {
+      "sheet": "service_lab_indicators",
+      "table": "service_lab_indicators",
+      "rows": 200,
+      "cols": 22,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "service_id",
+          "name": "service_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 5,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 6,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 7,
+          "original": "name_km",
+          "name": "name_km"
+        },
+        {
+          "index": 8,
+          "original": "unit",
+          "name": "unit"
+        },
+        {
+          "index": 9,
+          "original": "reference_range_text",
+          "name": "reference_range_text"
+        },
+        {
+          "index": 10,
+          "original": "reference_range_low",
+          "name": "reference_range_low"
+        },
+        {
+          "index": 11,
+          "original": "reference_range_high",
+          "name": "reference_range_high"
+        },
+        {
+          "index": 12,
+          "original": "specimen_type",
+          "name": "specimen_type"
+        },
+        {
+          "index": 13,
+          "original": "method",
+          "name": "method"
+        },
+        {
+          "index": 14,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 15,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 16,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 17,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 18,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 19,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 20,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 21,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 22,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/service_lab_indicators.csv"
+    },
+    {
+      "sheet": "service_package_items",
+      "table": "service_package_items",
+      "rows": 181,
+      "cols": 7,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "package_id",
+          "name": "package_id"
+        },
+        {
+          "index": 4,
+          "original": "service_id",
+          "name": "service_id"
+        },
+        {
+          "index": 5,
+          "original": "quantity",
+          "name": "quantity"
+        },
+        {
+          "index": 6,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 7,
+          "original": "created_at",
+          "name": "created_at"
+        }
+      ],
+      "csv": "data/postgres_csv/service_package_items.csv"
+    },
+    {
+      "sheet": "service_packages",
+      "table": "service_packages",
+      "rows": 36,
+      "cols": 21,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "code",
+          "name": "code"
+        },
+        {
+          "index": 4,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 5,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 6,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 7,
+          "original": "package_price_vnd",
+          "name": "package_price_vnd"
+        },
+        {
+          "index": 8,
+          "original": "original_price_vnd",
+          "name": "original_price_vnd"
+        },
+        {
+          "index": 9,
+          "original": "discount_percent",
+          "name": "discount_percent"
+        },
+        {
+          "index": 10,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 11,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 12,
+          "original": "valid_days",
+          "name": "valid_days"
+        },
+        {
+          "index": 13,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 14,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 15,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 16,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 17,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 18,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 19,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        },
+        {
+          "index": 20,
+          "original": "name_km",
+          "name": "name_km"
+        },
+        {
+          "index": 21,
+          "original": "currency_code",
+          "name": "currency_code"
+        }
+      ],
+      "csv": "data/postgres_csv/service_packages.csv"
+    },
+    {
+      "sheet": "staff",
+      "table": "staff",
+      "rows": 37,
+      "cols": 35,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "full_name",
+          "name": "full_name"
+        },
+        {
+          "index": 4,
+          "original": "phone",
+          "name": "phone"
+        },
+        {
+          "index": 5,
+          "original": "email",
+          "name": "email"
+        },
+        {
+          "index": 6,
+          "original": "role",
+          "name": "role"
+        },
+        {
+          "index": 7,
+          "original": "employee_code",
+          "name": "employee_code"
+        },
+        {
+          "index": 8,
+          "original": "date_of_birth",
+          "name": "date_of_birth"
+        },
+        {
+          "index": 9,
+          "original": "gender",
+          "name": "gender"
+        },
+        {
+          "index": 10,
+          "original": "address",
+          "name": "address"
+        },
+        {
+          "index": 11,
+          "original": "id_card_number",
+          "name": "id_card_number"
+        },
+        {
+          "index": 12,
+          "original": "start_date",
+          "name": "start_date"
+        },
+        {
+          "index": 13,
+          "original": "end_date",
+          "name": "end_date"
+        },
+        {
+          "index": 14,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 15,
+          "original": "academic_title",
+          "name": "academic_title"
+        },
+        {
+          "index": 16,
+          "original": "specialty",
+          "name": "specialty"
+        },
+        {
+          "index": 17,
+          "original": "sub_specialty",
+          "name": "sub_specialty"
+        },
+        {
+          "index": 18,
+          "original": "years_of_experience",
+          "name": "years_of_experience"
+        },
+        {
+          "index": 19,
+          "original": "license_number",
+          "name": "license_number"
+        },
+        {
+          "index": 20,
+          "original": "license_document_url",
+          "name": "license_document_url"
+        },
+        {
+          "index": 21,
+          "original": "position",
+          "name": "position"
+        },
+        {
+          "index": 22,
+          "original": "workplaces",
+          "name": "workplaces"
+        },
+        {
+          "index": 23,
+          "original": "bio",
+          "name": "bio"
+        },
+        {
+          "index": 24,
+          "original": "avatar_url",
+          "name": "avatar_url"
+        },
+        {
+          "index": 25,
+          "original": "nursing_certificate",
+          "name": "nursing_certificate"
+        },
+        {
+          "index": 26,
+          "original": "nursing_level",
+          "name": "nursing_level"
+        },
+        {
+          "index": 27,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 28,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 29,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 30,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 31,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 32,
+          "original": "pharmacy_degree",
+          "name": "pharmacy_degree"
+        },
+        {
+          "index": 33,
+          "original": "pharmacy_certificate",
+          "name": "pharmacy_certificate"
+        },
+        {
+          "index": 34,
+          "original": "pharmacy_license_number",
+          "name": "pharmacy_license_number"
+        },
+        {
+          "index": 35,
+          "original": "pharmacy_specialization",
+          "name": "pharmacy_specialization"
+        }
+      ],
+      "csv": "data/postgres_csv/staff.csv"
+    },
+    {
+      "sheet": "subscription_plans",
+      "table": "subscription_plans",
+      "rows": 5,
+      "cols": 19,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "plan_code",
+          "name": "plan_code"
+        },
+        {
+          "index": 3,
+          "original": "name",
+          "name": "name"
+        },
+        {
+          "index": 4,
+          "original": "name_en",
+          "name": "name_en"
+        },
+        {
+          "index": 5,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 6,
+          "original": "price_monthly_vnd",
+          "name": "price_monthly_vnd"
+        },
+        {
+          "index": 7,
+          "original": "price_yearly_vnd",
+          "name": "price_yearly_vnd"
+        },
+        {
+          "index": 8,
+          "original": "max_staff",
+          "name": "max_staff"
+        },
+        {
+          "index": 9,
+          "original": "max_patients",
+          "name": "max_patients"
+        },
+        {
+          "index": 10,
+          "original": "max_appointments_per_month",
+          "name": "max_appointments_per_month"
+        },
+        {
+          "index": 11,
+          "original": "max_storage_gb",
+          "name": "max_storage_gb"
+        },
+        {
+          "index": 12,
+          "original": "ai_level",
+          "name": "ai_level"
+        },
+        {
+          "index": 13,
+          "original": "ai_calls_per_month",
+          "name": "ai_calls_per_month"
+        },
+        {
+          "index": 14,
+          "original": "features",
+          "name": "features"
+        },
+        {
+          "index": 15,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 16,
+          "original": "is_active",
+          "name": "is_active"
+        },
+        {
+          "index": 17,
+          "original": "is_public",
+          "name": "is_public"
+        },
+        {
+          "index": 18,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 19,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/subscription_plans.csv"
+    },
+    {
+      "sheet": "tasks",
+      "table": "tasks",
+      "rows": 7,
+      "cols": 18,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "board_id",
+          "name": "board_id"
+        },
+        {
+          "index": 4,
+          "original": "parent_task_id",
+          "name": "parent_task_id"
+        },
+        {
+          "index": 5,
+          "original": "title",
+          "name": "title"
+        },
+        {
+          "index": 6,
+          "original": "description",
+          "name": "description"
+        },
+        {
+          "index": 7,
+          "original": "status",
+          "name": "status"
+        },
+        {
+          "index": 8,
+          "original": "priority",
+          "name": "priority"
+        },
+        {
+          "index": 9,
+          "original": "assigned_to",
+          "name": "assigned_to"
+        },
+        {
+          "index": 10,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 11,
+          "original": "due_date",
+          "name": "due_date"
+        },
+        {
+          "index": 12,
+          "original": "due_time",
+          "name": "due_time"
+        },
+        {
+          "index": 13,
+          "original": "started_at",
+          "name": "started_at"
+        },
+        {
+          "index": 14,
+          "original": "completed_at",
+          "name": "completed_at"
+        },
+        {
+          "index": 15,
+          "original": "display_order",
+          "name": "display_order"
+        },
+        {
+          "index": 16,
+          "original": "cover_color",
+          "name": "cover_color"
+        },
+        {
+          "index": 17,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 18,
+          "original": "updated_at",
+          "name": "updated_at"
+        }
+      ],
+      "csv": "data/postgres_csv/tasks.csv"
+    },
+    {
+      "sheet": "translations",
+      "table": "translations",
+      "rows": 698,
+      "cols": 8,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "translation_key",
+          "name": "translation_key"
+        },
+        {
+          "index": 3,
+          "original": "language_code",
+          "name": "language_code"
+        },
+        {
+          "index": 4,
+          "original": "value",
+          "name": "value"
+        },
+        {
+          "index": 5,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 6,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 7,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 8,
+          "original": "updated_by",
+          "name": "updated_by"
+        }
+      ],
+      "csv": "data/postgres_csv/translations.csv"
+    },
+    {
+      "sheet": "user_roles",
+      "table": "user_roles",
+      "rows": 26,
+      "cols": 11,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "user_id",
+          "name": "user_id"
+        },
+        {
+          "index": 3,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 4,
+          "original": "role",
+          "name": "role"
+        },
+        {
+          "index": 5,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 6,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 7,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 8,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 9,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 10,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 11,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/user_roles.csv"
+    },
+    {
+      "sheet": "visits",
+      "table": "visits",
+      "rows": 5,
+      "cols": 17,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 4,
+          "original": "appointment_id",
+          "name": "appointment_id"
+        },
+        {
+          "index": 5,
+          "original": "doctor_id",
+          "name": "doctor_id"
+        },
+        {
+          "index": 6,
+          "original": "visit_number",
+          "name": "visit_number"
+        },
+        {
+          "index": 7,
+          "original": "visit_date",
+          "name": "visit_date"
+        },
+        {
+          "index": 8,
+          "original": "check_in_time",
+          "name": "check_in_time"
+        },
+        {
+          "index": 9,
+          "original": "check_out_time",
+          "name": "check_out_time"
+        },
+        {
+          "index": 10,
+          "original": "visit_type",
+          "name": "visit_type"
+        },
+        {
+          "index": 11,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 12,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 13,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 14,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 15,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 16,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 17,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/visits.csv"
+    },
+    {
+      "sheet": "vital_signs",
+      "table": "vital_signs",
+      "rows": 7,
+      "cols": 27,
+      "columns": [
+        {
+          "index": 1,
+          "original": "id",
+          "name": "id"
+        },
+        {
+          "index": 2,
+          "original": "clinic_id",
+          "name": "clinic_id"
+        },
+        {
+          "index": 3,
+          "original": "visit_id",
+          "name": "visit_id"
+        },
+        {
+          "index": 4,
+          "original": "patient_id",
+          "name": "patient_id"
+        },
+        {
+          "index": 5,
+          "original": "recorded_at",
+          "name": "recorded_at"
+        },
+        {
+          "index": 6,
+          "original": "recorded_by",
+          "name": "recorded_by"
+        },
+        {
+          "index": 7,
+          "original": "blood_pressure_systolic",
+          "name": "blood_pressure_systolic"
+        },
+        {
+          "index": 8,
+          "original": "blood_pressure_diastolic",
+          "name": "blood_pressure_diastolic"
+        },
+        {
+          "index": 9,
+          "original": "heart_rate",
+          "name": "heart_rate"
+        },
+        {
+          "index": 10,
+          "original": "respiratory_rate",
+          "name": "respiratory_rate"
+        },
+        {
+          "index": 11,
+          "original": "temperature_celsius",
+          "name": "temperature_celsius"
+        },
+        {
+          "index": 12,
+          "original": "oxygen_saturation",
+          "name": "oxygen_saturation"
+        },
+        {
+          "index": 13,
+          "original": "weight_kg",
+          "name": "weight_kg"
+        },
+        {
+          "index": 14,
+          "original": "height_cm",
+          "name": "height_cm"
+        },
+        {
+          "index": 15,
+          "original": "bmi",
+          "name": "bmi"
+        },
+        {
+          "index": 16,
+          "original": "notes",
+          "name": "notes"
+        },
+        {
+          "index": 17,
+          "original": "ai_anomaly_detected",
+          "name": "ai_anomaly_detected"
+        },
+        {
+          "index": 18,
+          "original": "ai_anomaly_notes",
+          "name": "ai_anomaly_notes"
+        },
+        {
+          "index": 19,
+          "original": "anomaly_reviewed_by",
+          "name": "anomaly_reviewed_by"
+        },
+        {
+          "index": 20,
+          "original": "anomaly_reviewed_at",
+          "name": "anomaly_reviewed_at"
+        },
+        {
+          "index": 21,
+          "original": "created_at",
+          "name": "created_at"
+        },
+        {
+          "index": 22,
+          "original": "updated_at",
+          "name": "updated_at"
+        },
+        {
+          "index": 23,
+          "original": "created_by",
+          "name": "created_by"
+        },
+        {
+          "index": 24,
+          "original": "updated_by",
+          "name": "updated_by"
+        },
+        {
+          "index": 25,
+          "original": "is_deleted",
+          "name": "is_deleted"
+        },
+        {
+          "index": 26,
+          "original": "deleted_at",
+          "name": "deleted_at"
+        },
+        {
+          "index": 27,
+          "original": "deleted_by",
+          "name": "deleted_by"
+        }
+      ],
+      "csv": "data/postgres_csv/vital_signs.csv"
+    }
+  ]
+}

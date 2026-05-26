@@ -1,0 +1,189 @@
+_excel_row_number,id,topic,title,title_vi,content,content_vi,is_active,created_at
+2,51f98a2a-116d-44d3-bfc0-2aff89ec228f,overview,System Overview,Tổng quan hệ thống,"## System Overview
+
+SmartClinic is a comprehensive clinic management platform with modules for:
+
+- **Appointments** – Schedule, confirm, and manage patient appointments
+- **Reception** – Check-in patients, manage queues
+- **Billing** – Process payments, invoices, insurance
+- **Diagnostics** – Lab tests, imaging, sample collection, result delivery
+- **Pharmacy** – Drug catalog, prescriptions, inventory
+- **Inpatient** – Bed management, admissions, discharge
+
+Each module is accessible based on your assigned role.","## Tổng quan hệ thống
+
+SmartClinic là nền tảng quản lý phòng khám toàn diện với các module:
+
+- **Đặt lịch** – Lên lịch, xác nhận và quản lý lịch hẹn bệnh nhân
+- **Tiếp nhận** – Check-in bệnh nhân, quản lý hàng đợi
+- **Thanh toán** – Xử lý thanh toán, hóa đơn, bảo hiểm
+- **Chẩn đoán** – Xét nghiệm, CĐHA, lấy mẫu, trả kết quả
+- **Dược** – Danh mục thuốc, đơn thuốc, tồn kho
+- **Nội trú** – Quản lý giường bệnh, nhập viện, xuất viện
+
+Mỗi module được truy cập dựa trên vai trò được phân công.",t,2026-02-06 16:18:24.474081+00
+3,2367c1a2-7336-4e92-9702-3a96dc177fe1,booking,Appointment Management,Quản lý đặt lịch,"## Appointment Management
+
+### Creating Appointments
+1. Go to **Appointments** from the sidebar
+2. Click **New Appointment**
+3. Select patient, doctor, date/time, and service
+4. Confirm booking
+
+### Booking Requests
+- External booking requests appear in **Booking Requests** tab
+- Partner Portal requests can be converted to walk-in or field collection
+- Use filters to sort by status, source, or priority
+
+### Tips
+- Use the search bar to quickly find patients
+- Color-coded statuses help track appointment progress
+- Export data to Excel for reporting","## Quản lý đặt lịch
+
+### Tạo lịch hẹn
+1. Vào **Lịch hẹn** từ thanh bên
+2. Nhấn **Lịch hẹn mới**
+3. Chọn bệnh nhân, bác sĩ, ngày/giờ và dịch vụ
+4. Xác nhận đặt lịch
+
+### Yêu cầu đặt lịch
+- Yêu cầu đặt lịch từ bên ngoài hiển thị trong tab **Yêu cầu đặt lịch**
+- Yêu cầu từ Partner Portal có thể chuyển thành Walk-in hoặc Lấy mẫu ngoại viện
+- Sử dụng bộ lọc để sắp xếp theo trạng thái, nguồn hoặc ưu tiên
+
+### Mẹo
+- Dùng thanh tìm kiếm để nhanh chóng tìm bệnh nhân
+- Trạng thái có màu sắc giúp theo dõi tiến trình
+- Xuất dữ liệu ra Excel để báo cáo",t,2026-02-06 16:18:24.474081+00
+4,0230c4e9-deb3-4f57-96bc-854b865a1700,diagnostic,Diagnostic Center,Trung tâm Chẩn đoán,"## Diagnostic Center
+
+### Workflow
+1. **Reception** – Register walk-in patients, select tests
+2. **Consultation** – Doctor reviews and approves orders
+3. **Billing** – Process payment for ordered tests
+4. **Sample Collection** – Collect specimens (at center or partner site)
+5. **Lab & Imaging** – Perform tests, upload results
+6. **Result Delivery** – Deliver results via Print, Email, QR, SMS, etc.
+
+### Sample Collection Types
+- **At Center** (Tại TT) – Patient comes to clinic
+- **Partner** (Đối tác) – Staff goes to partner location
+
+### Result Delivery Methods
+Print | Email | SMS | QR/PDF | Telegram | Viber | Pickup","## Trung tâm Chẩn đoán
+
+### Quy trình
+1. **Tiếp nhận** – Đăng ký bệnh nhân vãng lai, chọn xét nghiệm
+2. **Tư vấn** – Bác sĩ xem xét và phê duyệt chỉ định
+3. **Thanh toán** – Xử lý thanh toán cho xét nghiệm
+4. **Lấy mẫu** – Thu thập mẫu (tại trung tâm hoặc đối tác)
+5. **XN & CĐHA** – Thực hiện xét nghiệm, tải kết quả
+6. **Trả kết quả** – Trả kết quả qua In, Email, QR, SMS, v.v.
+
+### Loại lấy mẫu
+- **Tại TT** – Bệnh nhân đến phòng khám
+- **Đối tác** – Nhân viên đến địa điểm đối tác
+
+### Phương thức trả kết quả
+In | Email | SMS | QR/PDF | Telegram | Viber | Nhận tại quầy",t,2026-02-06 16:18:24.474081+00
+5,c6b77d94-c8b6-4a8e-ab93-5fcdd448684c,reception,Reception & Check-in,Tiếp nhận & Check-in,"## Reception & Check-in
+
+### Patient Check-in
+1. Navigate to **Reception**
+2. Search for the patient or scan QR code
+3. Confirm appointment and update status to ""Arrived""
+4. Patient enters the queue automatically
+
+### Queue Management
+- View real-time queue status
+- Priority patients are highlighted
+- Transfer patients between doctors if needed
+
+### Walk-in Registration
+- Click **New Walk-in** for unscheduled patients
+- Fill in basic info (name, phone, DOB)
+- System auto-detects existing patients by phone number","## Tiếp nhận & Check-in
+
+### Check-in bệnh nhân
+1. Vào **Tiếp nhận**
+2. Tìm bệnh nhân hoặc quét mã QR
+3. Xác nhận lịch hẹn và cập nhật ""Đã đến""
+4. Bệnh nhân tự động vào hàng đợi
+
+### Quản lý hàng đợi
+- Xem trạng thái hàng đợi theo thời gian thực
+- Bệnh nhân ưu tiên được đánh dấu nổi bật
+- Chuyển bệnh nhân giữa các bác sĩ khi cần
+
+### Đăng ký vãng lai
+- Nhấn **Walk-in mới** cho bệnh nhân không đặt trước
+- Điền thông tin cơ bản (tên, SĐT, ngày sinh)
+- Hệ thống tự nhận diện bệnh nhân qua số điện thoại",t,2026-02-06 16:18:24.474081+00
+6,7a433018-5f09-4ed9-ae57-9ac317d59183,billing,Billing & Payments,Thanh toán & Hóa đơn,"## Billing & Payments
+
+### Processing Payments
+1. Open **Billing** dashboard
+2. Select the pending invoice
+3. Choose payment method (Cash, Card, Transfer)
+4. Confirm payment and print receipt
+
+### Multi-Currency Support
+- System supports VND, USD, KHR, and more
+- Exchange rates are configured by admin
+- Reports display totals grouped by currency
+
+### Export & Reports
+- Click **Export Excel** to download billing data
+- Filter by date, status, or payment method
+- Use the dashboard charts for quick insights","## Thanh toán & Hóa đơn
+
+### Xử lý thanh toán
+1. Mở bảng điều khiển **Thanh toán**
+2. Chọn hóa đơn chờ thanh toán
+3. Chọn phương thức (Tiền mặt, Thẻ, Chuyển khoản)
+4. Xác nhận thanh toán và in biên lai
+
+### Hỗ trợ đa tiền tệ
+- Hệ thống hỗ trợ VND, USD, KHR và nhiều loại khác
+- Tỷ giá được admin cấu hình
+- Báo cáo hiển thị tổng theo từng loại tiền
+
+### Xuất & Báo cáo
+- Nhấn **Xuất Excel** để tải dữ liệu thanh toán
+- Lọc theo ngày, trạng thái hoặc phương thức
+- Dùng biểu đồ dashboard để xem nhanh",t,2026-02-06 16:18:24.474081+00
+7,9378040b-08d9-493d-a9fe-a440bf46c7d6,roles,Roles & Permissions,Vai trò & Phân quyền,"## Roles & Permissions
+
+### Available Roles
+| Role | Access |
+|------|--------|
+| **Admin** | Full system access |
+| **Doctor** | Patient records, prescriptions, orders |
+| **Nurse** | Vitals, monitoring, patient care |
+| **Receptionist** | Appointments, check-in, queue |
+| **Lab Technician** | Lab workflow, results |
+| **Imaging Tech** | Imaging orders, uploads |
+| **Sample Collector** | Sample collection (in-house & field) |
+| **Pharmacist** | Drug catalog, dispensing |
+| **Accountant** | Billing, financial reports |
+
+### Managing Roles
+- Go to **Staff** → Select user → **Edit Role**
+- Permissions can be customized per clinic","## Vai trò & Phân quyền
+
+### Các vai trò
+| Vai trò | Quyền truy cập |
+|---------|----------------|
+| **Admin** | Toàn quyền hệ thống |
+| **Bác sĩ** | Hồ sơ bệnh nhân, đơn thuốc, chỉ định |
+| **Điều dưỡng** | Sinh hiệu, theo dõi, chăm sóc |
+| **Lễ tân** | Lịch hẹn, check-in, hàng đợi |
+| **KTV Xét nghiệm** | Quy trình lab, kết quả |
+| **KTV CĐHA** | Chỉ định CĐHA, tải kết quả |
+| **NV Lấy mẫu** | Lấy mẫu (tại TT & ngoại viện) |
+| **Dược sĩ** | Danh mục thuốc, cấp phát |
+| **Kế toán** | Thanh toán, báo cáo tài chính |
+
+### Quản lý vai trò
+- Vào **Nhân sự** → Chọn người dùng → **Sửa vai trò**
+- Phân quyền có thể tùy chỉnh theo phòng khám",t,2026-02-06 16:18:24.474081+00

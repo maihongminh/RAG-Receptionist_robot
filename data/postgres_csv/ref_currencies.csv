@@ -1,0 +1,11 @@
+_excel_row_number,id,code,name_vi,name_en,symbol,decimal_places,is_active,display_order,created_at
+2,4e3a7790-61af-41b5-8cee-6b9b9e681803,VND,Đồng Việt Nam,Vietnamese Dong,₫,0,t,1,2026-01-30 17:33:01.115253+00
+3,93687420-de92-4602-83d4-c532a32f386a,USD,Đô la Mỹ,US Dollar,$,2,t,2,2026-01-30 17:33:01.115253+00
+4,e4cd7f32-05c4-4105-90bb-ea29bb311337,KHR,Riel Campuchia,Cambodian Riel,៛,0,t,3,2026-01-30 17:33:01.115253+00
+5,f79c44a4-3b5c-456b-9abb-ac136b0cbd8d,THB,Baht Thái Lan,Thai Baht,฿,2,t,4,2026-01-30 17:33:01.115253+00
+6,43306b22-d73a-48ab-a9e3-3412bfed328f,EUR,Euro,Euro,€,2,t,5,2026-01-30 17:33:01.115253+00
+7,acf70544-521c-47d0-bd72-8414a5f6dff6,JPY,Yên Nhật,Japanese Yen,¥,0,t,6,2026-01-30 17:33:01.115253+00
+8,cbc9f758-8c0f-462d-aa89-cbb0c69f452a,CNY,Nhân dân tệ,Chinese Yuan,¥,2,t,7,2026-01-30 17:33:01.115253+00
+9,b98f73f1-0c17-4bdd-a997-09c8bf32964c,KRW,Won Hàn Quốc,Korean Won,₩,0,t,8,2026-01-30 17:33:01.115253+00
+10,e10d1ab6-be3e-4682-8257-31cf016a8077,SGD,Đô la Singapore,Singapore Dollar,S$,2,t,9,2026-01-30 17:33:01.115253+00
+11,a29ae354-dfb7-430f-923d-89cfe75444f8,MYR,Ringgit Malaysia,Malaysian Ringgit,RM,2,t,10,2026-01-30 17:33:01.115253+00

@@ -1,0 +1,25 @@
+_excel_row_number,id,clinic_type,ai_capability,is_allowed,created_at
+2,247df609-1c06-46e0-9438-2b9f30692e53,OPD,scheduling_assist,t,2026-02-06 03:03:58.13422+00
+3,6cbbdd2f-4e2e-4bf9-8f4b-499042825b96,OPD,symptom_triage,t,2026-02-06 03:03:58.13422+00
+4,b2650d33-e1f5-400d-a30f-40de04085745,OPD,patient_explain,t,2026-02-06 03:03:58.13422+00
+5,6110faf6-a327-4b2c-a0b1-056dd5ba291d,OPD,diagnosis_suggest,f,2026-02-06 03:03:58.13422+00
+6,c6572a3d-72cd-4a5a-a922-521ff6cb3505,OPD,treatment_suggest,f,2026-02-06 03:03:58.13422+00
+7,806e7908-6193-4ef2-ab12-db24b5ae61f5,OPD,vitals_summary,f,2026-02-06 03:03:58.13422+00
+8,e2996056-b36b-4eea-8ba4-a48252193920,OPD,care_coordination,f,2026-02-06 03:03:58.13422+00
+9,626a9f35-0832-4e0a-a0eb-df5d7e06cb44,OPD,result_explain,f,2026-02-06 03:03:58.13422+00
+10,d74966c1-6660-4a8d-bf24-507a8f25f090,OPD_IPD,scheduling_assist,t,2026-02-06 03:03:58.13422+00
+11,8baedbcc-8170-4ed3-83e9-55d919238051,OPD_IPD,symptom_triage,t,2026-02-06 03:03:58.13422+00
+12,5d73040e-9ab7-4229-8b56-ba2c1688aa30,OPD_IPD,patient_explain,t,2026-02-06 03:03:58.13422+00
+13,40fedb88-2f2e-46f4-8686-6f25fec78016,OPD_IPD,vitals_summary,t,2026-02-06 03:03:58.13422+00
+14,d894ae2c-e5ce-48ed-9e2c-69a527294101,OPD_IPD,care_coordination,t,2026-02-06 03:03:58.13422+00
+15,c18fe16b-3d60-4005-af20-a7b0d2482933,OPD_IPD,diagnosis_suggest,f,2026-02-06 03:03:58.13422+00
+16,649bccaf-ce97-4ce0-b257-fffab39bfa52,OPD_IPD,treatment_suggest,f,2026-02-06 03:03:58.13422+00
+17,fb213abe-3656-4023-b772-4ba55bc6ff1d,OPD_IPD,result_explain,f,2026-02-06 03:03:58.13422+00
+18,4d6a2b95-4a5a-4c27-bbfa-fd5d8dabdf97,DIAGNOSTIC,scheduling_assist,t,2026-02-06 03:03:58.13422+00
+19,f5c099a1-97cc-4d58-b04f-49ac74df2a77,DIAGNOSTIC,patient_explain,t,2026-02-06 03:03:58.13422+00
+20,380dfe67-865c-4e1f-ab29-1fc7729993f5,DIAGNOSTIC,result_explain,t,2026-02-06 03:03:58.13422+00
+21,4fb2a8f3-8a51-48b4-b68a-ac67ef1d5a6a,DIAGNOSTIC,symptom_triage,f,2026-02-06 03:03:58.13422+00
+22,c0e01c8b-6bd6-4c59-8c84-fda4c42f05be,DIAGNOSTIC,diagnosis_suggest,f,2026-02-06 03:03:58.13422+00
+23,48907a58-0b8b-4014-8ca8-c999873d0e54,DIAGNOSTIC,treatment_suggest,f,2026-02-06 03:03:58.13422+00
+24,48258757-5cb7-4452-bf74-1eb97d819e08,DIAGNOSTIC,vitals_summary,f,2026-02-06 03:03:58.13422+00
+25,e10d7e8f-d402-451c-9763-ece99906fefa,DIAGNOSTIC,care_coordination,f,2026-02-06 03:03:58.13422+00

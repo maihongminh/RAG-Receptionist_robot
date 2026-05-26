@@ -1,0 +1,80 @@
+_excel_row_number,id,clinic_type,feature_code,feature_name,feature_name_vi,description,is_default_enabled,display_order
+2,f1e64e06-228a-4a8d-8e19-7149d1345daa,OUTPATIENT_CLINIC,patient_registration,Patient Registration,Đăng ký bệnh nhân,,t,1
+3,165a0240-3998-40c7-91c0-c4cab7f8c8b9,OUTPATIENT_CLINIC,visit_management,Visit Management,Quản lý lượt khám,,t,2
+4,f6f8ed85-3424-4041-8ce4-e2aa203d3307,OUTPATIENT_CLINIC,doctor_schedule,Doctor Schedule,Lịch làm việc bác sĩ,,t,3
+5,9ec4a86e-427f-44c2-a5cc-31d2ec2e525c,OUTPATIENT_CLINIC,prescription,Prescription,Kê đơn thuốc,,t,4
+6,b4429edb-b76f-47b3-b5fc-9ef13223966b,OUTPATIENT_CLINIC,outpatient_billing,Outpatient Billing,Thanh toán ngoại trú,,t,5
+7,9a9c57e2-646d-44dc-a450-799b33c88f47,OUTPATIENT_CLINIC,appointment_booking,Appointment Booking,Đặt lịch hẹn,,t,6
+8,425b2717-4f2d-46b2-a6f5-1f78a4ec3ab4,OUTPATIENT_CLINIC,medical_records,Medical Records,Hồ sơ bệnh án,,t,7
+9,06201a68-cc67-49a4-a82f-ad71dd13af76,OUTPATIENT_CLINIC,ai_assistant,AI Assistant,Trợ lý AI,,t,8
+10,4212977c-f18b-44a6-a16a-973cf61937f7,GENERAL_CLINIC_WITH_INPATIENT,patient_registration,Patient Registration,Đăng ký bệnh nhân,,t,1
+11,efd0c986-aca3-429c-bced-0c1ad128db25,GENERAL_CLINIC_WITH_INPATIENT,visit_management,Visit Management,Quản lý lượt khám,,t,2
+12,d68652bb-1759-4f88-848d-e738c20b4e97,GENERAL_CLINIC_WITH_INPATIENT,doctor_schedule,Doctor Schedule,Lịch làm việc bác sĩ,,t,3
+13,99114438-34f5-4b1f-8b76-cdfc79b9b475,GENERAL_CLINIC_WITH_INPATIENT,prescription,Prescription,Kê đơn thuốc,,t,4
+14,9e7d464b-7208-4521-9193-6d6bf9e5b7ee,GENERAL_CLINIC_WITH_INPATIENT,outpatient_billing,Outpatient Billing,Thanh toán ngoại trú,,t,5
+15,5e0f3a10-ea6b-4c08-a141-43a18d178a40,GENERAL_CLINIC_WITH_INPATIENT,appointment_booking,Appointment Booking,Đặt lịch hẹn,,t,6
+16,dcfcb65e-d8b5-4b0e-8649-7065c09b8f7d,GENERAL_CLINIC_WITH_INPATIENT,medical_records,Medical Records,Hồ sơ bệnh án,,t,7
+17,606b01d8-45f5-48ac-8403-e2eb5892bc04,GENERAL_CLINIC_WITH_INPATIENT,ai_assistant,AI Assistant,Trợ lý AI,,t,8
+18,b425d116-e263-493d-b6f9-d2e2554f50f5,GENERAL_CLINIC_WITH_INPATIENT,admission_management,Admission Management,Quản lý nhập viện,,t,10
+19,73a098a8-1efe-4f27-a304-ea4bcf77b3e7,GENERAL_CLINIC_WITH_INPATIENT,bed_management,Bed/Room Management,Quản lý giường/phòng,,t,11
+20,7fb056d2-a8de-4b8e-b1b2-c30c15706c25,GENERAL_CLINIC_WITH_INPATIENT,inpatient_orders,Inpatient Orders,Y lệnh nội trú,,t,12
+21,38d567bc-a656-43a0-9bbd-098daf7a724e,GENERAL_CLINIC_WITH_INPATIENT,nursing_notes,Nursing Notes,Ghi chép điều dưỡng,,t,13
+22,c9f0b507-0d5a-4ead-b7a0-ffac8c904add,GENERAL_CLINIC_WITH_INPATIENT,inpatient_billing,Inpatient Billing,Thanh toán nội trú,,t,14
+23,857768ac-724e-4bc3-a8a8-2f60e58996d8,GENERAL_CLINIC_WITH_INPATIENT,ward_management,Ward Management,Quản lý khoa phòng,,t,15
+24,1d9dee66-5efe-4494-a397-dd23b4fb1792,DIAGNOSTIC_CENTER,patient_registration,Patient Registration,Đăng ký bệnh nhân,,t,1
+25,6a3a806e-6bee-405a-b238-9dcb5e13fd17,DIAGNOSTIC_CENTER,order_intake,Order Intake,Tiếp nhận chỉ định,,t,2
+26,7befe47f-2afe-4ab1-a705-e2f740ef6632,DIAGNOSTIC_CENTER,imaging_workflow,Imaging Workflow,Quy trình chẩn đoán hình ảnh,,t,3
+27,d6b82a7b-8806-445f-bcb4-ba927fa8246a,DIAGNOSTIC_CENTER,lab_workflow,Laboratory Workflow,Quy trình xét nghiệm,,t,4
+28,0c1d1246-80c0-41ad-8153-44cb878ec104,DIAGNOSTIC_CENTER,result_upload,Result Upload & Validation,Upload & xác nhận kết quả,,t,5
+29,ffbfd826-230d-445f-9d86-88973190cd6c,DIAGNOSTIC_CENTER,result_delivery,Result Delivery,Trả kết quả,,t,6
+30,5d999e36-1eef-4eb7-8251-bc48cb1368e4,DIAGNOSTIC_CENTER,external_orders,External Clinic Orders,Chỉ định từ cơ sở ngoài,,t,7
+31,d5c72473-6121-40e8-801e-cf3075ac6f8b,DIAGNOSTIC_CENTER,pacs_integration,PACS Integration,Tích hợp PACS,,f,8
+32,92aa2650-7d79-44f5-ab05-b0aa290d3717,DIAGNOSTIC_CENTER,lis_integration,LIS Integration,Tích hợp LIS,,f,9
+33,0201fb62-34e1-4f99-8d75-24dcb9979d2b,DIAGNOSTIC_CENTER,diagnostic_billing,Diagnostic Billing,Thanh toán chẩn đoán,,t,10
+34,ed84b0c0-7d10-4236-828e-8c5fa6e42692,COMPREHENSIVE_CLINIC,patient_registration,Patient Registration,Đăng ký bệnh nhân,,t,1
+35,928e96be-5b25-4365-8369-a07679e666e6,COMPREHENSIVE_CLINIC,visit_management,Visit Management,Quản lý lượt khám,,t,2
+36,d790a356-a075-46ba-8962-445b9bc5fc6b,COMPREHENSIVE_CLINIC,doctor_schedule,Doctor Schedule,Lịch làm việc bác sĩ,,t,3
+37,94260044-9ed4-40d0-960f-b28ca31a3013,COMPREHENSIVE_CLINIC,prescription,Prescription,Kê đơn thuốc,,t,4
+38,25ef6812-569d-41c8-9050-94380365c2e2,COMPREHENSIVE_CLINIC,outpatient_billing,Outpatient Billing,Thanh toán ngoại trú,,t,5
+39,acd01969-d83f-44a3-acc0-f3523e564506,COMPREHENSIVE_CLINIC,appointment_booking,Appointment Booking,Đặt lịch hẹn,,t,6
+40,aa3c6456-4b27-4b02-bb7b-0eb4b33b0632,COMPREHENSIVE_CLINIC,medical_records,Medical Records,Hồ sơ bệnh án,,t,7
+41,b5223053-07d9-41fb-bcae-13a6d108260e,COMPREHENSIVE_CLINIC,ai_assistant,AI Assistant,Trợ lý AI,,t,8
+42,0be87f88-b8aa-4ccd-bf9b-831ea7463d14,COMPREHENSIVE_CLINIC,admission_management,Admission Management,Quản lý nhập viện,,t,10
+43,6bf6633a-8260-4e48-b8d7-a5c8efa23cec,COMPREHENSIVE_CLINIC,bed_management,Bed Management,Quản lý giường/phòng,,t,11
+44,974b6be3-3eb9-4678-8041-4e7c18d3e6e6,COMPREHENSIVE_CLINIC,inpatient_orders,Inpatient Orders,Y lệnh nội trú,,t,12
+45,79008865-b497-4527-9892-c7d2eb45c0aa,COMPREHENSIVE_CLINIC,nursing_notes,Nursing Notes,Ghi chép điều dưỡng,,t,13
+46,8d00f38d-f3cc-4020-9b9e-c24b3ca6ffdc,COMPREHENSIVE_CLINIC,inpatient_billing,Inpatient Billing,Thanh toán nội trú,,t,14
+47,fd955aa2-bded-4de3-95a5-a3015165b0bf,COMPREHENSIVE_CLINIC,ward_management,Ward Management,Quản lý khoa phòng,,t,15
+48,07eba4f5-9249-4640-9109-c93fd81365fb,COMPREHENSIVE_CLINIC,order_intake,Order Intake,Tiếp nhận chỉ định,,t,20
+49,b94044ce-7687-4cd7-a3e2-48a7bd186736,COMPREHENSIVE_CLINIC,imaging_workflow,Imaging Workflow,Quy trình chẩn đoán hình ảnh,,t,21
+50,17f6d7d9-2f1c-43e9-91ed-88fd2bcaf411,COMPREHENSIVE_CLINIC,lab_workflow,Lab Workflow,Quy trình xét nghiệm,,t,22
+51,e9f90f21-66b2-4dba-a9f1-bd879b6061b2,COMPREHENSIVE_CLINIC,result_upload,Result Upload,Upload & xác nhận kết quả,,t,23
+52,c84708dc-ce55-41d2-b867-23224d17650a,COMPREHENSIVE_CLINIC,result_delivery,Result Delivery,Trả kết quả,,t,24
+53,0e8c6281-43c9-4285-a49f-a47d55799367,COMPREHENSIVE_CLINIC,external_orders,External Orders,Chỉ định từ cơ sở ngoài,,t,25
+54,5293303f-28a9-4e8d-8564-b63cd453b146,COMPREHENSIVE_CLINIC,pacs_integration,PACS Integration,Tích hợp PACS,,f,26
+55,4ce5a4a7-a7e0-4e30-b5f6-62393b286d4f,COMPREHENSIVE_CLINIC,lis_integration,LIS Integration,Tích hợp LIS,,f,27
+56,8619321e-f348-453d-82da-82f3bad2be95,COMPREHENSIVE_CLINIC,diagnostic_billing,Diagnostic Billing,Thanh toán chẩn đoán,,t,28
+57,cbffc1b6-1781-4bd1-b66b-3cd20b7cf853,DIAGNOSTIC_CENTER,ai_assistant,AI Assistant,Trợ lý AI,,t,12
+58,85167efc-c079-4aeb-9d3b-6274e5c951ed,STEM_CELL_CENTER,patient_registration,Patient Registration,Đăng ký bệnh nhân,,t,1
+59,273681f5-d572-411b-a6ac-e066ec8a3550,STEM_CELL_CENTER,visit_management,Visit Management,Quản lý lượt khám,,t,2
+60,9a3718e6-1e24-41a3-b39a-9c5202b2af5f,STEM_CELL_CENTER,doctor_schedule,Doctor Schedule,Lịch làm việc bác sĩ,,t,3
+61,1fce7b54-f6bc-4fbe-b07a-eba3b7d68ef8,STEM_CELL_CENTER,appointment_booking,Appointment Booking,Đặt lịch hẹn,,t,4
+62,f0a11e43-ef91-40f3-99d6-c65d3ae57419,STEM_CELL_CENTER,medical_records,Medical Records,Hồ sơ bệnh án,,t,5
+63,22a5e8e0-4095-4105-b26c-5709b8dfb2c5,STEM_CELL_CENTER,prescription,Prescription,Kê đơn thuốc,,t,6
+64,d4562b8a-5680-49fd-85d7-9056a6b3891f,STEM_CELL_CENTER,outpatient_billing,Outpatient Billing,Thanh toán ngoại trú,,t,7
+65,3d632199-83dd-4e1b-9a4b-7ef366caa907,STEM_CELL_CENTER,lab_workflow,Laboratory Workflow,Quy trình xét nghiệm,,t,8
+66,e74c4f14-5e99-44d8-9136-1ec6183ba14d,STEM_CELL_CENTER,imaging_workflow,Imaging Workflow,Quy trình chẩn đoán hình ảnh,,t,9
+67,ab05597f-6dcc-4125-b1ce-a2aa6175ef8d,STEM_CELL_CENTER,result_upload,Result Upload & Validation,Upload & xác nhận kết quả,,t,10
+68,18b8229a-ceb7-4a4c-ac8e-0ed070e47dd0,STEM_CELL_CENTER,result_delivery,Result Delivery,Trả kết quả,,t,11
+69,5ca64407-53dd-456d-9005-b7639c40907c,STEM_CELL_CENTER,order_intake,Order Intake,Tiếp nhận chỉ định,,t,12
+70,0c05e042-3b35-4e08-9f25-b958b17b3c30,STEM_CELL_CENTER,admission_management,Admission Management,Quản lý nhập viện,,t,13
+71,09e8acdb-6b16-4533-8073-11707edc3e92,STEM_CELL_CENTER,bed_management,Bed/Room Management,Quản lý giường/phòng,,t,14
+72,4169c9f6-453f-47f6-9c9d-bcceb3b44655,STEM_CELL_CENTER,inpatient_orders,Inpatient Orders,Y lệnh nội trú,,t,15
+73,5271b866-e359-4808-b773-def1ccd3a9fb,STEM_CELL_CENTER,nursing_notes,Nursing Notes,Ghi chép điều dưỡng,,t,16
+74,349439ff-d161-4e97-8175-6b59591607ea,STEM_CELL_CENTER,ward_management,Ward Management,Quản lý khoa phòng,,t,17
+75,b61616e9-2864-4027-ad34-83e94c108d8e,STEM_CELL_CENTER,inpatient_billing,Inpatient Billing,Thanh toán nội trú,,t,18
+76,0d091028-9bc1-4cdf-9e5d-e250cecbd8dd,STEM_CELL_CENTER,diagnostic_billing,Diagnostic Billing,Thanh toán chẩn đoán,,t,19
+77,f89b09dc-f3c4-487e-b03f-c09d7b8c27c8,STEM_CELL_CENTER,external_orders,External Clinic Orders,Chỉ định từ cơ sở ngoài,,t,20
+78,17942505-e104-4a32-ad50-cbfc2612c861,STEM_CELL_CENTER,pacs_integration,PACS Integration,Tích hợp PACS,,f,21
+79,360990f5-ea18-4f86-b930-c3c49c4d3d19,STEM_CELL_CENTER,lis_integration,LIS Integration,Tích hợp LIS,,f,22
+80,a8b71840-c79f-4098-8931-3ead4b83b155,STEM_CELL_CENTER,ai_assistant,AI Assistant,Trợ lý AI,,t,23

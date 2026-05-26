@@ -1,0 +1,5 @@
+về flow thì như  hình
+robot lễ tân thì cần thông tin của bệnh viện (tạm thời là bệnh viện, sau này sẽ có nhà hàng, khách sạn, trường học, ... nên cần nghĩ tới để dễ scale sau này).
+khi có khách đặt ra câu hỏi thì hệ thống sẽ truy xuất vào database để trả lời cho khách 
+
+file excel là dữ liệu export từ hệ thống của bệnh viện

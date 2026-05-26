@@ -1,0 +1,2 @@
+_excel_row_number,id,partner_id,user_id,clinic_id,organization_id,role,full_name,email,phone,is_active,last_login_at,created_at,created_by,updated_at,updated_by
+2,c36a766c-01c7-436f-b4e0-6e61a3804e45,a135ae2f-54f6-4e87-bd22-efb08f0484c2,6b4ad546-4091-4759-86cd-a30e9b79149f,d5ac6269-d8cf-4821-ac8b-a6341e68987b,,staff,Test Partner User,test-partner@example.com,,t,,2026-02-01 06:53:26.501492+00,e965c822-85f2-489d-8906-a4bc7ee8f51f,2026-02-01 06:53:26.501492+00,

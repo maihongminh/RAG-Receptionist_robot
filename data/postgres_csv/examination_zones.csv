@@ -1,0 +1,4 @@
+_excel_row_number,id,clinic_id,code,name,name_en,description,floor,display_order,is_active,created_at,created_by,updated_at,updated_by
+2,9f5b660e-5d1d-48b1-bfbc-cb6ce6d47bc8,d5ac6269-d8cf-4821-ac8b-a6341e68987b,KN,Khu khám nội,,,Tẩng 1,0,t,2026-01-27 17:20:17.749403+00,,2026-01-27 17:20:17.749403+00,
+3,abceb51b-a9fd-4609-b3d3-43daa020af42,d5ac6269-d8cf-4821-ac8b-a6341e68987b,KNG,Khu khám ngoại,,,Tầng 2,0,t,2026-01-27 17:20:35.186817+00,,2026-01-27 17:20:35.186817+00,
+4,ec53c8c9-1a69-485a-8c69-a6166ace622e,d5ac6269-d8cf-4821-ac8b-a6341e68987b,KK002,Bone Zone,,,Ground Floor,0,t,2026-04-30 01:45:15.710918+00,,2026-04-30 01:45:15.710918+00,
