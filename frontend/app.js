@@ -24,7 +24,13 @@ const authFields = document.querySelectorAll("[data-auth-field]");
 
 const state = {
   busy: false,
+  sessionId: createSessionId(),
 };
+
+function createSessionId() {
+  if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+  return `session-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
 
 function addMessage(role, text) {
   const el = document.createElement("div");
@@ -58,7 +64,8 @@ function renderTrace(payload) {
   authStateValue.textContent = authLabel;
   sourcesValue.textContent = payload.sources?.length ? payload.sources.join(", ") : "-";
   dataPreview.textContent = JSON.stringify(payload.data || [], null, 2);
-  sessionMeta.textContent = `${payload.domain || "clinic"} · ${authLabel} · ${parserLabel} · ${answerLabel}`;
+  if (payload.session_id) state.sessionId = payload.session_id;
+  sessionMeta.textContent = `${payload.domain || "clinic"} · ${authLabel} · ${parserLabel} · ${answerLabel} · ${state.sessionId.slice(0, 8)}`;
 
   intentBadge.textContent = payload.intent || "idle";
   intentBadge.className = payload.requires_auth ? "auth" : "ok";
@@ -124,6 +131,7 @@ async function ask(question) {
     const requestBody = {
       question,
       domain: "clinic",
+      session_id: state.sessionId,
     };
     const auth = getAuthPayload();
     if (auth) requestBody.auth = auth;
@@ -178,6 +186,7 @@ clearButton.addEventListener("click", () => {
   answerSourceValue.textContent = "-";
   authStateValue.textContent = buildAuthLabel();
   sourcesValue.textContent = "-";
+  state.sessionId = createSessionId();
   sessionMeta.textContent = `clinic · ${buildAuthLabel()} · parser chưa chạy`;
   dataPreview.textContent = "{}";
   input.focus();

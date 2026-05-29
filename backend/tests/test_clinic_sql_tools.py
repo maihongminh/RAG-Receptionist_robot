@@ -230,6 +230,37 @@ def test_summarize_service_catalog_returns_group_totals(monkeypatch):
     assert "limit" in calls["params"]
     assert result.tool_name == "clinic.summarize_service_catalog"
     assert result.rows[0]["total_services"] == 20
+    assert result.rows[0]["category_display_index"] == 1
+
+
+def test_summarize_service_catalog_supports_offset(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "service_type": "lab",
+                "category_name": "Group 11",
+                "service_count": 5,
+                "min_price": 1.0,
+                "max_price": 2.0,
+                "currency_code": "USD",
+                "total_services": 50,
+                "total_categories": 12,
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.summarize_service_catalog("all", offset=10, display_limit=10)
+
+    assert calls["params"]["offset"] == 10
+    assert calls["params"]["limit"] == 10
+    assert result.rows[0]["category_offset"] == 10
+    assert result.rows[0]["category_display_index"] == 11
 
 
 def test_list_services_by_category_matches_category_then_lists_services(monkeypatch):
@@ -278,6 +309,88 @@ def test_list_services_by_category_matches_category_then_lists_services(monkeypa
     assert result.rows[0]["code"] == "CT001"
     assert result.rows[0]["matched_category_name"] == "CT Scan"
     assert calls[-1][1]["category_name"] == "CT Scan"
+
+
+def test_list_services_by_category_can_match_numeric_category_index(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = []
+
+    def fake_fetch_all(query, params=None):
+        calls.append((query, params or {}))
+        if "GROUP BY service_type" in query:
+            return [
+                {
+                    "service_type": "lab",
+                    "category_name": "Blood test",
+                    "service_count": 4,
+                    "min_price": 2.0,
+                    "max_price": 5.0,
+                    "currency_code": "USD",
+                },
+                {
+                    "service_type": "lab",
+                    "category_name": "Check Liver Function",
+                    "service_count": 6,
+                    "min_price": 1.0,
+                    "max_price": 3.0,
+                    "currency_code": "USD",
+                },
+            ]
+        return [
+            {
+                "code": "LFT001",
+                "name": "ALT",
+                "category_name": "Check Liver Function",
+                "price_amount": 1.5,
+                "currency_code": "USD",
+                "duration_minutes": 30,
+                "service_type": "lab",
+                "total_services_in_category": 1,
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.list_services_by_category("2", "lab")
+
+    assert result.rows[0]["matched_category_name"] == "Check Liver Function"
+    assert calls[-1][1]["category_name"] == "Check Liver Function"
+
+
+def test_list_services_by_category_matches_exact_lowercase_category(monkeypatch):
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params=None):
+        if "GROUP BY service_type" in query:
+            return [
+                {
+                    "service_type": "lab",
+                    "category_name": "check for insects in the blood",
+                    "service_count": 2,
+                    "min_price": 2.0,
+                    "max_price": 7.5,
+                    "currency_code": "USD",
+                }
+            ]
+        return [
+            {
+                "code": "PAR001",
+                "name": "CBC",
+                "category_name": "check for insects in the blood",
+                "price_amount": 2.0,
+                "currency_code": "USD",
+                "duration_minutes": 30,
+                "service_type": "lab",
+                "total_services_in_category": 2,
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.list_services_by_category("check for insects in the blood", "all")
+
+    assert result.rows[0]["matched_category_name"] == "check for insects in the blood"
+    assert result.confidence == 1.0
 
 
 def test_lookup_lab_results_filters_patient_scope(monkeypatch):

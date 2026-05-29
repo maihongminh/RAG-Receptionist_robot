@@ -95,8 +95,38 @@ def test_service_category_detail_intent():
     assert intent.entities["service_type"] == "imaging"
 
 
+def test_service_category_detail_does_not_treat_insects_as_ct_imaging():
+    intent = RuleIntentParser().parse("xem chi tiết nhóm check for insects in the blood", "clinic")
+
+    assert intent.intent == "service_category_detail"
+    assert intent.entities["category_query"] == "check for insects in the blood"
+    assert intent.entities["service_type"] == "all"
+
+
+def test_numeric_service_category_detail_defaults_to_lab_without_session_context():
+    intent = RuleIntentParser().parse("xem chi tiết nhóm 35", "clinic")
+
+    assert intent.intent == "service_category_detail"
+    assert intent.entities["category_query"] == "35"
+    assert intent.entities["service_type"] == "lab"
+
+
 def test_medical_advice_intent():
     intent = RuleIntentParser().parse("nên sử dụng loại nào?", "clinic")
+
+    assert intent.intent == "medical_advice"
+    assert intent.data_source == "none"
+
+
+def test_symptom_triage_question_is_medical_advice():
+    intent = RuleIntentParser().parse("tôi đau bụng nên khám gì?", "clinic")
+
+    assert intent.intent == "medical_advice"
+    assert intent.data_source == "none"
+
+
+def test_symptom_triage_question_is_not_hardcoded_to_one_symptom():
+    intent = RuleIntentParser().parse("tôi đau đầu đau mắt thì sao?", "clinic")
 
     assert intent.intent == "medical_advice"
     assert intent.data_source == "none"
@@ -121,6 +151,14 @@ def test_personal_data_requires_auth():
 
 def test_general_info_intent():
     intent = RuleIntentParser().parse("Địa chỉ phòng khám ở đâu?", "clinic")
+
+    assert intent.intent == "general_info"
+    assert intent.data_source == "sql"
+    assert intent.entities["profile_query"] == ""
+
+
+def test_general_info_opening_hours_keeps_generic_profile_query_empty():
+    intent = RuleIntentParser().parse("Phòng khám mở cửa lúc mấy giờ", "clinic")
 
     assert intent.intent == "general_info"
     assert intent.data_source == "sql"

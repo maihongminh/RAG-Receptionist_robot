@@ -128,10 +128,11 @@ class ClinicSqlTools:
         )
         total_categories = len(rows)
         rows = rows[offset_value : offset_value + row_limit]
-        for row in rows:
+        for index, row in enumerate(rows, start=offset_value + 1):
             row["total_categories"] = total_categories
             row["category_offset"] = offset_value
             row["display_limit"] = display_limit_value
+            row["category_display_index"] = index
         return ToolResult(
             tool_name="clinic.list_service_categories",
             source="robo_app.services",
@@ -146,13 +147,21 @@ class ClinicSqlTools:
             return default
         return parsed if parsed > 0 else default
 
-    def summarize_service_catalog(self, service_type: str = "all") -> ToolResult:
+    def summarize_service_catalog(
+        self,
+        service_type: str = "all",
+        offset: int | str | None = 0,
+        display_limit: int | str | None = None,
+    ) -> ToolResult:
         rag_config = get_rag_config()
         params: dict[str, Any] = {}
         service_type_clause = ""
         if service_type in {"lab", "imaging"}:
             service_type_clause = "AND service_type = %(service_type)s"
             params["service_type"] = service_type
+        offset_value = self._safe_positive_int(offset, default=0)
+        display_limit_value = self._safe_positive_int(display_limit, default=10)
+        row_limit = min(display_limit_value, rag_config.api_preview_max_rows)
 
         rows = fetch_all(
             f"""
@@ -180,10 +189,14 @@ class ClinicSqlTools:
               COUNT(*) OVER ()::integer AS total_categories
             FROM grouped
             ORDER BY service_count DESC, service_type, category_name
-            LIMIT %(limit)s
+            LIMIT %(limit)s OFFSET %(offset)s
             """,
-            {**params, "limit": rag_config.api_preview_max_rows},
+            {**params, "limit": row_limit, "offset": offset_value},
         )
+        for index, row in enumerate(rows, start=offset_value + 1):
+            row["category_offset"] = offset_value
+            row["display_limit"] = display_limit_value
+            row["category_display_index"] = index
         return ToolResult(
             tool_name="clinic.summarize_service_catalog",
             source="robo_app.services",
@@ -515,10 +528,15 @@ class ClinicSqlTools:
             WHERE COALESCE(is_active, true) = true
               {service_type_clause}
             GROUP BY service_type, COALESCE(NULLIF(category_name, ''), 'Chưa phân nhóm'), currency_code
+            ORDER BY service_type, category_name
             LIMIT {get_rag_config().sql_result_limit}
             """,
             params,
         )
+        category = self._match_service_category(categories, category_query)
+        if category:
+            return category
+
         ranked = self._rank_rows(
             categories,
             category_query,
@@ -526,6 +544,29 @@ class ClinicSqlTools:
             min_score=0.45,
         )
         return ranked[0] if ranked else None
+
+    def _match_service_category(
+        self,
+        categories: list[dict[str, Any]],
+        category_query: str,
+    ) -> dict[str, Any] | None:
+        normalized_query = self._normalize(category_query)
+        if not normalized_query:
+            return None
+
+        if normalized_query.isdigit():
+            display_index = int(normalized_query)
+            if 1 <= display_index <= len(categories):
+                matched = dict(categories[display_index - 1])
+                matched["_score"] = 1.0
+                return matched
+
+        for category in categories:
+            if self._normalize(str(category.get("category_name") or "")) == normalized_query:
+                matched = dict(category)
+                matched["_score"] = 1.0
+                return matched
+        return None
 
     def _rank_knowledge_rows(
         self,

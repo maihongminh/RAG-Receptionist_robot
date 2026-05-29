@@ -61,6 +61,7 @@ class ToolResult(BaseModel):
 
 
 class AskResponse(BaseModel):
+    session_id: str | None = None
     question: str
     answer: str
     domain: str

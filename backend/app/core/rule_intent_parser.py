@@ -51,9 +51,37 @@ MEDICAL_ADVICE_KEYWORDS = (
     "nên sử dụng",
     "nên dùng",
     "nên chọn",
+    "nên khám",
+    "cần khám",
+    "khám gì",
     "nên xét nghiệm",
     "nên làm xét nghiệm",
     "loại nào",
+)
+SYMPTOM_CUES = (
+    "đau",
+    "sốt",
+    "ho",
+    "khó thở",
+    "buồn nôn",
+    "nôn",
+    "chóng mặt",
+    "tiêu chảy",
+    "mệt",
+    "ngứa",
+    "sưng",
+    "chảy máu",
+)
+TRIAGE_CONTEXT_CUES = (
+    "tôi",
+    "em",
+    "mình",
+    "bị",
+    "nên",
+    "cần",
+    "khám",
+    "làm gì",
+    "thì sao",
 )
 GUIDANCE_KEYWORDS = ("quy trình", "hướng dẫn", "làm thế nào", "như thế nào", "cách")
 DOCTOR_KEYWORDS = ("bác sĩ", "doctor", "lịch khám", "có khám")
@@ -114,7 +142,9 @@ class RuleIntentParser:
                 reasoning="Question appears to greet or ask bot capabilities.",
             )
 
-        if any(keyword in normalized for keyword in MEDICAL_ADVICE_KEYWORDS):
+        if any(keyword in normalized for keyword in MEDICAL_ADVICE_KEYWORDS) or self._is_symptom_triage_question(
+            normalized
+        ):
             return Intent(
                 domain=domain,
                 intent="medical_advice",
@@ -126,12 +156,15 @@ class RuleIntentParser:
 
         category_query = self._clean_category_detail_query(question)
         if category_query:
+            service_type = self._service_type_from_question(normalized)
+            if category_query.isdigit() and service_type == "all":
+                service_type = "lab"
             return Intent(
                 domain=domain,
                 intent="service_category_detail",
                 entities={
                     "category_query": category_query,
-                    "service_type": self._service_type_from_question(normalized),
+                    "service_type": service_type,
                 },
                 confidence=0.78,
                 data_source="sql",
@@ -261,6 +294,16 @@ class RuleIntentParser:
             return True
         return bool(re.search(r"\bhi\b", normalized_question))
 
+    def _is_symptom_triage_question(self, normalized_question: str) -> bool:
+        has_symptom = any(self._contains_phrase(normalized_question, cue) for cue in SYMPTOM_CUES)
+        has_context = any(cue in normalized_question for cue in TRIAGE_CONTEXT_CUES)
+        return has_symptom and has_context
+
+    def _contains_phrase(self, normalized_question: str, phrase: str) -> bool:
+        if " " in phrase:
+            return phrase in normalized_question
+        return bool(re.search(rf"(?<!\w){re.escape(phrase)}(?!\w)", normalized_question))
+
     def _clean_service_query(self, question: str) -> str:
         text = question
         replacements = [
@@ -285,7 +328,10 @@ class RuleIntentParser:
     def _service_type_from_question(self, normalized_question: str) -> str:
         if "xét nghiệm" in normalized_question or "lab" in normalized_question:
             return "lab"
-        if any(value in normalized_question for value in ("chụp", "ct", "mri", "x-quang", "x quang", "imaging")):
+        if "chụp" in normalized_question or re.search(
+            r"\b(ct|mri|mr|x-ray|xray|x quang|x-quang|imaging|ultrasound|endoscopy)\b",
+            normalized_question,
+        ):
             return "imaging"
         return "all"
 
@@ -328,6 +374,9 @@ class RuleIntentParser:
             "số điện thoại",
             "phone",
             "email",
+            "lúc mấy giờ",
+            "mấy giờ",
+            "lúc mấy",
             "mở cửa",
             "giờ làm việc",
             "giờ làm",

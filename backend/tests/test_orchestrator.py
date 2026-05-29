@@ -37,77 +37,110 @@ class FakeClinicAdapter(DomainAdapter):
         )
 
     def list_service_categories(self, entities: dict) -> ToolResult:
+        all_rows = [
+            {
+                "service_type": "lab",
+                "category_name": "Blood test",
+                "service_count": 4,
+                "min_price": 2.0,
+                "max_price": 5.0,
+                "currency_code": "USD",
+            },
+            {
+                "service_type": "lab",
+                "category_name": "Check Liver Function",
+                "service_count": 12,
+                "min_price": 1.0,
+                "max_price": 6.25,
+                "currency_code": "USD",
+            },
+            {
+                "service_type": "lab",
+                "category_name": "General Health Check Up",
+                "service_count": 17,
+                "min_price": 1.0,
+                "max_price": 7.0,
+                "currency_code": "USD",
+            },
+        ]
+        offset = int(entities.get("offset") or 0)
+        display_limit = int(entities.get("display_limit") or 2)
+        rows = all_rows[offset : offset + display_limit]
+        for index, row in enumerate(rows, start=offset + 1):
+            row["total_categories"] = len(all_rows)
+            row["category_offset"] = offset
+            row["display_limit"] = display_limit
+            row["category_display_index"] = index
         return ToolResult(
             tool_name="clinic.list_service_categories",
             source="fake.services",
-            rows=[
-                {
-                    "service_type": "lab",
-                    "category_name": "Check Liver Function",
-                    "service_count": 12,
-                    "min_price": 1.0,
-                    "max_price": 6.25,
-                    "currency_code": "USD",
-                }
-            ],
+            rows=rows,
             confidence=0.85,
         )
 
     def summarize_service_catalog(self, entities: dict) -> ToolResult:
+        all_rows = [
+            {
+                "service_type": "lab",
+                "category_name": "Blood test",
+                "service_count": 12,
+                "min_price": 2.0,
+                "max_price": 5.0,
+                "currency_code": "USD",
+                "total_services": 30,
+                "total_categories": 3,
+            },
+            {
+                "service_type": "imaging",
+                "category_name": "CT Scan",
+                "service_count": 8,
+                "min_price": 120000,
+                "max_price": 350000,
+                "currency_code": "USD",
+                "total_services": 30,
+                "total_categories": 3,
+            },
+            {
+                "service_type": "lab",
+                "category_name": "General Health Check Up",
+                "service_count": 10,
+                "min_price": 1.0,
+                "max_price": 7.0,
+                "currency_code": "USD",
+                "total_services": 30,
+                "total_categories": 3,
+            },
+        ]
+        offset = int(entities.get("offset") or 0)
+        display_limit = int(entities.get("display_limit") or 2)
+        rows = all_rows[offset : offset + display_limit]
+        for index, row in enumerate(rows, start=offset + 1):
+            row["category_offset"] = offset
+            row["display_limit"] = display_limit
+            row["category_display_index"] = index
         return ToolResult(
             tool_name="clinic.summarize_service_catalog",
             source="fake.services",
-            rows=[
-                {
-                    "service_type": "lab",
-                    "category_name": "Blood test",
-                    "service_count": 12,
-                    "min_price": 2.0,
-                    "max_price": 5.0,
-                    "currency_code": "USD",
-                    "total_services": 20,
-                    "total_categories": 2,
-                },
-                {
-                    "service_type": "imaging",
-                    "category_name": "CT Scan",
-                    "service_count": 8,
-                    "min_price": 120000,
-                    "max_price": 350000,
-                    "currency_code": "USD",
-                    "total_services": 20,
-                    "total_categories": 2,
-                },
-            ],
+            rows=rows,
             confidence=0.88,
         )
 
     def list_services_by_category(self, entities: dict) -> ToolResult:
+        category = entities.get("category_query") or "CT Scan"
         return ToolResult(
             tool_name="clinic.list_services_by_category",
             source="fake.services",
             rows=[
                 {
-                    "code": "CT001",
-                    "name": "CT Brain without contrast",
-                    "category_name": "CT Scan",
-                    "price_amount": 120000,
+                    "code": "SVC001",
+                    "name": f"{category} demo service",
+                    "category_name": category,
+                    "price_amount": 10,
                     "currency_code": "USD",
                     "duration_minutes": 30,
-                    "service_type": "imaging",
-                    "total_services_in_category": 2,
-                    "matched_category_name": "CT Scan",
-                },
-                {
-                    "code": "CT002",
-                    "name": "CT Brain with contrast",
-                    "category_name": "CT Scan",
-                    "price_amount": 180000,
-                    "currency_code": "USD",
-                    "duration_minutes": 30,
-                    "service_type": "imaging",
-                    "total_services_in_category": 2,
-                    "matched_category_name": "CT Scan",
+                    "service_type": entities.get("service_type", "lab"),
+                    "total_services_in_category": 1,
+                    "matched_category_name": category,
                 },
             ],
             confidence=0.9,
@@ -292,7 +325,7 @@ def test_orchestrator_prefers_rule_for_service_category_detail_when_llm_is_broad
     assert response.intent == "service_category_detail"
     assert response.parser_source == "llm"
     assert response.sources == ["fake.services"]
-    assert "CT001" in response.answer
+    assert "CT Scan demo service" in response.answer
 
 
 def test_orchestrator_prefers_lab_service_type_when_llm_uses_all():
@@ -315,6 +348,68 @@ def test_orchestrator_prefers_lab_service_type_when_llm_uses_all():
     assert "Check Liver Function" in response.answer
 
 
+def test_orchestrator_generates_session_id():
+    response = build_orchestrator().handle(AskRequest(question="xin chào"))
+
+    assert response.session_id
+
+
+def test_orchestrator_uses_session_context_for_next_service_category_page():
+    orchestrator = build_orchestrator()
+    session_id = "session-service-categories"
+
+    first_response = orchestrator.handle(
+        AskRequest(question="danh sách xét nghiệm", session_id=session_id)
+    )
+    second_response = orchestrator.handle(AskRequest(question="xem tiếp", session_id=session_id))
+
+    assert first_response.session_id == session_id
+    assert second_response.intent == "service_category_list"
+    assert second_response.sources == ["fake.services"]
+    assert "3. General Health Check Up" in second_response.answer
+
+
+def test_orchestrator_uses_session_context_for_numbered_service_category_detail():
+    orchestrator = build_orchestrator()
+    session_id = "session-category-detail"
+
+    orchestrator.handle(AskRequest(question="danh sách xét nghiệm", session_id=session_id))
+    response = orchestrator.handle(AskRequest(question="xem chi tiết nhóm 2", session_id=session_id))
+
+    assert response.intent == "service_category_detail"
+    assert response.sources == ["fake.services"]
+    assert "Check Liver Function demo service" in response.answer
+
+
+def test_orchestrator_uses_session_context_for_next_service_catalog_page():
+    orchestrator = build_orchestrator()
+    session_id = "session-service-catalog"
+
+    first_response = orchestrator.handle(
+        AskRequest(question="các dịch vụ hiện có", session_id=session_id)
+    )
+    second_response = orchestrator.handle(AskRequest(question="xem thêm", session_id=session_id))
+
+    assert first_response.intent == "service_catalog_summary"
+    assert second_response.intent == "service_catalog_summary"
+    assert second_response.sources == ["fake.services"]
+    assert "3. General Health Check Up" in second_response.answer
+
+
+def test_orchestrator_prefers_catalog_context_for_remaining_groups_followup():
+    orchestrator = build_orchestrator()
+    session_id = "session-service-catalog-remaining"
+
+    orchestrator.handle(AskRequest(question="các dịch vụ hiện có", session_id=session_id))
+    response = orchestrator.handle(
+        AskRequest(question="các nhóm còn lại là nhóm nào", session_id=session_id)
+    )
+
+    assert response.intent == "service_catalog_summary"
+    assert response.sources == ["fake.services"]
+    assert "3. General Health Check Up" in response.answer
+
+
 def test_orchestrator_prefers_empty_profile_query_for_generic_general_info():
     orchestrator = build_orchestrator()
     orchestrator.llm_client = StaticLLMClient(
@@ -335,6 +430,27 @@ def test_orchestrator_prefers_empty_profile_query_for_generic_general_info():
     assert "Demo Clinic" in response.answer
 
 
+def test_orchestrator_prefers_general_info_when_llm_misroutes_opening_hours_to_services():
+    orchestrator = build_orchestrator()
+    orchestrator.llm_client = StaticLLMClient(
+        Intent(
+            domain="clinic",
+            intent="service_category_list",
+            entities={"service_type": "all"},
+            confidence=0.84,
+            data_source="sql",
+        )
+    )
+
+    response = orchestrator.handle(AskRequest(question="Phòng khám mở cửa lúc mấy giờ"))
+
+    assert response.intent == "general_info"
+    assert response.parser_source == "llm"
+    assert response.sources == ["fake.clinics"]
+    assert "08:00:00" in response.answer
+    assert "nhóm dịch vụ" not in response.answer
+
+
 def test_orchestrator_prefers_service_catalog_summary_for_current_services():
     orchestrator = build_orchestrator()
     orchestrator.llm_client = StaticLLMClient(
@@ -352,7 +468,7 @@ def test_orchestrator_prefers_service_catalog_summary_for_current_services():
     assert response.intent == "service_catalog_summary"
     assert response.parser_source == "llm"
     assert response.sources == ["fake.services"]
-    assert "20 dịch vụ" in response.answer
+    assert "30 dịch vụ" in response.answer
 
 
 def test_orchestrator_guest_personal_data_is_blocked_by_policy():

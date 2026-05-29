@@ -90,3 +90,4 @@ Mục tiêu:
 - UI Trace vẫn phải hiện parser, sources và data/debug để kiểm tra nguồn câu trả lời.
 - MVP đã có short conversation context in-memory cho follow-up như `xem tiếp`, `xem chi tiết nhóm 35`.
 - Medical advice đang trả lời theo hướng triage an toàn, bám triệu chứng nhưng không chẩn đoán.
+- Auth mock đã manual test ổn cho guest, patient, doctor, receptionist và clinic_admin.

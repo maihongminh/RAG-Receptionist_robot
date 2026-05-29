@@ -43,7 +43,7 @@ class ResponseGenerator:
         if intent.intent == "appointment_booking":
             return self._appointment_booking()
         if intent.intent == "medical_advice":
-            return self._medical_advice()
+            return self._medical_advice(question)
 
         if result.message:
             return result.message
@@ -154,7 +154,9 @@ class ResponseGenerator:
             int(row.get("service_count") or 0) for row in result.rows
         )
         total_categories = first.get("total_categories") or len(result.rows)
-        display_rows = result.rows[: min(10, len(result.rows))]
+        offset = self._safe_int(first.get("category_offset"), default=0)
+        display_limit = self._safe_int(first.get("display_limit"), default=10)
+        display_rows = result.rows[: min(display_limit, len(result.rows))]
 
         lines = []
         for row in display_rows:
@@ -169,11 +171,20 @@ class ResponseGenerator:
                 price_text = f", giá từ {min_price} đến {max_price} {currency}".rstrip()
             lines.append(f"{category} ({service_type}, {count} dịch vụ{price_text})")
 
-        return (
+        hidden_count = max(int(total_categories) - offset - len(display_rows), 0)
+        suffix = "\nBạn muốn xem chi tiết nhóm nào?"
+        if hidden_count > 0:
+            suffix = f"\nCòn {hidden_count} nhóm khác trong dữ liệu. Bạn muốn xem chi tiết nhóm nào?"
+        title = (
             f"Phòng khám hiện có {total_services} dịch vụ trong {total_categories} nhóm. "
             f"Dưới đây là {len(display_rows)} nhóm lớn nhất:\n"
-            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
-            + "\nBạn muốn xem chi tiết nhóm nào?"
+            if offset == 0
+            else "Các nhóm dịch vụ còn lại phù hợp:\n"
+        )
+        return (
+            title
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=offset + 1))
+            + suffix
         )
 
     def _service_category_detail(self, result: ToolResult) -> str:
@@ -314,11 +325,45 @@ class ResponseGenerator:
             lines.append("\n   ".join(parts))
         return "Tôi tìm thấy các chỉ định/kết quả xét nghiệm trong phạm vi đã xác thực:\n" + "\n".join(lines)
 
-    def _medical_advice(self) -> str:
+    def _medical_advice(self, question: str) -> str:
+        symptom = self._symptom_text(question)
+        symptom_part = f" về tình trạng {symptom}" if symptom else " về triệu chứng của bạn"
         return (
-            "Tôi không thể khuyến nghị bạn nên làm xét nghiệm hoặc sử dụng dịch vụ nào thay cho bác sĩ. "
-            "Tôi có thể hỗ trợ tra danh sách xét nghiệm, giá dịch vụ hoặc quy trình lấy mẫu để bạn tham khảo."
+            f"Tôi chưa thể chẩn đoán hoặc quyết định bạn nên khám chuyên khoa nào{symptom_part}. "
+            "Bạn nên liên hệ bác sĩ hoặc nhân viên y tế để được hướng dẫn phù hợp. "
+            "Nếu triệu chứng đau nhiều, kéo dài, kèm sốt cao, nôn ói liên tục, khó thở, ngất, "
+            "chảy máu hoặc đau tăng nhanh, hãy đến cơ sở y tế/cấp cứu sớm. "
+            "Tôi có thể giúp tra giờ làm việc, địa chỉ phòng khám, danh sách dịch vụ hoặc hướng dẫn đặt lịch để bạn tham khảo."
         )
+
+    def _symptom_text(self, question: str) -> str:
+        text = " ".join(str(question or "").strip(" ?.!\n\t").split())
+        lowered = text.lower()
+        for phrase in (
+            "nên khám gì",
+            "nên đi khám gì",
+            "nên khám ở đâu",
+            "cần khám gì",
+            "cần đi khám gì",
+            "nên xét nghiệm gì",
+            "phải làm gì",
+            "nên làm gì",
+            "làm gì",
+            "thì sao",
+        ):
+            lowered = lowered.replace(phrase, " ")
+        lowered = lowered.removeprefix("tôi có triệu chứng").strip()
+        lowered = lowered.removeprefix("triệu chứng").strip()
+        lowered = lowered.removeprefix("tôi bị").strip()
+        lowered = lowered.removeprefix("em bị").strip()
+        lowered = lowered.removeprefix("mình bị").strip()
+        lowered = lowered.removeprefix("tôi").strip()
+        lowered = lowered.removeprefix("em").strip()
+        lowered = lowered.removeprefix("mình").strip()
+        symptom = " ".join(lowered.split()).strip(" ,.;:!?")
+        if not symptom or symptom == text.lower():
+            return ""
+        return symptom[:120]
 
     def _private_data(self, result: ToolResult, auth: AuthContext) -> str:
         if not result.rows:

@@ -86,6 +86,49 @@ def test_service_catalog_summary_answers_with_group_totals():
     assert "Bạn muốn xem chi tiết nhóm nào?" in answer
 
 
+def test_service_catalog_summary_can_continue_remaining_groups():
+    intent = Intent(intent="service_catalog_summary", data_source="sql")
+    result = ToolResult(
+        tool_name="clinic.summarize_service_catalog",
+        source="fake.services",
+        rows=[
+            {
+                "service_type": "lab",
+                "category_name": "Group 11",
+                "service_count": 5,
+                "min_price": 1.0,
+                "max_price": 2.0,
+                "currency_code": "USD",
+                "total_services": 50,
+                "total_categories": 12,
+                "category_offset": 10,
+                "display_limit": 10,
+                "category_display_index": 11,
+            },
+            {
+                "service_type": "imaging",
+                "category_name": "Group 12",
+                "service_count": 4,
+                "min_price": 3.0,
+                "max_price": 4.0,
+                "currency_code": "USD",
+                "total_services": 50,
+                "total_categories": 12,
+                "category_offset": 10,
+                "display_limit": 10,
+                "category_display_index": 12,
+            },
+        ],
+    )
+
+    answer = ResponseGenerator().generate("xem thêm", intent, result)
+
+    assert answer.startswith("Các nhóm dịch vụ còn lại phù hợp:")
+    assert "11. Group 11" in answer
+    assert "12. Group 12" in answer
+    assert "Còn" not in answer
+
+
 def test_service_category_list_can_continue_remaining_groups():
     intent = Intent(intent="service_category_list", data_source="sql")
     result = ToolResult(
@@ -181,3 +224,35 @@ def test_knowledge_search_template_formats_markdown_as_readable_lines():
     assert "Tiếp nhận & Check-in:" in answer
     assert "1. Tìm bệnh nhân." in answer
     assert "Bệnh nhân vào hàng đợi." in answer
+
+
+def test_medical_advice_mentions_symptom_without_recommending_specific_test():
+    intent = Intent(intent="medical_advice", data_source="none")
+    result = ToolResult(tool_name="none", source="none")
+
+    answer = ResponseGenerator().generate("tôi đau bụng nên khám gì?", intent, result)
+
+    assert "đau bụng" in answer
+    assert "chẩn đoán" in answer
+    assert "cấp cứu" in answer
+    assert "xét nghiệm hoặc sử dụng dịch vụ nào" not in answer
+
+
+def test_medical_advice_keeps_multiple_symptoms_from_question():
+    intent = Intent(intent="medical_advice", data_source="none")
+    result = ToolResult(tool_name="none", source="none")
+
+    answer = ResponseGenerator().generate("tôi đau đầu đau mắt thì sao?", intent, result)
+
+    assert "đau đầu đau mắt" in answer
+    assert "chẩn đoán" in answer
+
+
+def test_medical_advice_strips_trailing_symptom_punctuation():
+    intent = Intent(intent="medical_advice", data_source="none")
+    result = ToolResult(tool_name="none", source="none")
+
+    answer = ResponseGenerator().generate("tôi đau ngực, nên khám gì", intent, result)
+
+    assert "đau ngực." in answer
+    assert "đau ngực,." not in answer

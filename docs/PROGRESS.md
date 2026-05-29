@@ -97,8 +97,9 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `103 passed`.
-- MVP scenario hiện tại: `15/15 passed`.
+- Test backend hiện tại: `107 passed`.
+- MVP scenario hiện tại: `17/17 passed`.
+- Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 
 ### 2026-05-26
 
@@ -115,8 +116,10 @@ Postgres
 - Sửa false-positive service type, không để `ct` trong `insects` bị hiểu là CT/imaging.
 - Sửa public info: `Phòng khám mở cửa lúc mấy giờ` không bị route nhầm sang danh sách dịch vụ.
 - Sửa medical advice để câu như `tôi đau ngực, nên khám gì`, `tôi đau đầu đau mắt thì sao` trả lời linh hoạt hơn.
-- Chạy test backend: `103 passed`.
-- Chạy scenario MVP: `15/15 passed`.
+- Sửa catalog follow-up để `các nhóm còn lại` và `xem thêm` sau `các dịch vụ hiện có` trả tiếp đúng nhóm 11-20 theo thứ tự tổng quan.
+- Manual test role: guest, patient, doctor, receptionist, clinic_admin đều ổn ở phạm vi MVP auth mock.
+- Chạy test backend: `107 passed`.
+- Chạy scenario MVP: `17/17 passed`.
 
 Task tiếp theo đề xuất:
 

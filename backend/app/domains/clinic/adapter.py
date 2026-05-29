@@ -21,7 +21,11 @@ class ClinicAdapter(DomainAdapter):
         )
 
     def summarize_service_catalog(self, entities: dict) -> ToolResult:
-        return self.sql_tools.summarize_service_catalog(entities.get("service_type", "all"))
+        return self.sql_tools.summarize_service_catalog(
+            service_type=entities.get("service_type", "all"),
+            offset=entities.get("offset", 0),
+            display_limit=entities.get("display_limit"),
+        )
 
     def list_services_by_category(self, entities: dict) -> ToolResult:
         return self.sql_tools.list_services_by_category(
