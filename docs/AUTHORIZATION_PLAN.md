@@ -175,7 +175,8 @@ Request sau này nên có context đã xác thực:
 }
 ```
 
-Ở MVP hiện tại chưa có login/OTP/JWT thật, nhưng API đã nhận `auth` mock trong request để test row-level filtering.
+MVP hiện tại đã có login email/password và bearer token qua `/auth/login`.
+API vẫn còn nhận `auth` mock trong request để test/backward compatibility, nhưng frontend không dùng đường này nữa.
 
 Ví dụ patient đã xác thực trong MVP:
 
@@ -205,7 +206,7 @@ receptionist -> WHERE clinic_id = auth.clinic_id
 clinic_admin -> WHERE clinic_id = auth.clinic_id
 ```
 
-Đây là auth context mock để hoàn thiện MVP, chưa thay thế auth thật.
+Đây là auth context test/dev để giữ backward compatibility. Productization sẽ ưu tiên auth context sinh từ account/session/token.
 
 ## 6. Tool permission matrix
 

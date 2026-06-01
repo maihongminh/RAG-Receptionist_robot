@@ -1,5 +1,8 @@
 # Robot lễ tân - định hướng project
 
+> Ghi chú 2026-06-01: MVP đã hoàn thành, được lưu ở branch `mvp-v1`, và có snapshot trong `docs/mvp/`.
+> Phase tiếp theo là productization trên `main`; xem bộ tài liệu trong `docs/productization/`.
+
 ## 1. Project hiện tại là gì?
 
 Mục tiêu hiện tại là xây dựng một robot lễ tân có thể nghe câu hỏi của khách hoặc bệnh nhân, truy xuất dữ liệu của đơn vị, rồi trả lời lại bằng văn bản hoặc giọng nói.

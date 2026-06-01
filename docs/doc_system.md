@@ -355,4 +355,11 @@ Chưa có và cần làm tiếp:
 - OTP/refresh token/account chính thức.
 - Audit log ghi xuống database.
 
-Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG + auth password/token MVP**. Bước tiếp theo nên hoàn thiện OTP/refresh token hoặc account chính thức nếu cần nâng khỏi MVP.
+Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG + auth password/token MVP**. MVP đã được lưu ở branch `mvp-v1` và tài liệu snapshot nằm trong `docs/mvp/`. Bước tiếp theo là phase productization theo bộ tài liệu:
+
+- `docs/productization/PLAN.md`
+- `docs/productization/ROADMAP.md`
+- `docs/productization/AUTH_PLAN.md`
+- `docs/productization/DATA_PLAN.md`
+- `docs/productization/RAG_PLAN.md`
+- `docs/productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`

@@ -4,9 +4,17 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 ## Trạng thái hiện tại
 
-Cập nhật gần nhất: 2026-05-26
+Cập nhật gần nhất: 2026-06-01
 
-Project đang ở giai đoạn **MVP hỏi đáp có SQL/RAG/LLM local, auth password/token MVP và context hội thoại ngắn**.
+Project đã hoàn thành **MVP hỏi đáp có SQL/RAG/LLM local, auth password/token MVP và context hội thoại ngắn**.
+
+Branch lưu MVP:
+
+```text
+mvp-v1
+```
+
+Project hiện chuyển sang **phase productization planning** trên `main`.
 
 Luồng hiện tại:
 
@@ -106,6 +114,20 @@ Postgres
   - `/ask` đọc `Authorization: Bearer <token>`;
   - `robo_app.auth_accounts` lưu account demo bằng password hash PBKDF2-SHA256;
   - frontend có màn hình đăng nhập email/password riêng, đăng xuất và lưu token localStorage.
+- Tạo branch `mvp-v1` để lưu snapshot MVP.
+- Push `mvp-v1` lên GitHub.
+- Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
+  - `docs/mvp/README.md`;
+  - `docs/mvp/SCOPE.md`;
+  - `docs/mvp/TEST_ACCOUNTS.md`;
+  - `docs/mvp/TEST_PLAN.md`.
+- Bắt đầu phase productization bằng bộ tài liệu:
+  - `docs/productization/PLAN.md`;
+  - `docs/productization/ROADMAP.md`;
+  - `docs/productization/AUTH_PLAN.md`;
+  - `docs/productization/DATA_PLAN.md`;
+  - `docs/productization/RAG_PLAN.md`;
+  - `docs/productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`.
 
 ### 2026-05-26
 
@@ -168,15 +190,17 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
   - tra lịch theo tên bác sĩ
 - Dữ liệu cá nhân:
   - guest bị yêu cầu xác thực
-  - patient/doctor/receptionist/clinic_admin có auth context mock tra được lịch hẹn trong phạm vi được phép
+  - patient/doctor/receptionist/clinic_admin đăng nhập email/password và tra được dữ liệu trong phạm vi được phép
 
 ## Chưa hoàn thành
 
-- Chưa có auth login/OTP/JWT thật.
+- Chưa có account/session production chính thức.
+- Chưa có refresh token/logout server-side.
+- Chưa có OTP/reset password.
 - Chưa có audit log ghi xuống database, hiện mới log skeleton.
 - Chưa có tạo lịch hẹn.
 - Chưa có STT/TTS.
-- Chưa có memory hội thoại.
+- Chưa có memory hội thoại dài hạn.
 - Chưa có domain adapter thật cho:
   - khách sạn
   - nhà hàng
@@ -188,12 +212,11 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 
 Ưu tiên đề xuất:
 
-1. Thêm OTP/refresh token hoặc account production nếu cần nâng khỏi MVP.
-2. Mở rộng private tools ngoài lịch hẹn: kết quả, hồ sơ tóm tắt, trạng thái thanh toán nếu cần.
-3. Thêm audit log ghi DB cho private data access.
-4. Chuẩn hóa RBAC chi tiết theo `docs/AUTHORIZATION_PLAN.md`.
-5. Thêm integration test với Postgres thật.
-6. Thêm test cho SQL tools.
+1. P1 auth/account production foundation theo `docs/productization/AUTH_PLAN.md`.
+2. P2 data/application layer hardening theo `docs/productization/DATA_PLAN.md`.
+3. P3 private data expansion + audit theo `docs/productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`.
+4. P4 RAG production sync theo `docs/productization/RAG_PLAN.md`.
+5. P5 deployment/test hardening.
 
 ## Cách chạy nhanh
 

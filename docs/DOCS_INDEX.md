@@ -30,21 +30,55 @@ File này mô tả chức năng của từng tài liệu trong project. Toàn b�
    - Roadmap sản phẩm/kiến trúc dài hạn.
    - Thứ tự triển khai từ DB, backend, UI, RAG, LLM, auth, STT/TTS.
 
-6. `AUTHORIZATION_PLAN.md`
+6. `mvp/README.md`
+   - Snapshot MVP đã hoàn thành.
+   - Link branch `mvp-v1`, commit MVP, phạm vi đã có/chưa có.
+
+7. `mvp/SCOPE.md`
+   - Phạm vi MVP, flow chính, bảng/app views đã dùng.
+
+8. `mvp/TEST_ACCOUNTS.md`
+   - Account demo cho patient/doctor/receptionist/clinic_admin.
+
+9. `mvp/TEST_PLAN.md`
+   - Test smoke thủ công và automated checks cho MVP.
+
+10. `productization/PLAN.md`
+   - Cửa vào cho phase productization sau MVP.
+   - Nguyên tắc, milestone tổng quan, definition of done.
+
+11. `productization/ROADMAP.md`
+   - Roadmap productization theo P0-P5.
+   - Thứ tự triển khai auth, data, private tools, RAG, deployment/test.
+
+12. `productization/AUTH_PLAN.md`
+   - Kế hoạch account/session/refresh/logout/OTP production.
+   - Cách nối account với patient/staff/clinic/profile.
+
+13. `productization/DATA_PLAN.md`
+   - Kế hoạch chuẩn hóa `robo_raw`, `robo_app`, migration và mở rộng 56 bảng.
+
+14. `productization/RAG_PLAN.md`
+   - Kế hoạch RAG registry, Qdrant payload, rebuild/incremental sync.
+
+15. `productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`
+   - Audit log DB, observability, test strategy và deployment checklist.
+
+16. `AUTHORIZATION_PLAN.md`
    - Kế hoạch xác thực và phân quyền.
    - Role, quyền theo role, policy guard, audit log, row-level filtering.
 
-7. `db/README.md`
+17. `db/README.md`
    - Giải thích `robo_raw`, `robo_app`.
    - Cách import Excel vào Postgres.
    - Cách tạo app views.
    - Ghi chú nguồn nào phù hợp vector/RAG và cách quản lý source trong `scripts/rag_documents.py`.
 
-8. `backend/README.md`
+18. `backend/README.md`
    - Hướng dẫn riêng cho backend.
    - Kiến trúc backend core + domain adapter.
 
-9. `frontend/README.md`
+19. `frontend/README.md`
    - Hướng dẫn riêng cho frontend.
 
 ## Cấu trúc docs
@@ -57,7 +91,19 @@ docs/
 ├── PROGRESS.md
 ├── ROBOT_RECEPTION_ROADMAP.md
 ├── RUNBOOK.md
-└── doc_system.md
+├── doc_system.md
+├── mvp/
+│   ├── README.md
+│   ├── SCOPE.md
+│   ├── TEST_ACCOUNTS.md
+│   └── TEST_PLAN.md
+└── productization/
+    ├── AUDIT_DEPLOYMENT_TEST_PLAN.md
+    ├── AUTH_PLAN.md
+    ├── DATA_PLAN.md
+    ├── PLAN.md
+    ├── RAG_PLAN.md
+    └── ROADMAP.md
 ```
 
 ## Quy tắc cập nhật tài liệu
@@ -74,21 +120,13 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Hoàn thiện OTP/refresh token/account chính thức dựa trên auth password/token MVP
+Phase productization: bắt đầu với auth/account production foundation
 ```
 
 Mục tiêu:
 
-- Nâng auth password/token MVP hiện tại lên cơ chế xác thực đầy đủ hơn với OTP/refresh token/account chính thức.
-- Sinh auth context tin cậy gồm `role`, `patient_id`, `doctor_id`, `clinic_id`.
-- Dữ liệu cá nhân tiếp tục đi qua `PolicyGuard` trước khi query tool.
-- MVP hiện đã lookup lịch hẹn theo auth context sinh từ email/password hoặc auth mock test.
-- Grounded LLM answer đã có bước đầu cho `knowledge_search`; không đưa dữ liệu cá nhân vào LLM nếu chưa được policy cho phép.
-- Flow RAG hiện tại build vector từ registry `scripts/rag_documents.py`.
-- `scripts/rag_documents.py` hiện gom `robo_app.knowledge_articles`; sau này thêm nguồn text hợp lệ vào file này.
-- SQL vẫn xử lý giá dịch vụ, lịch bác sĩ, thông tin cơ sở và dữ liệu cá nhân.
-- UI Trace vẫn phải hiện parser, sources và data/debug để kiểm tra nguồn câu trả lời.
-- MVP đã có short conversation context in-memory cho follow-up như `xem tiếp`, `xem chi tiết nhóm 35`.
-- Medical advice đang trả lời theo hướng triage an toàn, bám triệu chứng nhưng không chẩn đoán.
-- Auth password/token MVP đã manual test ổn cho guest, patient, doctor, receptionist và clinic_admin.
-- `/auth/login`, `/auth/me`, và `/ask` đọc Bearer token đã sẵn sàng cho frontend login.
+- Giữ branch `mvp-v1` làm snapshot MVP.
+- Tiếp tục phát triển trên `main`.
+- Làm theo bộ tài liệu trong `docs/productization/`.
+- Ưu tiên P1: account/session/refresh/logout/audit nền tảng.
+- Sau đó mới mở rộng data layer, private tools, RAG sync và deployment.
