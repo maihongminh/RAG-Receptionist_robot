@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+from app.auth.audit_logger import AuditLogger
 from app.auth.token_service import AuthTokenService
 from app.auth.password_service import verify_password
 from app.auth.session_service import AuthSessionService
@@ -16,6 +17,7 @@ class AuthLoginService:
     def __init__(self) -> None:
         self.token_service = AuthTokenService()
         self.session_service = AuthSessionService()
+        self.audit_logger = AuditLogger()
 
     def login(self, payload: AuthLoginRequest) -> AuthLoginResponse:
         auth = self._resolve_auth_context(payload)
@@ -34,6 +36,14 @@ class AuthLoginService:
                 {"account_id": auth.account_id},
             )
             token, expires_in = self.token_service.issue(auth, session_id=session_id)
+            self.audit_logger.log_auth_event(
+                event_type="login_success",
+                account_id=auth.account_id,
+                session_id=auth.session_id,
+                user_id=auth.user_id,
+                role=str(auth.role),
+                clinic_id=auth.clinic_id,
+            )
         else:
             token, expires_in = self.token_service.issue(auth)
         return AuthLoginResponse(access_token=token, expires_in=expires_in, auth=auth)
@@ -91,11 +101,28 @@ class AuthLoginService:
             {"email": payload.email.strip()},
         )
         if not row:
+            self.audit_logger.log_auth_event(
+                event_type="login_failed",
+                reason="account_not_found",
+                metadata={"email": payload.email.strip().lower()},
+            )
             raise AuthLoginError("Invalid email or password.")
         if not row.get("is_active"):
+            self.audit_logger.log_auth_event(
+                event_type="login_failed",
+                account_id=row["account_id"],
+                reason="account_locked",
+                metadata={"email": payload.email.strip().lower()},
+            )
             raise AuthLoginError("Account is temporarily locked. Please try again later.")
         if not verify_password(payload.password, row["password_hash"]):
             self._record_failed_login(row["account_id"])
+            self.audit_logger.log_auth_event(
+                event_type="login_failed",
+                account_id=row["account_id"],
+                reason="invalid_password",
+                metadata={"email": payload.email.strip().lower()},
+            )
             raise AuthLoginError("Invalid email or password.")
 
         role = row["role"]

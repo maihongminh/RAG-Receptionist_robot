@@ -340,7 +340,7 @@ School:
 - Policy guard.
 - Tool registry.
 - Domain adapter `clinic`.
-- Auth context, permission matrix và audit logger skeleton.
+- Auth context, permission matrix và audit logger DB nền tảng.
 - Auth password/token MVP bằng `/auth/login`, `/auth/me`, `/auth/logout`, bearer token cho `/ask`; login tạo `robo_auth.sessions`, logout revoke session, request `auth` mock là dev-only và mặc định tắt.
 - RAG vector bằng Qdrant local mode, quản lý nguồn qua `scripts/rag_documents.py`.
 - Keyword/fuzzy RAG fallback nếu Qdrant chưa có index hoặc lỗi.
@@ -353,7 +353,7 @@ Chưa có và cần làm tiếp:
 
 - Domain adapter cho `hotel`, `restaurant`, `school`.
 - OTP/refresh token và quản trị account chính thức.
-- Audit log ghi xuống database.
+- Audit hardening đầy đủ: request_id, latency, token invalid/expired, retention policy.
 
 Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG + auth password/token MVP**. MVP đã được lưu ở branch `mvp-v1` và tài liệu snapshot nằm trong `docs/mvp/`. Bước tiếp theo là phase productization theo bộ tài liệu:
 

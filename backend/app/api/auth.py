@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Header, HTTPException
 
+from app.auth.audit_logger import AuditLogger
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.session_service import AuthSessionService
 from app.auth.token_service import AuthTokenError, AuthTokenService, bearer_token_from_header
@@ -35,9 +36,18 @@ def logout(authorization: str | None = Header(default=None)) -> AuthLogoutRespon
         if not token:
             raise AuthTokenError("Missing bearer token.")
         token_service = AuthTokenService()
-        session_id = token_service.session_id(token)
+        auth = token_service.verify(token)
+        session_id = auth.session_id or token_service.session_id(token)
         if session_id:
             AuthSessionService().revoke(session_id)
+            AuditLogger().log_auth_event(
+                event_type="logout_success",
+                account_id=auth.account_id,
+                session_id=session_id,
+                user_id=auth.user_id,
+                role=str(auth.role),
+                clinic_id=auth.clinic_id,
+            )
         return AuthLogoutResponse(ok=True)
     except AuthTokenError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc

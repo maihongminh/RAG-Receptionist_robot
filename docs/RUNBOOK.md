@@ -508,6 +508,7 @@ Hiện tại:
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
 - Auth password/token MVP: `/auth/login` phát bearer token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
+- Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Auth mock trong request là dev-only path và mặc định tắt.
 - Auth chưa có OTP/refresh token; token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`.
 

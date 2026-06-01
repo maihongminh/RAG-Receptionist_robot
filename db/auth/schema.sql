@@ -81,3 +81,33 @@ ON robo_auth.sessions (account_id);
 
 CREATE INDEX IF NOT EXISTS idx_auth_sessions_active
 ON robo_auth.sessions (account_id, revoked_at, expires_at);
+
+CREATE TABLE IF NOT EXISTS robo_auth.audit_events (
+  id text PRIMARY KEY,
+  event_type text NOT NULL,
+  account_id text,
+  session_id text,
+  user_id text,
+  role text,
+  clinic_id text,
+  intent text,
+  tool_name text,
+  source text,
+  allowed boolean,
+  reason text,
+  row_count integer,
+  metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_auth_audit_events_created_at
+ON robo_auth.audit_events (created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_auth_audit_events_account_id
+ON robo_auth.audit_events (account_id);
+
+CREATE INDEX IF NOT EXISTS idx_auth_audit_events_session_id
+ON robo_auth.audit_events (session_id);
+
+CREATE INDEX IF NOT EXISTS idx_auth_audit_events_type
+ON robo_auth.audit_events (event_type, created_at DESC);

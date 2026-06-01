@@ -1,8 +1,16 @@
+import pytest
+
+from app.auth import audit_logger
 from app.config import Settings
 from app.auth.token_service import AuthTokenService
 from app.core.orchestrator import Orchestrator
 from app.core.schemas import AskRequest, AuthContext, Intent, ToolResult
 from app.domains.base import DomainAdapter
+
+
+@pytest.fixture(autouse=True)
+def disable_audit_db(monkeypatch):
+    monkeypatch.setattr(audit_logger, "execute", lambda query, params: None)
 
 
 class FakeClinicAdapter(DomainAdapter):

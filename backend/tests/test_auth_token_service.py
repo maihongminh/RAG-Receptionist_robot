@@ -1,6 +1,6 @@
 import pytest
 
-from app.auth import auth_context, login_service, session_service, token_service
+from app.auth import auth_context, audit_logger, login_service, session_service, token_service
 from app.auth.auth_context import AuthContextResolver
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.password_service import hash_password, verify_password
@@ -29,6 +29,11 @@ class ExpiredSettings:
 class LegacyAuthSettings(FakeSettings):
     auth_allow_request_context = True
     auth_allow_legacy_role_login = True
+
+
+@pytest.fixture(autouse=True)
+def disable_audit_db(monkeypatch):
+    monkeypatch.setattr(audit_logger, "execute", lambda query, params: None)
 
 
 def test_auth_token_round_trip(monkeypatch):

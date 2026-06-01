@@ -101,7 +101,7 @@ Luồng đi qua hệ thống:
     Tạo câu trả lời template nếu grounded LLM không áp dụng hoặc bị lỗi.
 
 15. backend/app/auth/audit_logger.py
-    Ghi audit log mức MVP ra application logger.
+    Ghi audit log ra application logger và `robo_auth.audit_events`.
 
 16. Response JSON trả về frontend.
 
@@ -587,7 +587,7 @@ Auth:
 - `auth_context.py`: resolve auth context từ request, hiện guest nếu chưa có auth.
 - `permissions.py`: permission matrix theo role/tool.
 - `policy_guard.py`: chặn hoặc cho phép intent/tool trước khi truy vấn dữ liệu.
-- `audit_logger.py`: audit skeleton, hiện log ra application logger.
+- `audit_logger.py`: ghi audit event cho login/logout, policy decision và tool result; lỗi ghi DB không làm hỏng request chính.
 
 LLM:
 

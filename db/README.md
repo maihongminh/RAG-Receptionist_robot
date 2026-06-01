@@ -6,7 +6,7 @@ Kiến trúc dữ liệu hiện tại:
 
 ```text
 Excel -> robo_raw tables -> robo_app views -> backend/chatbot
-                         -> robo_auth accounts/session
+                         -> robo_auth accounts/session/audit
 ```
 
 Thư mục `db/` được chia theo schema:
@@ -77,7 +77,7 @@ Các file được sinh:
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
 - `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
-- `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session production foundation.
+- `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session/audit production foundation.
 - `db/auth/seed_demo.sql`: seed account demo cho login email/password.
 - `db/manifest.json`: mapping sheet Excel -> bảng Postgres -> cột.
 - `data/postgres_csv/*.csv`: dữ liệu CSV đã export từ từng sheet Excel.
@@ -144,7 +144,7 @@ Lý do tách:
 
 - `robo_app` được rebuild từ views trong quá trình development.
 - Account/session là dữ liệu vận hành, không nên bị drop khi rebuild app views.
-- Productization cần schema auth có thể tiến tới migration/refresh token/logout/audit rõ ràng.
+- Productization cần schema auth có thể tiến tới migration/refresh token/audit retention rõ ràng.
 
 Tạo/cập nhật auth schema:
 

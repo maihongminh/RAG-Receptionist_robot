@@ -8,39 +8,42 @@ Tài liệu này gom ba phần cần làm trước khi hệ thống tiến gần
 
 ## 1. Audit log DB
 
-MVP hiện có audit logger skeleton/log application.
+Hiện đã có audit DB nền tảng trong `robo_auth.audit_events`.
 
-Productization cần bảng audit DB cho private data access.
-
-Schema gợi ý:
+Schema hiện tại:
 
 ```text
-robo_audit.access_logs
+robo_auth.audit_events
   id
-  request_id
-  session_id
+  event_type
   account_id
+  session_id
+  user_id
   role
   clinic_id
-  patient_id
-  doctor_id
   intent
   tool_name
   source
-  action
-  decision
+  allowed
+  reason
   row_count
-  denied_reason
+  metadata
   created_at
 ```
 
-Các event cần ghi:
+Đang ghi:
 
-- private lookup allowed;
-- private lookup denied;
+```text
+login_success
+login_failed
+logout_success
+policy_decision
+tool_result
+```
+
+Các event cần mở rộng thêm:
+
 - token invalid/expired;
-- login success/fail;
-- logout;
 - refresh token;
 - RAG internal/private source access nếu có.
 
@@ -176,4 +179,3 @@ Trước demo:
 - restart backend/frontend;
 - test login 4 role demo;
 - test public/private/RAG câu chính.
-
