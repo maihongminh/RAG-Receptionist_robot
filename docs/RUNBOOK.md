@@ -506,7 +506,8 @@ Hiện tại:
 - Grounded answer: đã bật cho `knowledge_search`, context đưa vào LLM đã được rút gọn chỉ còn title/nội dung chính; fallback template vẫn format markdown thành câu trả lời dễ đọc nếu LLM lỗi/tắt.
 - Local LLM formatter: đã bật có chọn lọc cho SQL/Auth answers khi `LLM_PROVIDER=ollama`; không chạy với provider cloud. Các intent list tốt bằng template như nhóm dịch vụ hoặc service_price nhiều dòng sẽ ưu tiên template để tránh timeout và tránh LLM chọn thiếu dữ liệu.
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
-- Auth password/token MVP: `/auth/login` phát bearer token từ email/password trong `robo_auth.accounts`; `/ask` ưu tiên `Authorization: Bearer <token>`.
+- Auth password/token MVP: `/auth/login` phát bearer token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
+- Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
 - Auth mock trong request là dev-only path và mặc định tắt.
 - Auth chưa có OTP/refresh token; token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`.
 

@@ -30,3 +30,9 @@ def fetch_all(query: str, params: dict[str, Any] | None = None) -> list[dict[str
 def fetch_one(query: str, params: dict[str, Any] | None = None) -> dict[str, Any] | None:
     rows = fetch_all(query, params)
     return rows[0] if rows else None
+
+
+def execute(query: str, params: dict[str, Any] | None = None) -> None:
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, params or {})

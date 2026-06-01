@@ -35,12 +35,15 @@ class AskRequest(BaseModel):
 
 
 class AuthContext(BaseModel):
+    account_id: str | None = None
+    session_id: str | None = None
     user_id: str | None = None
     role: AuthRole | str = "guest"
     organization_id: str | None = None
     clinic_id: str | None = None
     patient_id: str | None = None
     doctor_id: str | None = None
+    staff_id: str | None = None
 
 
 class AuthLoginRequest(BaseModel):
@@ -62,6 +65,10 @@ class AuthLoginResponse(BaseModel):
 
 class AuthMeResponse(BaseModel):
     auth: AuthContext
+
+
+class AuthLogoutResponse(BaseModel):
+    ok: bool = True
 
 
 class Intent(BaseModel):

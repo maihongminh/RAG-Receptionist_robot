@@ -6,6 +6,9 @@ MVP hiện có:
 - Password hash PBKDF2-SHA256.
 - Bearer token HMAC local.
 - Account demo đã bắt đầu được tách sang schema `robo_auth`.
+- Login tạo row trong `robo_auth.sessions`.
+- `POST /auth/logout` revoke session bằng `revoked_at`.
+- `/auth/me` và `/ask` chỉ chấp nhận token có session còn active nếu token có `session_id`.
 - `auth` mock trong request đã chuyển thành dev-only path và mặc định tắt.
 
 P1 foundation đã bắt đầu với:
@@ -14,6 +17,7 @@ P1 foundation đã bắt đầu với:
 - `db/auth/seed_demo.sql`;
 - `scripts/apply_auth_schema.sh`;
 - backend login đọc `robo_auth.accounts/account_roles/account_identities`.
+- backend tạo session DB khi login và revoke session khi logout.
 
 Mục tiêu productization là biến lớp này thành auth/account chính thức.
 
@@ -105,9 +109,9 @@ frontend login
   -> validate account status
   -> verify password hash
   -> resolve identities/roles
-  -> create session/refresh token
-  -> issue short-lived access token
-  -> frontend stores access token + refresh token policy
+  -> create session in robo_auth.sessions
+  -> issue access token with session_id
+  -> frontend stores access token
 ```
 
 Access token chỉ nên chứa thông tin tối thiểu:
@@ -120,16 +124,21 @@ clinic_id/patient_id/doctor_id/staff_id
 iat/exp
 ```
 
-## 4. Refresh/logout
+## 4. Session/logout/refresh
 
-MVP hiện chưa có refresh/logout server-side.
+Đã có session/logout server-side nền tảng:
+
+- `POST /auth/login` tạo `robo_auth.sessions`;
+- access token chứa `session_id`;
+- `GET /auth/me` và `/ask` kiểm tra session còn active;
+- `POST /auth/logout` set `sessions.revoked_at`;
+- frontend logout gọi `/auth/logout` rồi xóa local token.
+
+Refresh token vẫn chưa làm.
 
 Productization cần:
 
 - `POST /auth/refresh`
-- `POST /auth/logout`
-- revoke session bằng `sessions.revoked_at`
-- logout frontend xóa local token
 - khi refresh token bị revoke/expired thì bắt login lại
 
 ## 5. Password policy

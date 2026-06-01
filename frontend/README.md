@@ -33,6 +33,8 @@ Authorization: Bearer <token>
 
 cho các request `/ask`.
 
+Khi bấm đăng xuất, UI gọi `/auth/logout` để revoke session server-side rồi mới xóa token local.
+
 Tài khoản demo hiện dùng chung mật khẩu `demo123`:
 
 ```text
@@ -42,4 +44,4 @@ receptionist@clinic.local -> receptionist
 admin@clinic.local        -> clinic_admin
 ```
 
-Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local; account/password dùng schema `robo_auth`.
+Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local có `session_id`; account/password/session dùng schema `robo_auth`.

@@ -69,3 +69,10 @@ TOKEN="paste_access_token_here"
 curl http://localhost:8000/auth/me \
   -H "Authorization: Bearer $TOKEN"
 ```
+
+Logout/revoke session:
+
+```bash
+curl -X POST http://localhost:8000/auth/logout \
+  -H "Authorization: Bearer $TOKEN"
+```

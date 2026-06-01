@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `118 passed`.
+- Test backend hiện tại: `119 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -118,6 +118,12 @@ Postgres
   - `payload.auth` request-body mock mặc định bị bỏ qua;
   - login legacy bằng `role + UUID` mặc định tắt;
   - script scenario MVP login qua `/auth/login` rồi test private flow bằng Bearer token.
+- Thêm session DB nền tảng:
+  - `/auth/login` tạo row trong `robo_auth.sessions`;
+  - token có `session_id`;
+  - `/auth/me` và `/ask` kiểm tra session còn active;
+  - `/auth/logout` revoke session bằng `revoked_at`;
+  - frontend logout gọi `/auth/logout`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
@@ -204,8 +210,8 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 
 ## Chưa hoàn thành
 
-- Chưa có account/session production chính thức.
-- Chưa có refresh token/logout server-side.
+- Account/session production foundation đã bắt đầu, nhưng chưa có quản trị account đầy đủ.
+- Chưa có refresh token.
 - Chưa có OTP/reset password.
 - Chưa có audit log ghi xuống database, hiện mới log skeleton.
 - Chưa có tạo lịch hẹn.

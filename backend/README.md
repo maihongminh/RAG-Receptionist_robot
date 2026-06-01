@@ -52,16 +52,17 @@ Quy ước LLM:
 
 Auth/RBAC hiện có:
 
-- `POST /auth/login` phát bearer token từ email/password trong `robo_auth.accounts`
-- `GET /auth/me` đọc bearer token và trả auth context
-- `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` vẫn được giữ để test/backward compatible
-- request không có `auth` sẽ được xem là `guest`
+- `POST /auth/login` phát bearer token từ email/password trong `robo_auth.accounts` và tạo `robo_auth.sessions`
+- `GET /auth/me` đọc bearer token, kiểm tra session còn active và trả auth context
+- `POST /auth/logout` revoke session hiện tại
+- `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` là dev-only path và mặc định tắt
+- request không có token sẽ được xem là `guest`
 - dữ liệu cá nhân bị chặn bởi `PolicyGuard`
 - request có `auth.role=patient` và `patient_id` được tra lịch hẹn của chính patient đó
 - request có `auth.role=doctor` và `doctor_id` được tra lịch hẹn của bác sĩ đó
 - request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
 - audit hiện log ra application logger, chưa ghi DB
-- chưa có OTP/refresh token; bước hiện tại là password auth MVP dựa trên DB identity hiện có
+- chưa có OTP/refresh token; bước hiện tại là password auth + session DB dựa trên identity hiện có
 
 Tài khoản demo:
 

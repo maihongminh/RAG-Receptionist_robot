@@ -1,8 +1,9 @@
 from app.auth.token_service import AuthTokenService
 from app.auth.password_service import verify_password
+from app.auth.session_service import AuthSessionService
 from app.config import get_settings
 from app.core.schemas import AuthContext, AuthLoginRequest, AuthLoginResponse
-from app.db import fetch_one
+from app.db import execute, fetch_one
 
 
 class AuthLoginError(ValueError):
@@ -12,10 +13,27 @@ class AuthLoginError(ValueError):
 class AuthLoginService:
     def __init__(self) -> None:
         self.token_service = AuthTokenService()
+        self.session_service = AuthSessionService()
 
     def login(self, payload: AuthLoginRequest) -> AuthLoginResponse:
         auth = self._resolve_auth_context(payload)
-        token, expires_in = self.token_service.issue(auth)
+        expires_in = self.token_service.settings.auth_token_ttl_seconds
+        if auth.account_id:
+            session_id = self.session_service.create(auth.account_id, expires_in)
+            auth = auth.model_copy(update={"session_id": session_id})
+            execute(
+                """
+                UPDATE robo_auth.accounts
+                SET last_login_at = now(),
+                    failed_login_count = 0,
+                    updated_at = now()
+                WHERE id = %(account_id)s
+                """,
+                {"account_id": auth.account_id},
+            )
+            token, expires_in = self.token_service.issue(auth, session_id=session_id)
+        else:
+            token, expires_in = self.token_service.issue(auth)
         return AuthLoginResponse(access_token=token, expires_in=expires_in, auth=auth)
 
     def _resolve_auth_context(self, payload: AuthLoginRequest) -> AuthContext:
@@ -79,6 +97,7 @@ class AuthLoginService:
             if not row.get("patient_id"):
                 raise AuthLoginError("Patient account is missing patient scope.")
             return AuthContext(
+                account_id=row["account_id"],
                 role="patient",
                 user_id=row.get("user_id") or row["account_id"],
                 patient_id=row["patient_id"],
@@ -88,21 +107,26 @@ class AuthLoginService:
             if not row.get("doctor_id"):
                 raise AuthLoginError("Doctor account is missing doctor scope.")
             return AuthContext(
+                account_id=row["account_id"],
                 role="doctor",
                 user_id=row.get("user_id") or row["account_id"],
                 doctor_id=row["doctor_id"],
+                staff_id=row.get("staff_id"),
                 clinic_id=row.get("clinic_id"),
             )
         if role in {"receptionist", "clinic_admin"}:
             if not row.get("clinic_id"):
                 raise AuthLoginError(f"{role} account is missing clinic scope.")
             return AuthContext(
+                account_id=row["account_id"],
                 role=role,
                 user_id=row.get("user_id") or row.get("staff_id") or row["account_id"],
+                staff_id=row.get("staff_id"),
                 clinic_id=row["clinic_id"],
             )
         if role == "system_admin":
             return AuthContext(
+                account_id=row["account_id"],
                 role="system_admin",
                 user_id=row.get("user_id") or row["account_id"],
             )

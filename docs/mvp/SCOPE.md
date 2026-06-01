@@ -72,8 +72,10 @@ Backend:
 
 - kiểm tra account schema hiện hành;
 - verify password hash PBKDF2-SHA256;
+- tạo `robo_auth.sessions`;
 - sinh bearer token HMAC;
-- `/ask` đọc `Authorization: Bearer <token>`;
+- `/ask` đọc `Authorization: Bearer <token>` và kiểm tra session còn active;
+- `/auth/logout` revoke session hiện tại;
 - `PolicyGuard` lọc dữ liệu theo auth context.
 
 `payload.auth` mock chỉ còn là dev-only path và mặc định bị bỏ qua.

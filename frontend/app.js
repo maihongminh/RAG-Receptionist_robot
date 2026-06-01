@@ -226,7 +226,20 @@ function continueAsGuest() {
   showApp();
 }
 
-function logout() {
+async function logout() {
+  const token = state.authToken;
+  if (token) {
+    try {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch {
+      // Local logout must still work if the API is already unreachable.
+    }
+  }
   saveAuth("", null);
   state.sessionId = createSessionId();
   messages.replaceChildren();
@@ -271,7 +284,7 @@ async function ask(question) {
     if (!res.ok) {
       if (res.status === 401) {
         const message = "Phiên đăng nhập hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.";
-        logout();
+        await logout();
         setLoginError(message);
         return;
       }
@@ -331,7 +344,9 @@ guestButton.addEventListener("click", () => {
   if (!state.loginBusy) continueAsGuest();
 });
 
-logoutButton.addEventListener("click", logout);
+logoutButton.addEventListener("click", () => {
+  logout();
+});
 
 async function checkHealth() {
   try {

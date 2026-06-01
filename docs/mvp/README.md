@@ -41,8 +41,8 @@ Mục đích của `docs/mvp/`:
 
 ## MVP chưa phải production
 
-- MVP ban đầu dùng account demo; productization đã bắt đầu tách account sang `robo_auth`.
-- Chưa có refresh token/logout server-side.
+- MVP ban đầu dùng account demo; productization đã bắt đầu tách account/session sang `robo_auth`.
+- Đã có logout server-side nền tảng qua `/auth/logout`; chưa có refresh token.
 - Chưa có OTP/reset password.
 - Audit log chưa ghi DB.
 - RAG build thủ công, chưa tự sync khi DB thay đổi.

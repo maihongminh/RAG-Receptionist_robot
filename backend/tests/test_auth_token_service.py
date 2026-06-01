@@ -1,6 +1,6 @@
 import pytest
 
-from app.auth import auth_context, login_service, token_service
+from app.auth import auth_context, login_service, session_service, token_service
 from app.auth.auth_context import AuthContextResolver
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.password_service import hash_password, verify_password
@@ -49,6 +49,31 @@ def test_auth_token_rejects_expired_token(monkeypatch):
         service.verify(token)
 
 
+def test_auth_token_checks_session_status(monkeypatch):
+    monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
+    monkeypatch.setattr(
+        session_service.AuthSessionService,
+        "is_active",
+        lambda self, session_id: session_id == "active-session",
+    )
+    service = AuthTokenService()
+
+    token, _ = service.issue(
+        AuthContext(role="patient", patient_id="patient-1"),
+        session_id="active-session",
+    )
+    auth = service.verify(token)
+
+    assert auth.session_id == "active-session"
+
+    revoked_token, _ = service.issue(
+        AuthContext(role="patient", patient_id="patient-1"),
+        session_id="revoked-session",
+    )
+    with pytest.raises(AuthTokenError):
+        service.verify(revoked_token)
+
+
 def test_login_service_validates_patient_and_issues_token(monkeypatch):
     monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
     monkeypatch.setattr(login_service, "get_settings", lambda: LegacyAuthSettings())
@@ -80,6 +105,12 @@ def test_login_service_rejects_legacy_role_login_by_default(monkeypatch):
 
 def test_login_service_validates_email_password_account(monkeypatch):
     monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
+    monkeypatch.setattr(
+        login_service.AuthSessionService,
+        "create",
+        lambda self, account_id, ttl_seconds: "session-1",
+    )
+    monkeypatch.setattr(login_service, "execute", lambda query, params: None)
     password_hash = hash_password("demo123", salt="test-salt")
     monkeypatch.setattr(
         login_service,
@@ -103,7 +134,10 @@ def test_login_service_validates_email_password_account(monkeypatch):
     )
 
     assert response.auth.role == "doctor"
+    assert response.auth.account_id == "account-1"
+    assert response.auth.session_id == "session-1"
     assert response.auth.doctor_id == "doctor-1"
+    assert response.auth.staff_id == "doctor-1"
     assert response.auth.clinic_id == "clinic-1"
     assert response.access_token
 

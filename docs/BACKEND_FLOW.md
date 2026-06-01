@@ -36,7 +36,8 @@ Hiện tại:
   - `knowledge_search`: grounded answer từ RAG context.
   - SQL/Auth answers: local formatter chỉ chạy với Ollama để viết lại dữ liệu đã truy xuất cho dễ đọc.
 - Đã có auth/RBAC/policy guard.
-- Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, và `/ask` đọc `Authorization: Bearer <token>`.
+- Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, `/auth/logout`, và `/ask` đọc `Authorization: Bearer <token>`.
+- Login tạo session trong `robo_auth.sessions`; token có `session_id`; `/auth/me` và `/ask` kiểm tra session còn active.
 - `auth` mock trong request là dev-only path, mặc định bị bỏ qua.
 - Chưa có OTP/refresh token/account production.
 
@@ -66,6 +67,7 @@ Luồng đi qua hệ thống:
 
 5. backend/app/auth/auth_context.py
    Xác thực token và sinh auth context đáng tin cậy.
+   Nếu token có `session_id`, backend kiểm tra `robo_auth.sessions` chưa bị revoke/hết hạn.
    Nếu không có token hợp lệ thì request được xử lý như guest.
 
 6. backend/app/llm/llm_client.py
@@ -402,7 +404,7 @@ response_generator.py
   -> nếu được phép: format lịch hẹn đã lọc theo scope
 ```
 
-MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
+MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Login tạo session trong `robo_auth.sessions`; logout gọi `/auth/logout` để revoke session. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text
 patient      -> patient_id
