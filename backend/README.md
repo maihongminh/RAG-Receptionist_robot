@@ -50,14 +50,27 @@ Quy ước LLM:
   - Các câu SQL/Auth khác: local formatter chỉ chạy khi `LLM_PROVIDER=ollama`, để không gửi dữ liệu bệnh nhân lên cloud.
 - SQL/RAG/API là nguồn sự thật; model không được tự bịa giá, lịch, địa chỉ hoặc dữ liệu cá nhân.
 
-Auth/RBAC MVP hiện có:
+Auth/RBAC hiện có:
 
+- `POST /auth/login` phát bearer token từ email/password trong `robo_app.auth_accounts`
+- `GET /auth/me` đọc bearer token và trả auth context
+- `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` vẫn được giữ để test/backward compatible
 - request không có `auth` sẽ được xem là `guest`
 - dữ liệu cá nhân bị chặn bởi `PolicyGuard`
 - request có `auth.role=patient` và `patient_id` được tra lịch hẹn của chính patient đó
 - request có `auth.role=doctor` và `doctor_id` được tra lịch hẹn của bác sĩ đó
 - request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
 - audit hiện log ra application logger, chưa ghi DB
+- chưa có OTP/refresh token; bước hiện tại là password auth MVP dựa trên DB identity hiện có
+
+Tài khoản demo:
+
+```text
+patient.demo@robo.local   / demo123 -> patient
+doctor@clinic.local       / demo123 -> doctor
+receptionist@clinic.local / demo123 -> receptionist
+admin@clinic.local        / demo123 -> clinic_admin
+```
 
 ## Cài dependency
 
@@ -108,6 +121,13 @@ OPENAI_API_KEY=your_api_key_here
 ```
 
 Sau khi sửa `.env`, restart backend. Nếu LLM lỗi hoặc thiếu key, backend tự fallback về rule parser.
+
+Auth password/token MVP dùng HMAC secret local:
+
+```text
+AUTH_TOKEN_SECRET=change-this-local-secret
+AUTH_TOKEN_TTL_SECONDS=86400
+```
 
 Nếu muốn dùng Ollama local:
 

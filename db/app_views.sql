@@ -271,3 +271,22 @@ SELECT
   CASE is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active
 FROM robo_raw.patient_question_templates
 WHERE COALESCE(is_active, 't') = 't';
+
+CREATE TABLE robo_app.auth_accounts (
+  id text PRIMARY KEY,
+  email text NOT NULL UNIQUE,
+  password_hash text NOT NULL,
+  role text NOT NULL,
+  user_id text,
+  clinic_id text,
+  patient_id text,
+  doctor_id text,
+  staff_id text,
+  display_name text,
+  is_active boolean NOT NULL DEFAULT true,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_auth_accounts_email_lower
+ON robo_app.auth_accounts (lower(email));

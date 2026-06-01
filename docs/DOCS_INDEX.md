@@ -74,15 +74,15 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Hoàn thiện auth/login thật sau khi ổn định MVP chat flow
+Hoàn thiện OTP/refresh token/account chính thức dựa trên auth password/token MVP
 ```
 
 Mục tiêu:
 
-- Thay auth mock hiện tại bằng cơ chế xác thực thật.
+- Nâng auth password/token MVP hiện tại lên cơ chế xác thực đầy đủ hơn với OTP/refresh token/account chính thức.
 - Sinh auth context tin cậy gồm `role`, `patient_id`, `doctor_id`, `clinic_id`.
 - Dữ liệu cá nhân tiếp tục đi qua `PolicyGuard` trước khi query tool.
-- MVP hiện đã lookup lịch hẹn theo scope auth mock.
+- MVP hiện đã lookup lịch hẹn theo auth context sinh từ email/password hoặc auth mock test.
 - Grounded LLM answer đã có bước đầu cho `knowledge_search`; không đưa dữ liệu cá nhân vào LLM nếu chưa được policy cho phép.
 - Flow RAG hiện tại build vector từ registry `scripts/rag_documents.py`.
 - `scripts/rag_documents.py` hiện gom `robo_app.knowledge_articles`; sau này thêm nguồn text hợp lệ vào file này.
@@ -90,4 +90,5 @@ Mục tiêu:
 - UI Trace vẫn phải hiện parser, sources và data/debug để kiểm tra nguồn câu trả lời.
 - MVP đã có short conversation context in-memory cho follow-up như `xem tiếp`, `xem chi tiết nhóm 35`.
 - Medical advice đang trả lời theo hướng triage an toàn, bám triệu chứng nhưng không chẩn đoán.
-- Auth mock đã manual test ổn cho guest, patient, doctor, receptionist và clinic_admin.
+- Auth password/token MVP đã manual test ổn cho guest, patient, doctor, receptionist và clinic_admin.
+- `/auth/login`, `/auth/me`, và `/ask` đọc Bearer token đã sẵn sàng cho frontend login.

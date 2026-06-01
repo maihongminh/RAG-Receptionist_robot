@@ -29,14 +29,14 @@ class Orchestrator:
         self.audit_logger = AuditLogger()
         self.context_store = get_conversation_context_store()
 
-    def handle(self, payload: AskRequest) -> AskResponse:
+    def handle(self, payload: AskRequest, authorization: str | None = None) -> AskResponse:
         domain = payload.domain or self.default_domain
         question = payload.question.strip()
         if not question:
             raise ValueError("Question is required.")
 
         session_id = payload.session_id or str(uuid4())
-        auth = self.auth_resolver.resolve(payload)
+        auth = self.auth_resolver.resolve(payload, authorization)
         rule_intent = self.rule_parser.parse(question, domain)
         if self._should_use_rule_before_llm(rule_intent):
             intent = rule_intent

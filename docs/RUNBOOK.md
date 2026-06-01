@@ -304,6 +304,41 @@ curl -X POST http://localhost:8000/ask \
 
 Câu dữ liệu cá nhân phải trả về `requires_auth: true`.
 
+Đăng nhập email/password MVP:
+
+```bash
+curl -X POST http://localhost:8000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"patient.demo@robo.local","password":"demo123"}'
+```
+
+Response trả `access_token`. Dùng token để gọi `/ask`:
+
+```bash
+TOKEN="paste_access_token_here"
+
+curl -X POST http://localhost:8000/ask \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"question":"Tôi có lịch hẹn nào không?","domain":"clinic"}'
+```
+
+Kiểm tra token hiện tại:
+
+```bash
+curl http://localhost:8000/auth/me \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+Tài khoản demo:
+
+```text
+patient.demo@robo.local   / demo123 -> patient
+doctor@clinic.local       / demo123 -> doctor
+receptionist@clinic.local / demo123 -> receptionist
+admin@clinic.local        / demo123 -> clinic_admin
+```
+
 Khi test LLM, response JSON có thêm:
 
 ```json
@@ -464,12 +499,13 @@ Hiện tại:
 - Grounded answer: đã bật cho `knowledge_search`, context đưa vào LLM đã được rút gọn chỉ còn title/nội dung chính; fallback template vẫn format markdown thành câu trả lời dễ đọc nếu LLM lỗi/tắt.
 - Local LLM formatter: đã bật có chọn lọc cho SQL/Auth answers khi `LLM_PROVIDER=ollama`; không chạy với provider cloud. Các intent list tốt bằng template như nhóm dịch vụ hoặc service_price nhiều dòng sẽ ưu tiên template để tránh timeout và tránh LLM chọn thiếu dữ liệu.
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
-- Auth MVP: request có thể gửi `auth` mock; guest bị chặn với dữ liệu cá nhân; patient/doctor/receptionist/clinic_admin được lookup lịch hẹn theo scope.
-- Auth thật: chưa có login/OTP/JWT.
+- Auth password/token MVP: `/auth/login` phát bearer token từ email/password trong `robo_app.auth_accounts`; `/ask` ưu tiên `Authorization: Bearer <token>`.
+- Auth mock trong request vẫn còn để test/backward compatibility.
+- Auth chưa có OTP/refresh token; token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`.
 
 Bước tiếp theo:
 
-1. Thêm login/OTP/JWT thật.
+1. Thêm OTP/refresh token hoặc account table chính thức nếu cần nâng khỏi MVP.
 2. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
 3. Mở rộng grounded answer sang intent khác nếu cần.
 

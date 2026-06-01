@@ -554,4 +554,85 @@ WHERE NOT EXISTS (
   WHERE id = '3b28fd6c-1c56-4f27-a2c4-000000000403'
 );
 
+-- 6) Demo auth accounts for real email/password login.
+-- Password for all accounts below: demo123
+INSERT INTO robo_app.auth_accounts (
+  id,
+  email,
+  password_hash,
+  role,
+  user_id,
+  clinic_id,
+  patient_id,
+  doctor_id,
+  staff_id,
+  display_name,
+  is_active
+)
+VALUES
+  (
+    'auth-patient-demo-001',
+    'patient.demo@robo.local',
+    'pbkdf2_sha256$260000$patient-demo-salt$apjsX0RTRBwqdEdt33iocDwV1IvCZCRrHvTyd6vkeM4',
+    'patient',
+    'd7402d44-a12f-420b-93b9-90372a3b2e6e',
+    'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
+    'd7402d44-a12f-420b-93b9-90372a3b2e6e',
+    NULL,
+    NULL,
+    'Trần Thị Bình',
+    true
+  ),
+  (
+    'auth-doctor-demo-001',
+    'doctor@clinic.local',
+    'pbkdf2_sha256$260000$doctor-demo-salt$XZgOBja8alI6e497oLK98eZ_4gf5pTVsJRn4RLIvZ_Y',
+    'doctor',
+    'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4',
+    'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
+    NULL,
+    'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4',
+    'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4',
+    'Dr. MVP Demo',
+    true
+  ),
+  (
+    'auth-receptionist-demo-001',
+    'receptionist@clinic.local',
+    'pbkdf2_sha256$260000$receptionist-demo-salt$ngveihVdxS9QN3EfzvKxNTJH7sRQ3kx11RWIWeDvfk8',
+    'receptionist',
+    'cad02e6c-fb13-4f5f-869d-a97d07491c26',
+    'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
+    NULL,
+    NULL,
+    'cad02e6c-fb13-4f5f-869d-a97d07491c26',
+    'Receptionist Le Minh C',
+    true
+  ),
+  (
+    'auth-clinic-admin-demo-001',
+    'admin@clinic.local',
+    'pbkdf2_sha256$260000$admin-demo-salt$dlK8eenUlYi56QqyD5vXdoTdnaA_P-ghwdYg4DexZmY',
+    'clinic_admin',
+    '9c3b4180-18d9-46c2-9059-aaaa40d73118',
+    'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
+    NULL,
+    NULL,
+    '9c3b4180-18d9-46c2-9059-aaaa40d73118',
+    'Clinic Admin Nguyen Van F',
+    true
+  )
+ON CONFLICT (email) DO UPDATE
+SET
+  password_hash = EXCLUDED.password_hash,
+  role = EXCLUDED.role,
+  user_id = EXCLUDED.user_id,
+  clinic_id = EXCLUDED.clinic_id,
+  patient_id = EXCLUDED.patient_id,
+  doctor_id = EXCLUDED.doctor_id,
+  staff_id = EXCLUDED.staff_id,
+  display_name = EXCLUDED.display_name,
+  is_active = EXCLUDED.is_active,
+  updated_at = now();
+
 COMMIT;

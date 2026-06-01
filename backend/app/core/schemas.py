@@ -23,6 +23,7 @@ IntentName = Literal[
 DataSource = Literal["sql", "rag", "auth", "none"]
 ParserSource = Literal["llm", "rule"]
 AnswerSource = Literal["template", "llm_grounded", "llm_formatted"]
+AuthRole = Literal["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"]
 
 
 class AskRequest(BaseModel):
@@ -35,11 +36,32 @@ class AskRequest(BaseModel):
 
 class AuthContext(BaseModel):
     user_id: str | None = None
-    role: str = "guest"
+    role: AuthRole | str = "guest"
     organization_id: str | None = None
     clinic_id: str | None = None
     patient_id: str | None = None
     doctor_id: str | None = None
+
+
+class AuthLoginRequest(BaseModel):
+    role: AuthRole | None = None
+    email: str | None = None
+    password: str | None = None
+    patient_id: str | None = None
+    doctor_id: str | None = None
+    clinic_id: str | None = None
+    staff_id: str | None = None
+
+
+class AuthLoginResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    expires_in: int
+    auth: AuthContext
+
+
+class AuthMeResponse(BaseModel):
+    auth: AuthContext
 
 
 class Intent(BaseModel):

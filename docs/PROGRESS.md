@@ -6,7 +6,7 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 Cập nhật gần nhất: 2026-05-26
 
-Project đang ở giai đoạn **MVP hỏi đáp có SQL/RAG/LLM local, auth mock và context hội thoại ngắn**.
+Project đang ở giai đoạn **MVP hỏi đáp có SQL/RAG/LLM local, auth password/token MVP và context hội thoại ngắn**.
 
 Luồng hiện tại:
 
@@ -97,9 +97,15 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `107 passed`.
+- Test backend hiện tại: `112 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
+- Thêm auth password/token MVP:
+  - `POST /auth/login`;
+  - `GET /auth/me`;
+  - `/ask` đọc `Authorization: Bearer <token>`;
+  - `robo_app.auth_accounts` lưu account demo bằng password hash PBKDF2-SHA256;
+  - frontend có màn hình đăng nhập email/password riêng, đăng xuất và lưu token localStorage.
 
 ### 2026-05-26
 
@@ -117,23 +123,23 @@ Postgres
 - Sửa public info: `Phòng khám mở cửa lúc mấy giờ` không bị route nhầm sang danh sách dịch vụ.
 - Sửa medical advice để câu như `tôi đau ngực, nên khám gì`, `tôi đau đầu đau mắt thì sao` trả lời linh hoạt hơn.
 - Sửa catalog follow-up để `các nhóm còn lại` và `xem thêm` sau `các dịch vụ hiện có` trả tiếp đúng nhóm 11-20 theo thứ tự tổng quan.
-- Manual test role: guest, patient, doctor, receptionist, clinic_admin đều ổn ở phạm vi MVP auth mock.
+- Manual test role: guest, patient, doctor, receptionist, clinic_admin đều ổn ở phạm vi MVP.
 - Chạy test backend: `107 passed`.
 - Chạy scenario MVP: `17/17 passed`.
 
 Task tiếp theo đề xuất:
 
 ```text
-Tiếp tục test role patient/doctor/receptionist/clinic_admin, sau đó thiết kế auth/login thật.
+Hoàn thiện OTP/refresh token hoặc account production dựa trên auth password/token MVP.
 ```
 - Thêm config RAG riêng trong `backend/app/rag/rag_config.py`.
 - Thêm `RAG_EXCLUDED_TOPICS=overview,roles` để loại tài liệu platform/permission khỏi RAG retrieval.
-- Thêm auth MVP bằng `auth` mock trong request:
+- Thêm auth MVP ban đầu bằng `auth` mock trong request:
   - guest bị chặn khi hỏi dữ liệu cá nhân
   - patient tra lịch hẹn theo `patient_id`
   - doctor tra lịch hẹn theo `doctor_id`
   - receptionist/clinic_admin tra lịch hẹn theo `clinic_id`
-- Thêm panel Auth MVP ở frontend để chọn role và nhập scope id.
+- Sau đó đã nâng lên màn đăng nhập email/password ở frontend.
 - Đã chạy `pytest`: 36 test pass.
 - Tách module backend để giảm tải `core`:
   - `backend/app/auth`: auth context, permissions, policy guard, audit logger
@@ -182,12 +188,10 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 
 Ưu tiên đề xuất:
 
-1. Thêm auth login/OTP/JWT thật thay cho auth mock.
+1. Thêm OTP/refresh token hoặc account production nếu cần nâng khỏi MVP.
 2. Mở rộng private tools ngoài lịch hẹn: kết quả, hồ sơ tóm tắt, trạng thái thanh toán nếu cần.
 3. Thêm audit log ghi DB cho private data access.
-2. Thêm auth flow cho dữ liệu cá nhân.
-3. Thêm lookup lịch hẹn cá nhân sau xác thực.
-4. Thêm policy guard/RBAC theo `docs/AUTHORIZATION_PLAN.md`.
+4. Chuẩn hóa RBAC chi tiết theo `docs/AUTHORIZATION_PLAN.md`.
 5. Thêm integration test với Postgres thật.
 6. Thêm test cho SQL tools.
 

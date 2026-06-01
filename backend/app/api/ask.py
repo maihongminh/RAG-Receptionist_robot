@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Header, HTTPException
 
+from app.auth.token_service import AuthTokenError
 from app.config import get_settings
 from app.core.orchestrator import Orchestrator
 from app.core.schemas import AskRequest, AskResponse
@@ -18,9 +19,11 @@ def build_orchestrator() -> Orchestrator:
 
 
 @router.post("/ask", response_model=AskResponse)
-def ask(payload: AskRequest) -> AskResponse:
+def ask(payload: AskRequest, authorization: str | None = Header(default=None)) -> AskResponse:
     orchestrator = build_orchestrator()
     try:
-        return orchestrator.handle(payload)
+        return orchestrator.handle(payload, authorization=authorization)
+    except AuthTokenError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

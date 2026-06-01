@@ -1,0 +1,186 @@
+from app.auth.token_service import AuthTokenService
+from app.auth.password_service import verify_password
+from app.core.schemas import AuthContext, AuthLoginRequest, AuthLoginResponse
+from app.db import fetch_one
+
+
+class AuthLoginError(ValueError):
+    pass
+
+
+class AuthLoginService:
+    def __init__(self) -> None:
+        self.token_service = AuthTokenService()
+
+    def login(self, payload: AuthLoginRequest) -> AuthLoginResponse:
+        auth = self._resolve_auth_context(payload)
+        token, expires_in = self.token_service.issue(auth)
+        return AuthLoginResponse(access_token=token, expires_in=expires_in, auth=auth)
+
+    def _resolve_auth_context(self, payload: AuthLoginRequest) -> AuthContext:
+        if payload.email or payload.password:
+            return self._account_password_auth(payload)
+        if not payload.role:
+            raise AuthLoginError("Login requires email/password or role/scope.")
+        if payload.role == "guest":
+            return AuthContext(role="guest")
+        if payload.role == "patient":
+            return self._patient_auth(payload)
+        if payload.role == "doctor":
+            return self._doctor_auth(payload)
+        if payload.role in {"receptionist", "clinic_admin"}:
+            return self._clinic_staff_auth(payload)
+        if payload.role == "system_admin":
+            raise AuthLoginError("system_admin login is not enabled in MVP.")
+        raise AuthLoginError(f"Unsupported role: {payload.role}")
+
+    def _account_password_auth(self, payload: AuthLoginRequest) -> AuthContext:
+        if not payload.email or not payload.password:
+            raise AuthLoginError("email/password login requires both email and password.")
+
+        row = fetch_one(
+            """
+            SELECT
+              id,
+              email,
+              password_hash,
+              role,
+              user_id,
+              clinic_id,
+              patient_id,
+              doctor_id,
+              staff_id,
+              is_active
+            FROM robo_app.auth_accounts
+            WHERE lower(email) = lower(%(email)s)
+            LIMIT 1
+            """,
+            {"email": payload.email.strip()},
+        )
+        if not row or not row.get("is_active"):
+            raise AuthLoginError("Invalid email or password.")
+        if not verify_password(payload.password, row["password_hash"]):
+            raise AuthLoginError("Invalid email or password.")
+
+        role = row["role"]
+        if role == "patient":
+            if not row.get("patient_id"):
+                raise AuthLoginError("Patient account is missing patient scope.")
+            return AuthContext(
+                role="patient",
+                user_id=row.get("user_id") or row["id"],
+                patient_id=row["patient_id"],
+                clinic_id=row.get("clinic_id"),
+            )
+        if role == "doctor":
+            if not row.get("doctor_id"):
+                raise AuthLoginError("Doctor account is missing doctor scope.")
+            return AuthContext(
+                role="doctor",
+                user_id=row.get("user_id") or row["id"],
+                doctor_id=row["doctor_id"],
+                clinic_id=row.get("clinic_id"),
+            )
+        if role in {"receptionist", "clinic_admin"}:
+            if not row.get("clinic_id"):
+                raise AuthLoginError(f"{role} account is missing clinic scope.")
+            return AuthContext(
+                role=role,
+                user_id=row.get("user_id") or row.get("staff_id") or row["id"],
+                clinic_id=row["clinic_id"],
+            )
+        if role == "system_admin":
+            return AuthContext(
+                role="system_admin",
+                user_id=row.get("user_id") or row["id"],
+            )
+        raise AuthLoginError(f"Unsupported account role: {role}")
+
+    def _patient_auth(self, payload: AuthLoginRequest) -> AuthContext:
+        if not payload.patient_id:
+            raise AuthLoginError("patient login requires patient_id.")
+        row = fetch_one(
+            """
+            SELECT id, clinic_id
+            FROM robo_app.patients
+            WHERE id = %(patient_id)s
+            LIMIT 1
+            """,
+            {"patient_id": payload.patient_id},
+        )
+        if not row:
+            raise AuthLoginError("Patient not found.")
+        return AuthContext(
+            role="patient",
+            user_id=row["id"],
+            patient_id=row["id"],
+            clinic_id=row.get("clinic_id"),
+        )
+
+    def _doctor_auth(self, payload: AuthLoginRequest) -> AuthContext:
+        doctor_id = payload.doctor_id or payload.staff_id
+        if not doctor_id:
+            raise AuthLoginError("doctor login requires doctor_id.")
+        row = fetch_one(
+            """
+            SELECT id, clinic_id, role
+            FROM robo_app.staff
+            WHERE id = %(doctor_id)s
+              AND role ILIKE 'doctor'
+              AND COALESCE(is_active, true) = true
+            LIMIT 1
+            """,
+            {"doctor_id": doctor_id},
+        )
+        if not row:
+            raise AuthLoginError("Doctor not found or inactive.")
+        return AuthContext(
+            role="doctor",
+            user_id=row["id"],
+            doctor_id=row["id"],
+            clinic_id=row.get("clinic_id"),
+        )
+
+    def _clinic_staff_auth(self, payload: AuthLoginRequest) -> AuthContext:
+        if not payload.clinic_id:
+            raise AuthLoginError(f"{payload.role} login requires clinic_id.")
+        clinic = fetch_one(
+            """
+            SELECT id
+            FROM robo_app.clinics
+            WHERE id = %(clinic_id)s
+              AND status = 'active'
+            LIMIT 1
+            """,
+            {"clinic_id": payload.clinic_id},
+        )
+        if not clinic:
+            raise AuthLoginError("Clinic not found or inactive.")
+
+        user_id = payload.staff_id
+        if payload.staff_id:
+            staff = fetch_one(
+                """
+                SELECT id
+                FROM robo_app.staff
+                WHERE id = %(staff_id)s
+                  AND clinic_id = %(clinic_id)s
+                  AND role = %(role)s
+                  AND COALESCE(is_active, true) = true
+                LIMIT 1
+                """,
+                {
+                    "staff_id": payload.staff_id,
+                    "clinic_id": payload.clinic_id,
+                    "role": payload.role,
+                },
+            )
+            if not staff:
+                raise AuthLoginError("Staff account not found or inactive.")
+            user_id = staff["id"]
+
+        return AuthContext(
+            role=payload.role,
+            user_id=user_id,
+            clinic_id=payload.clinic_id,
+        )

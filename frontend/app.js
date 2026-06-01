@@ -1,5 +1,14 @@
 const API_BASE_URL = window.API_BASE_URL || "http://localhost:8000";
 
+const loginScreen = document.querySelector("#loginScreen");
+const workspace = document.querySelector("#workspace");
+const loginForm = document.querySelector("#loginForm");
+const loginEmailInput = document.querySelector("#loginEmailInput");
+const loginPasswordInput = document.querySelector("#loginPasswordInput");
+const loginSubmitButton = document.querySelector("#loginSubmitButton");
+const guestButton = document.querySelector("#guestButton");
+const loginError = document.querySelector("#loginError");
+
 const messages = document.querySelector("#messages");
 const form = document.querySelector("#askForm");
 const input = document.querySelector("#questionInput");
@@ -16,20 +25,46 @@ const authStateValue = document.querySelector("#authStateValue");
 const sourcesValue = document.querySelector("#sourcesValue");
 const dataPreview = document.querySelector("#dataPreview");
 const sessionMeta = document.querySelector("#sessionMeta");
-const authRole = document.querySelector("#authRole");
-const patientIdInput = document.querySelector("#patientIdInput");
-const doctorIdInput = document.querySelector("#doctorIdInput");
-const clinicIdInput = document.querySelector("#clinicIdInput");
-const authFields = document.querySelectorAll("[data-auth-field]");
+const logoutButton = document.querySelector("#logoutButton");
+const authSessionStatus = document.querySelector("#authSessionStatus");
 
 const state = {
   busy: false,
+  loginBusy: false,
   sessionId: createSessionId(),
+  authToken: localStorage.getItem("robo_auth_token") || "",
+  authContext: loadAuthContext(),
 };
+
+function setScreenMode(mode) {
+  document.body.classList.toggle("auth-mode-login", mode === "login");
+  document.body.classList.toggle("auth-mode-app", mode === "app");
+}
 
 function createSessionId() {
   if (window.crypto?.randomUUID) return window.crypto.randomUUID();
   return `session-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function loadAuthContext() {
+  try {
+    return JSON.parse(localStorage.getItem("robo_auth_context") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function saveAuth(token, authContext) {
+  state.authToken = token || "";
+  state.authContext = authContext || null;
+
+  if (state.authToken) {
+    localStorage.setItem("robo_auth_token", state.authToken);
+    localStorage.setItem("robo_auth_context", JSON.stringify(state.authContext));
+  } else {
+    localStorage.removeItem("robo_auth_token");
+    localStorage.removeItem("robo_auth_context");
+  }
 }
 
 function addMessage(role, text) {
@@ -44,6 +79,17 @@ function setBusy(value) {
   state.busy = value;
   sendButton.disabled = value;
   sendButton.textContent = value ? "Đang gửi" : "Gửi";
+}
+
+function setLoginBusy(value) {
+  state.loginBusy = value;
+  loginSubmitButton.disabled = value;
+  guestButton.disabled = value;
+  loginSubmitButton.textContent = value ? "Đang đăng nhập" : "Đăng nhập";
+}
+
+function setLoginError(message = "") {
+  loginError.textContent = message;
 }
 
 function renderTrace(payload) {
@@ -71,56 +117,131 @@ function renderTrace(payload) {
   intentBadge.className = payload.requires_auth ? "auth" : "ok";
 }
 
-function getAuthPayload() {
-  const role = authRole.value || "guest";
-  if (role === "guest") return null;
-
-  const auth = { role };
-  const requiredField = getRequiredAuthField(role);
-
-  if (requiredField === "patient") {
-    const patientId = patientIdInput.value.trim();
-    if (patientId) auth.patient_id = patientId;
-  } else if (requiredField === "doctor") {
-    const doctorId = doctorIdInput.value.trim();
-    if (doctorId) auth.doctor_id = doctorId;
-  } else if (requiredField === "clinic") {
-    const clinicId = clinicIdInput.value.trim();
-    if (clinicId) auth.clinic_id = clinicId;
-  }
-
-  return auth;
+function resetTrace() {
+  intentBadge.textContent = "idle";
+  intentBadge.className = "";
+  domainValue.textContent = "-";
+  intentValue.textContent = "-";
+  confidenceValue.textContent = "-";
+  parserValue.textContent = "-";
+  answerSourceValue.textContent = "-";
+  authStateValue.textContent = buildAuthLabel();
+  sourcesValue.textContent = "-";
+  dataPreview.textContent = "{}";
+  sessionMeta.textContent = `clinic · ${buildAuthLabel()} · parser chưa chạy`;
 }
 
 function buildAuthLabel() {
-  const role = authRole.value || "guest";
-  if (role === "patient" && patientIdInput.value.trim()) return "patient";
-  if (role === "doctor" && doctorIdInput.value.trim()) return "doctor";
-  if (["receptionist", "clinic_admin"].includes(role) && clinicIdInput.value.trim()) {
-    return role;
+  if (state.authToken && state.authContext?.role) {
+    return `${state.authContext.role} token`;
   }
-  return role;
+  return "guest";
 }
 
-function getRequiredAuthField(role) {
-  if (role === "patient") return "patient";
-  if (role === "doctor") return "doctor";
-  if (["receptionist", "clinic_admin"].includes(role)) return "clinic";
-  return null;
+function resetLoginFormMessage() {
+  setLoginError();
 }
 
-function updateAuthFields() {
-  const requiredField = getRequiredAuthField(authRole.value || "guest");
-
-  authFields.forEach((field) => {
-    const shouldShow = field.dataset.authField === requiredField;
-    field.hidden = !shouldShow;
-    const input = field.querySelector("input");
-    if (input) input.disabled = !shouldShow;
-  });
-
+function renderAuthSession() {
+  if (state.authToken && state.authContext?.role) {
+    authSessionStatus.textContent = `Đã đăng nhập: ${state.authContext.role}`;
+    logoutButton.disabled = false;
+  } else {
+    authSessionStatus.textContent = "Đang dùng guest";
+    logoutButton.disabled = false;
+  }
   authStateValue.textContent = buildAuthLabel();
-  sessionMeta.textContent = `clinic · ${buildAuthLabel()} · parser chưa chạy`;
+}
+
+function showLogin() {
+  setScreenMode("login");
+  workspace.hidden = true;
+  loginScreen.hidden = false;
+  renderAuthSession();
+  resetLoginFormMessage();
+  loginEmailInput.focus();
+}
+
+function showApp() {
+  setScreenMode("app");
+  loginScreen.hidden = true;
+  workspace.hidden = false;
+  renderAuthSession();
+  resetTrace();
+  input.focus();
+}
+
+function buildLoginPayload() {
+  return {
+    email: loginEmailInput.value.trim(),
+    password: loginPasswordInput.value,
+  };
+}
+
+async function login() {
+  const payload = buildLoginPayload();
+  if (!payload.email) {
+    setLoginError("Vui lòng nhập email.");
+    loginEmailInput.focus();
+    return;
+  }
+  if (!payload.password) {
+    setLoginError("Vui lòng nhập mật khẩu.");
+    loginPasswordInput.focus();
+    return;
+  }
+
+  setLoginBusy(true);
+  setLoginError();
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    const body = await res.json();
+    saveAuth(body.access_token || "", body.auth || null);
+    state.sessionId = createSessionId();
+    messages.replaceChildren();
+    loginPasswordInput.value = "";
+    showApp();
+  } catch (error) {
+    setLoginError(extractErrorMessage(error.message) || "Đăng nhập thất bại.");
+  } finally {
+    setLoginBusy(false);
+  }
+}
+
+function continueAsGuest() {
+  saveAuth("", null);
+  state.sessionId = createSessionId();
+  messages.replaceChildren();
+  showApp();
+}
+
+function logout() {
+  saveAuth("", null);
+  state.sessionId = createSessionId();
+  messages.replaceChildren();
+  resetTrace();
+  showLogin();
+}
+
+function extractErrorMessage(message = "") {
+  try {
+    const parsed = JSON.parse(message);
+    if (typeof parsed.detail === "string") return parsed.detail;
+  } catch {
+    // Keep the original error text below.
+  }
+  return message;
 }
 
 async function ask(question) {
@@ -133,18 +254,27 @@ async function ask(question) {
       domain: "clinic",
       session_id: state.sessionId,
     };
-    const auth = getAuthPayload();
-    if (auth) requestBody.auth = auth;
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (state.authToken) {
+      headers.Authorization = `Bearer ${state.authToken}`;
+    }
 
     const res = await fetch(`${API_BASE_URL}/ask`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(requestBody),
     });
 
     if (!res.ok) {
+      if (res.status === 401) {
+        const message = "Phiên đăng nhập hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.";
+        logout();
+        setLoginError(message);
+        return;
+      }
       const text = await res.text();
       throw new Error(text || `HTTP ${res.status}`);
     }
@@ -153,10 +283,10 @@ async function ask(question) {
     addMessage("assistant", payload.answer);
     renderTrace(payload);
   } catch (error) {
-    addMessage("error", error.message || "Không gọi được API.");
+    addMessage("error", extractErrorMessage(error.message) || "Không gọi được API.");
   } finally {
     setBusy(false);
-    input.focus();
+    if (!workspace.hidden) input.focus();
   }
 }
 
@@ -177,18 +307,8 @@ input.addEventListener("keydown", (event) => {
 
 clearButton.addEventListener("click", () => {
   messages.replaceChildren();
-  intentBadge.textContent = "idle";
-  intentBadge.className = "";
-  domainValue.textContent = "-";
-  intentValue.textContent = "-";
-  confidenceValue.textContent = "-";
-  parserValue.textContent = "-";
-  answerSourceValue.textContent = "-";
-  authStateValue.textContent = buildAuthLabel();
-  sourcesValue.textContent = "-";
   state.sessionId = createSessionId();
-  sessionMeta.textContent = `clinic · ${buildAuthLabel()} · parser chưa chạy`;
-  dataPreview.textContent = "{}";
+  resetTrace();
   input.focus();
 });
 
@@ -202,14 +322,16 @@ document.querySelectorAll("[data-question]").forEach((button) => {
   });
 });
 
-[authRole, patientIdInput, doctorIdInput, clinicIdInput].forEach((field) => {
-  field.addEventListener("input", () => {
-    updateAuthFields();
-  });
-  field.addEventListener("change", () => {
-    updateAuthFields();
-  });
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!state.loginBusy) login();
 });
+
+guestButton.addEventListener("click", () => {
+  if (!state.loginBusy) continueAsGuest();
+});
+
+logoutButton.addEventListener("click", logout);
 
 async function checkHealth() {
   try {
@@ -220,6 +342,32 @@ async function checkHealth() {
   }
 }
 
+async function bootstrapSession() {
+  if (!state.authToken || !state.authContext?.role) {
+    showLogin();
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${state.authToken}`,
+      },
+    });
+    if (!res.ok) {
+      saveAuth("", null);
+      showLogin();
+      setLoginError("Phiên đăng nhập cũ không còn hợp lệ. Vui lòng đăng nhập lại.");
+      return;
+    }
+    const body = await res.json();
+    saveAuth(state.authToken, body.auth || state.authContext);
+  } catch {
+    healthStatus.textContent = "API chưa kết nối";
+  }
+
+  showApp();
+}
+
 checkHealth();
-updateAuthFields();
-input.focus();
+bootstrapSession();

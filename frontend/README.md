@@ -25,14 +25,21 @@ Nếu backend chạy host/port khác, chỉnh `API_BASE_URL` trong `app.js`.
 
 ## Auth MVP
 
-Panel bên trái có thể gửi auth context mock cùng request `/ask`:
+Frontend có màn hình đăng nhập riêng trước khi vào chatbot. Khi nhập email/password hợp lệ, UI gọi `/auth/login`, lưu token vào `localStorage`, sau đó gửi:
 
 ```text
-guest          -> không gửi auth, dữ liệu cá nhân bị chặn
-patient        -> cần patient_id
-doctor         -> cần doctor_id
-receptionist   -> cần clinic_id
-clinic_admin   -> cần clinic_id
+Authorization: Bearer <token>
 ```
 
-Panel này chỉ phục vụ demo/MVP. Login/OTP/JWT thật sẽ làm ở backend sau.
+cho các request `/ask`.
+
+Tài khoản demo hiện dùng chung mật khẩu `demo123`:
+
+```text
+patient.demo@robo.local   -> patient
+doctor@clinic.local       -> doctor
+receptionist@clinic.local -> receptionist
+admin@clinic.local        -> clinic_admin
+```
+
+Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local; account/password dùng bảng `robo_app.auth_accounts`.

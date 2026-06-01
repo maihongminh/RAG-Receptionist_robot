@@ -341,7 +341,7 @@ School:
 - Tool registry.
 - Domain adapter `clinic`.
 - Auth context, permission matrix và audit logger skeleton.
-- Auth MVP bằng request `auth` mock, có lookup lịch hẹn theo `patient_id`, `doctor_id` hoặc `clinic_id`.
+- Auth password/token MVP bằng `/auth/login`, `/auth/me`, bearer token cho `/ask`; request `auth` mock vẫn giữ để test/backward compatibility.
 - RAG vector bằng Qdrant local mode, quản lý nguồn qua `scripts/rag_documents.py`.
 - Keyword/fuzzy RAG fallback nếu Qdrant chưa có index hoặc lỗi.
 - RAG loại topic `overview`, `roles` khỏi retrieval để tránh dùng tài liệu platform/permission làm context trả lời bệnh nhân.
@@ -352,7 +352,7 @@ School:
 Chưa có và cần làm tiếp:
 
 - Domain adapter cho `hotel`, `restaurant`, `school`.
-- Login/OTP/JWT thật.
+- OTP/refresh token/account chính thức.
 - Audit log ghi xuống database.
 
-Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG**. Bước tiếp theo nên thêm grounded LLM response generator để diễn đạt câu trả lời dựa trên dữ liệu đã truy xuất.
+Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG + auth password/token MVP**. Bước tiếp theo nên hoàn thiện OTP/refresh token hoặc account chính thức nếu cần nâng khỏi MVP.

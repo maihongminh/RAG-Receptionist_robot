@@ -142,3 +142,12 @@ Kỳ vọng:
 xem tiếp giữ đúng ngữ cảnh danh sách trước.
 xem chi tiết nhóm N mở đúng nhóm theo số thứ tự đã hiển thị.
 Nếu bấm clear chat, session mới bắt đầu, câu follow-up mơ hồ có thể không hiểu đúng.
+
+account:
+
+patient.demo@robo.local
+doctor@clinic.local
+receptionist@clinic.local
+admin@clinic.local
+
+pass: demo123

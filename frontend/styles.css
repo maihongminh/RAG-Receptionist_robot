@@ -50,6 +50,121 @@ button {
   padding: 20px;
 }
 
+.login-screen {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+body.auth-mode-login .shell {
+  padding: 0;
+}
+
+body.auth-mode-login #loginScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid !important;
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--bg);
+}
+
+body.auth-mode-login #workspace {
+  display: none !important;
+}
+
+body.auth-mode-app #loginScreen {
+  display: none !important;
+}
+
+body.auth-mode-app #workspace {
+  display: grid !important;
+}
+
+.login-panel {
+  width: min(440px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.login-brand {
+  margin-bottom: 22px;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.login-form span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.login-form input,
+.login-form select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--text);
+  padding: 10px 11px;
+  outline: none;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+  border-color: var(--accent);
+}
+
+.login-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.login-actions button,
+.auth-card button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--text);
+  padding: 10px 12px;
+}
+
+.login-actions button:first-child {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.login-actions button:hover,
+.auth-card button:hover {
+  border-color: var(--accent);
+}
+
+#loginError {
+  color: var(--danger);
+  font-size: 13px;
+  min-height: 18px;
+}
+
+.login-screen[hidden],
+.workspace[hidden],
+#loginIdentityField[hidden] {
+  display: none !important;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: 280px minmax(360px, 1fr) 340px;
@@ -179,6 +294,12 @@ h2 {
 .auth-card input:focus,
 .auth-card select:focus {
   border-color: var(--accent);
+}
+
+#authSessionStatus {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .chat-panel {

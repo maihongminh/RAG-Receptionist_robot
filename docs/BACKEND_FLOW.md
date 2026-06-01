@@ -35,9 +35,10 @@ Hiện tại:
 - LLM cuối flow đã bật:
   - `knowledge_search`: grounded answer từ RAG context.
   - SQL/Auth answers: local formatter chỉ chạy với Ollama để viết lại dữ liệu đã truy xuất cho dễ đọc.
-- Đã có auth/RBAC/policy guard MVP với `auth` mock trong request.
-- Đã có lookup lịch hẹn sau xác thực mock theo `patient_id`, `doctor_id` hoặc `clinic_id`.
-- Chưa có login/OTP/JWT thật.
+- Đã có auth/RBAC/policy guard.
+- Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, và `/ask` đọc `Authorization: Bearer <token>`.
+- `auth` mock trong request vẫn giữ để test/backward compatibility.
+- Chưa có OTP/refresh token/account production.
 
 ## 2. Flow tổng quát khi người dùng hỏi
 
@@ -396,13 +397,22 @@ response_generator.py
   -> nếu được phép: format lịch hẹn đã lọc theo scope
 ```
 
-MVP chưa có login/OTP/JWT thật. Frontend hiện có panel Auth MVP để gửi `role`, `patient_id`, `doctor_id`, `clinic_id` vào request. Backend chỉ tra trong phạm vi:
+MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Backend sinh auth context từ `robo_app.auth_accounts` trong phạm vi:
 
 ```text
 patient      -> patient_id
 doctor       -> doctor_id
 receptionist -> clinic_id
 clinic_admin -> clinic_id
+```
+
+Tài khoản demo dùng chung mật khẩu `demo123`:
+
+```text
+patient.demo@robo.local
+doctor@clinic.local
+receptionist@clinic.local
+admin@clinic.local
 ```
 
 ## 6. Backend đang xử lý những gì?
@@ -621,9 +631,9 @@ frontend/
 
 Ý nghĩa:
 
-- `frontend/index.html`: markup UI chatbot.
-- `frontend/styles.css`: style giao diện.
-- `frontend/app.js`: gọi API `/ask`, render chat, render trace panel.
+- `frontend/index.html`: markup màn đăng nhập, UI chatbot và trace panel.
+- `frontend/styles.css`: style màn đăng nhập, chatbot và trace panel.
+- `frontend/app.js`: gọi `/auth/login`, gửi bearer token vào `/ask`, render chat và trace panel.
 - `frontend/README.md`: hướng dẫn chạy frontend.
 
 Frontend chạy tách khỏi backend:

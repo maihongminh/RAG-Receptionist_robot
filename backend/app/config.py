@@ -33,6 +33,8 @@ class Settings(BaseModel):
     qdrant_path: str = os.getenv("QDRANT_PATH", str(ROOT_DIR.parent / "qdrant_data"))
     qdrant_url: str = os.getenv("QDRANT_URL", "http://localhost:6333")
     qdrant_collection: str = os.getenv("QDRANT_COLLECTION", "clinic_knowledge")
+    auth_token_secret: str = os.getenv("AUTH_TOKEN_SECRET", "dev-local-auth-secret")
+    auth_token_ttl_seconds: int = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", "86400"))
     rag_vector_enabled: bool = os.getenv("RAG_VECTOR_ENABLED", "true").lower() in {
         "1",
         "true",
