@@ -38,8 +38,9 @@ Hiện tại:
 - Đã có auth/RBAC/policy guard.
 - Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, `/auth/logout`, và `/ask` đọc `Authorization: Bearer <token>`.
 - Login tạo session trong `robo_auth.sessions`; token có `session_id`; `/auth/me` và `/ask` kiểm tra session còn active.
+- Refresh token được rotate qua `/auth/refresh` và lưu hash trong `robo_auth.sessions`.
 - `auth` mock trong request là dev-only path, mặc định bị bỏ qua.
-- Chưa có OTP/refresh token/account production.
+- Chưa có OTP/reset password/account admin UI.
 
 ## 2. Flow tổng quát khi người dùng hỏi
 

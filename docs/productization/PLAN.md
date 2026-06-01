@@ -75,7 +75,7 @@ P0 - Baseline freeze
 P1 - Auth/account production foundation
   -> account schema chính thức
   -> password hash + session DB
-  -> refresh token phase sau
+  -> refresh token rotate server-side
   -> logout server-side
   -> auth context đáng tin cậy
 

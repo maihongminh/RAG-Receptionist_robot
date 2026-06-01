@@ -11,6 +11,7 @@ from app.core.schemas import AskRequest, AuthContext, AuthLoginRequest
 class FakeSettings:
     auth_token_secret = "test-secret"
     auth_token_ttl_seconds = 3600
+    auth_refresh_token_ttl_seconds = 86400
     auth_allow_request_context = False
     auth_allow_legacy_role_login = False
     auth_max_failed_login_attempts = 5
@@ -20,6 +21,7 @@ class FakeSettings:
 class ExpiredSettings:
     auth_token_secret = "test-secret"
     auth_token_ttl_seconds = -1
+    auth_refresh_token_ttl_seconds = 86400
     auth_allow_request_context = False
     auth_allow_legacy_role_login = False
     auth_max_failed_login_attempts = 5
@@ -117,7 +119,7 @@ def test_login_service_validates_email_password_account(monkeypatch):
     monkeypatch.setattr(
         login_service.AuthSessionService,
         "create",
-        lambda self, account_id, ttl_seconds: "session-1",
+        lambda self, account_id, ttl_seconds: ("session-1", "refresh-1"),
     )
     monkeypatch.setattr(login_service, "execute", lambda query, params: None)
     password_hash = hash_password("demo123", salt="test-salt")
@@ -149,6 +151,45 @@ def test_login_service_validates_email_password_account(monkeypatch):
     assert response.auth.staff_id == "doctor-1"
     assert response.auth.clinic_id == "clinic-1"
     assert response.access_token
+    assert response.refresh_token == "refresh-1"
+
+
+def test_session_refresh_rotates_refresh_token(monkeypatch):
+    executed: list[dict] = []
+    monkeypatch.setattr(
+        session_service,
+        "fetch_one",
+        lambda query, params: {
+            "session_id": "session-1",
+            "account_id": "account-1",
+            "role": "patient",
+            "user_id": "user-1",
+            "clinic_id": "clinic-1",
+            "patient_id": "patient-1",
+            "doctor_id": None,
+            "staff_id": None,
+        },
+    )
+    monkeypatch.setattr(
+        session_service,
+        "execute",
+        lambda query, params: executed.append(params),
+    )
+    monkeypatch.setattr(
+        session_service.AuthSessionService,
+        "_new_refresh_token",
+        lambda self: "refresh-2",
+    )
+
+    auth, refresh_token = session_service.AuthSessionService().refresh("refresh-1", 86400)
+
+    assert auth.account_id == "account-1"
+    assert auth.session_id == "session-1"
+    assert auth.role == "patient"
+    assert auth.patient_id == "patient-1"
+    assert refresh_token == "refresh-2"
+    assert executed
+    assert executed[0]["session_id"] == "session-1"
 
 
 def test_login_service_rejects_invalid_password(monkeypatch):

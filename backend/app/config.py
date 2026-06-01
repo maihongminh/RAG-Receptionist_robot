@@ -42,6 +42,9 @@ class Settings(BaseModel):
     qdrant_collection: str = os.getenv("QDRANT_COLLECTION", "clinic_knowledge")
     auth_token_secret: str = os.getenv("AUTH_TOKEN_SECRET", "dev-local-auth-secret")
     auth_token_ttl_seconds: int = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", "86400"))
+    auth_refresh_token_ttl_seconds: int = int(
+        os.getenv("AUTH_REFRESH_TOKEN_TTL_SECONDS", "2592000")
+    )
     auth_allow_request_context: bool = _bool_env("AUTH_ALLOW_REQUEST_CONTEXT", False)
     auth_allow_legacy_role_login: bool = _bool_env("AUTH_ALLOW_LEGACY_ROLE_LOGIN", False)
     auth_max_failed_login_attempts: int = int(os.getenv("AUTH_MAX_FAILED_LOGIN_ATTEMPTS", "5"))

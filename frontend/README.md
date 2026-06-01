@@ -25,7 +25,7 @@ Nếu backend chạy host/port khác, chỉnh `API_BASE_URL` trong `app.js`.
 
 ## Auth MVP
 
-Frontend có màn hình đăng nhập riêng trước khi vào chatbot. Khi nhập email/password hợp lệ, UI gọi `/auth/login`, lưu token vào `localStorage`, sau đó gửi:
+Frontend có màn hình đăng nhập riêng trước khi vào chatbot. Khi nhập email/password hợp lệ, UI gọi `/auth/login`, lưu access token + refresh token vào `localStorage`, sau đó gửi:
 
 ```text
 Authorization: Bearer <token>
@@ -45,5 +45,7 @@ admin@clinic.local        -> clinic_admin
 ```
 
 Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local có `session_id`; account/password/session dùng schema `robo_auth`.
+
+Nếu access token hết hạn, UI gọi `/auth/refresh` để rotate refresh token và lấy access token mới. Nếu refresh cũng lỗi, UI xóa session local và quay về màn login.
 
 Trace header trong màn chat hiển thị thêm request id rút gọn và latency của `/ask` để debug nhanh một lượt gọi.

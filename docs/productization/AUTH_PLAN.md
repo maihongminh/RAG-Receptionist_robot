@@ -130,16 +130,13 @@ iat/exp
 
 - `POST /auth/login` tạo `robo_auth.sessions`;
 - access token chứa `session_id`;
+- refresh token được hash vào `sessions.refresh_token_hash`;
 - `GET /auth/me` và `/ask` kiểm tra session còn active;
+- `POST /auth/refresh` rotate refresh token và phát access token mới;
 - `POST /auth/logout` set `sessions.revoked_at`;
 - frontend logout gọi `/auth/logout` rồi xóa local token.
 
-Refresh token vẫn chưa làm.
-
-Productization cần:
-
-- `POST /auth/refresh`
-- khi refresh token bị revoke/expired thì bắt login lại
+Refresh token hiện là opaque token, backend chỉ lưu SHA-256 hash. Refresh token cũ mất hiệu lực sau mỗi lần rotate.
 
 ## 5. Password policy
 
@@ -176,6 +173,7 @@ Unit tests:
 - reject wrong password;
 - reject inactive account;
 - issue/verify access token;
+- issue/rotate refresh token;
 - expired token;
 - refresh token;
 - logout revoked session.

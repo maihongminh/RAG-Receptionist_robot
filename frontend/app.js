@@ -33,6 +33,7 @@ const state = {
   loginBusy: false,
   sessionId: createSessionId(),
   authToken: localStorage.getItem("robo_auth_token") || "",
+  refreshToken: localStorage.getItem("robo_refresh_token") || "",
   authContext: loadAuthContext(),
 };
 
@@ -54,15 +55,20 @@ function loadAuthContext() {
   }
 }
 
-function saveAuth(token, authContext) {
+function saveAuth(token, authContext, refreshToken = "") {
   state.authToken = token || "";
+  state.refreshToken = refreshToken || "";
   state.authContext = authContext || null;
 
   if (state.authToken) {
     localStorage.setItem("robo_auth_token", state.authToken);
     localStorage.setItem("robo_auth_context", JSON.stringify(state.authContext));
+    if (state.refreshToken) {
+      localStorage.setItem("robo_refresh_token", state.refreshToken);
+    }
   } else {
     localStorage.removeItem("robo_auth_token");
+    localStorage.removeItem("robo_refresh_token");
     localStorage.removeItem("robo_auth_context");
   }
 }
@@ -210,7 +216,7 @@ async function login() {
       throw new Error(text || `HTTP ${res.status}`);
     }
     const body = await res.json();
-    saveAuth(body.access_token || "", body.auth || null);
+    saveAuth(body.access_token || "", body.auth || null, body.refresh_token || "");
     state.sessionId = createSessionId();
     messages.replaceChildren();
     loginPasswordInput.value = "";
@@ -260,32 +266,45 @@ function extractErrorMessage(message = "") {
   return message;
 }
 
+async function refreshAuth() {
+  if (!state.refreshToken) return false;
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/refresh`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refresh_token: state.refreshToken }),
+    });
+    if (!res.ok) return false;
+    const body = await res.json();
+    saveAuth(body.access_token || "", body.auth || null, body.refresh_token || "");
+    return Boolean(state.authToken);
+  } catch {
+    return false;
+  }
+}
+
 async function ask(question) {
   setBusy(true);
   addMessage("user", question);
 
   try {
-    const requestBody = {
-      question,
-      domain: "clinic",
-      session_id: state.sessionId,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    if (state.authToken) {
-      headers.Authorization = `Bearer ${state.authToken}`;
-    }
-
-    const res = await fetch(`${API_BASE_URL}/ask`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(requestBody),
-    });
+    let res = await sendAskRequest(question);
 
     if (!res.ok) {
       if (res.status === 401) {
+        const refreshed = await refreshAuth();
+        if (refreshed) {
+          res = await sendAskRequest(question);
+          if (res.ok) {
+            const payload = await res.json();
+            addMessage("assistant", payload.answer);
+            renderTrace(payload);
+            return;
+          }
+        }
         const message = "Phiên đăng nhập hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.";
         await logout();
         setLoginError(message);
@@ -304,6 +323,27 @@ async function ask(question) {
     setBusy(false);
     if (!workspace.hidden) input.focus();
   }
+}
+
+async function sendAskRequest(question) {
+  const requestBody = {
+    question,
+    domain: "clinic",
+    session_id: state.sessionId,
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  if (state.authToken) {
+    headers.Authorization = `Bearer ${state.authToken}`;
+  }
+
+  return fetch(`${API_BASE_URL}/ask`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(requestBody),
+  });
 }
 
 form.addEventListener("submit", (event) => {
@@ -373,6 +413,11 @@ async function bootstrapSession() {
       },
     });
     if (!res.ok) {
+      const refreshed = await refreshAuth();
+      if (refreshed) {
+        showApp();
+        return;
+      }
       saveAuth("", null);
       showLogin();
       setLoginError("Phiên đăng nhập cũ không còn hợp lệ. Vui lòng đăng nhập lại.");

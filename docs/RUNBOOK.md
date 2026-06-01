@@ -506,18 +506,20 @@ Hiện tại:
 - Grounded answer: đã bật cho `knowledge_search`, context đưa vào LLM đã được rút gọn chỉ còn title/nội dung chính; fallback template vẫn format markdown thành câu trả lời dễ đọc nếu LLM lỗi/tắt.
 - Local LLM formatter: đã bật có chọn lọc cho SQL/Auth answers khi `LLM_PROVIDER=ollama`; không chạy với provider cloud. Các intent list tốt bằng template như nhóm dịch vụ hoặc service_price nhiều dòng sẽ ưu tiên template để tránh timeout và tránh LLM chọn thiếu dữ liệu.
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
-- Auth password/token MVP: `/auth/login` phát bearer token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
+- Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
+- Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
 - Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Request observability: backend nhận/tạo `X-Request-ID`, trả `X-Request-ID`, `X-Process-Time-Ms`; `/ask` response và audit DB đều có `request_id`, `latency_ms`.
 - Auth mock trong request là dev-only path và mặc định tắt.
-- Auth chưa có OTP/refresh token; token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`.
+- Auth chưa có OTP/reset password; access token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`, refresh token lưu hash trong `robo_auth.sessions`.
 
 Cấu hình auth legacy/debug:
 
 ```text
 AUTH_ALLOW_REQUEST_CONTEXT=false
 AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
+AUTH_REFRESH_TOKEN_TTL_SECONDS=2592000
 AUTH_MAX_FAILED_LOGIN_ATTEMPTS=5
 AUTH_LOCK_SECONDS=900
 ```

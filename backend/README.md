@@ -129,13 +129,14 @@ Auth password/token MVP dùng HMAC secret local:
 ```text
 AUTH_TOKEN_SECRET=change-this-local-secret
 AUTH_TOKEN_TTL_SECONDS=86400
+AUTH_REFRESH_TOKEN_TTL_SECONDS=2592000
 AUTH_ALLOW_REQUEST_CONTEXT=false
 AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
 AUTH_MAX_FAILED_LOGIN_ATTEMPTS=5
 AUTH_LOCK_SECONDS=900
 ```
 
-`AUTH_ALLOW_REQUEST_CONTEXT` và `AUTH_ALLOW_LEGACY_ROLE_LOGIN` chỉ nên bật khi debug đường auth cũ. Productization flow dùng email/password rồi gửi `Authorization: Bearer <token>` vào `/ask`.
+`AUTH_ALLOW_REQUEST_CONTEXT` và `AUTH_ALLOW_LEGACY_ROLE_LOGIN` chỉ nên bật khi debug đường auth cũ. Productization flow dùng email/password, nhận access token + refresh token, rồi gửi `Authorization: Bearer <token>` vào `/ask`.
 
 `AUTH_MAX_FAILED_LOGIN_ATTEMPTS` và `AUTH_LOCK_SECONDS` điều khiển khóa account tạm thời khi nhập sai mật khẩu nhiều lần.
 

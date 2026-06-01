@@ -58,9 +58,14 @@ class AuthLoginRequest(BaseModel):
 
 class AuthLoginResponse(BaseModel):
     access_token: str
+    refresh_token: str | None = None
     token_type: str = "bearer"
     expires_in: int
     auth: AuthContext
+
+
+class AuthRefreshRequest(BaseModel):
+    refresh_token: str = Field(..., min_length=1)
 
 
 class AuthMeResponse(BaseModel):

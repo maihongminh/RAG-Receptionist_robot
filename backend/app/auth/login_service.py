@@ -22,8 +22,12 @@ class AuthLoginService:
     def login(self, payload: AuthLoginRequest) -> AuthLoginResponse:
         auth = self._resolve_auth_context(payload)
         expires_in = self.token_service.settings.auth_token_ttl_seconds
+        refresh_token = None
         if auth.account_id:
-            session_id = self.session_service.create(auth.account_id, expires_in)
+            session_id, refresh_token = self.session_service.create(
+                auth.account_id,
+                get_settings().auth_refresh_token_ttl_seconds,
+            )
             auth = auth.model_copy(update={"session_id": session_id})
             execute(
                 """
@@ -46,7 +50,12 @@ class AuthLoginService:
             )
         else:
             token, expires_in = self.token_service.issue(auth)
-        return AuthLoginResponse(access_token=token, expires_in=expires_in, auth=auth)
+        return AuthLoginResponse(
+            access_token=token,
+            refresh_token=refresh_token,
+            expires_in=expires_in,
+            auth=auth,
+        )
 
     def _resolve_auth_context(self, payload: AuthLoginRequest) -> AuthContext:
         if payload.email or payload.password:

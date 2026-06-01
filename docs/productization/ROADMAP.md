@@ -32,7 +32,7 @@ Deliverables:
 - Schema account chính thức, không đặt trong app view tạm nếu sau này cần migration bền vững.
 - Password hash chuẩn, có policy độ dài/tối thiểu.
 - Access token + session DB.
-- Refresh token để phase sau.
+- Refresh token rotate server-side.
 - Logout server-side hoặc session revoke.
 - `GET /auth/me` trả auth context đáng tin cậy.
 - Account liên kết rõ với patient/staff/clinic/profile.
@@ -55,9 +55,10 @@ Trạng thái hiện tại:
 
 - Đã có `robo_auth.accounts/account_roles/account_identities/sessions`.
 - Đã có `/auth/login`, `/auth/me`, `/auth/logout`.
+- Đã có `/auth/refresh` rotate refresh token.
 - Đã khóa `payload.auth` mặc định và tắt login legacy `role + UUID`.
 - Đã có `failed_login_count` và khóa tạm thời bằng `locked_until`.
-- Chưa có refresh token, OTP/reset password, admin UI quản trị account.
+- Chưa có OTP/reset password, admin UI quản trị account.
 
 ## Phase P2 - Data/application layer hardening
 

@@ -120,7 +120,7 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Phase productization: tiếp tục P1 với audit hardening và refresh/OTP sau session foundation
+Phase productization: tiếp tục P1 với password reset/OTP và auth hardening sau session/refresh foundation
 ```
 
 Mục tiêu:
@@ -129,5 +129,5 @@ Mục tiêu:
 - Tiếp tục phát triển trên `main`.
 - Làm theo bộ tài liệu trong `docs/productization/`.
 - P1 hiện đã có account/session/logout/failed-login lock nền tảng.
-- Audit DB nền tảng đã có; ưu tiên tiếp theo: audit hardening, refresh token, OTP/reset password nếu cần.
+- Audit DB và refresh token nền tảng đã có; ưu tiên tiếp theo: OTP/reset password, rate-limit IP/user-agent và auth hardening.
 - Sau đó mới mở rộng data layer, private tools, RAG sync và deployment.

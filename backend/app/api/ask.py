@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Header, HTTPException
 
+from app.auth.audit_logger import AuditLogger
 from app.auth.token_service import AuthTokenError
 from app.config import get_settings
 from app.core.orchestrator import Orchestrator
@@ -24,6 +25,11 @@ def ask(payload: AskRequest, authorization: str | None = Header(default=None)) -
     try:
         return orchestrator.handle(payload, authorization=authorization)
     except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/ask"},
+        )
         raise HTTPException(status_code=401, detail=str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
