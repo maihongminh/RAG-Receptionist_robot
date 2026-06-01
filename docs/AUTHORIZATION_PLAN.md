@@ -156,57 +156,61 @@ Trong đó:
 - `Policy Guard`: kiểm tra role có được dùng tool và xem dữ liệu không.
 - `Audit Logger`: ghi lại truy cập dữ liệu nhạy cảm.
 
-## 5. Auth context đề xuất
+## 5. Auth context hiện tại
 
-Request sau này nên có context đã xác thực:
+Productization hiện tại không còn để frontend tự gửi `auth` scope trong request body.
+Frontend đăng nhập bằng email/password, nhận bearer token, rồi gửi token vào `/ask`.
 
 ```json
 {
   "question": "Tôi có lịch hẹn nào không?",
-  "domain": "clinic",
-  "auth": {
-    "user_id": "user-uuid",
-    "role": "patient",
-    "organization_id": "org-uuid",
-    "clinic_id": "clinic-uuid",
-    "patient_id": "patient-uuid",
-    "doctor_id": null
-  }
+  "domain": "clinic"
 }
 ```
 
-MVP hiện tại đã có login email/password và bearer token qua `/auth/login`.
-API vẫn còn nhận `auth` mock trong request để test/backward compatibility, nhưng frontend không dùng đường này nữa.
+```text
+Authorization: Bearer <token>
+```
+
+Backend tự resolve auth context từ token/session:
+
+```text
+/auth/login
+  -> verify password
+  -> create robo_auth.sessions
+  -> issue token with session_id
+
+/ask hoặc /auth/me
+  -> verify token signature/expiry
+  -> check session chưa revoke/hết hạn
+  -> resolve role + patient_id/doctor_id/clinic_id từ token
+```
 
 Ví dụ patient đã xác thực trong MVP:
 
 ```json
 {
   "question": "Tôi có lịch hẹn nào không?",
-  "domain": "clinic",
-  "auth": {
-    "role": "patient",
-    "patient_id": "patient-uuid"
-  }
+  "domain": "clinic"
 }
 ```
 
-Nếu không có `auth`, bot trả:
+Nếu không có token, request được xem là `guest`. Với dữ liệu cá nhân, bot trả:
 
 ```text
 requires_auth = true
 ```
 
-cho dữ liệu cá nhân. Nếu có `auth` hợp lệ, backend lọc `robo_app.appointments` theo scope:
+cho dữ liệu cá nhân. Nếu token/session hợp lệ, backend lọc `robo_app.appointments` theo scope:
 
 ```text
-patient      -> WHERE patient_id = auth.patient_id
-doctor       -> WHERE doctor_id = auth.doctor_id
-receptionist -> WHERE clinic_id = auth.clinic_id
-clinic_admin -> WHERE clinic_id = auth.clinic_id
+patient      -> WHERE patient_id = token.patient_id
+doctor       -> WHERE doctor_id = token.doctor_id
+receptionist -> WHERE clinic_id = token.clinic_id
+clinic_admin -> WHERE clinic_id = token.clinic_id
 ```
 
-Đây là auth context test/dev để giữ backward compatibility. Productization sẽ ưu tiên auth context sinh từ account/session/token.
+`payload.auth` request-body mock chỉ còn là dev-only path và mặc định tắt bằng `AUTH_ALLOW_REQUEST_CONTEXT=false`.
 
 ## 6. Tool permission matrix
 

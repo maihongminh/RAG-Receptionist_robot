@@ -12,7 +12,7 @@ Mục tiêu: khóa lại mốc MVP và chuẩn bị đường phát triển mớ
 - Push `mvp-v1` lên GitHub.
 - Giữ `main` để phát triển tiếp.
 
-Việc cần xong trước khi code production:
+Việc đã xong trước khi code production:
 
 - Hoàn thiện bộ docs productization.
 - Ghi rõ milestone, rủi ro, thứ tự triển khai.
@@ -21,7 +21,7 @@ Việc cần xong trước khi code production:
 Done khi:
 
 - `docs/productization/*.md` tồn tại và được link từ `DOCS_INDEX.md`.
-- `PROGRESS.md` ghi project đã chuyển sang productization planning.
+- `PROGRESS.md` ghi project đã chuyển sang productization implementation.
 
 ## Phase P1 - Auth/account production foundation
 
@@ -31,7 +31,8 @@ Deliverables:
 
 - Schema account chính thức, không đặt trong app view tạm nếu sau này cần migration bền vững.
 - Password hash chuẩn, có policy độ dài/tối thiểu.
-- Access token + refresh/session token.
+- Access token + session DB.
+- Refresh token để phase sau.
 - Logout server-side hoặc session revoke.
 - `GET /auth/me` trả auth context đáng tin cậy.
 - Account liên kết rõ với patient/staff/clinic/profile.
@@ -49,6 +50,14 @@ Done khi:
 - Token hết hạn xử lý rõ.
 - Logout vô hiệu hóa session nếu dùng session table.
 - Private `/ask` chỉ dựa vào token/session, không dựa vào auth mock của frontend.
+
+Trạng thái hiện tại:
+
+- Đã có `robo_auth.accounts/account_roles/account_identities/sessions`.
+- Đã có `/auth/login`, `/auth/me`, `/auth/logout`.
+- Đã khóa `payload.auth` mặc định và tắt login legacy `role + UUID`.
+- Đã có `failed_login_count` và khóa tạm thời bằng `locked_until`.
+- Chưa có refresh token, OTP/reset password, admin UI quản trị account.
 
 ## Phase P2 - Data/application layer hardening
 

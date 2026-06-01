@@ -14,7 +14,7 @@ Branch lưu MVP:
 mvp-v1
 ```
 
-Project hiện chuyển sang **phase productization planning** trên `main`.
+Project hiện đang ở **phase productization implementation** trên `main`.
 
 Luồng hiện tại:
 
@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `119 passed`.
+- Test backend hiện tại: `120 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -169,7 +169,7 @@ Postgres
 - Chạy test backend: `107 passed`.
 - Chạy scenario MVP: `17/17 passed`.
 
-Task tiếp theo đề xuất:
+Task tiếp theo đề xuất lúc đó:
 
 ```text
 Hoàn thiện OTP/refresh token hoặc account production dựa trên auth password/token MVP.

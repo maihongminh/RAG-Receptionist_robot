@@ -120,7 +120,7 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Phase productization: bắt đầu với auth/account production foundation
+Phase productization: tiếp tục P1 với audit log DB và refresh/OTP sau session foundation
 ```
 
 Mục tiêu:
@@ -128,5 +128,6 @@ Mục tiêu:
 - Giữ branch `mvp-v1` làm snapshot MVP.
 - Tiếp tục phát triển trên `main`.
 - Làm theo bộ tài liệu trong `docs/productization/`.
-- Ưu tiên P1: account/session/refresh/logout/audit nền tảng.
+- P1 hiện đã có account/session/logout/failed-login lock nền tảng.
+- Ưu tiên tiếp theo: audit log DB, refresh token, OTP/reset password nếu cần.
 - Sau đó mới mở rộng data layer, private tools, RAG sync và deployment.

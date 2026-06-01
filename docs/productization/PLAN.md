@@ -74,7 +74,8 @@ P0 - Baseline freeze
 
 P1 - Auth/account production foundation
   -> account schema chính thức
-  -> password hash + session/refresh token
+  -> password hash + session DB
+  -> refresh token phase sau
   -> logout server-side
   -> auth context đáng tin cậy
 
@@ -105,6 +106,7 @@ P5 - Deployment/test hardening
 Phase này được xem là đạt khi:
 
 - có account/session production tối thiểu thay cho demo account table;
+- private `/ask` dựa vào token/session thay vì request-body auth mock;
 - private data access đều ghi audit DB;
 - các SQL tools chính có test tích hợp với Postgres;
 - RAG có script rebuild rõ ràng và registry nguồn dữ liệu có kiểm soát;
