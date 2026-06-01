@@ -1,13 +1,17 @@
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, Request
 
 from app.auth.audit_logger import AuditLogger
 from app.auth.login_service import AuthLoginError, AuthLoginService
+from app.auth.password_change_service import AuthPasswordChangeError, AuthPasswordChangeService
+from app.auth.rate_limiter import login_rate_limiter
 from app.auth.session_service import AuthSessionError, AuthSessionService
 from app.auth.token_service import AuthTokenError, AuthTokenService, bearer_token_from_header
 from app.config import get_settings
 from app.core.schemas import (
     AuthLoginRequest,
     AuthLoginResponse,
+    AuthChangePasswordRequest,
+    AuthChangePasswordResponse,
     AuthLogoutResponse,
     AuthMeResponse,
     AuthRefreshRequest,
@@ -18,7 +22,22 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/login", response_model=AuthLoginResponse)
-def login(payload: AuthLoginRequest) -> AuthLoginResponse:
+def login(payload: AuthLoginRequest, request: Request) -> AuthLoginResponse:
+    settings = get_settings()
+    client_host = request.client.host if request.client else "unknown"
+    email_key = (payload.email or "").strip().lower()
+    rate_limit_key = f"{client_host}:{email_key}"
+    if not login_rate_limiter.allow(
+        rate_limit_key,
+        max_attempts=settings.auth_login_rate_limit_attempts,
+        window_seconds=settings.auth_login_rate_limit_window_seconds,
+    ):
+        AuditLogger().log_auth_event(
+            event_type="login_failed",
+            reason="rate_limited",
+            metadata={"client_host": client_host, "email": email_key},
+        )
+        raise HTTPException(status_code=429, detail="Too many login attempts. Please try again later.")
     try:
         return AuthLoginService().login(payload)
     except AuthLoginError as exc:
@@ -54,6 +73,29 @@ def refresh(payload: AuthRefreshRequest) -> AuthLoginResponse:
             reason="invalid_or_expired_refresh_token",
         )
         raise HTTPException(status_code=401, detail=str(exc)) from exc
+
+
+@router.post("/change-password", response_model=AuthChangePasswordResponse)
+def change_password(
+    payload: AuthChangePasswordRequest,
+    authorization: str | None = Header(default=None),
+) -> AuthChangePasswordResponse:
+    try:
+        token = bearer_token_from_header(authorization)
+        if not token:
+            raise AuthTokenError("Missing bearer token.")
+        auth = AuthTokenService().verify(token)
+        AuthPasswordChangeService().change_password(auth, payload)
+        return AuthChangePasswordResponse(ok=True)
+    except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/auth/change-password"},
+        )
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    except AuthPasswordChangeError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @router.get("/me", response_model=AuthMeResponse)

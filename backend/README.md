@@ -134,11 +134,15 @@ AUTH_ALLOW_REQUEST_CONTEXT=false
 AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
 AUTH_MAX_FAILED_LOGIN_ATTEMPTS=5
 AUTH_LOCK_SECONDS=900
+AUTH_MIN_PASSWORD_LENGTH=8
+AUTH_LOGIN_RATE_LIMIT_ATTEMPTS=10
+AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS=60
 ```
 
 `AUTH_ALLOW_REQUEST_CONTEXT` và `AUTH_ALLOW_LEGACY_ROLE_LOGIN` chỉ nên bật khi debug đường auth cũ. Productization flow dùng email/password, nhận access token + refresh token, rồi gửi `Authorization: Bearer <token>` vào `/ask`.
 
 `AUTH_MAX_FAILED_LOGIN_ATTEMPTS` và `AUTH_LOCK_SECONDS` điều khiển khóa account tạm thời khi nhập sai mật khẩu nhiều lần.
+`AUTH_LOGIN_RATE_LIMIT_ATTEMPTS` và `AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS` giới hạn số lần gọi login theo IP/email trong một cửa sổ thời gian. `AUTH_MIN_PASSWORD_LENGTH` áp dụng cho `/auth/change-password`.
 
 Nếu muốn dùng Ollama local:
 

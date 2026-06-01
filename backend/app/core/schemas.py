@@ -68,6 +68,15 @@ class AuthRefreshRequest(BaseModel):
     refresh_token: str = Field(..., min_length=1)
 
 
+class AuthChangePasswordRequest(BaseModel):
+    current_password: str = Field(..., min_length=1)
+    new_password: str = Field(..., min_length=1)
+
+
+class AuthChangePasswordResponse(BaseModel):
+    ok: bool = True
+
+
 class AuthMeResponse(BaseModel):
     auth: AuthContext
 

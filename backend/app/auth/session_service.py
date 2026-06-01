@@ -68,6 +68,22 @@ class AuthSessionService:
             {"session_id": session_id},
         )
 
+    def revoke_other_sessions(self, account_id: str, keep_session_id: str | None) -> None:
+        execute(
+            """
+            UPDATE robo_auth.sessions
+            SET revoked_at = now(),
+                updated_at = now()
+            WHERE account_id = %(account_id)s
+              AND revoked_at IS NULL
+              AND (%(keep_session_id)s::text IS NULL OR id <> %(keep_session_id)s)
+            """,
+            {
+                "account_id": account_id,
+                "keep_session_id": keep_session_id,
+            },
+        )
+
     def refresh(self, refresh_token: str, ttl_seconds: int) -> tuple[AuthContext, str]:
         token_hash = self._hash_refresh_token(refresh_token)
         row = fetch_one(

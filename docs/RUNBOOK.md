@@ -508,6 +508,7 @@ Hiện tại:
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
 - Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
+- Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
 - Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Request observability: backend nhận/tạo `X-Request-ID`, trả `X-Request-ID`, `X-Process-Time-Ms`; `/ask` response và audit DB đều có `request_id`, `latency_ms`.
@@ -522,15 +523,19 @@ AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
 AUTH_REFRESH_TOKEN_TTL_SECONDS=2592000
 AUTH_MAX_FAILED_LOGIN_ATTEMPTS=5
 AUTH_LOCK_SECONDS=900
+AUTH_MIN_PASSWORD_LENGTH=8
+AUTH_LOGIN_RATE_LIMIT_ATTEMPTS=10
+AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS=60
 ```
 
 Chỉ bật hai biến này khi cần debug đường cũ `payload.auth` hoặc login bằng `role + UUID`.
 
 Nếu user nhập sai mật khẩu quá `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`, account sẽ bị khóa tạm thời trong `AUTH_LOCK_SECONDS` giây.
+Nếu login quá nhiều lần trong một cửa sổ ngắn, backend trả HTTP 429 trước khi chạm DB login.
 
 Bước tiếp theo:
 
-1. Thêm OTP/refresh token hoặc account table chính thức nếu cần nâng khỏi MVP.
+1. Thêm OTP/reset password qua email/SMS nếu cần nâng tiếp phần auth.
 2. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
 3. Mở rộng grounded answer sang intent khác nếu cần.
 

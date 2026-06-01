@@ -145,11 +145,13 @@ Tối thiểu:
 - không lưu plaintext;
 - hash bằng PBKDF2-SHA256 hiện tại hoặc nâng lên Argon2/bcrypt nếu thêm dependency;
 - password tối thiểu 8 ký tự cho production;
+- `POST /auth/change-password` cho user đã đăng nhập;
+- đổi mật khẩu revoke các session khác của cùng account;
 - `failed_login_count` tăng khi sai mật khẩu;
 - account bị khóa tạm thời bằng `locked_until` khi vượt `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`;
 - `AUTH_LOCK_SECONDS` quy định thời gian khóa;
-- rate limit login theo IP/user-agent vẫn cần làm thêm;
-- reset password/OTP ở phase sau nếu cần.
+- rate limit login theo IP/email bằng `AUTH_LOGIN_RATE_LIMIT_ATTEMPTS` và `AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS`;
+- reset password/OTP qua email/SMS ở phase sau nếu cần.
 
 ## 6. Backward compatibility
 
@@ -172,6 +174,7 @@ Unit tests:
 - hash/verify password;
 - reject wrong password;
 - reject inactive account;
+- change password with current password;
 - issue/verify access token;
 - issue/rotate refresh token;
 - expired token;

@@ -49,6 +49,11 @@ class Settings(BaseModel):
     auth_allow_legacy_role_login: bool = _bool_env("AUTH_ALLOW_LEGACY_ROLE_LOGIN", False)
     auth_max_failed_login_attempts: int = int(os.getenv("AUTH_MAX_FAILED_LOGIN_ATTEMPTS", "5"))
     auth_lock_seconds: int = int(os.getenv("AUTH_LOCK_SECONDS", "900"))
+    auth_min_password_length: int = int(os.getenv("AUTH_MIN_PASSWORD_LENGTH", "8"))
+    auth_login_rate_limit_attempts: int = int(os.getenv("AUTH_LOGIN_RATE_LIMIT_ATTEMPTS", "10"))
+    auth_login_rate_limit_window_seconds: int = int(
+        os.getenv("AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS", "60")
+    )
     rag_vector_enabled: bool = _bool_env("RAG_VECTOR_ENABLED", True)
 
 

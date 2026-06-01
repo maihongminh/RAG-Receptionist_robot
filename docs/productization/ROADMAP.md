@@ -56,9 +56,11 @@ Trạng thái hiện tại:
 - Đã có `robo_auth.accounts/account_roles/account_identities/sessions`.
 - Đã có `/auth/login`, `/auth/me`, `/auth/logout`.
 - Đã có `/auth/refresh` rotate refresh token.
+- Đã có `/auth/change-password`.
 - Đã khóa `payload.auth` mặc định và tắt login legacy `role + UUID`.
 - Đã có `failed_login_count` và khóa tạm thời bằng `locked_until`.
-- Chưa có OTP/reset password, admin UI quản trị account.
+- Đã có rate limit login in-memory theo IP/email.
+- Chưa có OTP/reset password qua email/SMS, admin UI quản trị account.
 
 ## Phase P2 - Data/application layer hardening
 

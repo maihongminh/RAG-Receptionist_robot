@@ -48,4 +48,6 @@ Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhâ
 
 Nếu access token hết hạn, UI gọi `/auth/refresh` để rotate refresh token và lấy access token mới. Nếu refresh cũng lỗi, UI xóa session local và quay về màn login.
 
+Đổi mật khẩu hiện có ở backend qua `/auth/change-password`; UI đổi mật khẩu riêng chưa được dựng.
+
 Trace header trong màn chat hiển thị thêm request id rút gọn và latency của `/ask` để debug nhanh một lượt gọi.
