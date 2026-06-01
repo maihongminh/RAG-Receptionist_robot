@@ -148,8 +148,10 @@ Tối thiểu:
 - không lưu plaintext;
 - hash bằng PBKDF2-SHA256 hiện tại hoặc nâng lên Argon2/bcrypt nếu thêm dependency;
 - password tối thiểu 8 ký tự cho production;
-- rate limit login;
-- failed_login_count + lock ngắn hạn;
+- `failed_login_count` tăng khi sai mật khẩu;
+- account bị khóa tạm thời bằng `locked_until` khi vượt `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`;
+- `AUTH_LOCK_SECONDS` quy định thời gian khóa;
+- rate limit login theo IP/user-agent vẫn cần làm thêm;
 - reset password/OTP ở phase sau nếu cần.
 
 ## 6. Backward compatibility

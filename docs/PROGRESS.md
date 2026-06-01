@@ -124,6 +124,10 @@ Postgres
   - `/auth/me` và `/ask` kiểm tra session còn active;
   - `/auth/logout` revoke session bằng `revoked_at`;
   - frontend logout gọi `/auth/logout`.
+- Thêm bảo vệ sai mật khẩu:
+  - sai mật khẩu tăng `failed_login_count`;
+  - vượt `AUTH_MAX_FAILED_LOGIN_ATTEMPTS` thì set `locked_until`;
+  - login đúng reset counter và `last_login_at`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

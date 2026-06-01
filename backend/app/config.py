@@ -44,6 +44,8 @@ class Settings(BaseModel):
     auth_token_ttl_seconds: int = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", "86400"))
     auth_allow_request_context: bool = _bool_env("AUTH_ALLOW_REQUEST_CONTEXT", False)
     auth_allow_legacy_role_login: bool = _bool_env("AUTH_ALLOW_LEGACY_ROLE_LOGIN", False)
+    auth_max_failed_login_attempts: int = int(os.getenv("AUTH_MAX_FAILED_LOGIN_ATTEMPTS", "5"))
+    auth_lock_seconds: int = int(os.getenv("AUTH_LOCK_SECONDS", "900"))
     rag_vector_enabled: bool = _bool_env("RAG_VECTOR_ENABLED", True)
 
 

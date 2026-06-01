@@ -516,9 +516,13 @@ Cấu hình auth legacy/debug:
 ```text
 AUTH_ALLOW_REQUEST_CONTEXT=false
 AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
+AUTH_MAX_FAILED_LOGIN_ATTEMPTS=5
+AUTH_LOCK_SECONDS=900
 ```
 
 Chỉ bật hai biến này khi cần debug đường cũ `payload.auth` hoặc login bằng `role + UUID`.
+
+Nếu user nhập sai mật khẩu quá `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`, account sẽ bị khóa tạm thời trong `AUTH_LOCK_SECONDS` giây.
 
 Bước tiếp theo:
 

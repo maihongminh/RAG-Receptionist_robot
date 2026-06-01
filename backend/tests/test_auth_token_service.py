@@ -13,6 +13,8 @@ class FakeSettings:
     auth_token_ttl_seconds = 3600
     auth_allow_request_context = False
     auth_allow_legacy_role_login = False
+    auth_max_failed_login_attempts = 5
+    auth_lock_seconds = 900
 
 
 class ExpiredSettings:
@@ -20,6 +22,8 @@ class ExpiredSettings:
     auth_token_ttl_seconds = -1
     auth_allow_request_context = False
     auth_allow_legacy_role_login = False
+    auth_max_failed_login_attempts = 5
+    auth_lock_seconds = 900
 
 
 class LegacyAuthSettings(FakeSettings):
@@ -143,6 +147,9 @@ def test_login_service_validates_email_password_account(monkeypatch):
 
 
 def test_login_service_rejects_invalid_password(monkeypatch):
+    executed: list[dict] = []
+    monkeypatch.setattr(login_service, "get_settings", lambda: FakeSettings())
+    monkeypatch.setattr(login_service, "execute", lambda query, params: executed.append(params))
     monkeypatch.setattr(
         login_service,
         "fetch_one",
@@ -163,6 +170,34 @@ def test_login_service_rejects_invalid_password(monkeypatch):
     with pytest.raises(AuthLoginError):
         AuthLoginService().login(
             AuthLoginRequest(email="patient@example.test", password="wrong")
+        )
+
+    assert executed
+    assert executed[0]["account_id"] == "account-1"
+    assert executed[0]["max_failed"] == 5
+
+
+def test_login_service_rejects_locked_account(monkeypatch):
+    monkeypatch.setattr(
+        login_service,
+        "fetch_one",
+        lambda query, params: {
+            "account_id": "account-1",
+            "email": params["email"],
+            "password_hash": hash_password("demo123", salt="test-salt"),
+            "role": "patient",
+            "user_id": "user-1",
+            "clinic_id": "clinic-1",
+            "patient_id": "patient-1",
+            "doctor_id": None,
+            "staff_id": None,
+            "is_active": False,
+        },
+    )
+
+    with pytest.raises(AuthLoginError, match="temporarily locked"):
+        AuthLoginService().login(
+            AuthLoginRequest(email="patient@example.test", password="demo123")
         )
 
 

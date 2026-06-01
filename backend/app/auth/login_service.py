@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from app.auth.token_service import AuthTokenService
 from app.auth.password_service import verify_password
 from app.auth.session_service import AuthSessionService
@@ -65,6 +67,7 @@ class AuthLoginService:
               a.id AS account_id,
               a.email,
               a.password_hash,
+              a.locked_until,
               a.status = 'active'
                 AND (a.locked_until IS NULL OR a.locked_until <= now()) AS is_active,
               ar.role,
@@ -87,9 +90,12 @@ class AuthLoginService:
             """,
             {"email": payload.email.strip()},
         )
-        if not row or not row.get("is_active"):
+        if not row:
             raise AuthLoginError("Invalid email or password.")
+        if not row.get("is_active"):
+            raise AuthLoginError("Account is temporarily locked. Please try again later.")
         if not verify_password(payload.password, row["password_hash"]):
+            self._record_failed_login(row["account_id"])
             raise AuthLoginError("Invalid email or password.")
 
         role = row["role"]
@@ -131,6 +137,27 @@ class AuthLoginService:
                 user_id=row.get("user_id") or row["account_id"],
             )
         raise AuthLoginError(f"Unsupported account role: {role}")
+
+    def _record_failed_login(self, account_id: str) -> None:
+        settings = get_settings()
+        locked_until = datetime.now(timezone.utc) + timedelta(seconds=settings.auth_lock_seconds)
+        execute(
+            """
+            UPDATE robo_auth.accounts
+            SET failed_login_count = failed_login_count + 1,
+                locked_until = CASE
+                  WHEN failed_login_count + 1 >= %(max_failed)s THEN %(locked_until)s
+                  ELSE locked_until
+                END,
+                updated_at = now()
+            WHERE id = %(account_id)s
+            """,
+            {
+                "account_id": account_id,
+                "max_failed": settings.auth_max_failed_login_attempts,
+                "locked_until": locked_until,
+            },
+        )
 
     def _patient_auth(self, payload: AuthLoginRequest) -> AuthContext:
         if not payload.patient_id:
