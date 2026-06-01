@@ -105,15 +105,19 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `112 passed`.
+- Test backend hiện tại: `118 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
   - `POST /auth/login`;
   - `GET /auth/me`;
   - `/ask` đọc `Authorization: Bearer <token>`;
-  - `robo_app.auth_accounts` lưu account demo bằng password hash PBKDF2-SHA256;
+  - `robo_auth.accounts/account_roles/account_identities` lưu account demo bằng password hash PBKDF2-SHA256;
   - frontend có màn hình đăng nhập email/password riêng, đăng xuất và lưu token localStorage.
+- Productization auth foundation:
+  - `payload.auth` request-body mock mặc định bị bỏ qua;
+  - login legacy bằng `role + UUID` mặc định tắt;
+  - script scenario MVP login qua `/auth/login` rồi test private flow bằng Bearer token.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
@@ -128,6 +132,12 @@ Postgres
   - `docs/productization/DATA_PLAN.md`;
   - `docs/productization/RAG_PLAN.md`;
   - `docs/productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`.
+- Bắt đầu P1 auth/account production foundation:
+  - tạo schema `robo_auth`;
+  - thêm `robo_auth.accounts`, `account_identities`, `account_roles`, `sessions`;
+  - tách seed account demo sang `db/auth/seed_demo.sql`;
+  - thêm script `scripts/apply_auth_schema.sh`;
+  - backend `/auth/login` đọc account từ `robo_auth` thay vì `robo_app`.
 
 ### 2026-05-26
 

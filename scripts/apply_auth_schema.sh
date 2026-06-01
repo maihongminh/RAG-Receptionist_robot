@@ -10,4 +10,5 @@ if [[ -n "${DB_HOST}" ]]; then
   PSQL_ARGS+=(-h "${DB_HOST}")
 fi
 
-psql "${PSQL_ARGS[@]}" -f db/app/views.sql
+psql "${PSQL_ARGS[@]}" -f db/auth/schema.sql
+psql "${PSQL_ARGS[@]}" -f db/auth/seed_demo.sql

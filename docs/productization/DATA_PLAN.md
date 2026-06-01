@@ -24,7 +24,7 @@ data/postgres_csv
 
 - `robo_raw` có nhiều bảng dạng text từ import.
 - `robo_app` hiện chủ yếu là view phục vụ MVP.
-- `robo_app.auth_accounts` mới là bảng demo nằm chung app schema.
+- Auth account đã bắt đầu tách ra schema riêng `robo_auth`.
 - Một số dữ liệu chưa đồng nhất:
   - doctor name/null;
   - currency/price;
@@ -132,10 +132,10 @@ robo_app.appointments
 
 Hiện tại:
 
-- `db/schema.sql`: tạo raw schema.
-- `db/load.sql`: load CSV.
-- `db/app_views.sql`: tạo app schema/views.
-- `db/seed_mvp_demo.sql`: patch demo data.
+- `db/raw/schema.sql`: tạo raw schema.
+- `db/raw/load.sql`: load CSV.
+- `db/app/views.sql`: tạo app schema/views.
+- `db/app/seed_mvp_demo.sql`: patch demo data.
 
 Productization cần:
 
@@ -180,4 +180,3 @@ Cần có dữ liệu test cố định cho:
 - service exact và generic.
 
 Không rely hoàn toàn vào dữ liệu export vì export có thể thay đổi.
-

@@ -231,8 +231,8 @@ def main():
     write_schema_sql(mappings, args.schema, db_dir / "schema.sql")
     write_load_sql(mappings, args.schema, csv_dir, db_dir / "load.sql")
     write_import_all_sql(
-        Path("db/schema.sql"),
-        Path("db/load.sql"),
+        Path("db/raw/schema.sql"),
+        Path("db/raw/load.sql"),
         db_dir / "import_all.sql",
     )
     write_manifest(mappings, args.schema, db_dir / "manifest.json")

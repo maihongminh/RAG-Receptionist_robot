@@ -70,13 +70,20 @@ Frontend login bằng email/password.
 
 Backend:
 
-- kiểm tra `robo_app.auth_accounts`;
+- kiểm tra account schema hiện hành;
 - verify password hash PBKDF2-SHA256;
 - sinh bearer token HMAC;
 - `/ask` đọc `Authorization: Bearer <token>`;
 - `PolicyGuard` lọc dữ liệu theo auth context.
 
-`payload.auth` mock vẫn còn trong backend để test/backward compatibility, nhưng frontend MVP không dùng đường đó.
+`payload.auth` mock chỉ còn là dev-only path và mặc định bị bỏ qua.
+
+Login legacy bằng `role + UUID` cũng mặc định tắt. Muốn bật lại các đường debug này:
+
+```text
+AUTH_ALLOW_REQUEST_CONTEXT=true
+AUTH_ALLOW_LEGACY_ROLE_LOGIN=true
+```
 
 ## Data MVP
 
@@ -105,7 +112,7 @@ Các bảng/app views chính MVP dùng:
 - `robo_app.paraclinical_results`
 - `robo_app.knowledge_articles`
 - `robo_app.patient_question_templates`
-- `robo_app.auth_accounts`
+- auth account schema hiện hành
 
 ## Tiêu chí MVP đã đạt
 
@@ -116,4 +123,3 @@ Các bảng/app views chính MVP dùng:
 - Backend tests pass.
 - Scenario MVP pass.
 - Branch `mvp-v1` đã lưu snapshot.
-

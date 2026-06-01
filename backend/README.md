@@ -52,7 +52,7 @@ Quy ước LLM:
 
 Auth/RBAC hiện có:
 
-- `POST /auth/login` phát bearer token từ email/password trong `robo_app.auth_accounts`
+- `POST /auth/login` phát bearer token từ email/password trong `robo_auth.accounts`
 - `GET /auth/me` đọc bearer token và trả auth context
 - `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` vẫn được giữ để test/backward compatible
 - request không có `auth` sẽ được xem là `guest`
@@ -127,7 +127,11 @@ Auth password/token MVP dùng HMAC secret local:
 ```text
 AUTH_TOKEN_SECRET=change-this-local-secret
 AUTH_TOKEN_TTL_SECONDS=86400
+AUTH_ALLOW_REQUEST_CONTEXT=false
+AUTH_ALLOW_LEGACY_ROLE_LOGIN=false
 ```
+
+`AUTH_ALLOW_REQUEST_CONTEXT` và `AUTH_ALLOW_LEGACY_ROLE_LOGIN` chỉ nên bật khi debug đường auth cũ. Productization flow dùng email/password rồi gửi `Authorization: Bearer <token>` vào `/ask`.
 
 Nếu muốn dùng Ollama local:
 

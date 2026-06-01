@@ -41,7 +41,7 @@ Mục đích của `docs/mvp/`:
 
 ## MVP chưa phải production
 
-- `robo_app.auth_accounts` là account table demo, chưa phải account schema chính thức.
+- MVP ban đầu dùng account demo; productization đã bắt đầu tách account sang `robo_auth`.
 - Chưa có refresh token/logout server-side.
 - Chưa có OTP/reset password.
 - Audit log chưa ghi DB.
@@ -64,4 +64,3 @@ docs/mvp/
 1. `SCOPE.md`: phạm vi MVP và các luồng chính.
 2. `TEST_ACCOUNTS.md`: account demo.
 3. `TEST_PLAN.md`: câu hỏi/test smoke cho MVP.
-

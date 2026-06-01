@@ -10,6 +10,13 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT_DIR / ".env")
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    raw_value = os.getenv(name)
+    if raw_value is None:
+        return default
+    return raw_value.lower() in {"1", "true", "yes", "on"}
+
+
 class Settings(BaseModel):
     database_url: str = os.getenv(
         "DATABASE_URL",
@@ -35,12 +42,9 @@ class Settings(BaseModel):
     qdrant_collection: str = os.getenv("QDRANT_COLLECTION", "clinic_knowledge")
     auth_token_secret: str = os.getenv("AUTH_TOKEN_SECRET", "dev-local-auth-secret")
     auth_token_ttl_seconds: int = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", "86400"))
-    rag_vector_enabled: bool = os.getenv("RAG_VECTOR_ENABLED", "true").lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }
+    auth_allow_request_context: bool = _bool_env("AUTH_ALLOW_REQUEST_CONTEXT", False)
+    auth_allow_legacy_role_login: bool = _bool_env("AUTH_ALLOW_LEGACY_ROLE_LOGIN", False)
+    rag_vector_enabled: bool = _bool_env("RAG_VECTOR_ENABLED", True)
 
 
 @lru_cache

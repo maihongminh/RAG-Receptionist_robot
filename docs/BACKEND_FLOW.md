@@ -37,7 +37,7 @@ Hiện tại:
   - SQL/Auth answers: local formatter chỉ chạy với Ollama để viết lại dữ liệu đã truy xuất cho dễ đọc.
 - Đã có auth/RBAC/policy guard.
 - Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, và `/ask` đọc `Authorization: Bearer <token>`.
-- `auth` mock trong request vẫn giữ để test/backward compatibility.
+- `auth` mock trong request là dev-only path, mặc định bị bỏ qua.
 - Chưa có OTP/refresh token/account production.
 
 ## 2. Flow tổng quát khi người dùng hỏi
@@ -56,6 +56,7 @@ Luồng đi qua hệ thống:
 
 2. POST http://localhost:8000/ask
    Frontend gửi JSON request sang backend.
+   Nếu đã đăng nhập, frontend gửi thêm `Authorization: Bearer <token>`.
 
 3. backend/app/api/ask.py
    Endpoint /ask nhận request và gọi Orchestrator.
@@ -63,42 +64,46 @@ Luồng đi qua hệ thống:
 4. backend/app/core/orchestrator.py
    Điều phối toàn bộ luồng xử lý.
 
-5. backend/app/llm/llm_client.py
+5. backend/app/auth/auth_context.py
+   Xác thực token và sinh auth context đáng tin cậy.
+   Nếu không có token hợp lệ thì request được xử lý như guest.
+
+6. backend/app/llm/llm_client.py
    Thử gọi LLM parser nếu đã cấu hình LLM.
    Nếu LLM_PROVIDER=none hoặc provider lỗi, trả None để fallback.
 
-6. backend/app/core/rule_intent_parser.py
+7. backend/app/core/rule_intent_parser.py
    Rule fallback phân loại intent và trích xuất tham số khi LLM tắt/lỗi.
 
-7. backend/app/core/decision_router.py
+8. backend/app/core/decision_router.py
    Quyết định câu hỏi đi nhánh SQL, RAG, Auth hay None.
 
-8. backend/app/auth/policy_guard.py
+9. backend/app/auth/policy_guard.py
    Kiểm tra role/auth context có được dùng tool hoặc xem dữ liệu không.
 
-9. backend/app/core/tool_registry.py
+10. backend/app/core/tool_registry.py
    Chọn tool phù hợp dựa trên intent và domain.
 
-10. backend/app/domains/clinic/adapter.py
+11. backend/app/domains/clinic/adapter.py
    Domain adapter của clinic nhận lệnh chung từ core.
 
-11. backend/app/domains/clinic/sql_tools.py
+12. backend/app/domains/clinic/sql_tools.py
     Query Postgres schema robo_app.
 
-12. backend/app/rag/grounded_response_generator.py
+13. backend/app/rag/grounded_response_generator.py
     Nhận question + intent + tool result + sources/context.
     Với knowledge_search, dùng LLM để diễn đạt tự nhiên hơn nhưng chỉ dựa trên dữ liệu đã truy xuất.
     Nếu context không đủ, phải trả lời không tìm thấy dữ liệu phù hợp.
 
-13. backend/app/core/response_generator.py
+14. backend/app/core/response_generator.py
     Tạo câu trả lời template nếu grounded LLM không áp dụng hoặc bị lỗi.
 
-14. backend/app/auth/audit_logger.py
+15. backend/app/auth/audit_logger.py
     Ghi audit log mức MVP ra application logger.
 
-15. Response JSON trả về frontend.
+16. Response JSON trả về frontend.
 
-16. frontend/app.js
+17. frontend/app.js
     Hiển thị answer, intent, source, confidence và data debug.
 ```
 
@@ -397,7 +402,7 @@ response_generator.py
   -> nếu được phép: format lịch hẹn đã lọc theo scope
 ```
 
-MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Backend sinh auth context từ `robo_app.auth_accounts` trong phạm vi:
+MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text
 patient      -> patient_id
@@ -648,19 +653,28 @@ backend:  http://localhost:8000
 ```text
 db/
 ├── README.md
-├── schema.sql
-├── load.sql
+├── raw/
+│   ├── schema.sql
+│   └── load.sql
+├── app/
+│   ├── views.sql
+│   └── seed_mvp_demo.sql
+├── auth/
+│   ├── schema.sql
+│   └── seed_demo.sql
 ├── import_all.sql
-├── app_views.sql
 └── manifest.json
 ```
 
 Ý nghĩa:
 
-- `db/schema.sql`: tạo schema `robo_raw` và 56 bảng raw.
-- `db/load.sql`: load CSV vào Postgres bằng `\copy`.
+- `db/raw/schema.sql`: tạo schema `robo_raw` và 56 bảng raw.
+- `db/raw/load.sql`: load CSV vào Postgres bằng `\copy`.
 - `db/import_all.sql`: chạy cả schema và load.
-- `db/app_views.sql`: tạo schema view `robo_app`.
+- `db/app/views.sql`: tạo schema view `robo_app`.
+- `db/app/seed_mvp_demo.sql`: seed dữ liệu nghiệp vụ demo.
+- `db/auth/schema.sql`: tạo schema `robo_auth`.
+- `db/auth/seed_demo.sql`: seed account demo.
 - `db/manifest.json`: mapping Excel sheet -> Postgres table/columns.
 - `db/README.md`: giải thích database layer.
 
@@ -680,27 +694,29 @@ data/
 
 - Chứa CSV sinh từ file Excel.
 - Có 56 CSV tương ứng 56 sheet/bảng.
-- Dùng bởi `db/load.sql` để import vào Postgres.
+- Dùng bởi `db/raw/load.sql` để import vào Postgres.
 
 ## 12. Cây thư mục scripts
 
 ```text
 scripts/
+├── apply_app_views.sh
+├── apply_auth_schema.sh
 ├── build_qdrant_index.py
 ├── export_excel_to_postgres.py
 ├── import_to_postgres.sh
-├── setup_local_postgres.sh
-└── apply_app_views.sh
+└── setup_local_postgres.sh
 ```
 
 Ý nghĩa:
 
-- `export_excel_to_postgres.py`: đọc Excel, sinh CSV, `schema.sql`, `load.sql`, `manifest.json`.
+- `export_excel_to_postgres.py`: đọc Excel, sinh CSV, `db/raw/schema.sql`, `db/raw/load.sql`, `manifest.json`.
 - `rag_documents.py`: registry các app view/bảng được phép đưa vào RAG.
 - `build_qdrant_index.py`: đọc documents từ `scripts/rag_documents.py`, gọi Ollama embedding, build Qdrant collection `clinic_knowledge`.
 - `import_to_postgres.sh`: import vào Postgres qua `DATABASE_URL`.
 - `setup_local_postgres.sh`: tạo local role/database Postgres.
-- `apply_app_views.sh`: chạy `db/app_views.sql` để tạo lại `robo_app`.
+- `apply_app_views.sh`: chạy `db/app/views.sql` để tạo lại `robo_app`.
+- `apply_auth_schema.sh`: chạy `db/auth/schema.sql` và `db/auth/seed_demo.sql` để tạo/cập nhật `robo_auth`.
 
 ## 12.1. Cây thư mục Qdrant local
 
@@ -849,7 +865,7 @@ Quy tắc thêm nguồn mới:
 
 ```text
 Thêm nguồn hợp lệ vào scripts/rag_documents.py.
-Nguồn nên tham chiếu các app view sạch do db/app_views.sql tạo ra.
+Nguồn nên tham chiếu các app view sạch do `db/app/views.sql` tạo ra.
 Chỉ đưa dữ liệu text dài như FAQ, hướng dẫn, quy trình, policy, mô tả dịch vụ.
 Không đưa bảng structured như giá dịch vụ, lịch bác sĩ, lịch hẹn, bệnh nhân.
 ```

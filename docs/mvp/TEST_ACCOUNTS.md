@@ -3,7 +3,8 @@
 Các account này được seed trong:
 
 ```text
-db/seed_mvp_demo.sql
+db/auth/schema.sql
+db/auth/seed_demo.sql
 ```
 
 Mật khẩu chung:
@@ -68,4 +69,3 @@ TOKEN="paste_access_token_here"
 curl http://localhost:8000/auth/me \
   -H "Authorization: Bearer $TOKEN"
 ```
-

@@ -1,6 +1,6 @@
 import pytest
 
-from app.auth import login_service, token_service
+from app.auth import auth_context, login_service, token_service
 from app.auth.auth_context import AuthContextResolver
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.password_service import hash_password, verify_password
@@ -11,11 +11,20 @@ from app.core.schemas import AskRequest, AuthContext, AuthLoginRequest
 class FakeSettings:
     auth_token_secret = "test-secret"
     auth_token_ttl_seconds = 3600
+    auth_allow_request_context = False
+    auth_allow_legacy_role_login = False
 
 
 class ExpiredSettings:
     auth_token_secret = "test-secret"
     auth_token_ttl_seconds = -1
+    auth_allow_request_context = False
+    auth_allow_legacy_role_login = False
+
+
+class LegacyAuthSettings(FakeSettings):
+    auth_allow_request_context = True
+    auth_allow_legacy_role_login = True
 
 
 def test_auth_token_round_trip(monkeypatch):
@@ -42,6 +51,7 @@ def test_auth_token_rejects_expired_token(monkeypatch):
 
 def test_login_service_validates_patient_and_issues_token(monkeypatch):
     monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
+    monkeypatch.setattr(login_service, "get_settings", lambda: LegacyAuthSettings())
     monkeypatch.setattr(
         login_service,
         "fetch_one",
@@ -59,6 +69,15 @@ def test_login_service_validates_patient_and_issues_token(monkeypatch):
     assert response.access_token
 
 
+def test_login_service_rejects_legacy_role_login_by_default(monkeypatch):
+    monkeypatch.setattr(login_service, "get_settings", lambda: FakeSettings())
+
+    with pytest.raises(AuthLoginError):
+        AuthLoginService().login(
+            AuthLoginRequest(role="patient", patient_id="patient-1")
+        )
+
+
 def test_login_service_validates_email_password_account(monkeypatch):
     monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
     password_hash = hash_password("demo123", salt="test-salt")
@@ -66,7 +85,7 @@ def test_login_service_validates_email_password_account(monkeypatch):
         login_service,
         "fetch_one",
         lambda query, params: {
-            "id": "account-1",
+            "account_id": "account-1",
             "email": params["email"],
             "password_hash": password_hash,
             "role": "doctor",
@@ -94,7 +113,7 @@ def test_login_service_rejects_invalid_password(monkeypatch):
         login_service,
         "fetch_one",
         lambda query, params: {
-            "id": "account-1",
+            "account_id": "account-1",
             "email": params["email"],
             "password_hash": hash_password("demo123", salt="test-salt"),
             "role": "patient",
@@ -127,6 +146,7 @@ def test_login_service_rejects_missing_patient_id():
 
 def test_auth_context_resolver_prefers_bearer_token(monkeypatch):
     monkeypatch.setattr(token_service, "get_settings", lambda: FakeSettings())
+    monkeypatch.setattr(auth_context, "get_settings", lambda: FakeSettings())
     token, _ = AuthTokenService().issue(AuthContext(role="doctor", doctor_id="doctor-1"))
 
     auth = AuthContextResolver().resolve(
@@ -139,3 +159,31 @@ def test_auth_context_resolver_prefers_bearer_token(monkeypatch):
 
     assert auth.role == "doctor"
     assert auth.doctor_id == "doctor-1"
+
+
+def test_auth_context_resolver_ignores_body_auth_by_default(monkeypatch):
+    monkeypatch.setattr(auth_context, "get_settings", lambda: FakeSettings())
+
+    auth = AuthContextResolver().resolve(
+        AskRequest(
+            question="tôi có lịch hẹn nào không",
+            auth=AuthContext(role="patient", patient_id="patient-1"),
+        )
+    )
+
+    assert auth.role == "guest"
+    assert auth.patient_id is None
+
+
+def test_auth_context_resolver_can_allow_body_auth_for_dev(monkeypatch):
+    monkeypatch.setattr(auth_context, "get_settings", lambda: LegacyAuthSettings())
+
+    auth = AuthContextResolver().resolve(
+        AskRequest(
+            question="tôi có lịch hẹn nào không",
+            auth=AuthContext(role="patient", patient_id="patient-1"),
+        )
+    )
+
+    assert auth.role == "patient"
+    assert auth.patient_id == "patient-1"

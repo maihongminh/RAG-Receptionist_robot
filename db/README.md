@@ -6,6 +6,25 @@ Kiến trúc dữ liệu hiện tại:
 
 ```text
 Excel -> robo_raw tables -> robo_app views -> backend/chatbot
+                         -> robo_auth accounts/session
+```
+
+Thư mục `db/` được chia theo schema:
+
+```text
+db/
+├── raw/
+│   ├── schema.sql
+│   └── load.sql
+├── app/
+│   ├── views.sql
+│   └── seed_mvp_demo.sql
+├── auth/
+│   ├── schema.sql
+│   └── seed_demo.sql
+├── import_all.sql
+├── manifest.json
+└── README.md
 ```
 
 ## Cách import
@@ -53,10 +72,13 @@ Lý do để cột dạng `TEXT`: workbook có nhiều kiểu dữ liệu không
 
 Các file được sinh:
 
-- `db/schema.sql`: tạo schema và bảng.
-- `db/load.sql`: load CSV vào bảng bằng `\copy`.
+- `db/raw/schema.sql`: tạo schema và bảng.
+- `db/raw/load.sql`: load CSV vào bảng bằng `\copy`.
 - `db/import_all.sql`: chạy cả schema và load.
-- `db/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
+- `db/app/views.sql`: tạo schema view `robo_app`.
+- `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
+- `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session production foundation.
+- `db/auth/seed_demo.sql`: seed account demo cho login email/password.
 - `db/manifest.json`: mapping sheet Excel -> bảng Postgres -> cột.
 - `data/postgres_csv/*.csv`: dữ liệu CSV đã export từ từng sheet Excel.
 
@@ -73,10 +95,11 @@ Seed dữ liệu demo cho MVP:
 
 ```bash
 cd /home/minhmh/tool/robo
-psql robo_reception -f db/seed_mvp_demo.sql
+psql robo_reception -f db/app/seed_mvp_demo.sql
+scripts/apply_auth_schema.sh
 ```
 
-Seed này tách riêng khỏi dữ liệu Excel gốc. Nó bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot.
+Seed này tách riêng khỏi dữ liệu Excel gốc. `db/app/seed_mvp_demo.sql` bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot. `db/auth/seed_demo.sql` bổ sung account demo vào `robo_auth`.
 
 ## Schema `robo_app`
 
@@ -94,7 +117,7 @@ scripts/apply_app_views.sh
 Hoặc chạy trực tiếp:
 
 ```bash
-psql -U minhmh -d robo_reception -h localhost -f db/app_views.sql
+psql -U minhmh -d robo_reception -h localhost -f db/app/views.sql
 ```
 
 Các view hiện có:
@@ -112,6 +135,30 @@ Các view hiện có:
 - `robo_app.paraclinical_results`: chỉ định/kết quả xét nghiệm, chẩn đoán hình ảnh, join sẵn bệnh nhân/dịch vụ/nhân sự liên quan.
 - `robo_app.knowledge_articles`: nội dung hướng dẫn/quy trình từ `admin_help_templates`.
 - `robo_app.patient_question_templates`: câu hỏi mẫu/gợi ý cho bệnh nhân.
+
+## Schema `robo_auth`
+
+`robo_auth` là schema account/session tách khỏi `robo_app`.
+
+Lý do tách:
+
+- `robo_app` được rebuild từ views trong quá trình development.
+- Account/session là dữ liệu vận hành, không nên bị drop khi rebuild app views.
+- Productization cần schema auth có thể tiến tới migration/refresh token/logout/audit rõ ràng.
+
+Tạo/cập nhật auth schema:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/apply_auth_schema.sh
+```
+
+Các bảng auth hiện có:
+
+- `robo_auth.accounts`: email/password hash/status.
+- `robo_auth.account_identities`: mapping account với patient/staff/doctor/clinic.
+- `robo_auth.account_roles`: role theo scope clinic/organization.
+- `robo_auth.sessions`: nền cho refresh token/logout server-side ở bước sau.
 
 Kiểm tra view:
 
@@ -199,7 +246,7 @@ Khi có thêm nhiều nguồn text phù hợp RAG, thêm source vào:
 scripts/rag_documents.py
 ```
 
-Registry này tham chiếu các app view sạch được tạo trong `db/app_views.sql`, ví dụ:
+Registry này tham chiếu các app view sạch được tạo trong `db/app/views.sql`, ví dụ:
 
 ```text
 robo_app.knowledge_articles

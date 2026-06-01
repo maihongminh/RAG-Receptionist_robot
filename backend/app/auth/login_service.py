@@ -1,5 +1,6 @@
 from app.auth.token_service import AuthTokenService
 from app.auth.password_service import verify_password
+from app.config import get_settings
 from app.core.schemas import AuthContext, AuthLoginRequest, AuthLoginResponse
 from app.db import fetch_one
 
@@ -20,6 +21,8 @@ class AuthLoginService:
     def _resolve_auth_context(self, payload: AuthLoginRequest) -> AuthContext:
         if payload.email or payload.password:
             return self._account_password_auth(payload)
+        if not get_settings().auth_allow_legacy_role_login:
+            raise AuthLoginError("email/password login is required.")
         if not payload.role:
             raise AuthLoginError("Login requires email/password or role/scope.")
         if payload.role == "guest":
@@ -41,18 +44,27 @@ class AuthLoginService:
         row = fetch_one(
             """
             SELECT
-              id,
-              email,
-              password_hash,
-              role,
-              user_id,
-              clinic_id,
-              patient_id,
-              doctor_id,
-              staff_id,
-              is_active
-            FROM robo_app.auth_accounts
-            WHERE lower(email) = lower(%(email)s)
+              a.id AS account_id,
+              a.email,
+              a.password_hash,
+              a.status = 'active'
+                AND (a.locked_until IS NULL OR a.locked_until <= now()) AS is_active,
+              ar.role,
+              COALESCE(ar.clinic_id, ai.clinic_id) AS clinic_id,
+              ai.user_id,
+              ai.patient_id,
+              ai.doctor_id,
+              ai.staff_id
+            FROM robo_auth.accounts a
+            JOIN robo_auth.account_roles ar
+              ON ar.account_id = a.id
+             AND ar.is_active = true
+            LEFT JOIN robo_auth.account_identities ai
+              ON ai.account_id = a.id
+             AND ai.is_primary = true
+            WHERE lower(a.email) = lower(%(email)s)
+              AND a.status = 'active'
+            ORDER BY ar.is_primary DESC, ar.created_at ASC
             LIMIT 1
             """,
             {"email": payload.email.strip()},
@@ -68,7 +80,7 @@ class AuthLoginService:
                 raise AuthLoginError("Patient account is missing patient scope.")
             return AuthContext(
                 role="patient",
-                user_id=row.get("user_id") or row["id"],
+                user_id=row.get("user_id") or row["account_id"],
                 patient_id=row["patient_id"],
                 clinic_id=row.get("clinic_id"),
             )
@@ -77,7 +89,7 @@ class AuthLoginService:
                 raise AuthLoginError("Doctor account is missing doctor scope.")
             return AuthContext(
                 role="doctor",
-                user_id=row.get("user_id") or row["id"],
+                user_id=row.get("user_id") or row["account_id"],
                 doctor_id=row["doctor_id"],
                 clinic_id=row.get("clinic_id"),
             )
@@ -86,13 +98,13 @@ class AuthLoginService:
                 raise AuthLoginError(f"{role} account is missing clinic scope.")
             return AuthContext(
                 role=role,
-                user_id=row.get("user_id") or row.get("staff_id") or row["id"],
+                user_id=row.get("user_id") or row.get("staff_id") or row["account_id"],
                 clinic_id=row["clinic_id"],
             )
         if role == "system_admin":
             return AuthContext(
                 role="system_admin",
-                user_id=row.get("user_id") or row["id"],
+                user_id=row.get("user_id") or row["account_id"],
             )
         raise AuthLoginError(f"Unsupported account role: {role}")
 

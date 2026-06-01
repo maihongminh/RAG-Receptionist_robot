@@ -19,6 +19,13 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 BACKEND_ROOT = PROJECT_ROOT / "backend"
 sys.path.insert(0, str(BACKEND_ROOT))
 
+DEMO_ACCOUNTS_BY_ROLE = {
+    "patient": ("patient.demo@robo.local", "demo123"),
+    "doctor": ("doctor@clinic.local", "demo123"),
+    "receptionist": ("receptionist@clinic.local", "demo123"),
+    "clinic_admin": ("admin@clinic.local", "demo123"),
+}
+
 
 @dataclass(frozen=True)
 class Scenario:
@@ -245,17 +252,31 @@ def main() -> int:
     get_settings.cache_clear()
     client = TestClient(app)
 
-    results = [run_scenario(client, scenario) for scenario in SCENARIOS]
+    token_cache: dict[str, str] = {}
+    results = [run_scenario(client, scenario, token_cache) for scenario in SCENARIOS]
     print_results(results, verbose=args.verbose)
     return 0 if all(result.ok for result in results) else 1
 
 
-def run_scenario(client: Any, scenario: Scenario) -> ScenarioResult:
+def run_scenario(client: Any, scenario: Scenario, token_cache: dict[str, str]) -> ScenarioResult:
     payload: dict[str, Any] = {"question": scenario.question, "domain": "clinic"}
+    headers: dict[str, str] = {}
     if scenario.auth:
-        payload["auth"] = scenario.auth
+        role = str(scenario.auth.get("role") or "")
+        token = token_cache.get(role)
+        if token is None:
+            token_result = login_demo_account(client, role)
+            if isinstance(token_result, ScenarioResult):
+                return ScenarioResult(
+                    scenario=scenario,
+                    ok=False,
+                    errors=token_result.errors,
+                )
+            token = token_result
+            token_cache[role] = token
+        headers["Authorization"] = f"Bearer {token}"
 
-    response = client.post("/ask", json=payload)
+    response = client.post("/ask", json=payload, headers=headers)
     errors: list[str] = []
     if response.status_code != 200:
         return ScenarioResult(
@@ -305,6 +326,37 @@ def run_scenario(client: Any, scenario: Scenario) -> ScenarioResult:
         errors=errors,
         response=body,
     )
+
+
+def login_demo_account(client: Any, role: str) -> str | ScenarioResult:
+    credentials = DEMO_ACCOUNTS_BY_ROLE.get(role)
+    if not credentials:
+        return ScenarioResult(
+            scenario=Scenario(name=f"login_{role}", question=""),
+            ok=False,
+            errors=[f"No demo account configured for role {role!r}"],
+        )
+
+    email, password = credentials
+    response = client.post(
+        "/auth/login",
+        json={"email": email, "password": password},
+    )
+    if response.status_code != 200:
+        return ScenarioResult(
+            scenario=Scenario(name=f"login_{role}", question=""),
+            ok=False,
+            errors=[f"Login failed for {role}: HTTP {response.status_code}: {response.text}"],
+        )
+
+    token = response.json().get("access_token")
+    if not token:
+        return ScenarioResult(
+            scenario=Scenario(name=f"login_{role}", question=""),
+            ok=False,
+            errors=[f"Login response for {role} did not include access_token"],
+        )
+    return str(token)
 
 
 def print_results(results: list[ScenarioResult], verbose: bool) -> None:

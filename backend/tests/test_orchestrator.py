@@ -1,4 +1,5 @@
 from app.config import Settings
+from app.auth.token_service import AuthTokenService
 from app.core.orchestrator import Orchestrator
 from app.core.schemas import AskRequest, AuthContext, Intent, ToolResult
 from app.domains.base import DomainAdapter
@@ -225,6 +226,11 @@ def build_orchestrator() -> Orchestrator:
     orchestrator.llm_client.settings = Settings(llm_provider="none")
     orchestrator.grounded_response_generator = StaticGroundedResponseGenerator()
     return orchestrator
+
+
+def bearer_for(auth: AuthContext) -> str:
+    token, _ = AuthTokenService().issue(auth)
+    return f"Bearer {token}"
 
 
 class StaticLLMClient:
@@ -482,10 +488,8 @@ def test_orchestrator_guest_personal_data_is_blocked_by_policy():
 
 def test_orchestrator_authenticated_patient_reaches_auth_branch():
     response = build_orchestrator().handle(
-        AskRequest(
-            question="Tôi có lịch hẹn nào không?",
-            auth=AuthContext(role="patient", patient_id="patient-1"),
-        )
+        AskRequest(question="Tôi có lịch hẹn nào không?"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
     )
 
     assert response.intent == "personal_data"
@@ -502,10 +506,8 @@ def test_orchestrator_authenticated_patient_uses_formatted_answer_when_available
     )
 
     response = orchestrator.handle(
-        AskRequest(
-            question="Tôi có lịch hẹn nào không?",
-            auth=AuthContext(role="patient", patient_id="patient-1"),
-        )
+        AskRequest(question="Tôi có lịch hẹn nào không?"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
     )
 
     assert response.intent == "personal_data"

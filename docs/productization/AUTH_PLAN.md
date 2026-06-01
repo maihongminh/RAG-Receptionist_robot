@@ -5,8 +5,15 @@ MVP hiện có:
 - `POST /auth/login` bằng email/password.
 - Password hash PBKDF2-SHA256.
 - Bearer token HMAC local.
-- `robo_app.auth_accounts` là bảng account demo.
-- `auth` mock trong request vẫn giữ cho test/backward compatibility.
+- Account demo đã bắt đầu được tách sang schema `robo_auth`.
+- `auth` mock trong request đã chuyển thành dev-only path và mặc định tắt.
+
+P1 foundation đã bắt đầu với:
+
+- `db/auth/schema.sql`;
+- `db/auth/seed_demo.sql`;
+- `scripts/apply_auth_schema.sh`;
+- backend login đọc `robo_auth.accounts/account_roles/account_identities`.
 
 Mục tiêu productization là biến lớp này thành auth/account chính thức.
 
@@ -140,13 +147,14 @@ Tối thiểu:
 
 Trong khi chuyển đổi:
 
-- backend vẫn có thể giữ `payload.auth` cho tests;
-- frontend production không gửi `payload.auth`;
+- backend chỉ nhận `payload.auth` nếu bật `AUTH_ALLOW_REQUEST_CONTEXT=true`;
+- legacy login bằng `role + UUID` chỉ chạy nếu bật `AUTH_ALLOW_LEGACY_ROLE_LOGIN=true`;
+- frontend production không gửi `payload.auth` và không login bằng UUID;
 - khi test production auth, ưu tiên Bearer token.
 
 Khi production auth ổn:
 
-- chỉ giữ `payload.auth` trong test helper hoặc dev-only path;
+- chỉ giữ `payload.auth` trong test helper/dev-only path;
 - document rõ không dùng auth mock ở production.
 
 ## 7. Test plan cho auth
@@ -177,4 +185,3 @@ Integration tests:
 - Staff trong `robo_app.staff` và `profiles/user_roles` có thể chưa đồng nhất.
 
 Giải pháp: auth production nên có bảng mapping identity riêng, không suy luận trực tiếp từ một bảng duy nhất.
-

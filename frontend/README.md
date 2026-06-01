@@ -42,4 +42,4 @@ receptionist@clinic.local -> receptionist
 admin@clinic.local        -> clinic_admin
 ```
 
-Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local; account/password dùng bảng `robo_app.auth_accounts`.
+Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local; account/password dùng schema `robo_auth`.

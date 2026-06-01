@@ -1,3 +1,3 @@
 \set ON_ERROR_STOP on
-\i db/schema.sql
-\i db/load.sql
+\i db/raw/schema.sql
+\i db/raw/load.sql

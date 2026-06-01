@@ -169,7 +169,7 @@ updated_at
 is_active
 ```
 
-Khi cần thêm nguồn RAG mới, ưu tiên thêm source vào `scripts/rag_documents.py` và tham chiếu các app view sạch từ `db/app_views.sql`.
+Khi cần thêm nguồn RAG mới, ưu tiên thêm source vào `scripts/rag_documents.py` và tham chiếu các app view sạch từ `db/app/views.sql`.
 
 ## 4. Đánh giá khả năng LLM
 
