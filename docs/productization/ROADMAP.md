@@ -57,10 +57,11 @@ Trạng thái hiện tại:
 - Đã có `/auth/login`, `/auth/me`, `/auth/logout`.
 - Đã có `/auth/refresh` rotate refresh token.
 - Đã có `/auth/change-password`.
+- Đã có `/auth/password-reset/request` và `/auth/password-reset/complete` với token reset có TTL.
 - Đã khóa `payload.auth` mặc định và tắt login legacy `role + UUID`.
 - Đã có `failed_login_count` và khóa tạm thời bằng `locked_until`.
 - Đã có rate limit login in-memory theo IP/email.
-- Chưa có OTP/reset password qua email/SMS, admin UI quản trị account.
+- Chưa có email/SMS/OTP delivery thật và admin UI quản trị account.
 
 ## Phase P2 - Data/application layer hardening
 

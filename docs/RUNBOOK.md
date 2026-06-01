@@ -509,11 +509,12 @@ Hiện tại:
 - Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
+- Auth password reset foundation: `/auth/password-reset/request` tạo token reset có TTL trong `robo_auth.password_reset_tokens`; `/auth/password-reset/complete` đổi password bằng reset token, clear lock/counter và revoke toàn bộ session. Mặc định API không trả token; bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` chỉ khi test local/dev.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
 - Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Request observability: backend nhận/tạo `X-Request-ID`, trả `X-Request-ID`, `X-Process-Time-Ms`; `/ask` response và audit DB đều có `request_id`, `latency_ms`.
 - Auth mock trong request là dev-only path và mặc định tắt.
-- Auth chưa có OTP/reset password; access token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`, refresh token lưu hash trong `robo_auth.sessions`.
+- Auth chưa gắn email/SMS/OTP delivery thật; access token hiện ký bằng HMAC local qua `AUTH_TOKEN_SECRET`, refresh token lưu hash trong `robo_auth.sessions`, reset token lưu hash trong `robo_auth.password_reset_tokens`.
 
 Cấu hình auth legacy/debug:
 
@@ -526,12 +527,24 @@ AUTH_LOCK_SECONDS=900
 AUTH_MIN_PASSWORD_LENGTH=8
 AUTH_LOGIN_RATE_LIMIT_ATTEMPTS=10
 AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS=60
+AUTH_PASSWORD_RESET_TOKEN_TTL_SECONDS=900
+AUTH_PASSWORD_RESET_EXPOSE_TOKEN=false
 ```
 
 Chỉ bật hai biến này khi cần debug đường cũ `payload.auth` hoặc login bằng `role + UUID`.
 
 Nếu user nhập sai mật khẩu quá `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`, account sẽ bị khóa tạm thời trong `AUTH_LOCK_SECONDS` giây.
 Nếu login quá nhiều lần trong một cửa sổ ngắn, backend trả HTTP 429 trước khi chạm DB login.
+
+Ví dụ request reset password local/dev:
+
+```bash
+curl -X POST http://localhost:8000/auth/password-reset/request \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"patient.demo@robo.local"}'
+```
+
+Nếu cần thấy token trên UI/API để test thủ công, đặt `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` rồi restart backend. Không bật biến này cho môi trường thật.
 
 Bước tiếp theo:
 

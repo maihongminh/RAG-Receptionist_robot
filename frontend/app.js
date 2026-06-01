@@ -8,6 +8,16 @@ const loginPasswordInput = document.querySelector("#loginPasswordInput");
 const loginSubmitButton = document.querySelector("#loginSubmitButton");
 const guestButton = document.querySelector("#guestButton");
 const loginError = document.querySelector("#loginError");
+const forgotPasswordToggle = document.querySelector("#forgotPasswordToggle");
+const resetPanel = document.querySelector("#resetPanel");
+const resetRequestForm = document.querySelector("#resetRequestForm");
+const resetEmailInput = document.querySelector("#resetEmailInput");
+const resetRequestButton = document.querySelector("#resetRequestButton");
+const resetCompleteForm = document.querySelector("#resetCompleteForm");
+const resetTokenInput = document.querySelector("#resetTokenInput");
+const resetNewPasswordInput = document.querySelector("#resetNewPasswordInput");
+const resetCompleteButton = document.querySelector("#resetCompleteButton");
+const resetMessage = document.querySelector("#resetMessage");
 
 const messages = document.querySelector("#messages");
 const form = document.querySelector("#askForm");
@@ -27,10 +37,18 @@ const dataPreview = document.querySelector("#dataPreview");
 const sessionMeta = document.querySelector("#sessionMeta");
 const logoutButton = document.querySelector("#logoutButton");
 const authSessionStatus = document.querySelector("#authSessionStatus");
+const changePasswordToggle = document.querySelector("#changePasswordToggle");
+const changePasswordForm = document.querySelector("#changePasswordForm");
+const currentPasswordInput = document.querySelector("#currentPasswordInput");
+const newPasswordInput = document.querySelector("#newPasswordInput");
+const changePasswordButton = document.querySelector("#changePasswordButton");
+const changePasswordMessage = document.querySelector("#changePasswordMessage");
 
 const state = {
   busy: false,
   loginBusy: false,
+  resetBusy: false,
+  changePasswordBusy: false,
   sessionId: createSessionId(),
   authToken: localStorage.getItem("robo_auth_token") || "",
   refreshToken: localStorage.getItem("robo_refresh_token") || "",
@@ -94,8 +112,30 @@ function setLoginBusy(value) {
   loginSubmitButton.textContent = value ? "Đang đăng nhập" : "Đăng nhập";
 }
 
+function setResetBusy(value) {
+  state.resetBusy = value;
+  resetRequestButton.disabled = value;
+  resetCompleteButton.disabled = value;
+}
+
+function setChangePasswordBusy(value) {
+  state.changePasswordBusy = value;
+  changePasswordButton.disabled = value;
+  changePasswordButton.textContent = value ? "Đang lưu" : "Lưu mật khẩu";
+}
+
 function setLoginError(message = "") {
   loginError.textContent = message;
+}
+
+function setResetMessage(message = "", type = "") {
+  resetMessage.textContent = message;
+  resetMessage.dataset.type = type;
+}
+
+function setChangePasswordMessage(message = "", type = "") {
+  changePasswordMessage.textContent = message;
+  changePasswordMessage.dataset.type = type;
 }
 
 function renderTrace(payload) {
@@ -155,9 +195,12 @@ function renderAuthSession() {
   if (state.authToken && state.authContext?.role) {
     authSessionStatus.textContent = `Đã đăng nhập: ${state.authContext.role}`;
     logoutButton.disabled = false;
+    changePasswordToggle.hidden = false;
   } else {
     authSessionStatus.textContent = "Đang dùng guest";
     logoutButton.disabled = false;
+    changePasswordToggle.hidden = true;
+    changePasswordForm.hidden = true;
   }
   authStateValue.textContent = buildAuthLabel();
 }
@@ -225,6 +268,148 @@ async function login() {
     setLoginError(extractErrorMessage(error.message) || "Đăng nhập thất bại.");
   } finally {
     setLoginBusy(false);
+  }
+}
+
+async function requestPasswordReset() {
+  const email = resetEmailInput.value.trim();
+  if (!email) {
+    setResetMessage("Vui lòng nhập email.", "error");
+    resetEmailInput.focus();
+    return;
+  }
+
+  setResetBusy(true);
+  setResetMessage();
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/password-reset/request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    const body = await res.json();
+    if (body.reset_token) {
+      resetTokenInput.value = body.reset_token;
+      setResetMessage("Token reset đã được tạo cho môi trường local/dev.", "ok");
+      resetTokenInput.focus();
+    } else {
+      setResetMessage(
+        "Nếu email tồn tại, yêu cầu reset đã được ghi nhận. Kênh gửi token/email cần được cấu hình riêng.",
+        "ok",
+      );
+    }
+  } catch (error) {
+    setResetMessage(extractErrorMessage(error.message) || "Không tạo được yêu cầu reset.", "error");
+  } finally {
+    setResetBusy(false);
+  }
+}
+
+async function completePasswordReset() {
+  const resetToken = resetTokenInput.value.trim();
+  const newPassword = resetNewPasswordInput.value;
+  if (!resetToken) {
+    setResetMessage("Vui lòng nhập reset token.", "error");
+    resetTokenInput.focus();
+    return;
+  }
+  if (!newPassword) {
+    setResetMessage("Vui lòng nhập mật khẩu mới.", "error");
+    resetNewPasswordInput.focus();
+    return;
+  }
+
+  setResetBusy(true);
+  setResetMessage();
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/password-reset/complete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        reset_token: resetToken,
+        new_password: newPassword,
+      }),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    resetTokenInput.value = "";
+    resetNewPasswordInput.value = "";
+    setResetMessage("Đã đặt lại mật khẩu. Bạn có thể đăng nhập bằng mật khẩu mới.", "ok");
+    loginEmailInput.value = resetEmailInput.value.trim() || loginEmailInput.value;
+    loginPasswordInput.focus();
+  } catch (error) {
+    setResetMessage(extractErrorMessage(error.message) || "Không đặt lại được mật khẩu.", "error");
+  } finally {
+    setResetBusy(false);
+  }
+}
+
+async function changePassword() {
+  const currentPassword = currentPasswordInput.value;
+  const newPassword = newPasswordInput.value;
+  if (!state.authToken) {
+    setChangePasswordMessage("Bạn cần đăng nhập trước khi đổi mật khẩu.", "error");
+    return;
+  }
+  if (!currentPassword || !newPassword) {
+    setChangePasswordMessage("Vui lòng nhập đủ mật khẩu hiện tại và mật khẩu mới.", "error");
+    return;
+  }
+
+  setChangePasswordBusy(true);
+  setChangePasswordMessage();
+
+  try {
+    let res = await fetch(`${API_BASE_URL}/auth/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${state.authToken}`,
+      },
+      body: JSON.stringify({
+        current_password: currentPassword,
+        new_password: newPassword,
+      }),
+    });
+    if (!res.ok && res.status === 401) {
+      const refreshed = await refreshAuth();
+      if (refreshed) {
+        res = await fetch(`${API_BASE_URL}/auth/change-password`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.authToken}`,
+          },
+          body: JSON.stringify({
+            current_password: currentPassword,
+            new_password: newPassword,
+          }),
+        });
+      }
+    }
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    currentPasswordInput.value = "";
+    newPasswordInput.value = "";
+    setChangePasswordMessage("Đã đổi mật khẩu. Các phiên khác đã bị thu hồi.", "ok");
+  } catch (error) {
+    setChangePasswordMessage(extractErrorMessage(error.message) || "Không đổi được mật khẩu.", "error");
+  } finally {
+    setChangePasswordBusy(false);
   }
 }
 
@@ -385,6 +570,38 @@ loginForm.addEventListener("submit", (event) => {
 
 guestButton.addEventListener("click", () => {
   if (!state.loginBusy) continueAsGuest();
+});
+
+forgotPasswordToggle.addEventListener("click", () => {
+  resetPanel.hidden = !resetPanel.hidden;
+  if (!resetPanel.hidden) {
+    resetEmailInput.value = loginEmailInput.value.trim();
+    setResetMessage();
+    resetEmailInput.focus();
+  }
+});
+
+resetRequestForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!state.resetBusy) requestPasswordReset();
+});
+
+resetCompleteForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!state.resetBusy) completePasswordReset();
+});
+
+changePasswordToggle.addEventListener("click", () => {
+  changePasswordForm.hidden = !changePasswordForm.hidden;
+  if (!changePasswordForm.hidden) {
+    setChangePasswordMessage();
+    currentPasswordInput.focus();
+  }
+});
+
+changePasswordForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!state.changePasswordBusy) changePassword();
 });
 
 logoutButton.addEventListener("click", () => {

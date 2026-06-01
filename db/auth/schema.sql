@@ -82,6 +82,21 @@ ON robo_auth.sessions (account_id);
 CREATE INDEX IF NOT EXISTS idx_auth_sessions_active
 ON robo_auth.sessions (account_id, revoked_at, expires_at);
 
+CREATE TABLE IF NOT EXISTS robo_auth.password_reset_tokens (
+  id text PRIMARY KEY,
+  account_id text NOT NULL REFERENCES robo_auth.accounts(id) ON DELETE CASCADE,
+  token_hash text NOT NULL UNIQUE,
+  expires_at timestamptz NOT NULL,
+  used_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_auth_password_reset_tokens_account_id
+ON robo_auth.password_reset_tokens (account_id);
+
+CREATE INDEX IF NOT EXISTS idx_auth_password_reset_tokens_active
+ON robo_auth.password_reset_tokens (token_hash, used_at, expires_at);
+
 CREATE TABLE IF NOT EXISTS robo_auth.audit_events (
   id text PRIMARY KEY,
   request_id text,

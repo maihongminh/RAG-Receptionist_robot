@@ -39,9 +39,9 @@ Hiện tại:
 - Đã có auth password/token MVP qua `/auth/login`, `/auth/me`, `/auth/logout`, và `/ask` đọc `Authorization: Bearer <token>`.
 - Login tạo session trong `robo_auth.sessions`; token có `session_id`; `/auth/me` và `/ask` kiểm tra session còn active.
 - Refresh token được rotate qua `/auth/refresh` và lưu hash trong `robo_auth.sessions`.
-- Đã có `/auth/change-password` và login rate-limit in-memory.
+- Đã có `/auth/change-password`, password reset token foundation và login rate-limit in-memory.
 - `auth` mock trong request là dev-only path, mặc định bị bỏ qua.
-- Chưa có OTP/reset password qua email/SMS/account admin UI.
+- Chưa có email/SMS/OTP delivery thật và account admin UI.
 
 ## 2. Flow tổng quát khi người dùng hỏi
 

@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `131 passed`.
+- Test backend hiện tại: `137 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -133,7 +133,16 @@ Postgres
   - `POST /auth/change-password`;
   - yêu cầu bearer token + mật khẩu hiện tại;
   - kiểm tra độ dài tối thiểu bằng `AUTH_MIN_PASSWORD_LENGTH`;
-  - cập nhật password hash và revoke các session khác.
+  - cập nhật password hash và revoke các session khác;
+  - frontend có form đổi mật khẩu trong phần tài khoản sau khi đăng nhập.
+- Thêm reset password token foundation:
+  - `POST /auth/password-reset/request`;
+  - `POST /auth/password-reset/complete`;
+  - tạo bảng `robo_auth.password_reset_tokens`;
+  - token chỉ lưu dạng SHA-256 hash, có TTL bằng `AUTH_PASSWORD_RESET_TOKEN_TTL_SECONDS`;
+  - reset thành công cập nhật password hash, clear lock/counter và revoke toàn bộ session;
+  - mặc định API không trả token để tránh lộ thông tin; local/dev có thể bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` khi cần test thủ công;
+  - frontend có form quên mật khẩu/reset token; kênh gửi email/SMS/OTP thật là integration boundary của bước sau.
 - Thêm rate limit login in-memory:
   - `AUTH_LOGIN_RATE_LIMIT_ATTEMPTS`;
   - `AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS`;
@@ -192,7 +201,7 @@ Postgres
 Task tiếp theo đề xuất lúc đó:
 
 ```text
-Hoàn thiện OTP/refresh token hoặc account production dựa trên auth password/token MVP.
+Hoàn thiện email/SMS/OTP delivery thật hoặc account admin UI dựa trên auth productization foundation.
 ```
 - Thêm config RAG riêng trong `backend/app/rag/rag_config.py`.
 - Thêm `RAG_EXCLUDED_TOPICS=overview,roles` để loại tài liệu platform/permission khỏi RAG retrieval.

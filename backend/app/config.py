@@ -54,6 +54,10 @@ class Settings(BaseModel):
     auth_login_rate_limit_window_seconds: int = int(
         os.getenv("AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS", "60")
     )
+    auth_password_reset_token_ttl_seconds: int = int(
+        os.getenv("AUTH_PASSWORD_RESET_TOKEN_TTL_SECONDS", "900")
+    )
+    auth_password_reset_expose_token: bool = _bool_env("AUTH_PASSWORD_RESET_EXPOSE_TOKEN", False)
     rag_vector_enabled: bool = _bool_env("RAG_VECTOR_ENABLED", True)
 
 

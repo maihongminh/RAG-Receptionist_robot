@@ -3,6 +3,7 @@ from fastapi import APIRouter, Header, HTTPException, Request
 from app.auth.audit_logger import AuditLogger
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.password_change_service import AuthPasswordChangeError, AuthPasswordChangeService
+from app.auth.password_reset_service import AuthPasswordResetError, AuthPasswordResetService
 from app.auth.rate_limiter import login_rate_limiter
 from app.auth.session_service import AuthSessionError, AuthSessionService
 from app.auth.token_service import AuthTokenError, AuthTokenService, bearer_token_from_header
@@ -12,6 +13,9 @@ from app.core.schemas import (
     AuthLoginResponse,
     AuthChangePasswordRequest,
     AuthChangePasswordResponse,
+    AuthPasswordResetCompleteRequest,
+    AuthPasswordResetRequest,
+    AuthPasswordResetResponse,
     AuthLogoutResponse,
     AuthMeResponse,
     AuthRefreshRequest,
@@ -95,6 +99,25 @@ def change_password(
         )
         raise HTTPException(status_code=401, detail=str(exc)) from exc
     except AuthPasswordChangeError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/password-reset/request", response_model=AuthPasswordResetResponse)
+def request_password_reset(payload: AuthPasswordResetRequest) -> AuthPasswordResetResponse:
+    reset_token = AuthPasswordResetService().request_reset(payload.email)
+    if get_settings().auth_password_reset_expose_token:
+        return AuthPasswordResetResponse(ok=True, reset_token=reset_token)
+    return AuthPasswordResetResponse(ok=True)
+
+
+@router.post("/password-reset/complete", response_model=AuthChangePasswordResponse)
+def complete_password_reset(
+    payload: AuthPasswordResetCompleteRequest,
+) -> AuthChangePasswordResponse:
+    try:
+        AuthPasswordResetService().complete_reset(payload.reset_token, payload.new_password)
+        return AuthChangePasswordResponse(ok=True)
+    except AuthPasswordResetError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 

@@ -9,6 +9,9 @@ MVP hiện có:
 - Login tạo row trong `robo_auth.sessions`.
 - `POST /auth/logout` revoke session bằng `revoked_at`.
 - `/auth/me` và `/ask` chỉ chấp nhận token có session còn active nếu token có `session_id`.
+- `POST /auth/refresh` rotate refresh token.
+- `POST /auth/change-password` đổi mật khẩu cho user đã đăng nhập.
+- `POST /auth/password-reset/request` và `/auth/password-reset/complete` tạo nền reset password bằng token có TTL.
 - `auth` mock trong request đã chuyển thành dev-only path và mặc định tắt.
 
 P1 foundation đã bắt đầu với:
@@ -18,6 +21,7 @@ P1 foundation đã bắt đầu với:
 - `scripts/apply_auth_schema.sh`;
 - backend login đọc `robo_auth.accounts/account_roles/account_identities`.
 - backend tạo session DB khi login và revoke session khi logout.
+- backend đã có refresh token rotation, change password, login lock/rate-limit, audit DB và password reset token foundation.
 
 Mục tiêu productization là biến lớp này thành auth/account chính thức.
 
@@ -75,9 +79,17 @@ robo_auth.sessions
   revoked_at
   created_at
   updated_at
+
+robo_auth.password_reset_tokens
+  id
+  account_id
+  token_hash
+  expires_at
+  used_at
+  created_at
 ```
 
-Không nhất thiết làm hết ngay. P1 có thể bắt đầu với `accounts`, `account_identities`, `account_roles`, `sessions`.
+P1 hiện đã có `accounts`, `account_identities`, `account_roles`, `sessions` và `password_reset_tokens`.
 
 ## 2. Liên kết với dữ liệu hiện tại
 
@@ -151,7 +163,14 @@ Tối thiểu:
 - account bị khóa tạm thời bằng `locked_until` khi vượt `AUTH_MAX_FAILED_LOGIN_ATTEMPTS`;
 - `AUTH_LOCK_SECONDS` quy định thời gian khóa;
 - rate limit login theo IP/email bằng `AUTH_LOGIN_RATE_LIMIT_ATTEMPTS` và `AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS`;
-- reset password/OTP qua email/SMS ở phase sau nếu cần.
+- reset password token:
+  - `/auth/password-reset/request` nhận email và luôn trả `ok=true` để hạn chế dò account;
+  - token chỉ lưu hash trong DB;
+  - token hết hạn theo `AUTH_PASSWORD_RESET_TOKEN_TTL_SECONDS`;
+  - khi tạo token mới, token reset cũ chưa dùng của account đó bị vô hiệu hóa;
+  - `/auth/password-reset/complete` đổi password, clear lock/counter và revoke toàn bộ session;
+  - local/dev có thể bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` để hiện token trên UI khi test;
+  - email/SMS/OTP delivery thật chưa gắn provider, đây là điểm tích hợp tiếp theo.
 
 ## 6. Backward compatibility
 
@@ -180,6 +199,9 @@ Unit tests:
 - expired token;
 - refresh token;
 - logout revoked session.
+- request password reset does not expose token by default;
+- complete password reset rejects invalid/expired token;
+- complete password reset revokes sessions.
 
 Integration tests:
 

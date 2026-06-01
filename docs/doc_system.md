@@ -352,7 +352,7 @@ School:
 Chưa có và cần làm tiếp:
 
 - Domain adapter cho `hotel`, `restaurant`, `school`.
-- OTP/refresh token và quản trị account chính thức.
+- Email/SMS/OTP delivery thật và quản trị account chính thức.
 - Audit hardening đầy đủ: token invalid/expired, parser/tool sub-latency, retention policy.
 
 Kết luận: project hiện tại **đã có nền tảng dữ liệu + backend core + UI chatbot web + LLM intent parser có fallback + Qdrant vector RAG + auth password/token MVP**. MVP đã được lưu ở branch `mvp-v1` và tài liệu snapshot nằm trong `docs/mvp/`. Bước tiếp theo là phase productization theo bộ tài liệu:

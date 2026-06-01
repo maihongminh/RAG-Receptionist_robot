@@ -77,6 +77,20 @@ class AuthChangePasswordResponse(BaseModel):
     ok: bool = True
 
 
+class AuthPasswordResetRequest(BaseModel):
+    email: str = Field(..., min_length=1)
+
+
+class AuthPasswordResetResponse(BaseModel):
+    ok: bool = True
+    reset_token: str | None = None
+
+
+class AuthPasswordResetCompleteRequest(BaseModel):
+    reset_token: str = Field(..., min_length=1)
+    new_password: str = Field(..., min_length=1)
+
+
 class AuthMeResponse(BaseModel):
     auth: AuthContext
 

@@ -55,6 +55,9 @@ Auth/RBAC hiện có:
 - `POST /auth/login` phát bearer token từ email/password trong `robo_auth.accounts` và tạo `robo_auth.sessions`
 - `GET /auth/me` đọc bearer token, kiểm tra session còn active và trả auth context
 - `POST /auth/logout` revoke session hiện tại
+- `POST /auth/refresh` rotate refresh token
+- `POST /auth/change-password` đổi password cho user đã đăng nhập và revoke các session khác
+- `POST /auth/password-reset/request` + `/auth/password-reset/complete` tạo flow reset password bằng token có TTL
 - `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` là dev-only path và mặc định tắt
 - request không có token sẽ được xem là `guest`
 - dữ liệu cá nhân bị chặn bởi `PolicyGuard`
@@ -63,7 +66,7 @@ Auth/RBAC hiện có:
 - request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
 - audit ghi application logger và `robo_auth.audit_events`
 - request observability có `X-Request-ID`, `X-Process-Time-Ms`, `/ask.request_id`, `/ask.latency_ms`
-- chưa có OTP/refresh token; bước hiện tại là password auth + session DB dựa trên identity hiện có
+- chưa gắn provider email/SMS/OTP thật; reset token foundation đã có và mặc định không expose token ra API
 
 Tài khoản demo:
 
