@@ -62,6 +62,7 @@ Auth/RBAC hiện có:
 - request có `auth.role=doctor` và `doctor_id` được tra lịch hẹn của bác sĩ đó
 - request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
 - audit ghi application logger và `robo_auth.audit_events`
+- request observability có `X-Request-ID`, `X-Process-Time-Ms`, `/ask.request_id`, `/ask.latency_ms`
 - chưa có OTP/refresh token; bước hiện tại là password auth + session DB dựa trên identity hiện có
 
 Tài khoản demo:

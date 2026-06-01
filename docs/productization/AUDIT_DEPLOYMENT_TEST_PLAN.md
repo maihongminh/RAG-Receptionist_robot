@@ -27,6 +27,8 @@ robo_auth.audit_events
   allowed
   reason
   row_count
+  request_id
+  latency_ms
   metadata
   created_at
 ```
@@ -40,6 +42,13 @@ logout_success
 policy_decision
 tool_result
 ```
+
+Mỗi HTTP request có:
+
+- `X-Request-ID`: nhận từ client nếu có, nếu không backend tự sinh UUID;
+- `X-Process-Time-Ms`: tổng thời gian xử lý request;
+- `/ask` response trả thêm `request_id` và `latency_ms`;
+- audit DB ghi cùng `request_id` và `latency_ms` để lần vết các event của một lượt gọi.
 
 Các event cần mở rộng thêm:
 
@@ -55,10 +64,13 @@ Không ghi:
 
 ## 2. Observability
 
-Cần log kỹ thuật:
+Đã có:
 
 - request_id;
 - latency tổng;
+
+Cần log kỹ thuật thêm:
+
 - latency intent parser;
 - latency SQL/RAG/LLM;
 - parser source;

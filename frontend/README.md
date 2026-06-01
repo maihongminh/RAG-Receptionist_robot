@@ -45,3 +45,5 @@ admin@clinic.local        -> clinic_admin
 ```
 
 Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local có `session_id`; account/password/session dùng schema `robo_auth`.
+
+Trace header trong màn chat hiển thị thêm request id rút gọn và latency của `/ask` để debug nhanh một lượt gọi.

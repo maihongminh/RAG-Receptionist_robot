@@ -84,6 +84,7 @@ ON robo_auth.sessions (account_id, revoked_at, expires_at);
 
 CREATE TABLE IF NOT EXISTS robo_auth.audit_events (
   id text PRIMARY KEY,
+  request_id text,
   event_type text NOT NULL,
   account_id text,
   session_id text,
@@ -96,12 +97,22 @@ CREATE TABLE IF NOT EXISTS robo_auth.audit_events (
   allowed boolean,
   reason text,
   row_count integer,
+  latency_ms double precision,
   metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
+ALTER TABLE robo_auth.audit_events
+ADD COLUMN IF NOT EXISTS request_id text;
+
+ALTER TABLE robo_auth.audit_events
+ADD COLUMN IF NOT EXISTS latency_ms double precision;
+
 CREATE INDEX IF NOT EXISTS idx_auth_audit_events_created_at
 ON robo_auth.audit_events (created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_auth_audit_events_request_id
+ON robo_auth.audit_events (request_id);
 
 CREATE INDEX IF NOT EXISTS idx_auth_audit_events_account_id
 ON robo_auth.audit_events (account_id);

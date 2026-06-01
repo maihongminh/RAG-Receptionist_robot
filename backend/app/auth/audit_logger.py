@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.auth.permissions import PermissionDecision
+from app.core.request_context import get_elapsed_ms, get_request_id
 from app.core.schemas import AuthContext, Intent, ToolResult
 from app.db import execute
 
@@ -28,6 +29,8 @@ class AuditLogger:
     ) -> None:
         audit = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
+            "request_id": get_request_id(),
+            "latency_ms": get_elapsed_ms(),
             "event_type": event_type,
             "account_id": account_id,
             "session_id": session_id,
@@ -40,6 +43,8 @@ class AuditLogger:
         logger.info(event_type, extra={"audit": audit})
         self._insert_event(
             event_type=event_type,
+            request_id=get_request_id(),
+            latency_ms=get_elapsed_ms(),
             account_id=account_id,
             session_id=session_id,
             user_id=user_id,
@@ -72,6 +77,8 @@ class AuditLogger:
         )
         self._insert_event(
             event_type="policy_decision",
+            request_id=get_request_id(),
+            latency_ms=get_elapsed_ms(),
             account_id=auth.account_id,
             session_id=auth.session_id,
             user_id=auth.user_id,
@@ -106,6 +113,8 @@ class AuditLogger:
         )
         self._insert_event(
             event_type="tool_result",
+            request_id=get_request_id(),
+            latency_ms=get_elapsed_ms(),
             account_id=auth.account_id,
             session_id=auth.session_id,
             user_id=auth.user_id,
@@ -121,6 +130,8 @@ class AuditLogger:
         self,
         *,
         event_type: str,
+        request_id: str | None = None,
+        latency_ms: float | None = None,
         account_id: str | None = None,
         session_id: str | None = None,
         user_id: str | None = None,
@@ -139,6 +150,7 @@ class AuditLogger:
                 """
                 INSERT INTO robo_auth.audit_events (
                   id,
+                  request_id,
                   event_type,
                   account_id,
                   session_id,
@@ -151,10 +163,12 @@ class AuditLogger:
                   allowed,
                   reason,
                   row_count,
+                  latency_ms,
                   metadata
                 )
                 VALUES (
                   %(id)s,
+                  %(request_id)s,
                   %(event_type)s,
                   %(account_id)s,
                   %(session_id)s,
@@ -167,11 +181,13 @@ class AuditLogger:
                   %(allowed)s,
                   %(reason)s,
                   %(row_count)s,
+                  %(latency_ms)s,
                   %(metadata)s::jsonb
                 )
                 """,
                 {
                     "id": str(uuid4()),
+                    "request_id": request_id,
                     "event_type": event_type,
                     "account_id": account_id,
                     "session_id": session_id,
@@ -184,6 +200,7 @@ class AuditLogger:
                     "allowed": allowed,
                     "reason": reason,
                     "row_count": row_count,
+                    "latency_ms": latency_ms,
                     "metadata": json.dumps(metadata or {}, ensure_ascii=False),
                 },
             )

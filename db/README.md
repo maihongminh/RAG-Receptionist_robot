@@ -101,6 +101,8 @@ scripts/apply_auth_schema.sh
 
 Seed này tách riêng khỏi dữ liệu Excel gốc. `db/app/seed_mvp_demo.sql` bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot. `db/auth/seed_demo.sql` bổ sung account demo vào `robo_auth`.
 
+`robo_auth.audit_events` lưu audit event kèm `request_id` và `latency_ms` để lần vết login/logout/policy/tool result theo từng HTTP request.
+
 ## Schema `robo_app`
 
 `robo_app` là schema sạch cho backend/chatbot sử dụng.

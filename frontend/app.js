@@ -111,7 +111,10 @@ function renderTrace(payload) {
   sourcesValue.textContent = payload.sources?.length ? payload.sources.join(", ") : "-";
   dataPreview.textContent = JSON.stringify(payload.data || [], null, 2);
   if (payload.session_id) state.sessionId = payload.session_id;
-  sessionMeta.textContent = `${payload.domain || "clinic"} · ${authLabel} · ${parserLabel} · ${answerLabel} · ${state.sessionId.slice(0, 8)}`;
+  const requestLabel = payload.request_id ? ` · req ${payload.request_id.slice(0, 8)}` : "";
+  const latencyLabel =
+    typeof payload.latency_ms === "number" ? ` · ${payload.latency_ms.toFixed(0)}ms` : "";
+  sessionMeta.textContent = `${payload.domain || "clinic"} · ${authLabel} · ${parserLabel} · ${answerLabel} · ${state.sessionId.slice(0, 8)}${requestLabel}${latencyLabel}`;
 
   intentBadge.textContent = payload.intent || "idle";
   intentBadge.className = payload.requires_auth ? "auth" : "ok";

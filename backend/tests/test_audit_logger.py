@@ -1,6 +1,7 @@
 from app.auth import audit_logger
 from app.auth.audit_logger import AuditLogger
 from app.auth.permissions import PermissionDecision
+from app.core.request_context import set_request_context
 from app.core.schemas import AuthContext, Intent, ToolResult
 
 
@@ -25,6 +26,22 @@ def test_audit_logger_writes_auth_event(monkeypatch):
     assert calls[0]["event_type"] == "login_success"
     assert calls[0]["account_id"] == "account-1"
     assert calls[0]["session_id"] == "session-1"
+
+
+def test_audit_logger_includes_request_context(monkeypatch):
+    calls: list[dict] = []
+    monkeypatch.setattr(
+        audit_logger,
+        "execute",
+        lambda query, params: calls.append(params),
+    )
+    set_request_context("request-1", started_at=0.0)
+
+    AuditLogger().log_auth_event(event_type="login_failed", reason="invalid_password")
+
+    assert calls
+    assert calls[0]["request_id"] == "request-1"
+    assert isinstance(calls[0]["latency_ms"], float)
 
 
 def test_audit_logger_writes_policy_decision(monkeypatch):

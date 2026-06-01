@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `123 passed`.
+- Test backend hiện tại: `124 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -133,6 +133,11 @@ Postgres
   - ghi `login_success`, `login_failed`, `logout_success`;
   - ghi `policy_decision` và `tool_result`;
   - audit DB lỗi thì fallback application logger, không làm hỏng request chính.
+- Thêm request observability nền tảng:
+  - middleware nhận/tạo `X-Request-ID`;
+  - trả `X-Request-ID` và `X-Process-Time-Ms`;
+  - `/ask` response có `request_id`, `latency_ms`;
+  - audit DB ghi `request_id`, `latency_ms`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
@@ -222,7 +227,7 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 - Account/session production foundation đã bắt đầu, nhưng chưa có quản trị account đầy đủ.
 - Chưa có refresh token.
 - Chưa có OTP/reset password.
-- Audit DB nền tảng đã có, nhưng chưa đầy đủ request_id/latency/token invalid/retention policy.
+- Audit DB nền tảng đã có, nhưng chưa đầy đủ token invalid/expired, parser/tool sub-latency và retention policy.
 - Chưa có tạo lịch hẹn.
 - Chưa có STT/TTS.
 - Chưa có memory hội thoại dài hạn.

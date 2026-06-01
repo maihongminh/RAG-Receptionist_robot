@@ -90,6 +90,8 @@ class ToolResult(BaseModel):
 
 
 class AskResponse(BaseModel):
+    request_id: str | None = None
+    latency_ms: float | None = None
     session_id: str | None = None
     question: str
     answer: str

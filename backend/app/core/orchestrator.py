@@ -4,6 +4,7 @@ from app.auth.audit_logger import AuditLogger
 from app.auth.auth_context import AuthContextResolver
 from app.core.conversation_context import ConversationTurn, get_conversation_context_store
 from app.core.decision_router import DecisionRouter
+from app.core.request_context import get_elapsed_ms, get_request_id
 from app.rag.grounded_response_generator import GroundedResponseGenerator
 from app.rag.rag_config import get_rag_config
 from app.llm.llm_client import LLMClient
@@ -69,6 +70,8 @@ class Orchestrator:
             )
             answer = self.response_generator.generate(question, intent, result, auth)
             return AskResponse(
+                request_id=get_request_id(),
+                latency_ms=get_elapsed_ms(),
                 session_id=session_id,
                 question=question,
                 answer=answer,
@@ -109,6 +112,8 @@ class Orchestrator:
 
         max_rows = get_rag_config().api_preview_max_rows
         return AskResponse(
+            request_id=get_request_id(),
+            latency_ms=get_elapsed_ms(),
             session_id=session_id,
             question=question,
             answer=answer,

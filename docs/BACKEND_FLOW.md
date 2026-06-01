@@ -58,6 +58,7 @@ Luồng đi qua hệ thống:
 2. POST http://localhost:8000/ask
    Frontend gửi JSON request sang backend.
    Nếu đã đăng nhập, frontend gửi thêm `Authorization: Bearer <token>`.
+   Backend nhận `X-Request-ID` nếu client gửi, nếu không sẽ tự sinh request id.
 
 3. backend/app/api/ask.py
    Endpoint /ask nhận request và gọi Orchestrator.
@@ -101,9 +102,10 @@ Luồng đi qua hệ thống:
     Tạo câu trả lời template nếu grounded LLM không áp dụng hoặc bị lỗi.
 
 15. backend/app/auth/audit_logger.py
-    Ghi audit log ra application logger và `robo_auth.audit_events`.
+    Ghi audit log ra application logger và `robo_auth.audit_events`, kèm `request_id` và `latency_ms`.
 
 16. Response JSON trả về frontend.
+    Response có `request_id`, `latency_ms`; HTTP header có `X-Request-ID`, `X-Process-Time-Ms`.
 
 17. frontend/app.js
     Hiển thị answer, intent, source, confidence và data debug.
