@@ -1,0 +1,236 @@
+{
+  "schema": "robo_app",
+  "version": 1,
+  "description": "Application-facing data contract for backend SQL tools. Backend domain tools must query this schema instead of robo_raw.",
+  "views": [
+    {
+      "name": "clinics",
+      "access_level": "public",
+      "source_tables": ["robo_raw.clinics"],
+      "tools": ["clinic.get_public_profile"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "name", "data_type": "text"},
+        {"name": "phone", "data_type": "text"},
+        {"name": "email", "data_type": "text"},
+        {"name": "address", "data_type": "text"},
+        {"name": "city", "data_type": "text"},
+        {"name": "timezone", "data_type": "text"},
+        {"name": "currency", "data_type": "text"},
+        {"name": "status", "data_type": "text"}
+      ]
+    },
+    {
+      "name": "clinic_settings",
+      "access_level": "public",
+      "source_tables": ["robo_raw.clinic_general_settings"],
+      "tools": ["clinic.get_public_profile"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "working_hours_start", "data_type": "time without time zone"},
+        {"name": "working_hours_end", "data_type": "time without time zone"},
+        {"name": "lunch_break_start", "data_type": "time without time zone"},
+        {"name": "lunch_break_end", "data_type": "time without time zone"},
+        {"name": "appointment_slot_duration", "data_type": "integer"},
+        {"name": "max_advance_booking_days", "data_type": "integer"},
+        {"name": "allow_online_booking", "data_type": "boolean"},
+        {"name": "currency", "data_type": "text"}
+      ]
+    },
+    {
+      "name": "rooms",
+      "access_level": "operational",
+      "source_tables": ["robo_raw.rooms"],
+      "tools": ["clinic.search_doctor_schedules"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "room_code", "data_type": "text"},
+        {"name": "room_name", "data_type": "text"},
+        {"name": "room_type", "data_type": "text"},
+        {"name": "floor", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "staff",
+      "access_level": "operational",
+      "source_tables": ["robo_raw.staff"],
+      "tools": ["clinic.search_doctor_schedules", "auth.identity_mapping"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "full_name", "data_type": "text"},
+        {"name": "role", "data_type": "text"},
+        {"name": "email", "data_type": "text"},
+        {"name": "phone", "data_type": "text"},
+        {"name": "specialty", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "doctors",
+      "access_level": "operational",
+      "source_tables": ["robo_app.staff"],
+      "tools": ["clinic.search_doctor_schedules", "auth.identity_mapping"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "full_name", "data_type": "text"},
+        {"name": "role", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "doctor_schedules",
+      "access_level": "public",
+      "source_tables": ["robo_raw.doctor_schedules", "robo_app.staff", "robo_app.rooms"],
+      "tools": ["clinic.search_doctor_schedules"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "doctor_id", "data_type": "text"},
+        {"name": "doctor_name", "data_type": "text"},
+        {"name": "room_name", "data_type": "text"},
+        {"name": "room_code", "data_type": "text"},
+        {"name": "day_of_week", "data_type": "integer"},
+        {"name": "start_time", "data_type": "time without time zone"},
+        {"name": "end_time", "data_type": "time without time zone"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "service_categories",
+      "access_level": "public",
+      "source_tables": ["robo_raw.service_categories"],
+      "tools": ["clinic.list_service_categories", "clinic.summarize_service_catalog"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "name", "data_type": "text"},
+        {"name": "name_en", "data_type": "text"},
+        {"name": "parent_id", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "services",
+      "access_level": "public",
+      "source_tables": ["robo_raw.service_catalog", "robo_app.service_categories"],
+      "tools": [
+        "clinic.search_services",
+        "clinic.list_service_categories",
+        "clinic.summarize_service_catalog",
+        "clinic.list_services_by_category"
+      ],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "code", "data_type": "text"},
+        {"name": "name", "data_type": "text"},
+        {"name": "name_en", "data_type": "text"},
+        {"name": "category_id", "data_type": "text"},
+        {"name": "category_name", "data_type": "text"},
+        {"name": "price_amount", "data_type": "numeric"},
+        {"name": "currency_code", "data_type": "text"},
+        {"name": "duration_minutes", "data_type": "integer"},
+        {"name": "service_type", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "patients",
+      "access_level": "private",
+      "source_tables": ["robo_raw.patients"],
+      "tools": ["clinic.lookup_private_data", "clinic.lookup_lab_results", "auth.identity_mapping"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "patient_code", "data_type": "text"},
+        {"name": "full_name", "data_type": "text"},
+        {"name": "date_of_birth", "data_type": "date"},
+        {"name": "gender", "data_type": "text"},
+        {"name": "phone_primary", "data_type": "text"},
+        {"name": "email", "data_type": "text"},
+        {"name": "address", "data_type": "text"}
+      ]
+    },
+    {
+      "name": "appointments",
+      "access_level": "private",
+      "source_tables": ["robo_raw.appointments", "robo_app.patients", "robo_app.staff", "robo_app.services"],
+      "tools": ["clinic.lookup_private_data"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "patient_id", "data_type": "text"},
+        {"name": "patient_name", "data_type": "text"},
+        {"name": "doctor_id", "data_type": "text"},
+        {"name": "doctor_name", "data_type": "text"},
+        {"name": "appointment_date", "data_type": "date"},
+        {"name": "start_time", "data_type": "time without time zone"},
+        {"name": "end_time", "data_type": "time without time zone"},
+        {"name": "visit_type", "data_type": "text"},
+        {"name": "status", "data_type": "text"},
+        {"name": "service_name", "data_type": "text"},
+        {"name": "chief_complaint", "data_type": "text"}
+      ]
+    },
+    {
+      "name": "paraclinical_results",
+      "access_level": "private",
+      "source_tables": ["robo_raw.paraclinical_orders", "robo_app.patients", "robo_app.services", "robo_app.staff"],
+      "tools": ["clinic.lookup_lab_results"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "visit_id", "data_type": "text"},
+        {"name": "patient_id", "data_type": "text"},
+        {"name": "patient_name", "data_type": "text"},
+        {"name": "order_type", "data_type": "text"},
+        {"name": "service_id", "data_type": "text"},
+        {"name": "service_code", "data_type": "text"},
+        {"name": "service_name", "data_type": "text"},
+        {"name": "service_category_name", "data_type": "text"},
+        {"name": "status", "data_type": "text"},
+        {"name": "priority", "data_type": "text"},
+        {"name": "ordered_by", "data_type": "text"},
+        {"name": "ordered_at", "data_type": "timestamp with time zone"},
+        {"name": "completed_at", "data_type": "timestamp with time zone"},
+        {"name": "result_summary", "data_type": "text"},
+        {"name": "result_file_url", "data_type": "text"},
+        {"name": "has_result", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "knowledge_articles",
+      "access_level": "public",
+      "source_tables": ["robo_raw.admin_help_templates"],
+      "tools": ["clinic.search_knowledge", "scripts.rag_documents"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "topic", "data_type": "text"},
+        {"name": "title", "data_type": "text"},
+        {"name": "title_vi", "data_type": "text"},
+        {"name": "content", "data_type": "text"},
+        {"name": "content_vi", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    },
+    {
+      "name": "patient_question_templates",
+      "access_level": "public",
+      "source_tables": ["robo_raw.patient_question_templates"],
+      "tools": ["future.patient_question_suggestions"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "category", "data_type": "text"},
+        {"name": "question_text", "data_type": "text"},
+        {"name": "question_text_vi", "data_type": "text"},
+        {"name": "display_order", "data_type": "integer"},
+        {"name": "is_active", "data_type": "boolean"}
+      ]
+    }
+  ]
+}

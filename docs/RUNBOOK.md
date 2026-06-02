@@ -546,11 +546,20 @@ curl -X POST http://localhost:8000/auth/password-reset/request \
 
 Nếu cần thấy token trên UI/API để test thủ công, đặt `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` rồi restart backend. Không bật biến này cho môi trường thật.
 
+Kiểm tra app data contract sau khi sửa `db/app/views.sql`:
+
+```bash
+cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/check_app_contract.py
+```
+
+Contract nằm ở `db/app/contract.json`. Nếu check fail, cần sửa view hoặc contract trước khi tiếp tục viết SQL tool.
+
 Bước tiếp theo:
 
-1. Thêm OTP/reset password qua email/SMS nếu cần nâng tiếp phần auth.
+1. Hoàn thiện P2 data/application layer hardening bằng contract + mapping cho tool.
 2. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
-3. Mở rộng grounded answer sang intent khác nếu cần.
+3. Tích hợp email/SMS/OTP delivery thật nếu triển khai môi trường production có người dùng thật.
 
 ## 9. Chạy test backend
 

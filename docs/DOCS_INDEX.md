@@ -120,7 +120,7 @@ Trước khi làm một phần lớn mới:
 Task tiếp theo:
 
 ```text
-Phase productization: tiếp tục P1 auth hardening sau session/refresh/change-password/password-reset-token foundation
+Phase productization: tiếp tục P2 data/application layer hardening sau app contract foundation
 ```
 
 Mục tiêu:
@@ -129,5 +129,6 @@ Mục tiêu:
 - Tiếp tục phát triển trên `main`.
 - Làm theo bộ tài liệu trong `docs/productization/`.
 - P1 hiện đã có account/session/logout/failed-login lock nền tảng.
-- Audit DB, refresh token, change-password, password reset token foundation và login rate-limit nền tảng đã có; ưu tiên tiếp theo: email/SMS/OTP delivery thật, admin account UI và auth hardening.
-- Sau đó mới mở rộng data layer, private tools, RAG sync và deployment.
+- Audit DB, refresh token, change-password, password reset token foundation và login rate-limit nền tảng đã có.
+- P2 đã bắt đầu với `db/app/contract.json` và `scripts/check_app_contract.py`.
+- Ưu tiên tiếp theo: mapping source table -> app contract -> SQL tool, sau đó private tools/audit sâu hơn, RAG sync và deployment.

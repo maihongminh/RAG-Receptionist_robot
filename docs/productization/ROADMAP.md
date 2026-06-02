@@ -81,6 +81,13 @@ Done khi:
 - Có tài liệu mapping source table -> app view/table -> tool.
 - Có test tích hợp cho các tool quan trọng.
 
+Trạng thái hiện tại:
+
+- Đã thêm `db/app/contract.json` cho 13 view `robo_app` đang phục vụ MVP.
+- Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
+- Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
+- Chưa có mapping chi tiết cho toàn bộ 56 bảng raw; sẽ mở theo use case.
+
 ## Phase P3 - Private data expansion + audit
 
 Mục tiêu: mở rộng dữ liệu riêng tư nhưng vẫn kiểm soát quyền.

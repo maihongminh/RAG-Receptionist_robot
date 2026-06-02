@@ -663,6 +663,7 @@ db/
 │   ├── schema.sql
 │   └── load.sql
 ├── app/
+│   ├── contract.json
 │   ├── views.sql
 │   └── seed_mvp_demo.sql
 ├── auth/
@@ -678,6 +679,7 @@ db/
 - `db/raw/load.sql`: load CSV vào Postgres bằng `\copy`.
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
+- `db/app/contract.json`: contract view/cột/access-level/tool cho `robo_app`.
 - `db/app/seed_mvp_demo.sql`: seed dữ liệu nghiệp vụ demo.
 - `db/auth/schema.sql`: tạo schema `robo_auth`.
 - `db/auth/seed_demo.sql`: seed account demo.

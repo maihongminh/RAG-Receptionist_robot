@@ -4,9 +4,9 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 ## Trạng thái hiện tại
 
-Cập nhật gần nhất: 2026-06-01
+Cập nhật gần nhất: 2026-06-02
 
-Project đã hoàn thành **MVP hỏi đáp có SQL/RAG/LLM local, auth password/token MVP và context hội thoại ngắn**.
+Project đã hoàn thành **MVP hỏi đáp có SQL/RAG/LLM local, auth productization foundation và context hội thoại ngắn**.
 
 Branch lưu MVP:
 
@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `137 passed`.
+- Test backend hiện tại: `139 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -157,6 +157,11 @@ Postgres
   - trả `X-Request-ID` và `X-Process-Time-Ms`;
   - `/ask` response có `request_id`, `latency_ms`;
   - audit DB ghi `request_id`, `latency_ms`.
+- Bắt đầu P2 data/application layer hardening:
+  - thêm `db/app/contract.json` làm contract máy đọc được cho 13 view `robo_app`;
+  - thêm `scripts/check_app_contract.py` để kiểm tra live DB có đủ view/cột/type theo contract;
+  - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
+  - contract check hiện tại pass: `robo_app has 13 contracted views`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

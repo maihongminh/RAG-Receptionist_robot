@@ -135,6 +135,7 @@ Hiện tại:
 - `db/raw/schema.sql`: tạo raw schema.
 - `db/raw/load.sql`: load CSV.
 - `db/app/views.sql`: tạo app schema/views.
+- `db/app/contract.json`: contract view/cột/access-level/source/tool cho `robo_app`.
 - `db/app/seed_mvp_demo.sql`: patch demo data.
 
 Productization cần:
@@ -168,7 +169,34 @@ db/seeds/
 
 FK production nên đặt trên table thật. Nếu `robo_app` còn là view-heavy schema, FK sẽ cần đặt ở schema production riêng hoặc materialized/app tables.
 
-## 8. Test data strategy
+## 8. Contract validation
+
+P2 bắt đầu có guardrail bằng:
+
+```text
+db/app/contract.json
+scripts/check_app_contract.py
+backend/tests/test_app_data_contract.py
+```
+
+Quy trình khi thêm bảng/view cho tool mới:
+
+```text
+1. Thêm hoặc sửa view trong db/app/views.sql.
+2. Cập nhật db/app/contract.json:
+   - view name;
+   - source_tables;
+   - access_level public/operational/private;
+   - tool sử dụng;
+   - các cột bắt buộc và data_type.
+3. Chạy scripts/apply_app_views.sh.
+4. Chạy backend/.venv/bin/python scripts/check_app_contract.py.
+5. Thêm/cập nhật SQL tool + policy + test.
+```
+
+Backend domain tools không được query `robo_raw` trực tiếp. Raw chỉ là import/debug layer.
+
+## 9. Test data strategy
 
 Cần có dữ liệu test cố định cho:
 

@@ -17,6 +17,7 @@ db/
 │   ├── schema.sql
 │   └── load.sql
 ├── app/
+│   ├── contract.json
 │   ├── views.sql
 │   └── seed_mvp_demo.sql
 ├── auth/
@@ -76,6 +77,7 @@ Các file được sinh:
 - `db/raw/load.sql`: load CSV vào bảng bằng `\copy`.
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
+- `db/app/contract.json`: contract máy đọc được cho các view/cột `robo_app` mà backend được phép dùng.
 - `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
 - `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session/audit production foundation.
 - `db/auth/seed_demo.sql`: seed account demo cho login email/password.
@@ -122,6 +124,15 @@ Hoặc chạy trực tiếp:
 psql -U minhmh -d robo_reception -h localhost -f db/app/views.sql
 ```
 
+Kiểm tra contract `robo_app` sau khi sửa view:
+
+```bash
+cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/check_app_contract.py
+```
+
+Nếu thêm view/cột phục vụ tool mới, cập nhật `db/app/contract.json` cùng lúc với `db/app/views.sql`. Backend domain tools chỉ nên query các view đã có trong contract.
+
 Các view hiện có:
 
 - `robo_app.clinics`: thông tin cơ sở/phòng khám.
@@ -160,7 +171,9 @@ Các bảng auth hiện có:
 - `robo_auth.accounts`: email/password hash/status.
 - `robo_auth.account_identities`: mapping account với patient/staff/doctor/clinic.
 - `robo_auth.account_roles`: role theo scope clinic/organization.
-- `robo_auth.sessions`: nền cho refresh token/logout server-side ở bước sau.
+- `robo_auth.sessions`: refresh token hash, access session và logout server-side.
+- `robo_auth.password_reset_tokens`: reset password token hash có TTL.
+- `robo_auth.audit_events`: audit login/logout/policy/tool result.
 
 Kiểm tra view:
 
