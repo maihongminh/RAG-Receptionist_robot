@@ -136,6 +136,7 @@ Hiện tại:
 - `db/raw/load.sql`: load CSV.
 - `db/app/views.sql`: tạo app schema/views.
 - `db/app/contract.json`: contract view/cột/access-level/source/tool cho `robo_app`.
+- `db/app/tool_map.json`: mapping intent/tool -> view contract -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: patch demo data.
 
 Productization cần:
@@ -175,7 +176,9 @@ P2 bắt đầu có guardrail bằng:
 
 ```text
 db/app/contract.json
+db/app/tool_map.json
 scripts/check_app_contract.py
+scripts/check_tool_map.py
 backend/tests/test_app_data_contract.py
 ```
 
@@ -189,9 +192,18 @@ Quy trình khi thêm bảng/view cho tool mới:
    - access_level public/operational/private;
    - tool sử dụng;
    - các cột bắt buộc và data_type.
-3. Chạy scripts/apply_app_views.sh.
-4. Chạy backend/.venv/bin/python scripts/check_app_contract.py.
-5. Thêm/cập nhật SQL tool + policy + test.
+3. Cập nhật db/app/tool_map.json:
+   - intent gọi tool;
+   - data_source sql/rag/auth/none;
+   - app view trực tiếp được query;
+   - source table gốc;
+   - allowed_roles;
+   - scope_rule;
+   - test bảo vệ.
+4. Chạy scripts/apply_app_views.sh.
+5. Chạy backend/.venv/bin/python scripts/check_app_contract.py.
+6. Chạy backend/.venv/bin/python scripts/check_tool_map.py.
+7. Thêm/cập nhật SQL tool + policy + test.
 ```
 
 Backend domain tools không được query `robo_raw` trực tiếp. Raw chỉ là import/debug layer.

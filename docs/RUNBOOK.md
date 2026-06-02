@@ -552,9 +552,11 @@ Kiểm tra app data contract sau khi sửa `db/app/views.sql`:
 ```bash
 cd /home/minhmh/tool/robo
 backend/.venv/bin/python scripts/check_app_contract.py
+backend/.venv/bin/python scripts/check_tool_map.py
 ```
 
-Contract nằm ở `db/app/contract.json`. Nếu check fail, cần sửa view hoặc contract trước khi tiếp tục viết SQL tool.
+Contract nằm ở `db/app/contract.json`, tool map nằm ở `db/app/tool_map.json`.
+Nếu check fail, cần sửa view/contract/tool map trước khi tiếp tục viết SQL tool.
 
 Bước tiếp theo:
 

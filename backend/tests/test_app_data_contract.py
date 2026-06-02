@@ -1,8 +1,13 @@
 import json
+import sys
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS_ROOT = PROJECT_ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS_ROOT))
+
+from check_tool_map import validate_tool_map
 
 
 def test_app_contract_has_unique_views_and_columns():
@@ -33,3 +38,10 @@ def test_clinic_domain_tools_do_not_query_raw_schema_directly():
 
     for path in checked_files:
         assert "robo_raw." not in path.read_text(encoding="utf-8"), path
+
+
+def test_tool_map_matches_app_contract_and_policy_guard():
+    contract = json.loads((PROJECT_ROOT / "db" / "app" / "contract.json").read_text(encoding="utf-8"))
+    tool_map = json.loads((PROJECT_ROOT / "db" / "app" / "tool_map.json").read_text(encoding="utf-8"))
+
+    assert validate_tool_map(contract, tool_map) == []

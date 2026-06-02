@@ -18,6 +18,7 @@ db/
 │   └── load.sql
 ├── app/
 │   ├── contract.json
+│   ├── tool_map.json
 │   ├── views.sql
 │   └── seed_mvp_demo.sql
 ├── auth/
@@ -78,6 +79,7 @@ Các file được sinh:
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
 - `db/app/contract.json`: contract máy đọc được cho các view/cột `robo_app` mà backend được phép dùng.
+- `db/app/tool_map.json`: mapping intent/tool -> app view -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
 - `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session/audit production foundation.
 - `db/auth/seed_demo.sql`: seed account demo cho login email/password.
@@ -129,9 +131,12 @@ Kiểm tra contract `robo_app` sau khi sửa view:
 ```bash
 cd /home/minhmh/tool/robo
 backend/.venv/bin/python scripts/check_app_contract.py
+backend/.venv/bin/python scripts/check_tool_map.py
 ```
 
-Nếu thêm view/cột phục vụ tool mới, cập nhật `db/app/contract.json` cùng lúc với `db/app/views.sql`. Backend domain tools chỉ nên query các view đã có trong contract.
+Nếu thêm view/cột phục vụ tool mới, cập nhật `db/app/contract.json` cùng lúc với `db/app/views.sql`.
+Nếu thêm tool/intent mới, cập nhật `db/app/tool_map.json` cùng lúc với SQL/RAG tool, policy và test.
+Backend domain tools chỉ nên query các view đã có trong contract.
 
 Các view hiện có:
 

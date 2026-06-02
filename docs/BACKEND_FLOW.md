@@ -664,6 +664,7 @@ db/
 │   └── load.sql
 ├── app/
 │   ├── contract.json
+│   ├── tool_map.json
 │   ├── views.sql
 │   └── seed_mvp_demo.sql
 ├── auth/
@@ -680,6 +681,7 @@ db/
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
 - `db/app/contract.json`: contract view/cột/access-level/tool cho `robo_app`.
+- `db/app/tool_map.json`: mapping intent/tool -> app view -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: seed dữ liệu nghiệp vụ demo.
 - `db/auth/schema.sql`: tạo schema `robo_auth`.
 - `db/auth/seed_demo.sql`: seed account demo.
@@ -711,6 +713,8 @@ scripts/
 ├── apply_app_views.sh
 ├── apply_auth_schema.sh
 ├── build_qdrant_index.py
+├── check_app_contract.py
+├── check_tool_map.py
 ├── export_excel_to_postgres.py
 ├── import_to_postgres.sh
 └── setup_local_postgres.sh
@@ -725,6 +729,8 @@ scripts/
 - `setup_local_postgres.sh`: tạo local role/database Postgres.
 - `apply_app_views.sh`: chạy `db/app/views.sql` để tạo lại `robo_app`.
 - `apply_auth_schema.sh`: chạy `db/auth/schema.sql` và `db/auth/seed_demo.sql` để tạo/cập nhật `robo_auth`.
+- `check_app_contract.py`: kiểm tra live `robo_app` có đủ view/cột/type theo contract.
+- `check_tool_map.py`: kiểm tra mapping intent/tool/policy/test khớp với contract và `PolicyGuard`.
 
 ## 12.1. Cây thư mục Qdrant local
 

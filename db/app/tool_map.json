@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "description": "Mapping from user intent to backend tool, app contract views, source tables, policy scope, and regression tests.",
+  "tools": [
+    {
+      "tool_name": "core.greeting",
+      "status": "active",
+      "intents": ["greeting"],
+      "data_source": "none",
+      "access_level": "public",
+      "contract_views": [],
+      "source_tables": [],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "No data lookup.",
+      "tests": ["backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
+    },
+    {
+      "tool_name": "clinic.get_public_profile",
+      "status": "active",
+      "intents": ["general_info"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["clinics", "clinic_settings"],
+      "source_tables": ["robo_raw.clinics", "robo_raw.clinic_general_settings"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Only active clinics are returned.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.search_services",
+      "status": "active",
+      "intents": ["service_price"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["services"],
+      "source_tables": ["robo_raw.service_catalog", "robo_raw.service_categories"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Only active services are returned. Exact service query returns one best match.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.list_service_categories",
+      "status": "active",
+      "intents": ["service_category_list"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["services"],
+      "source_tables": ["robo_raw.service_catalog", "robo_raw.service_categories"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Service categories are paginated from active services.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.summarize_service_catalog",
+      "status": "active",
+      "intents": ["service_catalog_summary"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["services"],
+      "source_tables": ["robo_raw.service_catalog", "robo_raw.service_categories"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Returns grouped active service catalog summary.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.list_services_by_category",
+      "status": "active",
+      "intents": ["service_category_detail"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["services"],
+      "source_tables": ["robo_raw.service_catalog", "robo_raw.service_categories"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Returns services in one matched active category.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.search_doctor_schedules",
+      "status": "active",
+      "intents": ["doctor_schedule"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["doctor_schedules", "staff", "rooms"],
+      "source_tables": ["robo_raw.doctor_schedules", "robo_raw.staff", "robo_raw.rooms"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Only active schedules are returned.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.search_knowledge",
+      "status": "active",
+      "intents": ["knowledge_search"],
+      "data_source": "rag",
+      "access_level": "public",
+      "contract_views": ["knowledge_articles"],
+      "source_tables": ["robo_raw.admin_help_templates"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Public knowledge only; excluded topics are filtered by RAG config.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.lookup_private_data",
+      "status": "active",
+      "intents": ["appointment_lookup", "personal_data"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["appointments"],
+      "source_tables": ["robo_raw.appointments", "robo_raw.patients", "robo_raw.staff", "robo_raw.service_catalog"],
+      "allowed_roles": ["patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by patient_id; doctor by doctor_id; receptionist/clinic_admin by clinic_id.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.lookup_lab_results",
+      "status": "active",
+      "intents": ["lab_result_lookup"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["paraclinical_results"],
+      "source_tables": ["robo_raw.paraclinical_orders", "robo_raw.patients", "robo_raw.staff", "robo_raw.service_catalog"],
+      "allowed_roles": ["patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by patient_id; doctor by ordered_by/doctor_id; receptionist/clinic_admin by clinic_id.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
+      "tool_name": "clinic.create_appointment_request",
+      "status": "disabled",
+      "intents": ["appointment_booking"],
+      "data_source": "none",
+      "access_level": "operational",
+      "contract_views": [],
+      "source_tables": ["robo_raw.appointment_requests"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Booking write flow is not enabled yet; current tool returns a disabled message.",
+      "tests": ["backend/tests/test_orchestrator.py"]
+    }
+  ]
+}

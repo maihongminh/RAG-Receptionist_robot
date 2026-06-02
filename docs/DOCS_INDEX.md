@@ -130,5 +130,5 @@ Mục tiêu:
 - Làm theo bộ tài liệu trong `docs/productization/`.
 - P1 hiện đã có account/session/logout/failed-login lock nền tảng.
 - Audit DB, refresh token, change-password, password reset token foundation và login rate-limit nền tảng đã có.
-- P2 đã bắt đầu với `db/app/contract.json` và `scripts/check_app_contract.py`.
+- P2 đã bắt đầu với `db/app/contract.json`, `db/app/tool_map.json`, `scripts/check_app_contract.py` và `scripts/check_tool_map.py`.
 - Ưu tiên tiếp theo: mapping source table -> app contract -> SQL tool, sau đó private tools/audit sâu hơn, RAG sync và deployment.
