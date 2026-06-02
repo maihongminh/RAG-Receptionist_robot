@@ -184,7 +184,8 @@ body.auth-mode-app #workspace {
 }
 
 #resetMessage,
-#changePasswordMessage {
+#changePasswordMessage,
+#accountAdminMessage {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.4;
@@ -192,12 +193,14 @@ body.auth-mode-app #workspace {
 }
 
 #resetMessage[data-type="ok"],
-#changePasswordMessage[data-type="ok"] {
+#changePasswordMessage[data-type="ok"],
+#accountAdminMessage[data-type="ok"] {
   color: var(--accent-strong);
 }
 
 #resetMessage[data-type="error"],
-#changePasswordMessage[data-type="error"] {
+#changePasswordMessage[data-type="error"],
+#accountAdminMessage[data-type="error"] {
   color: var(--danger);
 }
 
@@ -344,7 +347,8 @@ h2 {
 }
 
 .change-password-form[hidden],
-#changePasswordToggle[hidden] {
+#changePasswordToggle[hidden],
+#accountAdminToggle[hidden] {
   display: none;
 }
 
@@ -463,6 +467,207 @@ textarea:focus {
   min-height: 0;
 }
 
+.account-admin-panel {
+  position: fixed;
+  inset: 20px;
+  z-index: 30;
+  min-height: 0;
+  background: rgba(31, 41, 51, 0.35);
+  display: grid;
+  place-items: stretch;
+}
+
+.account-admin-panel[hidden] {
+  display: none;
+}
+
+.account-admin-shell {
+  width: min(1120px, 100%);
+  height: min(760px, calc(100vh - 40px));
+  justify-self: center;
+  align-self: center;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.account-admin-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.account-admin-header p {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.account-admin-header button,
+.account-admin-search button,
+.account-admin-actions button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--text);
+  padding: 9px 12px;
+}
+
+.account-admin-search {
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 1fr 88px;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.account-admin-search input {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 11px;
+  outline: none;
+}
+
+.account-admin-search input:focus {
+  border-color: var(--accent);
+}
+
+#accountAdminMessage {
+  padding: 0 18px;
+  margin: 10px 0 0;
+}
+
+.account-admin-body {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  gap: 0;
+}
+
+.account-admin-list,
+.account-admin-detail {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.account-admin-list {
+  border-right: 1px solid var(--line);
+  padding: 12px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.account-admin-list button {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--text);
+  padding: 10px 11px;
+  text-align: left;
+}
+
+.account-admin-list button.selected {
+  border-color: var(--accent);
+  background: #e7f6f3;
+}
+
+.account-admin-list strong,
+.account-admin-list span,
+.account-admin-list small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.account-admin-list span,
+.account-admin-list small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.account-admin-detail {
+  padding: 16px 18px;
+}
+
+.account-detail-title {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.account-detail-title p,
+.empty-state {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.account-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.account-admin-block {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.account-admin-block h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.account-admin-block dl {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.account-admin-block dl div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 10px;
+}
+
+.account-admin-block table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.account-admin-block th,
+.account-admin-block td {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.account-admin-block th {
+  color: var(--muted);
+  font-weight: 700;
+}
+
 #intentBadge {
   border-radius: 999px;
   background: #eceff2;
@@ -572,6 +777,30 @@ dd {
 
   .composer {
     grid-template-columns: 1fr;
+  }
+
+  .account-admin-panel {
+    inset: 10px;
+  }
+
+  .account-admin-shell {
+    height: calc(100vh - 20px);
+  }
+
+  .account-admin-search,
+  .account-admin-body {
+    grid-template-columns: 1fr;
+  }
+
+  .account-admin-list {
+    max-height: 220px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .account-admin-block dl div {
+    grid-template-columns: 1fr;
+    gap: 3px;
   }
 
   #sendButton {

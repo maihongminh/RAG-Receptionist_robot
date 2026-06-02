@@ -59,4 +59,13 @@ POST /auth/password-reset/complete
 
 Mặc định backend không trả reset token về UI. Khi test local/dev có thể bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` để UI nhận token và điền vào form reset. Môi trường thật cần gắn provider gửi email/SMS/OTP riêng.
 
+Nếu đăng nhập bằng `clinic_admin` hoặc `system_admin`, sidebar có nút `Quản trị tài khoản`. Panel này gọi các API `/auth/admin/...` để:
+
+- xem danh sách account trong phạm vi quyền;
+- xem role, identity mapping và session;
+- mở khóa account bị lock;
+- thu hồi session của account.
+
+UI này là công cụ vận hành cơ bản, chưa phải màn tạo/sửa role phức tạp.
+
 Trace header trong màn chat hiển thị thêm request id rút gọn và latency của `/ask` để debug nhanh một lượt gọi.

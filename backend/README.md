@@ -58,6 +58,7 @@ Auth/RBAC hiện có:
 - `POST /auth/refresh` rotate refresh token
 - `POST /auth/change-password` đổi password cho user đã đăng nhập và revoke các session khác
 - `POST /auth/password-reset/request` + `/auth/password-reset/complete` tạo flow reset password bằng token có TTL
+- `GET /auth/admin/accounts`, `GET /auth/admin/accounts/{account_id}`, `POST /auth/admin/accounts/{account_id}/unlock`, `POST /auth/admin/accounts/{account_id}/revoke-sessions` cho account admin vận hành
 - `/ask` ưu tiên `Authorization: Bearer <token>`; payload `auth` là dev-only path và mặc định tắt
 - request không có token sẽ được xem là `guest`
 - dữ liệu cá nhân bị chặn bởi `PolicyGuard`
@@ -66,6 +67,7 @@ Auth/RBAC hiện có:
 - request có `auth.role=receptionist` hoặc `clinic_admin` và `clinic_id` được tra lịch hẹn trong clinic đó
 - audit ghi application logger và `robo_auth.audit_events`
 - request observability có `X-Request-ID`, `X-Process-Time-Ms`, `/ask.request_id`, `/ask.latency_ms`
+- account admin API chỉ cho `clinic_admin` trong clinic scope hoặc `system_admin` toàn hệ thống
 - chưa gắn provider email/SMS/OTP thật; reset token foundation đã có và mặc định không expose token ra API
 
 Tài khoản demo:

@@ -5,7 +5,12 @@ from app.auth import audit_logger
 from app.api import auth as auth_api
 from app.api.auth import me
 from app.api.ask import ask
-from app.core.schemas import AuthPasswordResetCompleteRequest, AuthPasswordResetRequest, AskRequest
+from app.core.schemas import (
+    AuthAdminAccountSummary,
+    AuthPasswordResetCompleteRequest,
+    AuthPasswordResetRequest,
+    AskRequest,
+)
 
 
 def test_auth_me_audits_invalid_token(monkeypatch):
@@ -89,3 +94,47 @@ def test_password_reset_complete_returns_bad_request_on_invalid_token(monkeypatc
         )
 
     assert exc_info.value.status_code == 400
+
+
+def test_admin_accounts_rejects_non_admin(monkeypatch):
+    monkeypatch.setattr(
+        auth_api,
+        "_auth_from_bearer",
+        lambda authorization: (
+            "token",
+            auth_api.AuthContext(role="patient", patient_id="patient-1"),
+        ),
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        auth_api.list_admin_accounts(authorization="Bearer token")
+
+    assert exc_info.value.status_code == 403
+
+
+def test_admin_accounts_returns_scoped_rows(monkeypatch):
+    monkeypatch.setattr(
+        auth_api,
+        "_auth_from_bearer",
+        lambda authorization: (
+            "token",
+            auth_api.AuthContext(role="clinic_admin", clinic_id="clinic-1"),
+        ),
+    )
+    monkeypatch.setattr(
+        auth_api.AuthAdminService,
+        "list_accounts",
+        lambda self, auth, query, limit: [
+            AuthAdminAccountSummary(
+                id="account-1",
+                email="patient.demo@robo.local",
+                status="active",
+                roles=["patient"],
+                clinic_ids=["clinic-1"],
+            )
+        ],
+    )
+
+    response = auth_api.list_admin_accounts(query="patient", authorization="Bearer token")
+
+    assert response.accounts[0].email == "patient.demo@robo.local"

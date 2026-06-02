@@ -105,7 +105,7 @@ Postgres
   - bám cụm triệu chứng user nói;
   - không chẩn đoán hoặc khuyến nghị dịch vụ thay bác sĩ;
   - có cảnh báo dấu hiệu cần đi cơ sở y tế/cấp cứu.
-- Test backend hiện tại: `139 passed`.
+- Test backend hiện tại: `146 passed`.
 - MVP scenario hiện tại: `17/17 passed`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -143,6 +143,13 @@ Postgres
   - reset thành công cập nhật password hash, clear lock/counter và revoke toàn bộ session;
   - mặc định API không trả token để tránh lộ thông tin; local/dev có thể bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` khi cần test thủ công;
   - frontend có form quên mật khẩu/reset token; kênh gửi email/SMS/OTP thật là integration boundary của bước sau.
+- Thêm Account admin UI/API cơ bản:
+  - `GET /auth/admin/accounts`;
+  - `GET /auth/admin/accounts/{account_id}`;
+  - `POST /auth/admin/accounts/{account_id}/unlock`;
+  - `POST /auth/admin/accounts/{account_id}/revoke-sessions`;
+  - frontend có panel `Quản trị tài khoản` cho `clinic_admin`/`system_admin`;
+  - `clinic_admin` chỉ thấy account trong cùng clinic scope.
 - Thêm rate limit login in-memory:
   - `AUTH_LOGIN_RATE_LIMIT_ATTEMPTS`;
   - `AUTH_LOGIN_RATE_LIMIT_WINDOW_SECONDS`;
@@ -206,7 +213,7 @@ Postgres
 Task tiếp theo đề xuất lúc đó:
 
 ```text
-Hoàn thiện email/SMS/OTP delivery thật hoặc account admin UI dựa trên auth productization foundation.
+Hoàn thiện email/SMS/OTP delivery thật hoặc account admin nâng cao dựa trên auth productization foundation.
 ```
 - Thêm config RAG riêng trong `backend/app/rag/rag_config.py`.
 - Thêm `RAG_EXCLUDED_TOPICS=overview,roles` để loại tài liệu platform/permission khỏi RAG retrieval.
@@ -248,9 +255,9 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
 
 ## Chưa hoàn thành
 
-- Account/session production foundation đã bắt đầu, nhưng chưa có quản trị account đầy đủ.
+- Account/session production foundation đã có; account admin UI/API cơ bản đã có, chưa có tạo/sửa role/identity nâng cao.
 - Đã có refresh token rotate server-side.
-- Chưa có OTP/reset password qua email/SMS.
+- Chưa có email/SMS/OTP delivery thật.
 - Audit DB nền tảng đã có, nhưng chưa đầy đủ token invalid/expired, parser/tool sub-latency và retention policy.
 - Chưa có tạo lịch hẹn.
 - Chưa có STT/TTS.
@@ -259,7 +266,7 @@ Bot hiện xử lý được các nhóm câu hỏi cơ bản:
   - khách sạn
   - nhà hàng
   - trường học
-- Chưa có admin UI.
+- Chưa có admin UI cho tạo/sửa role/identity nâng cao.
 - Chưa có integration test với Postgres thật.
 
 ## Việc nên làm tiếp theo

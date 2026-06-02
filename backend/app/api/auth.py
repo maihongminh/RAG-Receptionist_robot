@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Header, HTTPException, Request
 
+from app.auth.admin_service import AuthAdminError, AuthAdminForbidden, AuthAdminService
 from app.auth.audit_logger import AuditLogger
 from app.auth.login_service import AuthLoginError, AuthLoginService
 from app.auth.password_change_service import AuthPasswordChangeError, AuthPasswordChangeService
@@ -11,6 +12,10 @@ from app.config import get_settings
 from app.core.schemas import (
     AuthLoginRequest,
     AuthLoginResponse,
+    AuthContext,
+    AuthAdminAccountDetail,
+    AuthAdminAccountsResponse,
+    AuthAdminActionResponse,
     AuthChangePasswordRequest,
     AuthChangePasswordResponse,
     AuthPasswordResetCompleteRequest,
@@ -23,6 +28,13 @@ from app.core.schemas import (
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+
+
+def _auth_from_bearer(authorization: str | None) -> tuple[str, AuthContext]:
+    token = bearer_token_from_header(authorization)
+    if not token:
+        raise AuthTokenError("Missing bearer token.")
+    return token, AuthTokenService().verify(token)
 
 
 @router.post("/login", response_model=AuthLoginResponse)
@@ -85,10 +97,7 @@ def change_password(
     authorization: str | None = Header(default=None),
 ) -> AuthChangePasswordResponse:
     try:
-        token = bearer_token_from_header(authorization)
-        if not token:
-            raise AuthTokenError("Missing bearer token.")
-        auth = AuthTokenService().verify(token)
+        _, auth = _auth_from_bearer(authorization)
         AuthPasswordChangeService().change_password(auth, payload)
         return AuthChangePasswordResponse(ok=True)
     except AuthTokenError as exc:
@@ -100,6 +109,92 @@ def change_password(
         raise HTTPException(status_code=401, detail=str(exc)) from exc
     except AuthPasswordChangeError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/admin/accounts", response_model=AuthAdminAccountsResponse)
+def list_admin_accounts(
+    query: str = "",
+    limit: int = 50,
+    authorization: str | None = Header(default=None),
+) -> AuthAdminAccountsResponse:
+    try:
+        _, auth = _auth_from_bearer(authorization)
+        accounts = AuthAdminService().list_accounts(auth, query=query, limit=limit)
+        return AuthAdminAccountsResponse(accounts=accounts)
+    except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/auth/admin/accounts"},
+        )
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    except AuthAdminForbidden as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except AuthAdminError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/admin/accounts/{account_id}", response_model=AuthAdminAccountDetail)
+def get_admin_account(
+    account_id: str,
+    authorization: str | None = Header(default=None),
+) -> AuthAdminAccountDetail:
+    try:
+        _, auth = _auth_from_bearer(authorization)
+        return AuthAdminService().get_account(auth, account_id)
+    except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/auth/admin/accounts/{account_id}"},
+        )
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    except AuthAdminForbidden as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except AuthAdminError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/admin/accounts/{account_id}/unlock", response_model=AuthAdminActionResponse)
+def unlock_admin_account(
+    account_id: str,
+    authorization: str | None = Header(default=None),
+) -> AuthAdminActionResponse:
+    try:
+        _, auth = _auth_from_bearer(authorization)
+        return AuthAdminService().unlock_account(auth, account_id)
+    except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/auth/admin/accounts/{account_id}/unlock"},
+        )
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    except AuthAdminForbidden as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except AuthAdminError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/admin/accounts/{account_id}/revoke-sessions", response_model=AuthAdminActionResponse)
+def revoke_admin_account_sessions(
+    account_id: str,
+    authorization: str | None = Header(default=None),
+) -> AuthAdminActionResponse:
+    try:
+        _, auth = _auth_from_bearer(authorization)
+        return AuthAdminService().revoke_sessions(auth, account_id)
+    except AuthTokenError as exc:
+        AuditLogger().log_auth_event(
+            event_type="token_rejected",
+            reason=str(exc),
+            metadata={"endpoint": "/auth/admin/accounts/{account_id}/revoke-sessions"},
+        )
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+    except AuthAdminForbidden as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except AuthAdminError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @router.post("/password-reset/request", response_model=AuthPasswordResetResponse)
@@ -124,10 +219,8 @@ def complete_password_reset(
 @router.get("/me", response_model=AuthMeResponse)
 def me(authorization: str | None = Header(default=None)) -> AuthMeResponse:
     try:
-        token = bearer_token_from_header(authorization)
-        if not token:
-            raise AuthTokenError("Missing bearer token.")
-        return AuthMeResponse(auth=AuthTokenService().verify(token))
+        _, auth = _auth_from_bearer(authorization)
+        return AuthMeResponse(auth=auth)
     except AuthTokenError as exc:
         AuditLogger().log_auth_event(
             event_type="token_rejected",

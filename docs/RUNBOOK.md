@@ -511,6 +511,7 @@ Hiện tại:
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
 - Auth password reset foundation: `/auth/password-reset/request` tạo token reset có TTL trong `robo_auth.password_reset_tokens`; `/auth/password-reset/complete` đổi password bằng reset token, clear lock/counter và revoke toàn bộ session. Mặc định API không trả token; bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` chỉ khi test local/dev.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
+- Account admin UI/API: đăng nhập `admin@clinic.local`, vào sidebar bấm `Quản trị tài khoản`; backend dùng `/auth/admin/accounts...` để list/detail account, unlock account và revoke sessions trong phạm vi clinic.
 - Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Request observability: backend nhận/tạo `X-Request-ID`, trả `X-Request-ID`, `X-Process-Time-Ms`; `/ask` response và audit DB đều có `request_id`, `latency_ms`.
 - Auth mock trong request là dev-only path và mặc định tắt.
@@ -558,8 +559,9 @@ Contract nằm ở `db/app/contract.json`. Nếu check fail, cần sửa view ho
 Bước tiếp theo:
 
 1. Hoàn thiện P2 data/application layer hardening bằng contract + mapping cho tool.
-2. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
-3. Tích hợp email/SMS/OTP delivery thật nếu triển khai môi trường production có người dùng thật.
+2. Mở rộng account admin nâng cao nếu cần tạo/sửa role/identity.
+3. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
+4. Tích hợp email/SMS/OTP delivery thật nếu triển khai môi trường production có người dùng thật.
 
 ## 9. Chạy test backend
 

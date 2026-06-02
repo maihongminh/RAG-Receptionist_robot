@@ -37,6 +37,16 @@ const dataPreview = document.querySelector("#dataPreview");
 const sessionMeta = document.querySelector("#sessionMeta");
 const logoutButton = document.querySelector("#logoutButton");
 const authSessionStatus = document.querySelector("#authSessionStatus");
+const accountAdminToggle = document.querySelector("#accountAdminToggle");
+const accountAdminPanel = document.querySelector("#accountAdminPanel");
+const accountAdminClose = document.querySelector("#accountAdminClose");
+const accountAdminScope = document.querySelector("#accountAdminScope");
+const accountAdminSearchForm = document.querySelector("#accountAdminSearchForm");
+const accountAdminSearchInput = document.querySelector("#accountAdminSearchInput");
+const accountAdminSearchButton = document.querySelector("#accountAdminSearchButton");
+const accountAdminMessage = document.querySelector("#accountAdminMessage");
+const accountAdminList = document.querySelector("#accountAdminList");
+const accountAdminDetail = document.querySelector("#accountAdminDetail");
 const changePasswordToggle = document.querySelector("#changePasswordToggle");
 const changePasswordForm = document.querySelector("#changePasswordForm");
 const currentPasswordInput = document.querySelector("#currentPasswordInput");
@@ -49,6 +59,9 @@ const state = {
   loginBusy: false,
   resetBusy: false,
   changePasswordBusy: false,
+  accountAdminBusy: false,
+  accountAdminAccounts: [],
+  selectedAdminAccountId: "",
   sessionId: createSessionId(),
   authToken: localStorage.getItem("robo_auth_token") || "",
   refreshToken: localStorage.getItem("robo_refresh_token") || "",
@@ -73,7 +86,7 @@ function loadAuthContext() {
   }
 }
 
-function saveAuth(token, authContext, refreshToken = "") {
+function saveAuth(token, authContext, refreshToken = state.refreshToken) {
   state.authToken = token || "";
   state.refreshToken = refreshToken || "";
   state.authContext = authContext || null;
@@ -88,6 +101,8 @@ function saveAuth(token, authContext, refreshToken = "") {
     localStorage.removeItem("robo_auth_token");
     localStorage.removeItem("robo_refresh_token");
     localStorage.removeItem("robo_auth_context");
+    state.accountAdminAccounts = [];
+    state.selectedAdminAccountId = "";
   }
 }
 
@@ -124,6 +139,12 @@ function setChangePasswordBusy(value) {
   changePasswordButton.textContent = value ? "Đang lưu" : "Lưu mật khẩu";
 }
 
+function setAccountAdminBusy(value) {
+  state.accountAdminBusy = value;
+  accountAdminSearchButton.disabled = value;
+  accountAdminSearchButton.textContent = value ? "Đang tải" : "Tìm";
+}
+
 function setLoginError(message = "") {
   loginError.textContent = message;
 }
@@ -136,6 +157,11 @@ function setResetMessage(message = "", type = "") {
 function setChangePasswordMessage(message = "", type = "") {
   changePasswordMessage.textContent = message;
   changePasswordMessage.dataset.type = type;
+}
+
+function setAccountAdminMessage(message = "", type = "") {
+  accountAdminMessage.textContent = message;
+  accountAdminMessage.dataset.type = type;
 }
 
 function renderTrace(payload) {
@@ -187,6 +213,10 @@ function buildAuthLabel() {
   return "guest";
 }
 
+function canUseAccountAdmin() {
+  return ["clinic_admin", "system_admin"].includes(String(state.authContext?.role || ""));
+}
+
 function resetLoginFormMessage() {
   setLoginError();
 }
@@ -196,11 +226,20 @@ function renderAuthSession() {
     authSessionStatus.textContent = `Đã đăng nhập: ${state.authContext.role}`;
     logoutButton.disabled = false;
     changePasswordToggle.hidden = false;
+    accountAdminToggle.hidden = !canUseAccountAdmin();
   } else {
     authSessionStatus.textContent = "Đang dùng guest";
     logoutButton.disabled = false;
     changePasswordToggle.hidden = true;
     changePasswordForm.hidden = true;
+    accountAdminToggle.hidden = true;
+    closeAccountAdminPanel();
+  }
+  if (canUseAccountAdmin()) {
+    accountAdminScope.textContent =
+      state.authContext.role === "system_admin"
+        ? "Phạm vi: toàn hệ thống"
+        : `Phạm vi clinic: ${state.authContext.clinic_id || "chưa rõ"}`;
   }
   authStateValue.textContent = buildAuthLabel();
 }
@@ -413,6 +452,247 @@ async function changePassword() {
   }
 }
 
+function openAccountAdminPanel() {
+  if (!canUseAccountAdmin()) return;
+  accountAdminPanel.hidden = false;
+  setAccountAdminMessage();
+  if (!state.accountAdminAccounts.length) {
+    loadAdminAccounts();
+  }
+  accountAdminSearchInput.focus();
+}
+
+function closeAccountAdminPanel() {
+  accountAdminPanel.hidden = true;
+}
+
+async function loadAdminAccounts(query = accountAdminSearchInput.value.trim()) {
+  if (!canUseAccountAdmin()) return;
+  setAccountAdminBusy(true);
+  setAccountAdminMessage();
+
+  try {
+    const params = new URLSearchParams();
+    if (query) params.set("query", query);
+    params.set("limit", "50");
+    const res = await adminFetch(`/auth/admin/accounts?${params.toString()}`);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    const body = await res.json();
+    state.accountAdminAccounts = body.accounts || [];
+    renderAdminAccounts();
+    if (!state.accountAdminAccounts.length) {
+      renderAdminDetail(null);
+      setAccountAdminMessage("Không có tài khoản phù hợp.", "ok");
+    } else if (!state.selectedAdminAccountId) {
+      selectAdminAccount(state.accountAdminAccounts[0].id);
+    }
+  } catch (error) {
+    setAccountAdminMessage(extractErrorMessage(error.message) || "Không tải được danh sách tài khoản.", "error");
+  } finally {
+    setAccountAdminBusy(false);
+  }
+}
+
+function renderAdminAccounts() {
+  accountAdminList.replaceChildren();
+  state.accountAdminAccounts.forEach((account) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = account.id === state.selectedAdminAccountId ? "selected" : "";
+    button.dataset.accountId = account.id;
+
+    const title = document.createElement("strong");
+    title.textContent = account.email;
+    const meta = document.createElement("span");
+    meta.textContent = `${(account.roles || []).join(", ") || "no role"} · ${account.status}`;
+    const lock = document.createElement("small");
+    lock.textContent = account.locked_until
+      ? `Đang khóa đến ${account.locked_until}`
+      : `${account.active_session_count || 0} session active`;
+
+    button.append(title, meta, lock);
+    accountAdminList.appendChild(button);
+  });
+}
+
+async function selectAdminAccount(accountId) {
+  if (!accountId) return;
+  state.selectedAdminAccountId = accountId;
+  renderAdminAccounts();
+  renderAdminDetail({ loading: true });
+
+  try {
+    const res = await adminFetch(`/auth/admin/accounts/${encodeURIComponent(accountId)}`);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    renderAdminDetail(await res.json());
+  } catch (error) {
+    setAccountAdminMessage(extractErrorMessage(error.message) || "Không tải được chi tiết tài khoản.", "error");
+    renderAdminDetail(null);
+  }
+}
+
+function renderAdminDetail(detail) {
+  accountAdminDetail.replaceChildren();
+  if (!detail) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "Chọn một tài khoản để xem role, identity và session.";
+    accountAdminDetail.appendChild(empty);
+    return;
+  }
+  if (detail.loading) {
+    const loading = document.createElement("p");
+    loading.className = "empty-state";
+    loading.textContent = "Đang tải chi tiết...";
+    accountAdminDetail.appendChild(loading);
+    return;
+  }
+
+  const account = detail.account;
+  const title = document.createElement("div");
+  title.className = "account-detail-title";
+  title.innerHTML = `
+    <h3></h3>
+    <p></p>
+  `;
+  title.querySelector("h3").textContent = account.email;
+  title.querySelector("p").textContent = `${account.id} · ${account.status}`;
+
+  const actions = document.createElement("div");
+  actions.className = "account-admin-actions";
+  actions.innerHTML = `
+    <button type="button" data-admin-action="unlock">Mở khóa</button>
+    <button type="button" data-admin-action="revoke-sessions">Thu hồi session</button>
+  `;
+
+  accountAdminDetail.append(
+    title,
+    actions,
+    buildKeyValueBlock("Tổng quan", [
+      ["Roles", (account.roles || []).join(", ") || "-"],
+      ["Clinic", (account.clinic_ids || []).join(", ") || "-"],
+      ["Identity", (account.identity_types || []).join(", ") || "-"],
+      ["Sai mật khẩu", String(account.failed_login_count || 0)],
+      ["Khóa đến", account.locked_until || "-"],
+      ["Đăng nhập cuối", account.last_login_at || "-"],
+      ["Session active", String(account.active_session_count || 0)],
+    ]),
+    buildTableBlock("Roles", detail.roles || [], ["role", "clinic_id", "is_primary", "is_active"]),
+    buildTableBlock("Identities", detail.identities || [], ["identity_type", "patient_id", "doctor_id", "staff_id", "clinic_id"]),
+    buildTableBlock("Sessions", detail.sessions || [], ["id", "is_active", "created_at", "revoked_at"]),
+  );
+}
+
+function buildKeyValueBlock(title, rows) {
+  const section = document.createElement("section");
+  section.className = "account-admin-block";
+  const heading = document.createElement("h4");
+  heading.textContent = title;
+  const dl = document.createElement("dl");
+  rows.forEach(([key, value]) => {
+    const wrapper = document.createElement("div");
+    const dt = document.createElement("dt");
+    const dd = document.createElement("dd");
+    dt.textContent = key;
+    dd.textContent = value;
+    wrapper.append(dt, dd);
+    dl.appendChild(wrapper);
+  });
+  section.append(heading, dl);
+  return section;
+}
+
+function buildTableBlock(title, rows, columns) {
+  const section = document.createElement("section");
+  section.className = "account-admin-block";
+  const heading = document.createElement("h4");
+  heading.textContent = title;
+  section.appendChild(heading);
+
+  if (!rows.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "Chưa có dữ liệu.";
+    section.appendChild(empty);
+    return section;
+  }
+
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  columns.forEach((column) => {
+    const th = document.createElement("th");
+    th.textContent = column;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+
+  const tbody = document.createElement("tbody");
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    columns.forEach((column) => {
+      const td = document.createElement("td");
+      td.textContent = row[column] === null || row[column] === undefined ? "-" : String(row[column]);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.append(thead, tbody);
+  section.appendChild(table);
+  return section;
+}
+
+async function runAdminAccountAction(action) {
+  if (!state.selectedAdminAccountId || state.accountAdminBusy) return;
+  setAccountAdminBusy(true);
+  setAccountAdminMessage();
+  try {
+    const endpoint =
+      action === "unlock"
+        ? `/auth/admin/accounts/${encodeURIComponent(state.selectedAdminAccountId)}/unlock`
+        : `/auth/admin/accounts/${encodeURIComponent(state.selectedAdminAccountId)}/revoke-sessions`;
+    const res = await adminFetch(endpoint, { method: "POST" });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || `HTTP ${res.status}`);
+    }
+    const body = await res.json();
+    setAccountAdminMessage(`Đã xử lý ${body.affected_count || 0} bản ghi.`, "ok");
+    await loadAdminAccounts();
+    await selectAdminAccount(state.selectedAdminAccountId);
+  } catch (error) {
+    setAccountAdminMessage(extractErrorMessage(error.message) || "Không thực hiện được thao tác.", "error");
+  } finally {
+    setAccountAdminBusy(false);
+  }
+}
+
+async function adminFetch(path, options = {}) {
+  let res = await sendAdminRequest(path, options);
+  if (res.status !== 401) return res;
+
+  const refreshed = await refreshAuth();
+  if (!refreshed) return res;
+  return sendAdminRequest(path, options);
+}
+
+function sendAdminRequest(path, options = {}) {
+  const headers = {
+    ...(options.headers || {}),
+    Authorization: `Bearer ${state.authToken}`,
+  };
+  return fetch(`${API_BASE_URL}${path}`, {
+    ...options,
+    headers,
+  });
+}
+
 function continueAsGuest() {
   saveAuth("", null);
   state.sessionId = createSessionId();
@@ -602,6 +882,29 @@ changePasswordToggle.addEventListener("click", () => {
 changePasswordForm.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!state.changePasswordBusy) changePassword();
+});
+
+accountAdminToggle.addEventListener("click", () => {
+  openAccountAdminPanel();
+});
+
+accountAdminClose.addEventListener("click", () => {
+  closeAccountAdminPanel();
+});
+
+accountAdminSearchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!state.accountAdminBusy) loadAdminAccounts();
+});
+
+accountAdminList.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-account-id]");
+  if (button) selectAdminAccount(button.dataset.accountId);
+});
+
+accountAdminDetail.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-admin-action]");
+  if (button) runAdminAccountAction(button.dataset.adminAction);
 });
 
 logoutButton.addEventListener("click", () => {

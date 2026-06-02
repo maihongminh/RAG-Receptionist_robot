@@ -99,6 +99,69 @@ class AuthLogoutResponse(BaseModel):
     ok: bool = True
 
 
+class AuthAdminAccountSummary(BaseModel):
+    id: str
+    email: str
+    status: str
+    failed_login_count: int = 0
+    locked_until: str | None = None
+    last_login_at: str | None = None
+    password_updated_at: str | None = None
+    created_at: str | None = None
+    roles: list[str] = Field(default_factory=list)
+    clinic_ids: list[str] = Field(default_factory=list)
+    identity_types: list[str] = Field(default_factory=list)
+    active_session_count: int = 0
+
+
+class AuthAdminRoleRow(BaseModel):
+    id: str
+    role: str
+    clinic_id: str | None = None
+    organization_id: str | None = None
+    is_primary: bool = False
+    is_active: bool = True
+    created_at: str | None = None
+
+
+class AuthAdminIdentityRow(BaseModel):
+    id: str
+    identity_type: str
+    user_id: str | None = None
+    patient_id: str | None = None
+    staff_id: str | None = None
+    doctor_id: str | None = None
+    clinic_id: str | None = None
+    organization_id: str | None = None
+    is_primary: bool = False
+    created_at: str | None = None
+
+
+class AuthAdminSessionRow(BaseModel):
+    id: str
+    expires_at: str | None = None
+    revoked_at: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    is_active: bool = False
+
+
+class AuthAdminAccountDetail(BaseModel):
+    account: AuthAdminAccountSummary
+    roles: list[AuthAdminRoleRow] = Field(default_factory=list)
+    identities: list[AuthAdminIdentityRow] = Field(default_factory=list)
+    sessions: list[AuthAdminSessionRow] = Field(default_factory=list)
+
+
+class AuthAdminAccountsResponse(BaseModel):
+    accounts: list[AuthAdminAccountSummary] = Field(default_factory=list)
+
+
+class AuthAdminActionResponse(BaseModel):
+    ok: bool = True
+    affected_count: int = 0
+
+
 class Intent(BaseModel):
     domain: str = "clinic"
     intent: IntentName

@@ -12,6 +12,7 @@ MVP hiện có:
 - `POST /auth/refresh` rotate refresh token.
 - `POST /auth/change-password` đổi mật khẩu cho user đã đăng nhập.
 - `POST /auth/password-reset/request` và `/auth/password-reset/complete` tạo nền reset password bằng token có TTL.
+- Account admin API/UI cơ bản cho `clinic_admin`/`system_admin`.
 - `auth` mock trong request đã chuyển thành dev-only path và mặc định tắt.
 
 P1 foundation đã bắt đầu với:
@@ -22,6 +23,11 @@ P1 foundation đã bắt đầu với:
 - backend login đọc `robo_auth.accounts/account_roles/account_identities`.
 - backend tạo session DB khi login và revoke session khi logout.
 - backend đã có refresh token rotation, change password, login lock/rate-limit, audit DB và password reset token foundation.
+- backend đã có account admin vận hành:
+  - `GET /auth/admin/accounts`;
+  - `GET /auth/admin/accounts/{account_id}`;
+  - `POST /auth/admin/accounts/{account_id}/unlock`;
+  - `POST /auth/admin/accounts/{account_id}/revoke-sessions`.
 
 Mục tiêu productization là biến lớp này thành auth/account chính thức.
 
@@ -174,6 +180,32 @@ Tối thiểu:
 
 ## 6. Backward compatibility
 
+## 6. Account admin scope
+
+Account admin hiện là công cụ vận hành, chưa phải full IAM console.
+
+Quyền:
+
+- `clinic_admin`: chỉ thấy/quản trị account có role hoặc identity cùng `clinic_id`.
+- `system_admin`: thấy toàn bộ account.
+- role khác bị trả HTTP 403.
+
+Thao tác hiện có:
+
+- list/search account theo email/id/role;
+- xem role, identity, session;
+- mở khóa account bị lock;
+- revoke session của account; nếu admin revoke chính mình thì giữ lại session hiện tại.
+
+Chưa làm trong bước này:
+
+- tạo account mới;
+- sửa role/identity;
+- deactivate/delete account;
+- audit UI đầy đủ.
+
+## 7. Backward compatibility
+
 Trong khi chuyển đổi:
 
 - backend chỉ nhận `payload.auth` nếu bật `AUTH_ALLOW_REQUEST_CONTEXT=true`;
@@ -186,7 +218,7 @@ Khi production auth ổn:
 - chỉ giữ `payload.auth` trong test helper/dev-only path;
 - document rõ không dùng auth mock ở production.
 
-## 7. Test plan cho auth
+## 8. Test plan cho auth
 
 Unit tests:
 
@@ -202,6 +234,9 @@ Unit tests:
 - request password reset does not expose token by default;
 - complete password reset rejects invalid/expired token;
 - complete password reset revokes sessions.
+- clinic admin account list is scoped by clinic;
+- non-admin cannot use account admin APIs;
+- revoke sessions keeps current admin session when target is self.
 
 Integration tests:
 
@@ -211,7 +246,7 @@ Integration tests:
 - invalid token -> 401;
 - guest private question -> blocked.
 
-## 8. Rủi ro cần chú ý
+## 9. Rủi ro cần chú ý
 
 - Một email có thể có nhiều role/clinic.
 - Một profile có thể vừa là staff vừa là platform admin.
