@@ -17,6 +17,8 @@ class ResponseGenerator:
             return self._private_data(result, auth or AuthContext(role="guest"))
         if intent.intent == "lab_result_lookup":
             return self._lab_result_lookup(result)
+        if intent.intent == "patient_profile_summary":
+            return self._patient_profile_summary(result)
 
         if intent.requires_auth:
             return (
@@ -324,6 +326,38 @@ class ResponseGenerator:
                 parts.append(f"kết quả: {detail}")
             lines.append("\n   ".join(parts))
         return "Tôi tìm thấy các chỉ định/kết quả xét nghiệm trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _patient_profile_summary(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy hồ sơ bệnh nhân phù hợp."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            parts = [
+                f"{row.get('full_name') or 'Bệnh nhân chưa rõ tên'}",
+                f"mã bệnh nhân: {row.get('patient_code') or 'chưa có dữ liệu'}",
+            ]
+            if row.get("date_of_birth"):
+                parts.append(f"ngày sinh: {row.get('date_of_birth')}")
+            if row.get("gender"):
+                parts.append(f"giới tính: {row.get('gender')}")
+            if row.get("phone_primary"):
+                parts.append(f"số điện thoại: {row.get('phone_primary')}")
+            if row.get("email"):
+                parts.append(f"email: {row.get('email')}")
+            address_parts = [
+                value
+                for value in [row.get("address"), row.get("district"), row.get("city")]
+                if value
+            ]
+            if address_parts:
+                parts.append(f"địa chỉ: {', '.join(address_parts)}")
+            if row.get("patient_category"):
+                parts.append(f"nhóm bệnh nhân: {row.get('patient_category')}")
+            lines.append(f"{index}. " + ". ".join(parts) + ".")
+
+        title = "Tôi tìm thấy hồ sơ bệnh nhân trong phạm vi đã xác thực:"
+        return title + "\n" + "\n".join(lines)
 
     def _medical_advice(self, question: str) -> str:
         symptom = self._symptom_text(question)

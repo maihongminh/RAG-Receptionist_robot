@@ -165,6 +165,20 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="patient_profile_summary",
+        question="Thông tin hồ sơ của tôi là gì?",
+        auth={
+            "role": "patient",
+            "patient_id": "d7402d44-a12f-420b-93b9-90372a3b2e6e",
+        },
+        expected_intent="patient_profile_summary",
+        expected_source="robo_app.patients",
+        expected_answer_contains=("Trần Thị Bình",),
+        expected_data_contains=("BIO2690-00038", "Trần Thị Bình"),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
         name="doctor_appointment_lookup",
         question="tôi có lịch hẹn nào không",
         auth={

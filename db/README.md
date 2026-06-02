@@ -138,6 +138,8 @@ Nếu thêm view/cột phục vụ tool mới, cập nhật `db/app/contract.jso
 Nếu thêm tool/intent mới, cập nhật `db/app/tool_map.json` cùng lúc với SQL/RAG tool, policy và test.
 Backend domain tools chỉ nên query các view đã có trong contract.
 
+Ví dụ private tool hiện tại: `clinic.lookup_patient_profile` dùng `robo_app.patients` cho intent `patient_profile_summary`; quyền xem được giới hạn bởi `PolicyGuard` theo `patient_id` hoặc `clinic_id`.
+
 Các view hiện có:
 
 - `robo_app.clinics`: thông tin cơ sở/phòng khám.

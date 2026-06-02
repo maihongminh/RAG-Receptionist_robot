@@ -16,10 +16,26 @@ PUBLIC_TOOLS = {
 
 ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
     "guest": PUBLIC_TOOLS,
-    "patient": PUBLIC_TOOLS | {"clinic.lookup_private_data", "clinic.lookup_lab_results"},
+    "patient": PUBLIC_TOOLS
+    | {
+        "clinic.lookup_private_data",
+        "clinic.lookup_lab_results",
+        "clinic.lookup_patient_profile",
+    },
     "doctor": PUBLIC_TOOLS | {"clinic.lookup_private_data", "clinic.lookup_lab_results"},
-    "receptionist": PUBLIC_TOOLS | {"clinic.lookup_private_data", "clinic.lookup_lab_results"},
-    "clinic_admin": PUBLIC_TOOLS | {"clinic.lookup_private_data", "clinic.lookup_lab_results", "clinic.manage_services"},
+    "receptionist": PUBLIC_TOOLS
+    | {
+        "clinic.lookup_private_data",
+        "clinic.lookup_lab_results",
+        "clinic.lookup_patient_profile",
+    },
+    "clinic_admin": PUBLIC_TOOLS
+    | {
+        "clinic.lookup_private_data",
+        "clinic.lookup_lab_results",
+        "clinic.lookup_patient_profile",
+        "clinic.manage_services",
+    },
     "system_admin": {"*"},
 }
 

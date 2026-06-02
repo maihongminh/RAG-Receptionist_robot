@@ -25,6 +25,7 @@ SOURCE_BY_INTENT = {
     "appointment_booking": "none",
     "appointment_lookup": "auth",
     "lab_result_lookup": "auth",
+    "patient_profile_summary": "auth",
     "personal_data": "auth",
     "medical_advice": "none",
     "out_of_scope": "none",
@@ -33,6 +34,7 @@ SOURCE_BY_INTENT = {
 AUTH_REQUIRED_BY_INTENT = {
     "appointment_lookup": True,
     "lab_result_lookup": True,
+    "patient_profile_summary": True,
     "personal_data": True,
 }
 
@@ -46,6 +48,7 @@ ENTITY_KEYS_BY_INTENT = {
     "knowledge_search": ("knowledge_query",),
     "appointment_booking": ("booking_query",),
     "lab_result_lookup": ("result_query",),
+    "patient_profile_summary": ("patient_query",),
 }
 
 
@@ -88,6 +91,7 @@ INTENT_JSON_SCHEMA: dict[str, Any] = {
                 "appointment_booking",
                 "appointment_lookup",
                 "lab_result_lookup",
+                "patient_profile_summary",
                 "personal_data",
                 "medical_advice",
                 "out_of_scope",
@@ -420,6 +424,12 @@ class LLMClient:
                 "- Trả lời các kết quả/chỉ định xét nghiệm theo danh sách.\n"
                 "- Nói rõ service_name, status, has_result và result_summary nếu có.\n"
                 "- Không kết luận y khoa và không diễn giải chỉ số xét nghiệm ngoài result_summary."
+            )
+        if intent_name == "patient_profile_summary":
+            return (
+                "- Trả lời ngắn gọn các thông tin hành chính của hồ sơ bệnh nhân.\n"
+                "- Giữ nguyên patient_code, full_name, phone_primary, email, date_of_birth nếu có.\n"
+                "- Không suy luận bệnh sử, chẩn đoán hoặc thông tin y khoa không có trong CONTEXT."
             )
         if intent_name == "service_price":
             return (

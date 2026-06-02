@@ -408,6 +408,17 @@ response_generator.py
   -> nếu được phép: format lịch hẹn đã lọc theo scope
 ```
 
+Hồ sơ hành chính bệnh nhân dùng intent/tool riêng, không gom vào lịch hẹn:
+
+```text
+"Thông tin hồ sơ của tôi là gì?"
+  -> intent = patient_profile_summary
+  -> tool = clinic.lookup_patient_profile
+  -> source = robo_app.patients
+  -> patient scope: patient_id
+  -> receptionist/clinic_admin scope: clinic_id
+```
+
 MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Login tạo session trong `robo_auth.sessions`; logout gọi `/auth/logout` để revoke session. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text

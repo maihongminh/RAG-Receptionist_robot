@@ -14,6 +14,7 @@ INTENT_TOOL_MAP = {
     "appointment_booking": "clinic.create_appointment_request",
     "appointment_lookup": "clinic.lookup_private_data",
     "lab_result_lookup": "clinic.lookup_lab_results",
+    "patient_profile_summary": "clinic.lookup_patient_profile",
     "personal_data": "clinic.lookup_private_data",
     "medical_advice": "none",
     "out_of_scope": "none",
@@ -41,7 +42,12 @@ class PolicyGuard:
         return self._authorize_scope(intent, auth)
 
     def _authorize_scope(self, intent: Intent, auth: AuthContext) -> PermissionDecision:
-        if intent.intent not in {"personal_data", "appointment_lookup", "lab_result_lookup"}:
+        if intent.intent not in {
+            "personal_data",
+            "appointment_lookup",
+            "lab_result_lookup",
+            "patient_profile_summary",
+        }:
             return PermissionDecision(allowed=True, reason="Public or non-private scope.")
 
         if auth.role == "patient" and not auth.patient_id:

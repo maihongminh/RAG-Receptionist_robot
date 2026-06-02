@@ -133,6 +133,7 @@ class GroundedResponseGenerator:
             "appointment_lookup",
             "personal_data",
             "lab_result_lookup",
+            "patient_profile_summary",
         }
 
     def _serialize_row(self, row: dict, auth: AuthContext) -> str:

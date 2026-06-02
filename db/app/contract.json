@@ -143,7 +143,12 @@
       "name": "patients",
       "access_level": "private",
       "source_tables": ["robo_raw.patients"],
-      "tools": ["clinic.lookup_private_data", "clinic.lookup_lab_results", "auth.identity_mapping"],
+      "tools": [
+        "clinic.lookup_private_data",
+        "clinic.lookup_lab_results",
+        "clinic.lookup_patient_profile",
+        "auth.identity_mapping"
+      ],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},
@@ -152,8 +157,12 @@
         {"name": "date_of_birth", "data_type": "date"},
         {"name": "gender", "data_type": "text"},
         {"name": "phone_primary", "data_type": "text"},
+        {"name": "phone_secondary", "data_type": "text"},
         {"name": "email", "data_type": "text"},
-        {"name": "address", "data_type": "text"}
+        {"name": "address", "data_type": "text"},
+        {"name": "district", "data_type": "text"},
+        {"name": "city", "data_type": "text"},
+        {"name": "patient_category", "data_type": "text"}
       ]
     },
     {

@@ -36,6 +36,8 @@ class ToolRegistry:
             return adapter.create_request(intent.entities)
         if intent.intent == "lab_result_lookup":
             return adapter.lookup_lab_results(intent.entities, auth or AuthContext(role="guest"))
+        if intent.intent == "patient_profile_summary":
+            return adapter.lookup_patient_profile(intent.entities, auth or AuthContext(role="guest"))
         if intent.intent in {"appointment_lookup", "personal_data"}:
             return adapter.lookup_private_data(intent.entities, auth or AuthContext(role="guest"))
 

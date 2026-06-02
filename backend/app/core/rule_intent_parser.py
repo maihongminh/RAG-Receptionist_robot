@@ -47,6 +47,19 @@ LAB_RESULT_KEYWORDS = (
     "xem kết quả",
     "tra kết quả",
 )
+PATIENT_PROFILE_KEYWORDS = (
+    "hồ sơ của tôi",
+    "thông tin hồ sơ của tôi",
+    "thông tin cá nhân của tôi",
+    "thông tin bệnh nhân của tôi",
+    "hồ sơ bệnh nhân của tôi",
+    "số điện thoại của tôi",
+    "email của tôi",
+    "ngày sinh của tôi",
+    "mã bệnh nhân của tôi",
+    "patient profile",
+    "profile của tôi",
+)
 MEDICAL_ADVICE_KEYWORDS = (
     "nên sử dụng",
     "nên dùng",
@@ -213,6 +226,17 @@ class RuleIntentParser:
                 requires_auth=True,
                 data_source="auth",
                 reasoning="Question asks to look up lab/diagnostic results.",
+            )
+
+        if any(keyword in normalized for keyword in PATIENT_PROFILE_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="patient_profile_summary",
+                entities={"patient_query": self._clean_patient_profile_query(question)},
+                confidence=0.84,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to look up authenticated patient profile data.",
             )
 
         if any(keyword in normalized for keyword in PERSONAL_KEYWORDS):
@@ -390,6 +414,30 @@ class RuleIntentParser:
             "thông tin",
             "của",
             "về",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_patient_profile_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "hồ sơ bệnh nhân",
+            "hồ sơ của tôi",
+            "thông tin hồ sơ",
+            "thông tin cá nhân",
+            "thông tin bệnh nhân",
+            "số điện thoại của tôi",
+            "email của tôi",
+            "ngày sinh của tôi",
+            "mã bệnh nhân của tôi",
+            "profile của tôi",
+            "patient profile",
+            "của tôi",
+            "cho tôi xem",
+            "xem",
+            "là gì",
             "?",
         ]
         for value in replacements:

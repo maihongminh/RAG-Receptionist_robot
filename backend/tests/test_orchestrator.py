@@ -220,6 +220,24 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
         )
 
+    def lookup_patient_profile(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_patient_profile",
+            source="fake.patients",
+            rows=[
+                {
+                    "patient_code": "PT-001",
+                    "full_name": "Nguyễn Văn A",
+                    "date_of_birth": "1990-01-01",
+                    "phone_primary": "0900000001",
+                    "email": "patient@example.com",
+                }
+            ]
+            if auth.patient_id == "patient-1"
+            else [],
+            confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
+        )
+
     def create_request(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.create_appointment_request",
@@ -505,6 +523,28 @@ def test_orchestrator_authenticated_patient_reaches_auth_branch():
     assert response.sources == ["fake.appointments"]
     assert "2026-04-24" in response.answer
     assert "SUON SAVUTH" in response.answer
+
+
+def test_orchestrator_guest_patient_profile_is_blocked_by_policy():
+    response = build_orchestrator().handle(AskRequest(question="Thông tin hồ sơ của tôi là gì?"))
+
+    assert response.intent == "patient_profile_summary"
+    assert response.requires_auth is True
+    assert response.sources == ["policy"]
+    assert "xác thực" in response.answer
+
+
+def test_orchestrator_authenticated_patient_profile_summary():
+    response = build_orchestrator().handle(
+        AskRequest(question="Thông tin hồ sơ của tôi là gì?"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
+    )
+
+    assert response.intent == "patient_profile_summary"
+    assert response.requires_auth is True
+    assert response.sources == ["fake.patients"]
+    assert "PT-001" in response.answer
+    assert "Nguyễn Văn A" in response.answer
 
 
 def test_orchestrator_authenticated_patient_uses_formatted_answer_when_available():

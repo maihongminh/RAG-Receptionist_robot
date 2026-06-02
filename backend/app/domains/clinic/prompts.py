@@ -19,7 +19,8 @@ Các intent hợp lệ:
 - appointment_booking: người dùng muốn đặt lịch, book lịch, đăng ký khám, hẹn khám, tạo lịch hẹn.
 - appointment_lookup: tra cứu lịch hẹn đã có sau khi hệ thống đã xác thực danh tính.
 - lab_result_lookup: tra cứu kết quả xét nghiệm/cận lâm sàng của người dùng, cần xác thực.
-- personal_data: hỏi thông tin cá nhân hoặc dùng ngôi thứ nhất để tra dữ liệu riêng, ví dụ "tôi có lịch hẹn nào không", "lịch hẹn của tôi", "kết quả của tôi", "hồ sơ của tôi".
+- patient_profile_summary: tra cứu hồ sơ hành chính bệnh nhân như mã bệnh nhân, họ tên, ngày sinh, số điện thoại, email, địa chỉ; cần xác thực.
+- personal_data: hỏi thông tin cá nhân chung hoặc dùng ngôi thứ nhất để tra dữ liệu riêng, ví dụ "tôi có lịch hẹn nào không", "lịch hẹn của tôi".
 - medical_advice: hỏi nên chọn xét nghiệm/dịch vụ nào hoặc xin tư vấn y khoa cá nhân.
 - out_of_scope: ngoài phạm vi robot lễ tân.
 
@@ -28,7 +29,8 @@ Quy tắc route:
 - Hướng dẫn/quy trình/FAQ dùng data_source="rag".
 - Dữ liệu cá nhân dùng data_source="auth" và requires_auth=true.
 - Tra cứu kết quả xét nghiệm/cận lâm sàng phải chọn lab_result_lookup, data_source="auth", requires_auth=true.
-- Câu hỏi ngôi thứ nhất về lịch hẹn/kết quả/hồ sơ phải chọn personal_data, không chọn appointment_lookup.
+- Câu hỏi ngôi thứ nhất về hồ sơ/thông tin hành chính bệnh nhân phải chọn patient_profile_summary, data_source="auth", requires_auth=true.
+- Câu hỏi ngôi thứ nhất về lịch hẹn phải chọn personal_data, không chọn appointment_lookup.
 - Câu hỏi "có những loại xét nghiệm nào" hoặc "các nhóm xét nghiệm" phải chọn service_category_list, không chọn service_price.
 - Câu hỏi rộng như "phòng khám có những dịch vụ nào", "các dịch vụ hiện tại", "danh sách dịch vụ" phải chọn service_catalog_summary, không chọn service_price.
 - Câu hỏi chi tiết nhóm như "nhóm CT Scan gồm gì", "xem chi tiết nhóm Laboratories" phải chọn service_category_detail, không chọn service_price.
@@ -47,6 +49,7 @@ Entity gợi ý:
 - knowledge_search: {"knowledge_query": "..."}
 - appointment_booking: {"booking_query": "..."}
 - lab_result_lookup: {"result_query": "..."}
+- patient_profile_summary: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hồ sơ của chính mình thì để "".
 
 Trả về JSON đúng schema. Không thêm markdown, không thêm giải thích ngoài JSON.
 """

@@ -15,6 +15,7 @@ IntentName = Literal[
     "appointment_booking",
     "appointment_lookup",
     "lab_result_lookup",
+    "patient_profile_summary",
     "personal_data",
     "medical_advice",
     "out_of_scope",

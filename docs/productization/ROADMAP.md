@@ -87,6 +87,8 @@ Trạng thái hiện tại:
 - Đã thêm `db/app/contract.json` cho 13 view `robo_app` đang phục vụ MVP.
 - Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
 - Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
+- Đã thêm `db/app/tool_map.json` cho 12 mapped tools, gồm tool private mới `clinic.lookup_patient_profile`.
+- Đã mở rộng contract `robo_app.patients` cho patient profile summary.
 - Chưa có mapping chi tiết cho toàn bộ 56 bảng raw; sẽ mở theo use case.
 
 ## Phase P3 - Private data expansion + audit
@@ -111,6 +113,16 @@ Done khi:
 - Patient chỉ thấy dữ liệu của mình.
 - Doctor chỉ thấy dữ liệu được phân công.
 - Receptionist/clinic_admin bị giới hạn theo clinic.
+
+Trạng thái hiện tại:
+
+- Đã có audit DB nền tảng cho `policy_decision` và `tool_result`.
+- Đã có private tool `clinic.lookup_patient_profile`:
+  - patient scope theo `patient_id`;
+  - receptionist/clinic_admin scope theo `clinic_id`;
+  - system_admin có quyền toàn cục theo permission wildcard;
+  - doctor chưa mở quyền cho hồ sơ tổng quát khi chưa có rule phân công bệnh nhân rõ.
+- Cần tiếp tục mở từng use case riêng như visit/medical summary thay vì query rộng toàn bộ patient data.
 
 ## Phase P4 - RAG production sync
 

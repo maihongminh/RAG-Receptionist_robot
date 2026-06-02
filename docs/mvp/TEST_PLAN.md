@@ -83,6 +83,7 @@ Hỏi:
 ```text
 Tôi có lịch hẹn nào không?
 Tôi muốn nhận kết quả xét nghiệm
+Thông tin hồ sơ của tôi là gì?
 ```
 
 Kỳ vọng:
@@ -172,4 +173,3 @@ Kỳ vọng:
 
 - backend dùng `session_id` để giữ context ngắn;
 - `xem thêm` không quay lại trang đầu nếu context còn.
-

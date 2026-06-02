@@ -122,3 +122,35 @@ def test_patient_lab_result_lookup_allowed_with_patient_id():
     )
 
     assert decision.allowed is True
+
+
+def test_patient_profile_summary_allowed_with_patient_id():
+    intent = Intent(
+        domain="clinic",
+        intent="patient_profile_summary",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(
+        intent,
+        AuthContext(role="patient", patient_id="patient-1"),
+    )
+
+    assert decision.allowed is True
+
+
+def test_doctor_cannot_access_patient_profile_summary_without_dedicated_scope():
+    intent = Intent(
+        domain="clinic",
+        intent="patient_profile_summary",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(
+        intent,
+        AuthContext(role="doctor", doctor_id="doctor-1"),
+    )
+
+    assert decision.allowed is False

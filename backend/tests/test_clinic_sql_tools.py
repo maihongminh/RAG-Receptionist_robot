@@ -418,6 +418,89 @@ def test_lookup_lab_results_filters_patient_scope(monkeypatch):
     assert result.rows[0]["service_name"] == "CBC"
 
 
+def test_lookup_patient_profile_filters_patient_scope(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "id": "patient-1",
+                "patient_code": "PT-001",
+                "full_name": "Nguyễn Văn A",
+                "phone_primary": "0900000001",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_patient_profile({}, AuthContext(role="patient", patient_id="patient-1"))
+
+    assert calls["params"] == {"patient_id": "patient-1"}
+    assert "id = %(patient_id)s" in calls["query"]
+    assert result.tool_name == "clinic.lookup_patient_profile"
+    assert result.source == "robo_app.patients"
+    assert result.rows[0]["patient_code"] == "PT-001"
+
+
+def test_lookup_patient_profile_filters_clinic_admin_query(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "id": "patient-1",
+                "patient_code": "PT-001",
+                "full_name": "Nguyễn Văn A",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_patient_profile(
+        {"patient_query": "Nguyễn"},
+        AuthContext(role="clinic_admin", clinic_id="clinic-1"),
+    )
+
+    assert calls["params"] == {"clinic_id": "clinic-1", "patient_query": "%Nguyễn%"}
+    assert "clinic_id = %(clinic_id)s" in calls["query"]
+    assert "full_name ILIKE %(patient_query)s" in calls["query"]
+    assert result.rows[0]["full_name"] == "Nguyễn Văn A"
+
+
+def test_lookup_patient_profile_allows_system_admin_query(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "id": "patient-1",
+                "patient_code": "PT-001",
+                "full_name": "Nguyễn Văn A",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_patient_profile(
+        {"patient_query": "PT-001"},
+        AuthContext(role="system_admin"),
+    )
+
+    assert calls["params"] == {"patient_query": "%PT-001%"}
+    assert "clinic_id = %(clinic_id)s" not in calls["query"]
+    assert "patient_code ILIKE %(patient_query)s" in calls["query"]
+    assert result.rows[0]["patient_code"] == "PT-001"
+
+
 def test_search_knowledge_prefers_qdrant_vector_rows(monkeypatch):
     tool = ClinicSqlTools()
 

@@ -358,6 +358,16 @@ class ClinicSqlTools:
             confidence=0.9 if rows else 0.0,
         )
 
+    def lookup_patient_profile(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
+        rows = self._lookup_patient_profiles(auth, entities.get("patient_query", ""))
+        return ToolResult(
+            tool_name="clinic.lookup_patient_profile",
+            source="robo_app.patients",
+            rows=rows,
+            message=None if rows else "Không tìm thấy hồ sơ bệnh nhân phù hợp trong phạm vi đã xác thực.",
+            confidence=0.9 if rows else 0.0,
+        )
+
     def _lookup_appointments(self, auth: AuthContext) -> list[dict[str, Any]]:
         where_clauses = []
         params: dict[str, Any] = {}
@@ -446,6 +456,60 @@ class ClinicSqlTools:
             ORDER BY
               COALESCE(completed_at, processed_at, collected_at, ordered_at) DESC NULLS LAST
             LIMIT 20
+            """,
+            params,
+        )
+
+    def _lookup_patient_profiles(self, auth: AuthContext, patient_query: str = "") -> list[dict[str, Any]]:
+        where_clauses = []
+        params: dict[str, Any] = {}
+
+        if auth.role == "patient":
+            where_clauses.append("id = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append("clinic_id = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "system_admin":
+            where_clauses.append("TRUE")
+        else:
+            return []
+
+        query = str(patient_query or "").strip()
+        if query and auth.role in {"receptionist", "clinic_admin", "system_admin"}:
+            where_clauses.append(
+                """
+                (
+                  full_name ILIKE %(patient_query)s
+                  OR patient_code ILIKE %(patient_query)s
+                  OR phone_primary ILIKE %(patient_query)s
+                  OR email ILIKE %(patient_query)s
+                )
+                """
+            )
+            params["patient_query"] = f"%{query}%"
+
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              id,
+              clinic_id,
+              patient_code,
+              full_name,
+              date_of_birth::text AS date_of_birth,
+              gender,
+              phone_primary,
+              phone_secondary,
+              email,
+              address,
+              district,
+              city,
+              patient_category
+            FROM robo_app.patients
+            WHERE {where_sql}
+            ORDER BY full_name, patient_code
+            LIMIT {get_rag_config().context_max_rows}
             """,
             params,
         )

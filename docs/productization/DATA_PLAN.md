@@ -208,11 +208,25 @@ Quy trình khi thêm bảng/view cho tool mới:
 
 Backend domain tools không được query `robo_raw` trực tiếp. Raw chỉ là import/debug layer.
 
+Ví dụ đã làm sau productization foundation:
+
+```text
+patient_profile_summary
+  -> robo_raw.patients
+  -> robo_app.patients
+  -> clinic.lookup_patient_profile
+  -> PolicyGuard + role permission
+  -> backend tests + MVP scenario
+```
+
+Tool này dùng `data_source="auth"` vì phải đi qua auth scope. `patient` chỉ thấy hồ sơ của chính mình; `receptionist` và `clinic_admin` chỉ thấy bệnh nhân trong clinic của account; `system_admin` có thể xem toàn bộ khi role này được dùng trong môi trường quản trị thật.
+
 ## 9. Test data strategy
 
 Cần có dữ liệu test cố định cho:
 
 - patient có lịch hẹn;
+- patient có hồ sơ hành chính để test `patient_profile_summary`;
 - doctor có lịch hẹn;
 - receptionist/clinic_admin theo clinic;
 - patient có lab result;

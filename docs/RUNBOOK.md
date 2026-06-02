@@ -506,6 +506,7 @@ Hiện tại:
 - Grounded answer: đã bật cho `knowledge_search`, context đưa vào LLM đã được rút gọn chỉ còn title/nội dung chính; fallback template vẫn format markdown thành câu trả lời dễ đọc nếu LLM lỗi/tắt.
 - Local LLM formatter: đã bật có chọn lọc cho SQL/Auth answers khi `LLM_PROVIDER=ollama`; không chạy với provider cloud. Các intent list tốt bằng template như nhóm dịch vụ hoặc service_price nhiều dòng sẽ ưu tiên template để tránh timeout và tránh LLM chọn thiếu dữ liệu.
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
+- Patient profile summary: `patient_profile_summary` gọi `clinic.lookup_patient_profile` qua auth scope; patient chỉ thấy hồ sơ của chính mình, receptionist/clinic_admin bị giới hạn theo clinic.
 - Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
@@ -560,9 +561,9 @@ Nếu check fail, cần sửa view/contract/tool map trước khi tiếp tục v
 
 Bước tiếp theo:
 
-1. Hoàn thiện P2 data/application layer hardening bằng contract + mapping cho tool.
-2. Mở rộng account admin nâng cao nếu cần tạo/sửa role/identity.
-3. Mở rộng dữ liệu riêng tư ngoài lịch hẹn, ví dụ kết quả, hồ sơ tóm tắt.
+1. Mở tiếp private data theo use case có scope rõ, ưu tiên visit/medical summary hoặc patient timeline.
+2. Hoàn thiện data/application layer hardening cho từng view/tool mới.
+3. Mở rộng account admin nâng cao nếu cần tạo/sửa role/identity.
 4. Tích hợp email/SMS/OTP delivery thật nếu triển khai môi trường production có người dùng thật.
 
 ## 9. Chạy test backend
