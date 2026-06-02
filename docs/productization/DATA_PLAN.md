@@ -243,6 +243,17 @@ patient_timeline_summary
 
 Timeline hiện chỉ gom lịch hẹn và cận lâm sàng vì đây là các view đã có contract sạch. `receptionist`, `clinic_admin` và `system_admin` phải nêu bệnh nhân cụ thể trước khi tool trả timeline. Dữ liệu hiện có đã đủ cho test, nên `seed_productization_demo.sql` chưa cần thêm record ở bước này.
 
+```text
+visit_summary_lookup
+  -> robo_raw.medical_records + robo_raw.visits + robo_raw.vital_signs
+  -> robo_app.patient_visit_summaries
+  -> clinic.lookup_visit_summary
+  -> PolicyGuard + role permission
+  -> backend tests + MVP scenario
+```
+
+Visit summary mở nhóm dữ liệu khám bệnh nhạy cảm hơn timeline. Vì vậy `patient` chỉ thấy chính mình; `doctor`, `receptionist`, `clinic_admin` và `system_admin` đều phải nêu bệnh nhân cụ thể trước khi tool trả dữ liệu. Bước này đã thêm 5 demo records cho từng bảng `visits`, `medical_records`, `vital_signs` trong `db/app/seed_productization_demo.sql`.
+
 ## 9. Test data strategy
 
 Cần có dữ liệu test cố định cho:

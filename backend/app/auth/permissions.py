@@ -22,14 +22,21 @@ ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
         "clinic.lookup_lab_results",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
+        "clinic.lookup_visit_summary",
     },
-    "doctor": PUBLIC_TOOLS | {"clinic.lookup_private_data", "clinic.lookup_lab_results"},
+    "doctor": PUBLIC_TOOLS
+    | {
+        "clinic.lookup_private_data",
+        "clinic.lookup_lab_results",
+        "clinic.lookup_visit_summary",
+    },
     "receptionist": PUBLIC_TOOLS
     | {
         "clinic.lookup_private_data",
         "clinic.lookup_lab_results",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
+        "clinic.lookup_visit_summary",
     },
     "clinic_admin": PUBLIC_TOOLS
     | {
@@ -37,6 +44,7 @@ ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
         "clinic.lookup_lab_results",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
+        "clinic.lookup_visit_summary",
         "clinic.manage_services",
     },
     "system_admin": {"*"},

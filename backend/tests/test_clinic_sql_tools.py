@@ -741,3 +741,72 @@ def test_lookup_patient_timeline_requires_query_for_clinic_admin(monkeypatch):
 
     assert result.rows == []
     assert "nêu tên" in result.message
+
+
+def test_lookup_visit_summary_filters_patient_scope(monkeypatch):
+    calls = {}
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "medical_record_id": "record-1",
+                "patient_id": "patient-1",
+                "patient_name": "Nguyễn Văn A",
+                "chief_complaint": "Đau đầu nhẹ",
+                "confirmed_diagnosis": "Theo dõi đau đầu",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_visit_summary({}, AuthContext(role="patient", patient_id="patient-1"))
+
+    assert calls["params"] == {"patient_id": "patient-1"}
+    assert "patient_id = %(patient_id)s" in calls["query"]
+    assert result.tool_name == "clinic.lookup_visit_summary"
+    assert result.source == "robo_app.patient_visit_summaries"
+    assert result.rows[0]["chief_complaint"] == "Đau đầu nhẹ"
+
+
+def test_lookup_visit_summary_requires_query_for_doctor(monkeypatch):
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params=None):
+        raise AssertionError("doctor visit summary should require patient_query")
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_visit_summary({}, AuthContext(role="doctor", doctor_id="doctor-1"))
+
+    assert result.rows == []
+    assert "nêu tên" in result.message
+
+
+def test_lookup_visit_summary_filters_doctor_and_patient_query(monkeypatch):
+    calls = {}
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "medical_record_id": "record-1",
+                "patient_name": "Nguyễn Văn A",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_visit_summary(
+        {"patient_query": "Nguyễn"},
+        AuthContext(role="doctor", doctor_id="doctor-1"),
+    )
+
+    assert calls["params"] == {"doctor_id": "doctor-1", "patient_query": "%Nguyễn%"}
+    assert "doctor_id = %(doctor_id)s" in calls["query"]
+    assert "patient_name ILIKE %(patient_query)s" in calls["query"]
+    assert result.rows[0]["patient_name"] == "Nguyễn Văn A"

@@ -147,6 +147,18 @@
       "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
     },
     {
+      "tool_name": "clinic.lookup_visit_summary",
+      "status": "active",
+      "intents": ["visit_summary_lookup"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["patient_visit_summaries"],
+      "source_tables": ["robo_raw.medical_records", "robo_raw.visits", "robo_raw.vital_signs", "robo_raw.patients", "robo_raw.staff"],
+      "allowed_roles": ["patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by patient_id; doctor by doctor_id and requires patient_query; receptionist/clinic_admin by clinic_id and requires patient_query; system_admin requires patient_query.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
       "tool_name": "clinic.create_appointment_request",
       "status": "disabled",
       "intents": ["appointment_booking"],

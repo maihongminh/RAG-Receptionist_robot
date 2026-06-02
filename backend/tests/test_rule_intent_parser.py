@@ -165,6 +165,14 @@ def test_patient_timeline_summary_requires_auth():
     assert intent.data_source == "auth"
 
 
+def test_visit_summary_lookup_requires_auth():
+    intent = RuleIntentParser().parse("Tóm tắt lần khám gần đây của tôi", "clinic")
+
+    assert intent.intent == "visit_summary_lookup"
+    assert intent.requires_auth is True
+    assert intent.data_source == "auth"
+
+
 def test_general_info_intent():
     intent = RuleIntentParser().parse("Địa chỉ phòng khám ở đâu?", "clinic")
 

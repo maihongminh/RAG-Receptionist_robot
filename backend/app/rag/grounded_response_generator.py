@@ -134,6 +134,7 @@ class GroundedResponseGenerator:
             "personal_data",
             "lab_result_lookup",
             "patient_timeline_summary",
+            "visit_summary_lookup",
             "patient_profile_summary",
         }
 

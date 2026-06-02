@@ -430,6 +430,19 @@ Timeline bệnh nhân dùng tool riêng để tránh trộn với lịch hẹn �
   -> receptionist/clinic_admin/system_admin: cần patient_query cụ thể
 ```
 
+Tóm tắt lượt khám/bệnh án là nhánh riêng vì dữ liệu nhạy cảm hơn timeline:
+
+```text
+"Tóm tắt lần khám gần đây của tôi"
+  -> intent = visit_summary_lookup
+  -> tool = clinic.lookup_visit_summary
+  -> source = robo_app.patient_visit_summaries
+  -> app view gom medical_records + visits + latest vital_signs
+  -> patient scope: patient_id
+  -> doctor: doctor_id + patient_query cụ thể
+  -> receptionist/clinic_admin: clinic_id + patient_query cụ thể
+```
+
 MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Login tạo session trong `robo_auth.sessions`; logout gọi `/auth/logout` để revoke session. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text

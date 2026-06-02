@@ -15,6 +15,7 @@ INTENT_TOOL_MAP = {
     "appointment_lookup": "clinic.lookup_private_data",
     "lab_result_lookup": "clinic.lookup_lab_results",
     "patient_timeline_summary": "clinic.lookup_patient_timeline",
+    "visit_summary_lookup": "clinic.lookup_visit_summary",
     "patient_profile_summary": "clinic.lookup_patient_profile",
     "personal_data": "clinic.lookup_private_data",
     "medical_advice": "none",
@@ -48,6 +49,7 @@ class PolicyGuard:
             "appointment_lookup",
             "lab_result_lookup",
             "patient_timeline_summary",
+            "visit_summary_lookup",
             "patient_profile_summary",
         }:
             return PermissionDecision(allowed=True, reason="Public or non-private scope.")

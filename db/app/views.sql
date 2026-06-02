@@ -249,6 +249,80 @@ LEFT JOIN robo_app.staff processed_staff ON processed_staff.id = po.processed_by
 LEFT JOIN robo_app.staff completed_staff ON completed_staff.id = po.completed_by
 WHERE COALESCE(po.is_deleted, 'f') <> 't';
 
+CREATE VIEW robo_app.patient_visit_summaries AS
+SELECT
+  mr.id AS id,
+  mr.id AS medical_record_id,
+  mr.visit_id,
+  mr.clinic_id,
+  mr.patient_id,
+  p.patient_code,
+  p.full_name AS patient_name,
+  p.phone_primary AS patient_phone,
+  p.email AS patient_email,
+  COALESCE(NULLIF(v.doctor_id, ''), NULLIF(mr.doctor_id, '')) AS doctor_id,
+  d.full_name AS doctor_name,
+  v.appointment_id,
+  v.visit_number,
+  NULLIF(v.visit_date, '')::date AS visit_date,
+  NULLIF(v.check_in_time, '')::timestamptz AS check_in_time,
+  NULLIF(v.check_out_time, '')::timestamptz AS check_out_time,
+  v.visit_type,
+  mr.status AS record_status,
+  mr.chief_complaint,
+  mr.present_illness,
+  mr.examination_findings,
+  mr.confirmed_diagnosis,
+  mr.diagnosis_icd_code,
+  mr.treatment_plan,
+  mr.doctor_notes,
+  CASE mr.follow_up_required WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS follow_up_required,
+  NULLIF(mr.follow_up_date, '')::date AS follow_up_date,
+  mr.follow_up_notes,
+  NULLIF(mr.finalized_at, '')::timestamptz AS finalized_at,
+  mr.data_classification,
+  latest_vital.recorded_at AS latest_vital_recorded_at,
+  latest_vital.blood_pressure_systolic,
+  latest_vital.blood_pressure_diastolic,
+  latest_vital.heart_rate,
+  latest_vital.respiratory_rate,
+  latest_vital.temperature_celsius,
+  latest_vital.oxygen_saturation,
+  latest_vital.weight_kg,
+  latest_vital.height_cm,
+  latest_vital.bmi
+FROM robo_raw.medical_records mr
+LEFT JOIN robo_raw.visits v
+  ON v.id = mr.visit_id
+  AND COALESCE(v.is_deleted, 'f') <> 't'
+LEFT JOIN robo_app.patients p ON p.id = mr.patient_id
+LEFT JOIN robo_app.staff d ON d.id = COALESCE(NULLIF(v.doctor_id, ''), NULLIF(mr.doctor_id, ''))
+LEFT JOIN LATERAL (
+  SELECT
+    NULLIF(vs.recorded_at, '')::timestamptz AS recorded_at,
+    CASE WHEN vs.blood_pressure_systolic ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.blood_pressure_systolic::numeric ELSE NULL END AS blood_pressure_systolic,
+    CASE WHEN vs.blood_pressure_diastolic ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.blood_pressure_diastolic::numeric ELSE NULL END AS blood_pressure_diastolic,
+    CASE WHEN vs.heart_rate ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.heart_rate::numeric ELSE NULL END AS heart_rate,
+    CASE WHEN vs.respiratory_rate ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.respiratory_rate::numeric ELSE NULL END AS respiratory_rate,
+    CASE WHEN vs.temperature_celsius ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.temperature_celsius::numeric ELSE NULL END AS temperature_celsius,
+    CASE WHEN vs.oxygen_saturation ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.oxygen_saturation::numeric ELSE NULL END AS oxygen_saturation,
+    CASE WHEN vs.weight_kg ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.weight_kg::numeric ELSE NULL END AS weight_kg,
+    CASE WHEN vs.height_cm ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.height_cm::numeric ELSE NULL END AS height_cm,
+    CASE WHEN vs.bmi ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.bmi::numeric ELSE NULL END AS bmi
+  FROM robo_raw.vital_signs vs
+  WHERE COALESCE(vs.is_deleted, 'f') <> 't'
+    AND (
+      NULLIF(vs.visit_id, '') = NULLIF(mr.visit_id, '')
+      OR (
+        NULLIF(vs.visit_id, '') IS NULL
+        AND vs.patient_id = mr.patient_id
+      )
+    )
+  ORDER BY NULLIF(vs.recorded_at, '')::timestamptz DESC NULLS LAST
+  LIMIT 1
+) latest_vital ON TRUE
+WHERE COALESCE(mr.is_deleted, 'f') <> 't';
+
 CREATE VIEW robo_app.knowledge_articles AS
 SELECT
   id,

@@ -193,6 +193,20 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="patient_visit_summary",
+        question="Tóm tắt lần khám gần đây của tôi",
+        auth={
+            "role": "patient",
+            "patient_id": "d7402d44-a12f-420b-93b9-90372a3b2e6e",
+        },
+        expected_intent="visit_summary_lookup",
+        expected_source="robo_app.patient_visit_summaries",
+        expected_answer_contains=("lượt khám",),
+        expected_data_contains=("Đau đầu nhẹ", "Theo dõi đau đầu"),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
         name="doctor_appointment_lookup",
         question="tôi có lịch hẹn nào không",
         auth={

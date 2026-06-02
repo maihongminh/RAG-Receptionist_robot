@@ -265,6 +265,31 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
         )
 
+    def lookup_visit_summary(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_visit_summary",
+            source="fake.visit_summaries",
+            rows=[
+                {
+                    "medical_record_id": "record-1",
+                    "visit_date": "2026-04-28",
+                    "patient_name": "Nguyễn Văn A",
+                    "doctor_name": "Dr. Demo",
+                    "chief_complaint": "Đau đầu nhẹ",
+                    "examination_findings": "Sinh hiệu ổn định.",
+                    "confirmed_diagnosis": "Theo dõi đau đầu",
+                    "diagnosis_icd_code": "R51",
+                    "treatment_plan": "Nghỉ ngơi và theo dõi.",
+                    "blood_pressure_systolic": 118,
+                    "blood_pressure_diastolic": 76,
+                    "heart_rate": 82,
+                }
+            ]
+            if auth.patient_id == "patient-1"
+            else [],
+            confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
+        )
+
     def create_request(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.create_appointment_request",
@@ -594,6 +619,28 @@ def test_orchestrator_authenticated_patient_timeline_summary():
     assert response.sources == ["fake.patient_timeline"]
     assert "Glucose" in response.answer
     assert "Khám tổng quát" in response.answer
+
+
+def test_orchestrator_guest_visit_summary_is_blocked_by_policy():
+    response = build_orchestrator().handle(AskRequest(question="Tóm tắt lần khám gần đây của tôi"))
+
+    assert response.intent == "visit_summary_lookup"
+    assert response.requires_auth is True
+    assert response.sources == ["policy"]
+    assert "xác thực" in response.answer
+
+
+def test_orchestrator_authenticated_patient_visit_summary():
+    response = build_orchestrator().handle(
+        AskRequest(question="Tóm tắt lần khám gần đây của tôi"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
+    )
+
+    assert response.intent == "visit_summary_lookup"
+    assert response.requires_auth is True
+    assert response.sources == ["fake.visit_summaries"]
+    assert "Đau đầu nhẹ" in response.answer
+    assert "Theo dõi đau đầu" in response.answer
 
 
 def test_orchestrator_authenticated_patient_uses_formatted_answer_when_available():

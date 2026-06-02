@@ -403,6 +403,26 @@ class ClinicSqlTools:
             confidence=0.9 if rows else 0.0,
         )
 
+    def lookup_visit_summary(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
+        patient_query = str(entities.get("patient_query", "") or "").strip()
+        if auth.role in {"doctor", "receptionist", "clinic_admin", "system_admin"} and not patient_query:
+            return ToolResult(
+                tool_name="clinic.lookup_visit_summary",
+                source="robo_app.patient_visit_summaries",
+                rows=[],
+                message="Vui lòng nêu tên, mã bệnh nhân, số điện thoại hoặc email để tra cứu tóm tắt lượt khám.",
+                confidence=0.0,
+            )
+
+        rows = self._lookup_visit_summaries(auth, patient_query)
+        return ToolResult(
+            tool_name="clinic.lookup_visit_summary",
+            source="robo_app.patient_visit_summaries",
+            rows=rows,
+            message=None if rows else "Không tìm thấy tóm tắt lượt khám phù hợp trong phạm vi đã xác thực.",
+            confidence=0.9 if rows else 0.0,
+        )
+
     def _lookup_appointments(self, auth: AuthContext) -> list[dict[str, Any]]:
         where_clauses = []
         params: dict[str, Any] = {}
@@ -579,6 +599,87 @@ class ClinicSqlTools:
             LIMIT %(limit)s
             """,
             {**params, "limit": get_rag_config().context_max_rows},
+        )
+
+    def _lookup_visit_summaries(self, auth: AuthContext, patient_query: str = "") -> list[dict[str, Any]]:
+        where_clauses = []
+        params: dict[str, Any] = {}
+
+        if auth.role == "patient":
+            where_clauses.append("patient_id = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role == "doctor":
+            where_clauses.append("doctor_id = %(doctor_id)s")
+            params["doctor_id"] = auth.doctor_id
+        elif auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append("clinic_id = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "system_admin":
+            where_clauses.append("TRUE")
+        else:
+            return []
+
+        query = str(patient_query or "").strip()
+        if query and auth.role in {"doctor", "receptionist", "clinic_admin", "system_admin"}:
+            where_clauses.append(
+                """
+                (
+                  patient_name ILIKE %(patient_query)s
+                  OR patient_code ILIKE %(patient_query)s
+                  OR patient_phone ILIKE %(patient_query)s
+                  OR patient_email ILIKE %(patient_query)s
+                )
+                """
+            )
+            params["patient_query"] = f"%{query}%"
+
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              medical_record_id,
+              visit_id,
+              clinic_id,
+              patient_id,
+              patient_code,
+              patient_name,
+              doctor_id,
+              doctor_name,
+              appointment_id,
+              visit_number,
+              visit_date::text AS visit_date,
+              check_in_time::text AS check_in_time,
+              check_out_time::text AS check_out_time,
+              visit_type,
+              record_status,
+              chief_complaint,
+              present_illness,
+              examination_findings,
+              confirmed_diagnosis,
+              diagnosis_icd_code,
+              treatment_plan,
+              doctor_notes,
+              follow_up_required,
+              follow_up_date::text AS follow_up_date,
+              follow_up_notes,
+              finalized_at::text AS finalized_at,
+              data_classification,
+              latest_vital_recorded_at::text AS latest_vital_recorded_at,
+              blood_pressure_systolic,
+              blood_pressure_diastolic,
+              heart_rate,
+              respiratory_rate,
+              temperature_celsius,
+              oxygen_saturation,
+              weight_kg,
+              height_cm,
+              bmi
+            FROM robo_app.patient_visit_summaries
+            WHERE {where_sql}
+            ORDER BY COALESCE(finalized_at, check_in_time) DESC NULLS LAST, visit_date DESC NULLS LAST
+            LIMIT {get_rag_config().context_max_rows}
+            """,
+            params,
         )
 
     def _lookup_patient_profiles(self, auth: AuthContext, patient_query: str = "") -> list[dict[str, Any]]:

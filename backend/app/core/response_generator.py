@@ -19,6 +19,8 @@ class ResponseGenerator:
             return self._lab_result_lookup(result)
         if intent.intent == "patient_timeline_summary":
             return self._patient_timeline_summary(result)
+        if intent.intent == "visit_summary_lookup":
+            return self._visit_summary_lookup(result)
         if intent.intent == "patient_profile_summary":
             return self._patient_profile_summary(result)
 
@@ -393,6 +395,56 @@ class ResponseGenerator:
             lines.append("; ".join(parts) + ".")
 
         return "Tôi tìm thấy timeline bệnh nhân trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _visit_summary_lookup(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy tóm tắt lượt khám phù hợp."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            visit_date = row.get("visit_date") or row.get("check_in_time") or "chưa rõ ngày"
+            parts = [f"{index}. Ngày {visit_date}"]
+            if row.get("patient_name"):
+                parts.append(f"bệnh nhân {row.get('patient_name')}")
+            if row.get("doctor_name"):
+                parts.append(f"bác sĩ {row.get('doctor_name')}")
+            if row.get("visit_type"):
+                parts.append(f"loại khám {row.get('visit_type')}")
+            if row.get("record_status"):
+                parts.append(f"trạng thái hồ sơ {row.get('record_status')}")
+            if row.get("chief_complaint"):
+                parts.append(f"lý do khám: {row.get('chief_complaint')}")
+            if row.get("examination_findings"):
+                parts.append(f"ghi nhận khám: {row.get('examination_findings')}")
+            if row.get("confirmed_diagnosis"):
+                diagnosis = row.get("confirmed_diagnosis")
+                if row.get("diagnosis_icd_code"):
+                    diagnosis = f"{diagnosis} ({row.get('diagnosis_icd_code')})"
+                parts.append(f"chẩn đoán đã ghi nhận: {diagnosis}")
+            if row.get("treatment_plan"):
+                parts.append(f"kế hoạch điều trị: {row.get('treatment_plan')}")
+            vital_parts = []
+            if row.get("blood_pressure_systolic") and row.get("blood_pressure_diastolic"):
+                vital_parts.append(
+                    f"huyết áp {row.get('blood_pressure_systolic')}/{row.get('blood_pressure_diastolic')}"
+                )
+            if row.get("heart_rate"):
+                vital_parts.append(f"mạch {row.get('heart_rate')}")
+            if row.get("temperature_celsius"):
+                vital_parts.append(f"nhiệt độ {row.get('temperature_celsius')}")
+            if row.get("oxygen_saturation"):
+                vital_parts.append(f"SpO2 {row.get('oxygen_saturation')}")
+            if vital_parts:
+                parts.append("sinh hiệu: " + ", ".join(vital_parts))
+            if row.get("follow_up_required") is True and row.get("follow_up_date"):
+                parts.append(f"hẹn theo dõi {row.get('follow_up_date')}")
+            elif row.get("follow_up_required") is False:
+                parts.append("không ghi nhận yêu cầu tái khám")
+            if row.get("follow_up_notes"):
+                parts.append(f"ghi chú theo dõi: {row.get('follow_up_notes')}")
+            lines.append("; ".join(parts) + ".")
+
+        return "Tôi tìm thấy tóm tắt lượt khám trong phạm vi đã xác thực:\n" + "\n".join(lines)
 
     def _medical_advice(self, question: str) -> str:
         symptom = self._symptom_text(question)

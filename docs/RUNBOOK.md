@@ -508,6 +508,7 @@ Hiện tại:
 - Service catalog flow: `service_catalog_summary` trả tổng quan nhóm dịch vụ, `service_category_detail` trả danh sách dịch vụ trong một nhóm cụ thể như CT Scan/MRI/Laboratories.
 - Patient profile summary: `patient_profile_summary` gọi `clinic.lookup_patient_profile` qua auth scope; patient chỉ thấy hồ sơ của chính mình, receptionist/clinic_admin bị giới hạn theo clinic.
 - Patient timeline summary: `patient_timeline_summary` gọi `clinic.lookup_patient_timeline`, gom `appointments` và `paraclinical_results`; staff/admin phải nêu bệnh nhân cụ thể để tránh trả dữ liệu quá rộng.
+- Visit summary: `visit_summary_lookup` gọi `clinic.lookup_visit_summary`, đọc `robo_app.patient_visit_summaries`; view này gom `medical_records`, `visits` và latest `vital_signs`. Đây là dữ liệu nhạy cảm nên staff/admin/doctor phải nêu bệnh nhân cụ thể.
 - Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
@@ -568,6 +569,12 @@ scripts/apply_productization_seed.sh
 ```
 
 Quy ước: không thêm demo data productization vào `db/app/seed_mvp_demo.sql`. File MVP giữ nguyên để sau này nhìn lại đúng mốc MVP; data demo mới đặt ở `db/app/seed_productization_demo.sql`.
+
+Sau khi seed có thêm raw data cho view mới, chạy lại app views:
+
+```bash
+scripts/apply_app_views.sh
+```
 
 Bước tiếp theo:
 

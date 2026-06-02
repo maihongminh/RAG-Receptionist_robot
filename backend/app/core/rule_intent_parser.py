@@ -60,6 +60,18 @@ PATIENT_TIMELINE_KEYWORDS = (
     "tóm tắt bệnh nhân",
     "patient timeline",
 )
+VISIT_SUMMARY_KEYWORDS = (
+    "tóm tắt lần khám",
+    "tóm tắt lượt khám",
+    "tóm tắt hồ sơ khám",
+    "hồ sơ khám của tôi",
+    "bệnh án của tôi",
+    "lần khám gần đây",
+    "lần khám mới nhất",
+    "lịch sử bệnh án",
+    "medical record",
+    "visit summary",
+)
 PATIENT_PROFILE_KEYWORDS = (
     "hồ sơ của tôi",
     "thông tin hồ sơ của tôi",
@@ -250,6 +262,17 @@ class RuleIntentParser:
                 requires_auth=True,
                 data_source="auth",
                 reasoning="Question asks to summarize authenticated patient timeline data.",
+            )
+
+        if any(keyword in normalized for keyword in VISIT_SUMMARY_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="visit_summary_lookup",
+                entities={"patient_query": self._clean_visit_summary_query(question)},
+                confidence=0.84,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to look up authenticated visit or medical record summaries.",
             )
 
         if any(keyword in normalized for keyword in PATIENT_PROFILE_KEYWORDS):
@@ -482,6 +505,29 @@ class RuleIntentParser:
             "tổng quan bệnh nhân",
             "tóm tắt bệnh nhân",
             "patient timeline",
+            "của tôi",
+            "cho tôi xem",
+            "xem",
+            "là gì",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_visit_summary_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "tóm tắt lần khám",
+            "tóm tắt lượt khám",
+            "tóm tắt hồ sơ khám",
+            "hồ sơ khám của tôi",
+            "bệnh án của tôi",
+            "lần khám gần đây",
+            "lần khám mới nhất",
+            "lịch sử bệnh án",
+            "medical record",
+            "visit summary",
             "của tôi",
             "cho tôi xem",
             "xem",
