@@ -138,11 +138,13 @@ Hiện tại:
 - `db/app/contract.json`: contract view/cột/access-level/source/tool cho `robo_app`.
 - `db/app/tool_map.json`: mapping intent/tool -> view contract -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: patch demo data.
+- `db/app/seed_productization_demo.sql`: demo data cho các use case mở sau MVP.
 
 Productization cần:
 
 - idempotent scripts;
 - tách seed demo khỏi migration thật;
+- giữ seed MVP ở `seed_mvp_demo.sql`, seed mở rộng productization ở `seed_productization_demo.sql`;
 - đặt version hoặc thứ tự script rõ hơn.
 
 Đề xuất sau này:
@@ -157,6 +159,14 @@ db/migrations/
 db/seeds/
   demo_mvp.sql
   demo_productization.sql
+```
+
+Trong cấu trúc hiện tại, chưa tách sang `db/seeds/` để tránh đổi lớn. Quy ước đang dùng:
+
+```text
+db/app/seed_mvp_demo.sql
+db/app/seed_productization_demo.sql
+scripts/apply_productization_seed.sh
 ```
 
 ## 7. Index/FK
@@ -203,7 +213,8 @@ Quy trình khi thêm bảng/view cho tool mới:
 4. Chạy scripts/apply_app_views.sh.
 5. Chạy backend/.venv/bin/python scripts/check_app_contract.py.
 6. Chạy backend/.venv/bin/python scripts/check_tool_map.py.
-7. Thêm/cập nhật SQL tool + policy + test.
+7. Nếu bảng/source thiếu data, thêm khoảng 5 record demo vào `db/app/seed_productization_demo.sql`.
+8. Thêm/cập nhật SQL tool + policy + test.
 ```
 
 Backend domain tools không được query `robo_raw` trực tiếp. Raw chỉ là import/debug layer.
@@ -220,6 +231,17 @@ patient_profile_summary
 ```
 
 Tool này dùng `data_source="auth"` vì phải đi qua auth scope. `patient` chỉ thấy hồ sơ của chính mình; `receptionist` và `clinic_admin` chỉ thấy bệnh nhân trong clinic của account; `system_admin` có thể xem toàn bộ khi role này được dùng trong môi trường quản trị thật.
+
+```text
+patient_timeline_summary
+  -> robo_raw.patients + robo_raw.appointments + robo_raw.paraclinical_orders
+  -> robo_app.patients + robo_app.appointments + robo_app.paraclinical_results
+  -> clinic.lookup_patient_timeline
+  -> PolicyGuard + role permission
+  -> backend tests + MVP scenario
+```
+
+Timeline hiện chỉ gom lịch hẹn và cận lâm sàng vì đây là các view đã có contract sạch. `receptionist`, `clinic_admin` và `system_admin` phải nêu bệnh nhân cụ thể trước khi tool trả timeline. Dữ liệu hiện có đã đủ cho test, nên `seed_productization_demo.sql` chưa cần thêm record ở bước này.
 
 ## 9. Test data strategy
 

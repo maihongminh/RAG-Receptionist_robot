@@ -179,6 +179,20 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="patient_timeline_summary",
+        question="Tóm tắt lịch sử khám của tôi",
+        auth={
+            "role": "patient",
+            "patient_id": "d7402d44-a12f-420b-93b9-90372a3b2e6e",
+        },
+        expected_intent="patient_timeline_summary",
+        expected_source="robo_app.appointments, robo_app.paraclinical_results",
+        expected_answer_contains=("timeline",),
+        expected_data_contains=("Trần Thị Bình",),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
         name="doctor_appointment_lookup",
         question="tôi có lịch hẹn nào không",
         auth={

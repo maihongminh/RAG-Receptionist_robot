@@ -133,6 +133,7 @@ class GroundedResponseGenerator:
             "appointment_lookup",
             "personal_data",
             "lab_result_lookup",
+            "patient_timeline_summary",
             "patient_profile_summary",
         }
 

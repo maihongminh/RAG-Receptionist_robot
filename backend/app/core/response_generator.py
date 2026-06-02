@@ -17,6 +17,8 @@ class ResponseGenerator:
             return self._private_data(result, auth or AuthContext(role="guest"))
         if intent.intent == "lab_result_lookup":
             return self._lab_result_lookup(result)
+        if intent.intent == "patient_timeline_summary":
+            return self._patient_timeline_summary(result)
         if intent.intent == "patient_profile_summary":
             return self._patient_profile_summary(result)
 
@@ -358,6 +360,39 @@ class ResponseGenerator:
 
         title = "Tôi tìm thấy hồ sơ bệnh nhân trong phạm vi đã xác thực:"
         return title + "\n" + "\n".join(lines)
+
+    def _patient_timeline_summary(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy timeline bệnh nhân phù hợp."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            event_at = row.get("event_at") or row.get("appointment_date") or "chưa rõ thời gian"
+            patient = row.get("patient_name")
+            if row.get("event_type") == "appointment":
+                title = row.get("service_name") or row.get("visit_type") or "lịch hẹn"
+                parts = [f"{index}. {event_at} - Lịch hẹn: {title}"]
+                if patient:
+                    parts.append(f"bệnh nhân {patient}")
+                if row.get("doctor_name"):
+                    parts.append(f"bác sĩ {row.get('doctor_name')}")
+                if row.get("status"):
+                    parts.append(f"trạng thái {row.get('status')}")
+                if row.get("chief_complaint"):
+                    parts.append(f"lý do khám: {row.get('chief_complaint')}")
+            else:
+                service = row.get("service_name") or row.get("service_code") or "cận lâm sàng"
+                parts = [f"{index}. {event_at} - Xét nghiệm/cận lâm sàng: {service}"]
+                if patient:
+                    parts.append(f"bệnh nhân {patient}")
+                if row.get("status"):
+                    parts.append(f"trạng thái {row.get('status')}")
+                parts.append("đã có kết quả" if row.get("has_result") else "chưa có kết quả")
+                if row.get("result_summary"):
+                    parts.append(f"kết quả: {row.get('result_summary')}")
+            lines.append("; ".join(parts) + ".")
+
+        return "Tôi tìm thấy timeline bệnh nhân trong phạm vi đã xác thực:\n" + "\n".join(lines)
 
     def _medical_advice(self, question: str) -> str:
         symptom = self._symptom_text(question)

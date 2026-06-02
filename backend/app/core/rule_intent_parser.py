@@ -47,6 +47,19 @@ LAB_RESULT_KEYWORDS = (
     "xem kết quả",
     "tra kết quả",
 )
+PATIENT_TIMELINE_KEYWORDS = (
+    "timeline của tôi",
+    "dòng thời gian của tôi",
+    "lịch sử khám của tôi",
+    "quá trình khám của tôi",
+    "quá trình điều trị của tôi",
+    "tóm tắt quá trình khám",
+    "tóm tắt lịch sử khám",
+    "tổng quan lịch sử khám",
+    "tổng quan bệnh nhân",
+    "tóm tắt bệnh nhân",
+    "patient timeline",
+)
 PATIENT_PROFILE_KEYWORDS = (
     "hồ sơ của tôi",
     "thông tin hồ sơ của tôi",
@@ -226,6 +239,17 @@ class RuleIntentParser:
                 requires_auth=True,
                 data_source="auth",
                 reasoning="Question asks to look up lab/diagnostic results.",
+            )
+
+        if any(keyword in normalized for keyword in PATIENT_TIMELINE_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="patient_timeline_summary",
+                entities={"patient_query": self._clean_patient_timeline_query(question)},
+                confidence=0.84,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to summarize authenticated patient timeline data.",
             )
 
         if any(keyword in normalized for keyword in PATIENT_PROFILE_KEYWORDS):
@@ -434,6 +458,30 @@ class RuleIntentParser:
             "mã bệnh nhân của tôi",
             "profile của tôi",
             "patient profile",
+            "của tôi",
+            "cho tôi xem",
+            "xem",
+            "là gì",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_patient_timeline_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "timeline của tôi",
+            "dòng thời gian của tôi",
+            "lịch sử khám của tôi",
+            "quá trình khám của tôi",
+            "quá trình điều trị của tôi",
+            "tóm tắt quá trình khám",
+            "tóm tắt lịch sử khám",
+            "tổng quan lịch sử khám",
+            "tổng quan bệnh nhân",
+            "tóm tắt bệnh nhân",
+            "patient timeline",
             "của tôi",
             "cho tôi xem",
             "xem",

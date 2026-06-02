@@ -20,7 +20,8 @@ db/
 │   ├── contract.json
 │   ├── tool_map.json
 │   ├── views.sql
-│   └── seed_mvp_demo.sql
+│   ├── seed_mvp_demo.sql
+│   └── seed_productization_demo.sql
 ├── auth/
 │   ├── schema.sql
 │   └── seed_demo.sql
@@ -81,6 +82,7 @@ Các file được sinh:
 - `db/app/contract.json`: contract máy đọc được cho các view/cột `robo_app` mà backend được phép dùng.
 - `db/app/tool_map.json`: mapping intent/tool -> app view -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
+- `db/app/seed_productization_demo.sql`: bổ sung demo data cho các use case mở rộng sau MVP.
 - `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session/audit production foundation.
 - `db/auth/seed_demo.sql`: seed account demo cho login email/password.
 - `db/manifest.json`: mapping sheet Excel -> bảng Postgres -> cột.
@@ -100,10 +102,11 @@ Seed dữ liệu demo cho MVP:
 ```bash
 cd /home/minhmh/tool/robo
 psql robo_reception -f db/app/seed_mvp_demo.sql
+scripts/apply_productization_seed.sh
 scripts/apply_auth_schema.sh
 ```
 
-Seed này tách riêng khỏi dữ liệu Excel gốc. `db/app/seed_mvp_demo.sql` bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot. `db/auth/seed_demo.sql` bổ sung account demo vào `robo_auth`.
+Seed này tách riêng khỏi dữ liệu Excel gốc. `db/app/seed_mvp_demo.sql` bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot. Từ phase productization, demo data mới đặt trong `db/app/seed_productization_demo.sql` để không trộn với mốc MVP. `db/auth/seed_demo.sql` bổ sung account demo vào `robo_auth`.
 
 `robo_auth.audit_events` lưu audit event kèm `request_id` và `latency_ms` để lần vết login/logout/policy/tool result theo từng HTTP request.
 

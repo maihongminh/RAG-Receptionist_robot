@@ -135,6 +135,18 @@
       "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
     },
     {
+      "tool_name": "clinic.lookup_patient_timeline",
+      "status": "active",
+      "intents": ["patient_timeline_summary"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["patients", "appointments", "paraclinical_results"],
+      "source_tables": ["robo_raw.patients", "robo_raw.appointments", "robo_raw.paraclinical_orders", "robo_raw.staff", "robo_raw.service_catalog"],
+      "allowed_roles": ["patient", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by patient_id; receptionist/clinic_admin/system_admin require patient_query before returning timeline rows.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
       "tool_name": "clinic.create_appointment_request",
       "status": "disabled",
       "intents": ["appointment_booking"],

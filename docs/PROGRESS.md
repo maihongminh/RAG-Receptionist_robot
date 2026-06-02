@@ -111,8 +111,19 @@ Postgres
   - patient xem hồ sơ của chính mình theo `patient_id`;
   - receptionist/clinic_admin xem trong phạm vi `clinic_id` và có thể lọc theo tên/mã/SĐT/email;
   - doctor chưa được mở quyền xem hồ sơ bệnh nhân tổng quát cho tới khi có care-scope rõ.
-- Test backend hiện tại: `155 passed`.
-- MVP scenario hiện tại: `18/18 passed` với `--llm-provider none`.
+- Thêm seed productization riêng:
+  - `db/app/seed_productization_demo.sql`;
+  - `scripts/apply_productization_seed.sh`;
+  - MVP seed vẫn giữ ở `db/app/seed_mvp_demo.sql`.
+- Mở rộng private timeline:
+  - thêm intent `patient_timeline_summary`;
+  - thêm tool `clinic.lookup_patient_timeline`;
+  - timeline hiện gom `robo_app.appointments` và `robo_app.paraclinical_results`;
+  - patient xem timeline của chính mình;
+  - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể trước khi trả timeline;
+  - doctor chưa mở quyền timeline tổng hợp cho tới khi có care-scope rõ.
+- Test backend hiện tại: `162 passed`.
+- MVP scenario hiện tại: `19/19 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
   - `POST /auth/login`;
@@ -176,7 +187,7 @@ Postgres
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
   - contract check hiện tại pass: `robo_app has 13 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
-  - thêm `scripts/check_tool_map.py`, hiện pass `12 mapped tools`.
+  - thêm `scripts/check_tool_map.py`, hiện pass `13 mapped tools`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

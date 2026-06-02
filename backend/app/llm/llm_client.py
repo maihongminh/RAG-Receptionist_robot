@@ -25,6 +25,7 @@ SOURCE_BY_INTENT = {
     "appointment_booking": "none",
     "appointment_lookup": "auth",
     "lab_result_lookup": "auth",
+    "patient_timeline_summary": "auth",
     "patient_profile_summary": "auth",
     "personal_data": "auth",
     "medical_advice": "none",
@@ -34,6 +35,7 @@ SOURCE_BY_INTENT = {
 AUTH_REQUIRED_BY_INTENT = {
     "appointment_lookup": True,
     "lab_result_lookup": True,
+    "patient_timeline_summary": True,
     "patient_profile_summary": True,
     "personal_data": True,
 }
@@ -48,6 +50,7 @@ ENTITY_KEYS_BY_INTENT = {
     "knowledge_search": ("knowledge_query",),
     "appointment_booking": ("booking_query",),
     "lab_result_lookup": ("result_query",),
+    "patient_timeline_summary": ("patient_query",),
     "patient_profile_summary": ("patient_query",),
 }
 
@@ -91,6 +94,7 @@ INTENT_JSON_SCHEMA: dict[str, Any] = {
                 "appointment_booking",
                 "appointment_lookup",
                 "lab_result_lookup",
+                "patient_timeline_summary",
                 "patient_profile_summary",
                 "personal_data",
                 "medical_advice",
@@ -430,6 +434,12 @@ class LLMClient:
                 "- Trả lời ngắn gọn các thông tin hành chính của hồ sơ bệnh nhân.\n"
                 "- Giữ nguyên patient_code, full_name, phone_primary, email, date_of_birth nếu có.\n"
                 "- Không suy luận bệnh sử, chẩn đoán hoặc thông tin y khoa không có trong CONTEXT."
+            )
+        if intent_name == "patient_timeline_summary":
+            return (
+                "- Trả lời dạng timeline ngắn gọn theo ngày giờ giảm dần như CONTEXT.\n"
+                "- Mỗi mục nói rõ loại mốc: lịch hẹn hoặc xét nghiệm/cận lâm sàng.\n"
+                "- Không chẩn đoán, không suy luận kết quả ngoài result_summary hoặc status có trong CONTEXT."
             )
         if intent_name == "service_price":
             return (

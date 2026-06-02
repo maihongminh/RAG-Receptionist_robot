@@ -146,6 +146,7 @@
       "tools": [
         "clinic.lookup_private_data",
         "clinic.lookup_lab_results",
+        "clinic.lookup_patient_timeline",
         "clinic.lookup_patient_profile",
         "auth.identity_mapping"
       ],
@@ -169,7 +170,7 @@
       "name": "appointments",
       "access_level": "private",
       "source_tables": ["robo_raw.appointments", "robo_app.patients", "robo_app.staff", "robo_app.services"],
-      "tools": ["clinic.lookup_private_data"],
+      "tools": ["clinic.lookup_private_data", "clinic.lookup_patient_timeline"],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},
@@ -190,7 +191,7 @@
       "name": "paraclinical_results",
       "access_level": "private",
       "source_tables": ["robo_raw.paraclinical_orders", "robo_app.patients", "robo_app.services", "robo_app.staff"],
-      "tools": ["clinic.lookup_lab_results"],
+      "tools": ["clinic.lookup_lab_results", "clinic.lookup_patient_timeline"],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},

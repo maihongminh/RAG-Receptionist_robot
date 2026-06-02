@@ -419,6 +419,17 @@ Hồ sơ hành chính bệnh nhân dùng intent/tool riêng, không gom vào l�
   -> receptionist/clinic_admin scope: clinic_id
 ```
 
+Timeline bệnh nhân dùng tool riêng để tránh trộn với lịch hẹn đơn thuần:
+
+```text
+"Tóm tắt lịch sử khám của tôi"
+  -> intent = patient_timeline_summary
+  -> tool = clinic.lookup_patient_timeline
+  -> source = robo_app.appointments + robo_app.paraclinical_results
+  -> patient scope: patient_id
+  -> receptionist/clinic_admin/system_admin: cần patient_query cụ thể
+```
+
 MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Login tạo session trong `robo_auth.sessions`; logout gọi `/auth/logout` để revoke session. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text
@@ -677,7 +688,8 @@ db/
 │   ├── contract.json
 │   ├── tool_map.json
 │   ├── views.sql
-│   └── seed_mvp_demo.sql
+│   ├── seed_mvp_demo.sql
+│   └── seed_productization_demo.sql
 ├── auth/
 │   ├── schema.sql
 │   └── seed_demo.sql
@@ -694,6 +706,7 @@ db/
 - `db/app/contract.json`: contract view/cột/access-level/tool cho `robo_app`.
 - `db/app/tool_map.json`: mapping intent/tool -> app view -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: seed dữ liệu nghiệp vụ demo.
+- `db/app/seed_productization_demo.sql`: seed demo cho các bảng/use case mở sau MVP.
 - `db/auth/schema.sql`: tạo schema `robo_auth`.
 - `db/auth/seed_demo.sql`: seed account demo.
 - `db/manifest.json`: mapping Excel sheet -> Postgres table/columns.

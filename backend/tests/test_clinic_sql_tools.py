@@ -679,3 +679,65 @@ def test_lookup_private_data_filters_patient_appointments(monkeypatch):
     assert "patient_id = %(patient_id)s" in calls["query"]
     assert result.source == "robo_app.appointments"
     assert result.rows[0]["id"] == "appointment-1"
+
+
+def test_lookup_patient_timeline_combines_patient_events(monkeypatch):
+    calls = []
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params=None):
+        calls.append((query, params or {}))
+        if "FROM robo_app.patients" in query:
+            return [{"id": "patient-1", "full_name": "Nguyễn Văn A"}]
+        if "FROM robo_app.appointments" in query:
+            return [
+                {
+                    "event_type": "appointment",
+                    "event_at": "2026-04-24 08:00:00",
+                    "id": "appointment-1",
+                    "patient_id": "patient-1",
+                    "patient_name": "Nguyễn Văn A",
+                    "service_name": "Khám tổng quát",
+                    "status": "scheduled",
+                }
+            ]
+        if "FROM robo_app.paraclinical_results" in query:
+            return [
+                {
+                    "event_type": "paraclinical_result",
+                    "event_at": "2026-04-25 09:00:00+00",
+                    "id": "lab-1",
+                    "patient_id": "patient-1",
+                    "patient_name": "Nguyễn Văn A",
+                    "service_name": "Glucose",
+                    "status": "completed",
+                    "has_result": True,
+                    "result_summary": "Normal",
+                }
+            ]
+        return []
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_patient_timeline({}, AuthContext(role="patient", patient_id="patient-1"))
+
+    assert result.tool_name == "clinic.lookup_patient_timeline"
+    assert result.source == "robo_app.appointments, robo_app.paraclinical_results"
+    assert len(result.rows) == 2
+    assert result.rows[0]["event_type"] == "paraclinical_result"
+    assert calls[1][1]["patient_ids"] == ["patient-1"]
+    assert calls[1][1]["patient_id"] == "patient-1"
+
+
+def test_lookup_patient_timeline_requires_query_for_clinic_admin(monkeypatch):
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params=None):
+        raise AssertionError("timeline should not query broad clinic data without patient_query")
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_patient_timeline({}, AuthContext(role="clinic_admin", clinic_id="clinic-1"))
+
+    assert result.rows == []
+    assert "nêu tên" in result.message

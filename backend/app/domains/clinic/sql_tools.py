@@ -368,6 +368,41 @@ class ClinicSqlTools:
             confidence=0.9 if rows else 0.0,
         )
 
+    def lookup_patient_timeline(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
+        patient_query = str(entities.get("patient_query", "") or "").strip()
+        if auth.role in {"receptionist", "clinic_admin", "system_admin"} and not patient_query:
+            return ToolResult(
+                tool_name="clinic.lookup_patient_timeline",
+                source="robo_app.appointments, robo_app.paraclinical_results",
+                rows=[],
+                message="Vui lòng nêu tên, mã bệnh nhân, số điện thoại hoặc email để tra cứu timeline bệnh nhân.",
+                confidence=0.0,
+            )
+
+        profile_rows = self._lookup_patient_profiles(auth, patient_query)
+        patient_ids = [row["id"] for row in profile_rows if row.get("id")]
+        if not patient_ids:
+            return ToolResult(
+                tool_name="clinic.lookup_patient_timeline",
+                source="robo_app.appointments, robo_app.paraclinical_results",
+                rows=[],
+                message="Không tìm thấy bệnh nhân phù hợp trong phạm vi đã xác thực.",
+                confidence=0.0,
+            )
+
+        rows = self._lookup_timeline_appointments(auth, patient_ids)
+        rows.extend(self._lookup_timeline_paraclinical_results(auth, patient_ids))
+        rows = sorted(rows, key=lambda row: str(row.get("event_at") or ""), reverse=True)
+        rows = rows[: get_rag_config().context_max_rows]
+
+        return ToolResult(
+            tool_name="clinic.lookup_patient_timeline",
+            source="robo_app.appointments, robo_app.paraclinical_results",
+            rows=rows,
+            message=None if rows else "Không tìm thấy timeline bệnh nhân phù hợp trong phạm vi đã xác thực.",
+            confidence=0.9 if rows else 0.0,
+        )
+
     def _lookup_appointments(self, auth: AuthContext) -> list[dict[str, Any]]:
         where_clauses = []
         params: dict[str, Any] = {}
@@ -411,6 +446,49 @@ class ClinicSqlTools:
             LIMIT 5
             """,
             params,
+        )
+
+    def _lookup_timeline_appointments(self, auth: AuthContext, patient_ids: list[str]) -> list[dict[str, Any]]:
+        where_clauses = ["patient_id = ANY(%(patient_ids)s)"]
+        params: dict[str, Any] = {"patient_ids": patient_ids}
+
+        if auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append("clinic_id = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "patient":
+            where_clauses.append("patient_id = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role != "system_admin":
+            return []
+
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              'appointment' AS event_type,
+              concat_ws(' ', appointment_date::text, start_time::text) AS event_at,
+              id,
+              clinic_id,
+              patient_id,
+              patient_name,
+              doctor_id,
+              doctor_name,
+              appointment_date::text AS appointment_date,
+              start_time::text AS start_time,
+              end_time::text AS end_time,
+              visit_type,
+              status,
+              service_name,
+              chief_complaint,
+              NULL::text AS service_code,
+              NULL::text AS result_summary,
+              NULL::boolean AS has_result
+            FROM robo_app.appointments
+            WHERE {where_sql}
+            ORDER BY appointment_date DESC NULLS LAST, start_time DESC NULLS LAST
+            LIMIT %(limit)s
+            """,
+            {**params, "limit": get_rag_config().context_max_rows},
         )
 
     def _lookup_paraclinical_results(self, auth: AuthContext) -> list[dict[str, Any]]:
@@ -458,6 +536,49 @@ class ClinicSqlTools:
             LIMIT 20
             """,
             params,
+        )
+
+    def _lookup_timeline_paraclinical_results(self, auth: AuthContext, patient_ids: list[str]) -> list[dict[str, Any]]:
+        where_clauses = ["patient_id = ANY(%(patient_ids)s)"]
+        params: dict[str, Any] = {"patient_ids": patient_ids}
+
+        if auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append("clinic_id = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "patient":
+            where_clauses.append("patient_id = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role != "system_admin":
+            return []
+
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              'paraclinical_result' AS event_type,
+              COALESCE(completed_at, processed_at, collected_at, ordered_at)::text AS event_at,
+              id,
+              clinic_id,
+              patient_id,
+              patient_name,
+              NULL::text AS doctor_id,
+              ordered_by_name AS doctor_name,
+              NULL::text AS appointment_date,
+              NULL::text AS start_time,
+              NULL::text AS end_time,
+              order_type AS visit_type,
+              status,
+              service_name,
+              NULL::text AS chief_complaint,
+              service_code,
+              result_summary,
+              has_result
+            FROM robo_app.paraclinical_results
+            WHERE {where_sql}
+            ORDER BY COALESCE(completed_at, processed_at, collected_at, ordered_at) DESC NULLS LAST
+            LIMIT %(limit)s
+            """,
+            {**params, "limit": get_rag_config().context_max_rows},
         )
 
     def _lookup_patient_profiles(self, auth: AuthContext, patient_query: str = "") -> list[dict[str, Any]]:
