@@ -423,6 +423,26 @@ class ClinicSqlTools:
             confidence=0.9 if rows else 0.0,
         )
 
+    def lookup_billing_summary(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
+        patient_query = str(entities.get("patient_query", "") or "").strip()
+        if auth.role in {"receptionist", "clinic_admin", "system_admin"} and not patient_query:
+            return ToolResult(
+                tool_name="clinic.lookup_billing_summary",
+                source="robo_app.billing_records",
+                rows=[],
+                message="Vui lòng nêu tên, mã bệnh nhân, số điện thoại hoặc email để tra cứu hóa đơn/thanh toán.",
+                confidence=0.0,
+            )
+
+        rows = self._lookup_billing_records(auth, patient_query)
+        return ToolResult(
+            tool_name="clinic.lookup_billing_summary",
+            source="robo_app.billing_records",
+            rows=rows,
+            message=None if rows else "Không tìm thấy hóa đơn/thanh toán phù hợp trong phạm vi đã xác thực.",
+            confidence=0.9 if rows else 0.0,
+        )
+
     def _lookup_appointments(self, auth: AuthContext) -> list[dict[str, Any]]:
         where_clauses = []
         params: dict[str, Any] = {}
@@ -677,6 +697,64 @@ class ClinicSqlTools:
             FROM robo_app.patient_visit_summaries
             WHERE {where_sql}
             ORDER BY COALESCE(finalized_at, check_in_time) DESC NULLS LAST, visit_date DESC NULLS LAST
+            LIMIT {get_rag_config().context_max_rows}
+            """,
+            params,
+        )
+
+    def _lookup_billing_records(self, auth: AuthContext, patient_query: str = "") -> list[dict[str, Any]]:
+        where_clauses = []
+        params: dict[str, Any] = {}
+
+        if auth.role == "patient":
+            where_clauses.append("patient_id = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append("clinic_id = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "system_admin":
+            where_clauses.append("TRUE")
+        else:
+            return []
+
+        query = str(patient_query or "").strip()
+        if query and auth.role in {"receptionist", "clinic_admin", "system_admin"}:
+            where_clauses.append(
+                """
+                (
+                  patient_name ILIKE %(patient_query)s
+                  OR patient_code ILIKE %(patient_query)s
+                  OR patient_phone ILIKE %(patient_query)s
+                  OR patient_email ILIKE %(patient_query)s
+                  OR invoice_number ILIKE %(patient_query)s
+                )
+                """
+            )
+            params["patient_query"] = f"%{query}%"
+
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              id,
+              clinic_id,
+              patient_id,
+              patient_code,
+              patient_name,
+              queue_number,
+              status,
+              registered_at::text AS registered_at,
+              invoice_number,
+              payment_status,
+              total_amount,
+              paid_amount,
+              balance_amount,
+              paid_at::text AS paid_at,
+              payment_method,
+              currency_code
+            FROM robo_app.billing_records
+            WHERE {where_sql}
+            ORDER BY registered_at DESC NULLS LAST
             LIMIT {get_rag_config().context_max_rows}
             """,
             params,

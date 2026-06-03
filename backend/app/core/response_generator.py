@@ -21,6 +21,8 @@ class ResponseGenerator:
             return self._patient_timeline_summary(result)
         if intent.intent == "visit_summary_lookup":
             return self._visit_summary_lookup(result)
+        if intent.intent == "billing_summary_lookup":
+            return self._billing_summary_lookup(result)
         if intent.intent == "patient_profile_summary":
             return self._patient_profile_summary(result)
 
@@ -445,6 +447,35 @@ class ResponseGenerator:
             lines.append("; ".join(parts) + ".")
 
         return "Tôi tìm thấy tóm tắt lượt khám trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _billing_summary_lookup(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy hóa đơn/thanh toán phù hợp."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            invoice = row.get("invoice_number") or row.get("queue_number") or row.get("id")
+            currency = row.get("currency_code") or ""
+            parts = [f"{index}. Hóa đơn {invoice}"]
+            if row.get("registered_at"):
+                parts.append(f"ngày {row.get('registered_at')}")
+            if row.get("patient_name"):
+                parts.append(f"bệnh nhân {row.get('patient_name')}")
+            if row.get("payment_status"):
+                parts.append(f"trạng thái thanh toán {row.get('payment_status')}")
+            if row.get("total_amount") is not None:
+                parts.append(f"tổng tiền {row.get('total_amount')} {currency}".strip())
+            if row.get("paid_amount") is not None:
+                parts.append(f"đã thanh toán {row.get('paid_amount')} {currency}".strip())
+            if row.get("balance_amount") is not None:
+                parts.append(f"còn lại {row.get('balance_amount')} {currency}".strip())
+            if row.get("payment_method"):
+                parts.append(f"phương thức {row.get('payment_method')}")
+            if row.get("paid_at"):
+                parts.append(f"thanh toán lúc {row.get('paid_at')}")
+            lines.append("; ".join(parts) + ".")
+
+        return "Tôi tìm thấy hóa đơn/thanh toán trong phạm vi đã xác thực:\n" + "\n".join(lines)
 
     def _medical_advice(self, question: str) -> str:
         symptom = self._symptom_text(question)

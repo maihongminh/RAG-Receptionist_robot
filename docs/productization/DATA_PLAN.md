@@ -254,6 +254,17 @@ visit_summary_lookup
 
 Visit summary mở nhóm dữ liệu khám bệnh nhạy cảm hơn timeline. Vì vậy `patient` chỉ thấy chính mình; `doctor`, `receptionist`, `clinic_admin` và `system_admin` đều phải nêu bệnh nhân cụ thể trước khi tool trả dữ liệu. Bước này đã thêm 5 demo records cho từng bảng `visits`, `medical_records`, `vital_signs` trong `db/app/seed_productization_demo.sql`.
 
+```text
+billing_summary_lookup
+  -> robo_raw.diagnostic_walk_in_patients
+  -> robo_app.billing_records
+  -> clinic.lookup_billing_summary
+  -> PolicyGuard + role permission
+  -> backend tests + MVP scenario
+```
+
+Billing summary hiện chỉ mở hóa đơn/thanh toán cá nhân từ diagnostic walk-in. Billing doanh nghiệp/group examination chưa mở vì đó là use case khác. Bước này đã thêm 5 demo billing records trong `db/app/seed_productization_demo.sql`.
+
 ## 9. Test data strategy
 
 Cần có dữ liệu test cố định cho:

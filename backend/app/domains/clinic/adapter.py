@@ -57,6 +57,9 @@ class ClinicAdapter(DomainAdapter):
     def lookup_visit_summary(self, entities: dict, auth: AuthContext) -> ToolResult:
         return self.sql_tools.lookup_visit_summary(entities, auth)
 
+    def lookup_billing_summary(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return self.sql_tools.lookup_billing_summary(entities, auth)
+
     def create_request(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.create_appointment_request",

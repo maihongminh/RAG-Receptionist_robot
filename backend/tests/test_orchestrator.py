@@ -290,6 +290,28 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
         )
 
+    def lookup_billing_summary(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_billing_summary",
+            source="fake.billing_records",
+            rows=[
+                {
+                    "invoice_number": "HD-001",
+                    "registered_at": "2026-05-01 08:00:00+00",
+                    "patient_name": "Nguyễn Văn A",
+                    "payment_status": "paid",
+                    "total_amount": 25,
+                    "paid_amount": 25,
+                    "balance_amount": 0,
+                    "currency_code": "USD",
+                    "payment_method": "cash",
+                }
+            ]
+            if auth.patient_id == "patient-1"
+            else [],
+            confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
+        )
+
     def create_request(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.create_appointment_request",
@@ -641,6 +663,28 @@ def test_orchestrator_authenticated_patient_visit_summary():
     assert response.sources == ["fake.visit_summaries"]
     assert "Đau đầu nhẹ" in response.answer
     assert "Theo dõi đau đầu" in response.answer
+
+
+def test_orchestrator_guest_billing_summary_is_blocked_by_policy():
+    response = build_orchestrator().handle(AskRequest(question="Tôi đã thanh toán chưa?"))
+
+    assert response.intent == "billing_summary_lookup"
+    assert response.requires_auth is True
+    assert response.sources == ["policy"]
+    assert "xác thực" in response.answer
+
+
+def test_orchestrator_authenticated_patient_billing_summary():
+    response = build_orchestrator().handle(
+        AskRequest(question="Tôi đã thanh toán chưa?"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
+    )
+
+    assert response.intent == "billing_summary_lookup"
+    assert response.requires_auth is True
+    assert response.sources == ["fake.billing_records"]
+    assert "HD-001" in response.answer
+    assert "paid" in response.answer
 
 
 def test_orchestrator_authenticated_patient_uses_formatted_answer_when_available():

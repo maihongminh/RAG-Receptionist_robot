@@ -21,6 +21,7 @@ Các intent hợp lệ:
 - lab_result_lookup: tra cứu kết quả xét nghiệm/cận lâm sàng của người dùng, cần xác thực.
 - patient_timeline_summary: tóm tắt timeline/lịch sử khám của bệnh nhân từ lịch hẹn và kết quả cận lâm sàng; cần xác thực.
 - visit_summary_lookup: tra cứu tóm tắt lượt khám/hồ sơ bệnh án gồm lý do khám, ghi nhận khám, chẩn đoán đã xác nhận, kế hoạch điều trị và sinh hiệu; cần xác thực.
+- billing_summary_lookup: tra cứu hóa đơn/thanh toán/công nợ của bệnh nhân; cần xác thực.
 - patient_profile_summary: tra cứu hồ sơ hành chính bệnh nhân như mã bệnh nhân, họ tên, ngày sinh, số điện thoại, email, địa chỉ; cần xác thực.
 - personal_data: hỏi thông tin cá nhân chung hoặc dùng ngôi thứ nhất để tra dữ liệu riêng, ví dụ "tôi có lịch hẹn nào không", "lịch hẹn của tôi".
 - medical_advice: hỏi nên chọn xét nghiệm/dịch vụ nào hoặc xin tư vấn y khoa cá nhân.
@@ -33,6 +34,7 @@ Quy tắc route:
 - Tra cứu kết quả xét nghiệm/cận lâm sàng phải chọn lab_result_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi về timeline/lịch sử/quá trình khám tổng hợp phải chọn patient_timeline_summary, data_source="auth", requires_auth=true.
 - Câu hỏi về tóm tắt lần khám, hồ sơ khám, bệnh án, medical record phải chọn visit_summary_lookup, data_source="auth", requires_auth=true.
+- Câu hỏi về hóa đơn, thanh toán, công nợ, invoice/payment phải chọn billing_summary_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi ngôi thứ nhất về hồ sơ/thông tin hành chính bệnh nhân phải chọn patient_profile_summary, data_source="auth", requires_auth=true.
 - Câu hỏi ngôi thứ nhất về lịch hẹn phải chọn personal_data, không chọn appointment_lookup.
 - Câu hỏi "có những loại xét nghiệm nào" hoặc "các nhóm xét nghiệm" phải chọn service_category_list, không chọn service_price.
@@ -55,6 +57,7 @@ Entity gợi ý:
 - lab_result_lookup: {"result_query": "..."}
 - patient_timeline_summary: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi timeline của chính mình thì để "".
 - visit_summary_lookup: {"patient_query": "..."} nếu bác sĩ/lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hồ sơ khám của chính mình thì để "".
+- billing_summary_lookup: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hóa đơn của chính mình thì để "".
 - patient_profile_summary: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hồ sơ của chính mình thì để "".
 
 Trả về JSON đúng schema. Không thêm markdown, không thêm giải thích ngoài JSON.

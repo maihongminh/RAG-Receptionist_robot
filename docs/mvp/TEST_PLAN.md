@@ -86,6 +86,7 @@ Tôi muốn nhận kết quả xét nghiệm
 Thông tin hồ sơ của tôi là gì?
 Tóm tắt lịch sử khám của tôi
 Tóm tắt lần khám gần đây của tôi
+Tôi đã thanh toán chưa?
 ```
 
 Kỳ vọng:

@@ -248,6 +248,30 @@
       ]
     },
     {
+      "name": "billing_records",
+      "access_level": "private",
+      "source_tables": ["robo_raw.diagnostic_walk_in_patients", "robo_app.patients"],
+      "tools": ["clinic.lookup_billing_summary"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "patient_id", "data_type": "text"},
+        {"name": "patient_code", "data_type": "text"},
+        {"name": "patient_name", "data_type": "text"},
+        {"name": "queue_number", "data_type": "text"},
+        {"name": "status", "data_type": "text"},
+        {"name": "registered_at", "data_type": "timestamp with time zone"},
+        {"name": "invoice_number", "data_type": "text"},
+        {"name": "payment_status", "data_type": "text"},
+        {"name": "total_amount", "data_type": "numeric"},
+        {"name": "paid_amount", "data_type": "numeric"},
+        {"name": "balance_amount", "data_type": "numeric"},
+        {"name": "paid_at", "data_type": "timestamp with time zone"},
+        {"name": "payment_method", "data_type": "text"},
+        {"name": "currency_code", "data_type": "text"}
+      ]
+    },
+    {
       "name": "knowledge_articles",
       "access_level": "public",
       "source_tables": ["robo_raw.admin_help_templates"],

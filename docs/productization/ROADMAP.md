@@ -84,13 +84,14 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 14 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 15 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
 - Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
-- Đã thêm `db/app/tool_map.json` cho 14 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline` và `clinic.lookup_visit_summary`.
+- Đã thêm `db/app/tool_map.json` cho 15 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary` và `clinic.lookup_billing_summary`.
 - Đã mở rộng contract `robo_app.patients` cho patient profile summary.
 - Đã map timeline sang các view hiện có: `patients`, `appointments`, `paraclinical_results`.
 - Đã thêm `robo_app.patient_visit_summaries` để gom `medical_records`, `visits`, latest `vital_signs`, patient và doctor.
+- Đã thêm `robo_app.billing_records` cho hóa đơn/thanh toán cá nhân từ `diagnostic_walk_in_patients`.
 - Chưa có mapping chi tiết cho toàn bộ 56 bảng raw; sẽ mở theo use case.
 
 ## Phase P3 - Private data expansion + audit
@@ -135,6 +136,11 @@ Trạng thái hiện tại:
   - doctor scope theo `doctor_id` và phải nêu bệnh nhân cụ thể;
   - receptionist/clinic_admin scope theo `clinic_id` và phải nêu bệnh nhân cụ thể;
   - system_admin phải nêu bệnh nhân cụ thể.
+- Đã có private tool `clinic.lookup_billing_summary`:
+  - patient scope theo `patient_id`;
+  - receptionist/clinic_admin scope theo `clinic_id` và phải nêu bệnh nhân cụ thể;
+  - system_admin phải nêu bệnh nhân cụ thể;
+  - doctor không có quyền billing.
 - Cần tiếp tục mở từng use case riêng như visit/medical summary thay vì query rộng toàn bộ patient data.
 
 ## Phase P4 - RAG production sync

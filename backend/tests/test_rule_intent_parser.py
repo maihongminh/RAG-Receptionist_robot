@@ -173,6 +173,14 @@ def test_visit_summary_lookup_requires_auth():
     assert intent.data_source == "auth"
 
 
+def test_billing_summary_lookup_requires_auth():
+    intent = RuleIntentParser().parse("Tôi đã thanh toán chưa?", "clinic")
+
+    assert intent.intent == "billing_summary_lookup"
+    assert intent.requires_auth is True
+    assert intent.data_source == "auth"
+
+
 def test_general_info_intent():
     intent = RuleIntentParser().parse("Địa chỉ phòng khám ở đâu?", "clinic")
 

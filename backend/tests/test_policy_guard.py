@@ -188,6 +188,38 @@ def test_doctor_visit_summary_lookup_allowed_with_doctor_id():
     assert decision.allowed is True
 
 
+def test_patient_billing_summary_lookup_allowed_with_patient_id():
+    intent = Intent(
+        domain="clinic",
+        intent="billing_summary_lookup",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(
+        intent,
+        AuthContext(role="patient", patient_id="patient-1"),
+    )
+
+    assert decision.allowed is True
+
+
+def test_doctor_cannot_access_billing_summary():
+    intent = Intent(
+        domain="clinic",
+        intent="billing_summary_lookup",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(
+        intent,
+        AuthContext(role="doctor", doctor_id="doctor-1"),
+    )
+
+    assert decision.allowed is False
+
+
 def test_doctor_cannot_access_patient_profile_summary_without_dedicated_scope():
     intent = Intent(
         domain="clinic",

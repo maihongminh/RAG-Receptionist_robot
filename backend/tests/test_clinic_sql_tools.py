@@ -810,3 +810,47 @@ def test_lookup_visit_summary_filters_doctor_and_patient_query(monkeypatch):
     assert "doctor_id = %(doctor_id)s" in calls["query"]
     assert "patient_name ILIKE %(patient_query)s" in calls["query"]
     assert result.rows[0]["patient_name"] == "Nguyễn Văn A"
+
+
+def test_lookup_billing_summary_filters_patient_scope(monkeypatch):
+    calls = {}
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "invoice_number": "HD-001",
+                "patient_id": "patient-1",
+                "payment_status": "paid",
+                "total_amount": 25,
+                "paid_amount": 25,
+                "balance_amount": 0,
+                "currency_code": "USD",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_billing_summary({}, AuthContext(role="patient", patient_id="patient-1"))
+
+    assert calls["params"] == {"patient_id": "patient-1"}
+    assert "patient_id = %(patient_id)s" in calls["query"]
+    assert result.tool_name == "clinic.lookup_billing_summary"
+    assert result.source == "robo_app.billing_records"
+    assert result.rows[0]["invoice_number"] == "HD-001"
+
+
+def test_lookup_billing_summary_requires_query_for_clinic_admin(monkeypatch):
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query, params=None):
+        raise AssertionError("billing lookup should not query broad clinic data without patient_query")
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_billing_summary({}, AuthContext(role="clinic_admin", clinic_id="clinic-1"))
+
+    assert result.rows == []
+    assert "nêu tên" in result.message

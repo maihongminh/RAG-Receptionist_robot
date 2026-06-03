@@ -443,6 +443,19 @@ Tóm tắt lượt khám/bệnh án là nhánh riêng vì dữ liệu nhạy c�
   -> receptionist/clinic_admin: clinic_id + patient_query cụ thể
 ```
 
+Hóa đơn/thanh toán là private financial data:
+
+```text
+"Tôi đã thanh toán chưa?"
+  -> intent = billing_summary_lookup
+  -> tool = clinic.lookup_billing_summary
+  -> source = robo_app.billing_records
+  -> app view đọc diagnostic_walk_in_patients
+  -> patient scope: patient_id
+  -> receptionist/clinic_admin: clinic_id + patient_query cụ thể
+  -> doctor: không có quyền
+```
+
 MVP hiện có password login cơ bản. Frontend có màn hình đăng nhập riêng để gọi `/auth/login` bằng `email/password`, nhận bearer token rồi gửi token vào `/ask`. Login tạo session trong `robo_auth.sessions`; logout gọi `/auth/logout` để revoke session. Productization bắt đầu tách account sang `robo_auth`; backend sinh auth context trong phạm vi:
 
 ```text

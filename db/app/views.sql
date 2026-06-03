@@ -300,15 +300,15 @@ LEFT JOIN robo_app.staff d ON d.id = COALESCE(NULLIF(v.doctor_id, ''), NULLIF(mr
 LEFT JOIN LATERAL (
   SELECT
     NULLIF(vs.recorded_at, '')::timestamptz AS recorded_at,
-    CASE WHEN vs.blood_pressure_systolic ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.blood_pressure_systolic::numeric ELSE NULL END AS blood_pressure_systolic,
-    CASE WHEN vs.blood_pressure_diastolic ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.blood_pressure_diastolic::numeric ELSE NULL END AS blood_pressure_diastolic,
-    CASE WHEN vs.heart_rate ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.heart_rate::numeric ELSE NULL END AS heart_rate,
-    CASE WHEN vs.respiratory_rate ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.respiratory_rate::numeric ELSE NULL END AS respiratory_rate,
-    CASE WHEN vs.temperature_celsius ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.temperature_celsius::numeric ELSE NULL END AS temperature_celsius,
-    CASE WHEN vs.oxygen_saturation ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.oxygen_saturation::numeric ELSE NULL END AS oxygen_saturation,
-    CASE WHEN vs.weight_kg ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.weight_kg::numeric ELSE NULL END AS weight_kg,
-    CASE WHEN vs.height_cm ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.height_cm::numeric ELSE NULL END AS height_cm,
-    CASE WHEN vs.bmi ~ '^[0-9]+(\\.[0-9]+)?$' THEN vs.bmi::numeric ELSE NULL END AS bmi
+    CASE WHEN vs.blood_pressure_systolic ~ '^[0-9]+([.][0-9]+)?$' THEN vs.blood_pressure_systolic::numeric ELSE NULL END AS blood_pressure_systolic,
+    CASE WHEN vs.blood_pressure_diastolic ~ '^[0-9]+([.][0-9]+)?$' THEN vs.blood_pressure_diastolic::numeric ELSE NULL END AS blood_pressure_diastolic,
+    CASE WHEN vs.heart_rate ~ '^[0-9]+([.][0-9]+)?$' THEN vs.heart_rate::numeric ELSE NULL END AS heart_rate,
+    CASE WHEN vs.respiratory_rate ~ '^[0-9]+([.][0-9]+)?$' THEN vs.respiratory_rate::numeric ELSE NULL END AS respiratory_rate,
+    CASE WHEN vs.temperature_celsius ~ '^[0-9]+([.][0-9]+)?$' THEN vs.temperature_celsius::numeric ELSE NULL END AS temperature_celsius,
+    CASE WHEN vs.oxygen_saturation ~ '^[0-9]+([.][0-9]+)?$' THEN vs.oxygen_saturation::numeric ELSE NULL END AS oxygen_saturation,
+    CASE WHEN vs.weight_kg ~ '^[0-9]+([.][0-9]+)?$' THEN vs.weight_kg::numeric ELSE NULL END AS weight_kg,
+    CASE WHEN vs.height_cm ~ '^[0-9]+([.][0-9]+)?$' THEN vs.height_cm::numeric ELSE NULL END AS height_cm,
+    CASE WHEN vs.bmi ~ '^[0-9]+([.][0-9]+)?$' THEN vs.bmi::numeric ELSE NULL END AS bmi
   FROM robo_raw.vital_signs vs
   WHERE COALESCE(vs.is_deleted, 'f') <> 't'
     AND (
@@ -322,6 +322,33 @@ LEFT JOIN LATERAL (
   LIMIT 1
 ) latest_vital ON TRUE
 WHERE COALESCE(mr.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.billing_records AS
+SELECT
+  d.id,
+  d.clinic_id,
+  d.patient_id,
+  COALESCE(p.full_name, NULLIF(d.patient_name, '')) AS patient_name,
+  p.patient_code,
+  COALESCE(p.phone_primary, NULLIF(d.patient_phone, '')) AS patient_phone,
+  p.email AS patient_email,
+  d.queue_number,
+  d.status,
+  NULLIF(d.registered_at, '')::timestamptz AS registered_at,
+  d.invoice_number,
+  d.payment_status,
+  CASE WHEN d.total_amount ~ '^[0-9]+([.][0-9]+)?$' THEN d.total_amount::numeric ELSE NULL END AS total_amount,
+  CASE WHEN d.paid_amount ~ '^[0-9]+([.][0-9]+)?$' THEN d.paid_amount::numeric ELSE NULL END AS paid_amount,
+  (
+    COALESCE(CASE WHEN d.total_amount ~ '^[0-9]+([.][0-9]+)?$' THEN d.total_amount::numeric ELSE NULL END, 0)
+    - COALESCE(CASE WHEN d.paid_amount ~ '^[0-9]+([.][0-9]+)?$' THEN d.paid_amount::numeric ELSE NULL END, 0)
+  ) AS balance_amount,
+  NULLIF(d.paid_at, '')::timestamptz AS paid_at,
+  d.payment_method,
+  d.currency_code,
+  d.order_items
+FROM robo_raw.diagnostic_walk_in_patients d
+LEFT JOIN robo_app.patients p ON p.id = d.patient_id;
 
 CREATE VIEW robo_app.knowledge_articles AS
 SELECT

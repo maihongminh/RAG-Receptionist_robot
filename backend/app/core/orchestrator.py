@@ -256,6 +256,7 @@ class Orchestrator:
             "lab_result_lookup": "auth",
             "patient_timeline_summary": "auth",
             "visit_summary_lookup": "auth",
+            "billing_summary_lookup": "auth",
             "patient_profile_summary": "auth",
             "personal_data": "auth",
             "medical_advice": "none",
@@ -266,6 +267,7 @@ class Orchestrator:
             "lab_result_lookup": True,
             "patient_timeline_summary": True,
             "visit_summary_lookup": True,
+            "billing_summary_lookup": True,
             "patient_profile_summary": True,
             "personal_data": True,
         }
@@ -341,7 +343,7 @@ class Orchestrator:
             entities["booking_query"] = question.strip()
         elif intent.intent == "lab_result_lookup" and not entities.get("result_query"):
             entities["result_query"] = question.strip()
-        elif intent.intent in {"patient_profile_summary", "patient_timeline_summary", "visit_summary_lookup"} and not entities.get("patient_query"):
+        elif intent.intent in {"patient_profile_summary", "patient_timeline_summary", "visit_summary_lookup", "billing_summary_lookup"} and not entities.get("patient_query"):
             entities["patient_query"] = rule_intent.entities.get("patient_query", "")
 
         return intent.model_copy(

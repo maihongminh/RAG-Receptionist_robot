@@ -159,6 +159,18 @@
       "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
     },
     {
+      "tool_name": "clinic.lookup_billing_summary",
+      "status": "active",
+      "intents": ["billing_summary_lookup"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["billing_records"],
+      "source_tables": ["robo_raw.diagnostic_walk_in_patients", "robo_raw.patients"],
+      "allowed_roles": ["patient", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by patient_id; receptionist/clinic_admin by clinic_id and requires patient_query; system_admin requires patient_query.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
       "tool_name": "clinic.create_appointment_request",
       "status": "disabled",
       "intents": ["appointment_booking"],

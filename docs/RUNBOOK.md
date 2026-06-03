@@ -509,6 +509,7 @@ Hiện tại:
 - Patient profile summary: `patient_profile_summary` gọi `clinic.lookup_patient_profile` qua auth scope; patient chỉ thấy hồ sơ của chính mình, receptionist/clinic_admin bị giới hạn theo clinic.
 - Patient timeline summary: `patient_timeline_summary` gọi `clinic.lookup_patient_timeline`, gom `appointments` và `paraclinical_results`; staff/admin phải nêu bệnh nhân cụ thể để tránh trả dữ liệu quá rộng.
 - Visit summary: `visit_summary_lookup` gọi `clinic.lookup_visit_summary`, đọc `robo_app.patient_visit_summaries`; view này gom `medical_records`, `visits` và latest `vital_signs`. Đây là dữ liệu nhạy cảm nên staff/admin/doctor phải nêu bệnh nhân cụ thể.
+- Billing summary: `billing_summary_lookup` gọi `clinic.lookup_billing_summary`, đọc `robo_app.billing_records`; patient xem của chính mình, receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể, doctor không có quyền billing.
 - Auth password/token MVP: `/auth/login` phát access token + refresh token từ email/password trong `robo_auth.accounts`; login tạo `robo_auth.sessions`; `/ask` ưu tiên `Authorization: Bearer <token>` và kiểm tra session còn active.
 - Auth refresh: `/auth/refresh` rotate refresh token và phát access token mới.
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.

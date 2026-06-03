@@ -207,6 +207,20 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="patient_billing_summary",
+        question="Tôi đã thanh toán chưa?",
+        auth={
+            "role": "patient",
+            "patient_id": "d7402d44-a12f-420b-93b9-90372a3b2e6e",
+        },
+        expected_intent="billing_summary_lookup",
+        expected_source="robo_app.billing_records",
+        expected_answer_contains=("hóa đơn",),
+        expected_data_contains=("HD-PROD-0001", "paid"),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
         name="doctor_appointment_lookup",
         question="tôi có lịch hẹn nào không",
         auth={

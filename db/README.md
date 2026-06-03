@@ -157,6 +157,7 @@ Các view hiện có:
 - `robo_app.appointments`: lịch hẹn, join sẵn bệnh nhân/bác sĩ/dịch vụ.
 - `robo_app.paraclinical_results`: chỉ định/kết quả xét nghiệm, chẩn đoán hình ảnh, join sẵn bệnh nhân/dịch vụ/nhân sự liên quan.
 - `robo_app.patient_visit_summaries`: tóm tắt lượt khám, join `medical_records`, `visits`, latest `vital_signs`, bệnh nhân và bác sĩ.
+- `robo_app.billing_records`: hóa đơn/thanh toán cá nhân từ `diagnostic_walk_in_patients`.
 - `robo_app.knowledge_articles`: nội dung hướng dẫn/quy trình từ `admin_help_templates`.
 - `robo_app.patient_question_templates`: câu hỏi mẫu/gợi ý cho bệnh nhân.
 

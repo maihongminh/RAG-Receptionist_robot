@@ -27,6 +27,7 @@ SOURCE_BY_INTENT = {
     "lab_result_lookup": "auth",
     "patient_timeline_summary": "auth",
     "visit_summary_lookup": "auth",
+    "billing_summary_lookup": "auth",
     "patient_profile_summary": "auth",
     "personal_data": "auth",
     "medical_advice": "none",
@@ -38,6 +39,7 @@ AUTH_REQUIRED_BY_INTENT = {
     "lab_result_lookup": True,
     "patient_timeline_summary": True,
     "visit_summary_lookup": True,
+    "billing_summary_lookup": True,
     "patient_profile_summary": True,
     "personal_data": True,
 }
@@ -54,6 +56,7 @@ ENTITY_KEYS_BY_INTENT = {
     "lab_result_lookup": ("result_query",),
     "patient_timeline_summary": ("patient_query",),
     "visit_summary_lookup": ("patient_query",),
+    "billing_summary_lookup": ("patient_query",),
     "patient_profile_summary": ("patient_query",),
 }
 
@@ -99,6 +102,7 @@ INTENT_JSON_SCHEMA: dict[str, Any] = {
                 "lab_result_lookup",
                 "patient_timeline_summary",
                 "visit_summary_lookup",
+                "billing_summary_lookup",
                 "patient_profile_summary",
                 "personal_data",
                 "medical_advice",
@@ -450,6 +454,12 @@ class LLMClient:
                 "- Trả lời dạng danh sách các lần khám/lượt khám.\n"
                 "- Chỉ nêu chief_complaint, examination_findings, confirmed_diagnosis, treatment_plan, follow_up và vital signs có trong CONTEXT.\n"
                 "- Không diễn giải chỉ số sinh hiệu, không chẩn đoán thêm, không khuyến nghị ngoài treatment_plan trong CONTEXT."
+            )
+        if intent_name == "billing_summary_lookup":
+            return (
+                "- Trả lời dạng danh sách hóa đơn/thanh toán.\n"
+                "- Nêu invoice_number, payment_status, total_amount, paid_amount, balance_amount, currency_code và payment_method nếu có.\n"
+                "- Không suy luận nghiệp vụ tài chính ngoài dữ liệu trong CONTEXT."
             )
         if intent_name == "service_price":
             return (

@@ -72,6 +72,17 @@ VISIT_SUMMARY_KEYWORDS = (
     "medical record",
     "visit summary",
 )
+BILLING_SUMMARY_KEYWORDS = (
+    "hóa đơn của tôi",
+    "hoá đơn của tôi",
+    "thanh toán của tôi",
+    "tôi đã thanh toán chưa",
+    "còn nợ bao nhiêu",
+    "công nợ của tôi",
+    "invoice của tôi",
+    "payment của tôi",
+    "billing của tôi",
+)
 PATIENT_PROFILE_KEYWORDS = (
     "hồ sơ của tôi",
     "thông tin hồ sơ của tôi",
@@ -273,6 +284,17 @@ class RuleIntentParser:
                 requires_auth=True,
                 data_source="auth",
                 reasoning="Question asks to look up authenticated visit or medical record summaries.",
+            )
+
+        if any(keyword in normalized for keyword in BILLING_SUMMARY_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="billing_summary_lookup",
+                entities={"patient_query": self._clean_billing_summary_query(question)},
+                confidence=0.84,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to look up authenticated billing or payment summaries.",
             )
 
         if any(keyword in normalized for keyword in PATIENT_PROFILE_KEYWORDS):
@@ -528,6 +550,28 @@ class RuleIntentParser:
             "lịch sử bệnh án",
             "medical record",
             "visit summary",
+            "của tôi",
+            "cho tôi xem",
+            "xem",
+            "là gì",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_billing_summary_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "hóa đơn của tôi",
+            "hoá đơn của tôi",
+            "thanh toán của tôi",
+            "tôi đã thanh toán chưa",
+            "còn nợ bao nhiêu",
+            "công nợ của tôi",
+            "invoice của tôi",
+            "payment của tôi",
+            "billing của tôi",
             "của tôi",
             "cho tôi xem",
             "xem",

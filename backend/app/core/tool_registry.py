@@ -40,6 +40,8 @@ class ToolRegistry:
             return adapter.lookup_patient_timeline(intent.entities, auth or AuthContext(role="guest"))
         if intent.intent == "visit_summary_lookup":
             return adapter.lookup_visit_summary(intent.entities, auth or AuthContext(role="guest"))
+        if intent.intent == "billing_summary_lookup":
+            return adapter.lookup_billing_summary(intent.entities, auth or AuthContext(role="guest"))
         if intent.intent == "patient_profile_summary":
             return adapter.lookup_patient_profile(intent.entities, auth or AuthContext(role="guest"))
         if intent.intent in {"appointment_lookup", "personal_data"}:

@@ -144,4 +144,48 @@ WHERE NOT EXISTS (
   SELECT 1 FROM robo_raw.vital_signs vs WHERE vs.id = seeded.id
 );
 
+-- Patient billing/payment demo records.
+
+INSERT INTO robo_raw.diagnostic_walk_in_patients (
+  _excel_row_number,
+  id,
+  clinic_id,
+  queue_number,
+  status,
+  patient_id,
+  patient_name,
+  patient_phone,
+  arrival_time,
+  registered_at,
+  consulting_doctor_id,
+  order_items,
+  total_amount,
+  payment_status,
+  paid_amount,
+  paid_at,
+  cashier_id,
+  invoice_number,
+  payment_method,
+  created_at,
+  updated_at,
+  currency_code
+)
+SELECT *
+FROM (
+  VALUES
+    (-940001, 'prod-bill-0001-0000-0000-000000000001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'PB-001', 'paid', 'd7402d44-a12f-420b-93b9-90372a3b2e6e', 'Trần Thị Bình', '+855987654321', '2026-05-01 08:00:00+00', '2026-05-01 08:00:00+00', 'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4', '[{"service_code":"LAB001","service_name":"Blood test","subtotal":25}]', '25.00', 'paid', '25.00', '2026-05-01 08:20:00+00', '8ce20e86-3dcf-453f-a903-7b117eff3196', 'HD-PROD-0001', 'cash', '2026-06-03 09:00:00+00', '2026-06-03 09:00:00+00', 'USD'),
+    (-940002, 'prod-bill-0002-0000-0000-000000000002', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'PB-002', 'paid', 'd7402d44-a12f-420b-93b9-90372a3b2e6e', 'Trần Thị Bình', '+855987654321', '2026-05-08 08:00:00+00', '2026-05-08 08:00:00+00', 'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4', '[{"service_code":"XR001","service_name":"Chest X-Ray","subtotal":40}]', '40.00', 'paid', '40.00', '2026-05-08 08:25:00+00', '8ce20e86-3dcf-453f-a903-7b117eff3196', 'HD-PROD-0002', 'transfer', '2026-06-03 09:00:00+00', '2026-06-03 09:00:00+00', 'USD'),
+    (-940003, 'prod-bill-0003-0000-0000-000000000003', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'PB-003', 'pending_payment', 'd7402d44-a12f-420b-93b9-90372a3b2e6e', 'Trần Thị Bình', '+855987654321', '2026-05-15 08:00:00+00', '2026-05-15 08:00:00+00', 'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4', '[{"service_code":"CT001","service_name":"CT Brain without contrast","subtotal":120000}]', '120000.00', 'unpaid', '0.00', '', '8ce20e86-3dcf-453f-a903-7b117eff3196', 'HD-PROD-0003', '', '2026-06-03 09:00:00+00', '2026-06-03 09:00:00+00', 'USD'),
+    (-940004, 'prod-bill-0004-0000-0000-000000000004', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'PB-004', 'pending_payment', 'd7402d44-a12f-420b-93b9-90372a3b2e6e', 'Trần Thị Bình', '+855987654321', '2026-05-22 08:00:00+00', '2026-05-22 08:00:00+00', 'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4', '[{"service_code":"US001","service_name":"Abdominal Ultrasound","subtotal":55000}]', '55000.00', 'partial', '20000.00', '2026-05-22 08:30:00+00', '8ce20e86-3dcf-453f-a903-7b117eff3196', 'HD-PROD-0004', 'cash', '2026-06-03 09:00:00+00', '2026-06-03 09:00:00+00', 'USD'),
+    (-940005, 'prod-bill-0005-0000-0000-000000000005', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'PB-005', 'paid', 'd7402d44-a12f-420b-93b9-90372a3b2e6e', 'Trần Thị Bình', '+855987654321', '2026-05-29 08:00:00+00', '2026-05-29 08:00:00+00', 'd1a2b3c4-d1a2-b3c4-d1a2-b3c4d1a2b3c4', '[{"service_code":"LAB468","service_name":"TIBC","subtotal":6.25}]', '6.25', 'paid', '6.25', '2026-05-29 08:15:00+00', '8ce20e86-3dcf-453f-a903-7b117eff3196', 'HD-PROD-0005', 'cash', '2026-06-03 09:00:00+00', '2026-06-03 09:00:00+00', 'USD')
+) AS seeded(
+  _excel_row_number, id, clinic_id, queue_number, status, patient_id, patient_name,
+  patient_phone, arrival_time, registered_at, consulting_doctor_id, order_items,
+  total_amount, payment_status, paid_amount, paid_at, cashier_id, invoice_number,
+  payment_method, created_at, updated_at, currency_code
+)
+WHERE NOT EXISTS (
+  SELECT 1 FROM robo_raw.diagnostic_walk_in_patients d WHERE d.id = seeded.id
+);
+
 COMMIT;
