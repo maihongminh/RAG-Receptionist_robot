@@ -196,10 +196,16 @@ Build index:
 cd /home/minhmh/tool/robo
 scripts/apply_rag_schema.sh
 backend/.venv/bin/python scripts/check_rag_registry.py
-backend/.venv/bin/python scripts/build_qdrant_index.py
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode full
 ```
 
 `robo_rag.index_manifest` lưu các point đã index theo collection/source/document/chunk/hash để chuẩn bị incremental sync. Qdrant vẫn là vector store chính; manifest chỉ là tracking trong Postgres.
+
+Sau khi đã có collection và manifest, có thể sync phần thay đổi:
+
+```bash
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode incremental
+```
 
 Khi `knowledge_search`, backend sẽ query Qdrant trước. Nếu Qdrant chưa có index, không có kết quả đạt `RAG_MIN_SCORE`, hoặc lỗi, backend fallback về keyword/fuzzy search từ cùng registry `scripts/rag_documents.py`.
 

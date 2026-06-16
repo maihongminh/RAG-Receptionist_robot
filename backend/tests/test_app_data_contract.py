@@ -9,6 +9,7 @@ sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from check_tool_map import validate_tool_map
 from check_rag_registry import validate_rag_registry
+from build_qdrant_index import plan_incremental_sync
 from rag_index_manifest import build_manifest_rows
 from rag_documents import RAG_DOCUMENT_SOURCES, build_content_hash, normalize_rag_document
 
@@ -135,3 +136,44 @@ def test_rag_index_manifest_rows_are_derived_from_qdrant_payload():
             "source_updated_at": "2026-06-16T00:00:00Z",
         }
     ]
+
+
+def test_rag_incremental_plan_detects_changed_new_and_stale_documents():
+    rows = [
+        {
+            "source": "knowledge_articles",
+            "source_id": "same",
+            "content_hash": "hash-same",
+        },
+        {
+            "source": "knowledge_articles",
+            "source_id": "changed",
+            "content_hash": "hash-new",
+        },
+        {
+            "source": "knowledge_articles",
+            "source_id": "new",
+            "content_hash": "hash-new-doc",
+        },
+    ]
+    manifest = {
+        ("knowledge_articles", "same"): {
+            "content_hashes": ["hash-same"],
+            "point_ids": ["point-same"],
+        },
+        ("knowledge_articles", "changed"): {
+            "content_hashes": ["hash-old"],
+            "point_ids": ["point-changed-old"],
+        },
+        ("knowledge_articles", "stale"): {
+            "content_hashes": ["hash-stale"],
+            "point_ids": ["point-stale-1", "point-stale-2"],
+        },
+    }
+
+    plan = plan_incremental_sync(rows, manifest)
+
+    assert [row["source_id"] for row in plan.unchanged] == ["same"]
+    assert [row["source_id"] for row in plan.changed_or_new] == ["changed", "new"]
+    assert plan.stale_keys == {("knowledge_articles", "stale")}
+    assert plan.stale_point_ids == ["point-stale-1", "point-stale-2"]

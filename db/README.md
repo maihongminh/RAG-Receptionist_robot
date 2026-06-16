@@ -285,7 +285,7 @@ Flow RAG hiện tại:
 robo_raw.admin_help_templates
   -> robo_app.knowledge_articles
   -> scripts/rag_documents.py
-  -> scripts/build_qdrant_index.py
+  -> scripts/build_qdrant_index.py --mode full|incremental
   -> Qdrant collection clinic_knowledge
   -> robo_rag.index_manifest
 ```
@@ -334,3 +334,12 @@ Script vector hiện đọc registry:
 ```text
 load_rag_documents() từ scripts/rag_documents.py
 ```
+
+Lệnh build/sync:
+
+```bash
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode full
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode incremental
+```
+
+`--mode incremental` dùng `robo_rag.index_manifest` để bỏ qua document chưa đổi hash, re-index document mới/đổi hash và xóa point stale.

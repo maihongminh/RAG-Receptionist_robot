@@ -120,13 +120,10 @@ Khi dùng full rebuild:
 
 ## 5. Incremental sync flow
 
-Sau full rebuild ổn, thêm incremental:
+Sau full rebuild ổn, incremental sync hiện có trong:
 
 ```text
-read source updated_at/content_hash
-  -> compare with index manifest
-  -> upsert changed docs
-  -> delete stale docs
+scripts/build_qdrant_index.py --mode incremental
 ```
 
 Cần lưu manifest:
@@ -153,7 +150,13 @@ cd /home/minhmh/tool/robo
 scripts/apply_rag_schema.sh
 ```
 
-`scripts/build_qdrant_index.py` hiện ghi lại manifest sau khi upsert Qdrant thành công. Bản hiện tại vẫn là full rebuild; incremental sync thật sẽ dùng bảng này để so `source/source_id/content_hash/updated_at`.
+`scripts/build_qdrant_index.py` ghi lại manifest sau khi upsert Qdrant thành công. Incremental sync dùng bảng này để so `source/source_id/content_hash` và quyết định document nào cần xử lý.
+
+Trạng thái hiện tại:
+
+- `--mode full`: recreate collection, embed toàn bộ document hợp lệ, replace toàn bộ manifest của collection.
+- `--mode incremental`: đọc `robo_rag.index_manifest`, so `source/source_id/content_hash`, chỉ embed/upsert document mới hoặc đã đổi hash, xóa point stale không còn trong registry.
+- Nếu thiếu collection hoặc manifest, incremental tự fallback sang full rebuild.
 
 ## 6. Filtering
 

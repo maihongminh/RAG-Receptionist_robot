@@ -185,7 +185,7 @@ access_level = public
 clinic_id = null hoặc clinic cụ thể sau này
 ```
 
-`robo_rag.index_manifest` lưu các point đã index theo `source/source_id/chunk_index/content_hash`. Hiện build index vẫn là full rebuild, nhưng manifest này là nền cho incremental sync sau này.
+`robo_rag.index_manifest` lưu các point đã index theo `source/source_id/chunk_index/content_hash`. `scripts/build_qdrant_index.py --mode incremental` dùng manifest này để bỏ qua document chưa đổi, re-index document mới/đổi hash và xóa point stale.
 
 ## 4. Đánh giá khả năng LLM
 

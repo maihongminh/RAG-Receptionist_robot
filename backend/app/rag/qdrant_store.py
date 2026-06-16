@@ -36,6 +36,9 @@ class QdrantVectorStore:
             ),
         )
 
+    def collection_exists(self) -> bool:
+        return self.client.collection_exists(self.collection_name)
+
     def upsert_chunks(self, chunks: list[dict[str, Any]]) -> None:
         points = [
             models.PointStruct(
@@ -47,6 +50,13 @@ class QdrantVectorStore:
         ]
         if points:
             self.client.upsert(collection_name=self.collection_name, points=points)
+
+    def delete_points(self, point_ids: list[str]) -> None:
+        if point_ids and self.collection_exists():
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=models.PointIdsList(points=point_ids),
+            )
 
     def search(
         self,

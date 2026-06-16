@@ -235,16 +235,33 @@ RAG_SQL_RESULT_LIMIT       số row tối đa lấy từ SQL trước khi rank/g
 RAG_EMPTY_CONFIDENCE       confidence khi không có kết quả
 ```
 
-Build hoặc rebuild index:
+Build hoặc rebuild index toàn bộ:
 
 ```bash
 cd /home/minhmh/tool/robo
 scripts/apply_rag_schema.sh
 backend/.venv/bin/python scripts/check_rag_registry.py
-backend/.venv/bin/python scripts/build_qdrant_index.py
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode full
 ```
 
 Nếu backend đang chạy và Qdrant local báo lock `qdrant_data`, dừng backend rồi chạy lại script build index.
+
+Sync incremental sau khi đã có collection và manifest:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
+backend/.venv/bin/python scripts/check_rag_registry.py
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode incremental
+```
+
+Incremental sync so `source/source_id/content_hash` với `robo_rag.index_manifest`:
+
+- document không đổi: bỏ qua, không gọi embedding lại;
+- document mới hoặc đổi hash: embed lại, upsert Qdrant và replace manifest;
+- document stale không còn trong registry: xóa point cũ khỏi Qdrant và xóa manifest.
+
+Nếu chưa có collection hoặc manifest, `--mode incremental` tự fallback sang full rebuild.
 
 ## 2. Chạy frontend
 
@@ -496,7 +513,7 @@ Nếu vừa sửa dữ liệu trong app views hoặc thêm nguồn vào `scripts
 cd /home/minhmh/tool/robo
 scripts/apply_rag_schema.sh
 backend/.venv/bin/python scripts/check_rag_registry.py
-backend/.venv/bin/python scripts/build_qdrant_index.py
+backend/.venv/bin/python scripts/build_qdrant_index.py --mode incremental
 ```
 
 RAG đang loại các topic không phù hợp để trả lời bệnh nhân:
