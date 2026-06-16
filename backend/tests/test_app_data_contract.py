@@ -8,6 +8,8 @@ SCRIPTS_ROOT = PROJECT_ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from check_tool_map import validate_tool_map
+from check_rag_registry import validate_rag_registry
+from rag_documents import RAG_DOCUMENT_SOURCES, build_content_hash, normalize_rag_document
 
 
 def test_app_contract_has_unique_views_and_columns():
@@ -45,3 +47,35 @@ def test_tool_map_matches_app_contract_and_policy_guard():
     tool_map = json.loads((PROJECT_ROOT / "db" / "app" / "tool_map.json").read_text(encoding="utf-8"))
 
     assert validate_tool_map(contract, tool_map) == []
+
+
+def test_rag_registry_is_valid():
+    assert validate_rag_registry() == []
+
+
+def test_rag_document_normalization_adds_production_metadata():
+    source = RAG_DOCUMENT_SOURCES[0]
+    document = normalize_rag_document(
+        {
+            "source_id": "article-1",
+            "topic": "checkin",
+            "title": "Check-in",
+            "title_vi": "Quy trinh check-in",
+            "content": "Patient check-in",
+            "content_vi": "Benh nhan lam thu tuc check-in",
+        },
+        source,
+    )
+
+    assert document["source"] == source.source_name
+    assert document["source_table"] == source.source_view
+    assert document["source_view"] == source.source_view
+    assert document["source_tables"] == list(source.source_tables)
+    assert document["domain"] == "clinic"
+    assert document["access_level"] == "public"
+    assert document["visibility"] == "public"
+    assert document["language"] == "vi"
+    assert document["clinic_id"] is None
+    assert document["document_type"] == "knowledge_article"
+    assert document["content_hash"] == build_content_hash(document)
+    assert len(document["content_hash"]) == 64

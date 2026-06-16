@@ -336,6 +336,28 @@ def test_medical_advice_uses_template_instead_of_llm_formatter():
     assert generator.generate("nên sử dụng loại nào?", intent, result) is None
 
 
+def test_context_serializer_accepts_list_metadata():
+    generator = GroundedResponseGenerator()
+    result = ToolResult(
+        tool_name="clinic.lookup_public_info",
+        source="qdrant:clinic_knowledge",
+        rows=[
+            {
+                "source": "knowledge_articles",
+                "source_tables": ["robo_raw.admin_help_templates"],
+                "title_vi": "Quy trình check-in",
+                "content_vi": "Bệnh nhân đến quầy lễ tân.",
+                "_score": 0.91,
+            }
+        ],
+    )
+
+    context = generator._build_context(result, AuthContext(role="guest"))
+
+    assert "source_tables: ['robo_raw.admin_help_templates']" in context
+    assert "_score" not in context
+
+
 def test_knowledge_context_uses_only_relevant_content_fields():
     generator = GroundedResponseGenerator()
     result = ToolResult(

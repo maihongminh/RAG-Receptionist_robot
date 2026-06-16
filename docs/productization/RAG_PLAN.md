@@ -41,31 +41,39 @@ Dữ liệu có cấu trúc và cần chính xác phải đi SQL/API.
 
 ## 2. Document registry
 
-`scripts/rag_documents.py` nên là registry duy nhất quy định nguồn nào được vector hóa.
+`scripts/rag_documents.py` là registry duy nhất quy định nguồn nào được vector hóa.
 
-Mỗi source nên khai báo:
+Mỗi source hiện khai báo:
 
 ```text
 source_name
-source_table
+source_view
 query
-id_field
-title_field
-content_fields
-metadata_fields
-visibility
-clinic_scope
-updated_at_field
+source_tables
+domain
+default_access_level
+default_language
 ```
 
 Ví dụ:
 
 ```text
 knowledge_articles
-  source_table: robo_app.knowledge_articles
-  visibility: public
-  metadata: topic, title, language
+  source_view: robo_app.knowledge_articles
+  source_tables: robo_raw.admin_help_templates
+  domain: clinic
+  default_access_level: public
+  default_language: vi
 ```
+
+Registry có checker riêng:
+
+```bash
+cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/check_rag_registry.py
+```
+
+Checker này bắt các lỗi cấu hình như trùng `source_name`, source không đi qua `robo_app`, thiếu source table gốc, access/language sai.
 
 ## 3. Qdrant payload chuẩn
 
@@ -75,14 +83,19 @@ Mỗi vector point cần payload:
 {
   "source": "knowledge_articles",
   "source_table": "robo_app.knowledge_articles",
+  "source_view": "robo_app.knowledge_articles",
+  "source_tables": ["robo_raw.admin_help_templates"],
   "source_id": "uuid",
+  "chunk_index": 0,
   "domain": "clinic",
   "clinic_id": null,
+  "access_level": "public",
   "visibility": "public",
   "language": "vi",
   "title": "Quy trình check-in",
   "updated_at": "2026-06-01T00:00:00Z",
-  "content_hash": "..."
+  "content_hash": "...",
+  "qdrant_collection": "clinic_knowledge"
 }
 ```
 
@@ -137,11 +150,20 @@ robo_rag.index_manifest
 RAG query production phải có filter:
 
 - `domain = clinic`
-- `visibility in allowed_visibility`
+- `access_level/visibility in allowed_visibility`
 - `clinic_id is null OR clinic_id = auth.clinic_id`
 - `source not in excluded_sources`
 
 Không để patient data riêng tư vào collection public.
+
+Hiện đã áp dụng filter tối thiểu cho vector search:
+
+```text
+domain = clinic
+access_level = public
+```
+
+Filter theo `clinic_id` và internal/private visibility sẽ mở khi có nguồn RAG scoped theo clinic hoặc role.
 
 ## 7. Response rule
 
@@ -163,4 +185,3 @@ Test cần có:
 - query bị filter bởi clinic/visibility;
 - stale document sau update;
 - rebuild từ zero.
-

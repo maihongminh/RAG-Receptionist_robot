@@ -29,6 +29,7 @@ Hiện tại:
 - Đã có domain đầu tiên là `clinic`.
 - Đã có rule-based router.
 - Đã có RAG vector bằng Qdrant local mode, quản lý nguồn qua `scripts/rag_documents.py`.
+- RAG registry có checker `scripts/check_rag_registry.py`; Qdrant payload có metadata `domain/access_level/source/content_hash` và vector search filter public clinic documents.
 - Keyword/fuzzy search vẫn được giữ làm fallback nếu Qdrant chưa có index hoặc lỗi.
 - Đã có LLM provider OpenAI-compatible và Ollama local để parse intent/entities.
 - LLM hiện dùng ở đầu flow để hiểu câu hỏi.

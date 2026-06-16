@@ -135,10 +135,12 @@ Kiểm tra contract `robo_app` sau khi sửa view:
 cd /home/minhmh/tool/robo
 backend/.venv/bin/python scripts/check_app_contract.py
 backend/.venv/bin/python scripts/check_tool_map.py
+backend/.venv/bin/python scripts/check_rag_registry.py
 ```
 
 Nếu thêm view/cột phục vụ tool mới, cập nhật `db/app/contract.json` cùng lúc với `db/app/views.sql`.
 Nếu thêm tool/intent mới, cập nhật `db/app/tool_map.json` cùng lúc với SQL/RAG tool, policy và test.
+Nếu thêm nguồn text mới để vector hóa, cập nhật `scripts/rag_documents.py`, chạy `scripts/check_rag_registry.py`, rồi rebuild Qdrant bằng `scripts/build_qdrant_index.py`.
 Backend domain tools chỉ nên query các view đã có trong contract.
 
 Ví dụ private tool hiện tại: `clinic.lookup_patient_profile` dùng `robo_app.patients` cho intent `patient_profile_summary`; quyền xem được giới hạn bởi `PolicyGuard` theo `patient_id` hoặc `clinic_id`.

@@ -4,7 +4,7 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 ## Trạng thái hiện tại
 
-Cập nhật gần nhất: 2026-06-02
+Cập nhật gần nhất: 2026-06-16
 
 Project đã hoàn thành **MVP hỏi đáp có SQL/RAG/LLM local, auth productization foundation và context hội thoại ngắn**.
 
@@ -139,7 +139,7 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `177 passed`.
+- Test backend hiện tại: `180 passed`.
 - MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -205,6 +205,13 @@ Postgres
   - contract check hiện tại pass: `robo_app has 15 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
   - thêm `scripts/check_tool_map.py`, hiện pass `15 mapped tools`.
+- Bắt đầu P4 RAG production sync:
+  - chuẩn hóa `scripts/rag_documents.py` thành registry có `source_name`, `source_view`, `source_tables`, `domain`, `access_level`, `language`;
+  - mỗi RAG document có `content_hash` để chuẩn bị incremental sync sau này;
+  - Qdrant payload hiện có metadata production: `source`, `source_table`, `source_view`, `source_tables`, `source_id`, `chunk_index`, `domain`, `clinic_id`, `access_level`, `visibility`, `language`, `updated_at`, `content_hash`;
+  - vector search đã filter tối thiểu theo `domain=clinic` và `access_level=public`;
+  - thêm `scripts/check_rag_registry.py`;
+  - contract/test backend đã kiểm tra registry RAG.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

@@ -53,6 +53,7 @@ class QdrantVectorStore:
         query_vector: list[float],
         limit: int = 3,
         score_threshold: float | None = None,
+        payload_filter: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         if not self.client.collection_exists(self.collection_name):
             return []
@@ -62,6 +63,7 @@ class QdrantVectorStore:
             query=query_vector,
             limit=limit,
             score_threshold=score_threshold,
+            query_filter=self._build_filter(payload_filter),
             with_payload=True,
             with_vectors=False,
         )
@@ -72,3 +74,18 @@ class QdrantVectorStore:
             payload["_score"] = round(float(point.score), 3)
             rows.append(payload)
         return rows
+
+    def _build_filter(self, payload_filter: dict[str, Any] | None) -> models.Filter | None:
+        if not payload_filter:
+            return None
+        conditions = [
+            models.FieldCondition(
+                key=key,
+                match=models.MatchValue(value=value),
+            )
+            for key, value in payload_filter.items()
+            if value is not None
+        ]
+        if not conditions:
+            return None
+        return models.Filter(must=conditions)

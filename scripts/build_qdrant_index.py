@@ -38,6 +38,7 @@ def main() -> None:
         print(f"Excluded RAG topics: {', '.join(rag_config.excluded_topics)}")
 
     embedding_client = EmbeddingClient()
+    vector_store = QdrantVectorStore()
     chunks = []
     for row in rows:
         title = row.get("title_vi") or row.get("title") or row.get("topic") or "Knowledge article"
@@ -53,23 +54,31 @@ def main() -> None:
                     "point_id": str(
                         uuid.uuid5(
                             uuid.NAMESPACE_URL,
-                            f"{row['source_table']}:{row['source_id']}:{chunk_index}",
+                            f"{row['source']}:{row['source_id']}:{chunk_index}:{row.get('content_hash')}",
                         )
                     ),
                     "embedding": embedding,
                     "payload": {
+                        "source": row.get("source"),
                         "source_table": row.get("source_table"),
+                        "source_view": row.get("source_view"),
+                        "source_tables": row.get("source_tables", []),
                         "source_id": str(row["source_id"]),
                         "chunk_index": chunk_index,
+                        "domain": row.get("domain"),
+                        "clinic_id": row.get("clinic_id"),
                         "topic": row.get("topic"),
                         "title": row.get("title"),
                         "title_vi": row.get("title_vi"),
                         "document_type": row.get("document_type"),
                         "access_level": row.get("access_level"),
+                        "visibility": row.get("visibility") or row.get("access_level"),
+                        "language": row.get("language"),
                         "updated_at": str(row["updated_at"]) if row.get("updated_at") else None,
+                        "content_hash": row.get("content_hash"),
                         "content": text,
                         "content_vi": text,
-                        "source": "qdrant:clinic_knowledge",
+                        "qdrant_collection": vector_store.collection_name,
                     },
                 }
             )
@@ -77,7 +86,6 @@ def main() -> None:
     if not chunks:
         raise RuntimeError("No chunks were generated from knowledge articles.")
 
-    vector_store = QdrantVectorStore()
     vector_store.recreate_collection(vector_size=len(chunks[0]["embedding"]))
     vector_store.upsert_chunks(chunks)
 

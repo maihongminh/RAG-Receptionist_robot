@@ -151,25 +151,38 @@ robo_app.patient_question_templates
 robo_app.clinic_policies sau này
 robo_app.service_descriptions sau này
   -> scripts/rag_documents.py
+  -> scripts/check_rag_registry.py
   -> scripts/build_qdrant_index.py
   -> Qdrant
 ```
 
-`scripts/rag_documents.py` nên là registry tổng hợp có schema ổn định:
+`scripts/rag_documents.py` là registry tổng hợp có schema ổn định:
 
 ```text
+source_name
+source_view
+source_tables
+domain
+access_level / visibility
+language
 source_table
 source_id
 topic
 title
 content
-language
-access_level
 updated_at
-is_active
+content_hash
 ```
 
-Khi cần thêm nguồn RAG mới, ưu tiên thêm source vào `scripts/rag_documents.py` và tham chiếu các app view sạch từ `db/app/views.sql`.
+Khi cần thêm nguồn RAG mới, ưu tiên thêm source vào `scripts/rag_documents.py` và tham chiếu các app view sạch từ `db/app/views.sql`. Sau khi sửa registry, chạy `scripts/check_rag_registry.py` rồi rebuild Qdrant.
+
+Qdrant payload hiện có đủ metadata để filter production:
+
+```text
+domain = clinic
+access_level = public
+clinic_id = null hoặc clinic cụ thể sau này
+```
 
 ## 4. Đánh giá khả năng LLM
 

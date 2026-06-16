@@ -838,6 +838,7 @@ class ClinicSqlTools:
                 query_vector=embedding,
                 limit=rag_config.vector_top_k,
                 score_threshold=rag_config.vector_min_score,
+                payload_filter={"domain": "clinic", "access_level": "public"},
             )
             rows = self._filter_rag_rows(rows, rag_config)
         except Exception as exc:

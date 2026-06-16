@@ -632,10 +632,11 @@ def test_vector_search_uses_rag_config(monkeypatch):
             return [0.1, 0.2, 0.3]
 
     class FakeQdrantVectorStore:
-        def search(self, query_vector, limit, score_threshold):
+        def search(self, query_vector, limit, score_threshold, payload_filter=None):
             calls["query_vector"] = query_vector
             calls["limit"] = limit
             calls["score_threshold"] = score_threshold
+            calls["payload_filter"] = payload_filter
             return [{"title_vi": "RAG", "content_vi": "Context", "_score": 0.77}]
 
     monkeypatch.setattr(sql_tools, "get_settings", lambda: FakeSettings())
@@ -649,6 +650,7 @@ def test_vector_search_uses_rag_config(monkeypatch):
         "query_vector": [0.1, 0.2, 0.3],
         "limit": 7,
         "score_threshold": 0.66,
+        "payload_filter": {"domain": "clinic", "access_level": "public"},
     }
     assert result.confidence == 0.77
 

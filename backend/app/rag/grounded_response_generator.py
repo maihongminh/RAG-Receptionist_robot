@@ -147,7 +147,7 @@ class GroundedResponseGenerator:
 
         lines = []
         for key, value in row.items():
-            if key.startswith("_") or value in {None, ""}:
+            if key.startswith("_") or self._is_empty_value(value):
                 continue
             lines.append(f"{key}: {value}")
         return "\n".join(lines)
@@ -161,10 +161,13 @@ class GroundedResponseGenerator:
             "field_rule: Giữ nguyên văn name, code, category_name và currency_code; không dịch tên dịch vụ.",
         ]
         for key, value in row.items():
-            if key.startswith("_") or value in {None, ""}:
+            if key.startswith("_") or self._is_empty_value(value):
                 continue
             lines.append(f"{key}: {value}")
         return "\n".join(lines)
+
+    def _is_empty_value(self, value: object) -> bool:
+        return value is None or value == ""
 
     def _is_appointment_row(self, row: dict) -> bool:
         return "appointment_date" in row and (

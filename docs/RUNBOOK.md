@@ -148,8 +148,35 @@ Khi thêm nguồn mới:
 ```text
 nhiều nguồn text hợp lệ
   -> scripts/rag_documents.py
+  -> scripts/check_rag_registry.py
   -> scripts/build_qdrant_index.py
   -> Qdrant
+```
+
+`scripts/rag_documents.py` phải khai báo rõ metadata của từng nguồn:
+
+```text
+source_name
+source_view
+source_tables
+domain
+default_access_level
+default_language
+```
+
+Qdrant payload hiện lưu các trường chính:
+
+```text
+source, source_table, source_view, source_tables, source_id, chunk_index
+domain, clinic_id, access_level, visibility, language
+title, title_vi, document_type, updated_at, content_hash, qdrant_collection
+```
+
+Vector search hiện filter tối thiểu:
+
+```text
+domain = clinic
+access_level = public
 ```
 
 Model embedding:
@@ -204,6 +231,7 @@ Build hoặc rebuild index:
 
 ```bash
 cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/check_rag_registry.py
 backend/.venv/bin/python scripts/build_qdrant_index.py
 ```
 
@@ -457,6 +485,7 @@ Nếu vừa sửa dữ liệu trong app views hoặc thêm nguồn vào `scripts
 
 ```bash
 cd /home/minhmh/tool/robo
+backend/.venv/bin/python scripts/check_rag_registry.py
 backend/.venv/bin/python scripts/build_qdrant_index.py
 ```
 
