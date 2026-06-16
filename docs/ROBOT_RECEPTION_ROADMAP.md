@@ -266,7 +266,7 @@ Trạng thái hiện tại:
 - Đã có `docs/PROGRESS.md` để cập nhật tiến độ sau mỗi lần làm.
 - Đã có `docs/AUTHORIZATION_PLAN.md` cho xác thực/phân quyền.
 - Đã có test backend bước đầu cho intent parser, policy guard và orchestrator.
-- Đã có RAG vector bằng Qdrant local mode trên `robo_app.knowledge_articles`.
+- Đã có RAG vector bằng Qdrant local mode qua `scripts/rag_documents.py`, hiện gồm `robo_app.knowledge_articles` và `robo_app.patient_question_templates`.
 - Vẫn giữ keyword/fuzzy search làm fallback khi Qdrant chưa có index hoặc lỗi.
 - Đã có LLM local qua Ollama để parse intent/entities.
 - Bước tiếp theo là thêm grounded LLM response generator.

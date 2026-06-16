@@ -226,6 +226,41 @@ def test_knowledge_search_template_formats_markdown_as_readable_lines():
     assert "Bệnh nhân vào hàng đợi." in answer
 
 
+def test_knowledge_search_template_formats_patient_question_templates_as_suggestions():
+    intent = Intent(intent="knowledge_search", data_source="rag")
+    result = ToolResult(
+        tool_name="clinic.search_knowledge",
+        source="qdrant:clinic_knowledge",
+        rows=[
+            {
+                "document_type": "patient_question_template",
+                "title_vi": "Tôi nên uống thuốc này như thế nào?",
+                "topic": "medication",
+                "content_vi": "Mẫu câu hỏi gợi ý cho bệnh nhân. Chủ đề: thuốc.",
+            },
+            {
+                "document_type": "patient_question_template",
+                "title_vi": "Tôi có thể uống thuốc này cùng với các thuốc khác không?",
+                "topic": "medication",
+                "content_vi": "Mẫu câu hỏi gợi ý cho bệnh nhân. Chủ đề: thuốc.",
+            },
+            {
+                "document_type": "patient_question_template",
+                "title_vi": "Kết quả xét nghiệm của tôi có ý nghĩa gì?",
+                "topic": "test_results",
+                "content_vi": "Mẫu câu hỏi gợi ý cho bệnh nhân. Chủ đề: kết quả xét nghiệm.",
+            },
+        ],
+    )
+
+    answer = ResponseGenerator().generate("Tôi nên hỏi bác sĩ câu gì về thuốc?", intent, result)
+
+    assert "Bạn có thể tham khảo các câu hỏi sau" in answer
+    assert "1. Tôi nên uống thuốc này như thế nào?" in answer
+    assert "2. Tôi có thể uống thuốc này cùng với các thuốc khác không?" in answer
+    assert "Kết quả xét nghiệm" not in answer
+
+
 def test_medical_advice_mentions_symptom_without_recommending_specific_test():
     intent = Intent(intent="medical_advice", data_source="none")
     result = ToolResult(tool_name="none", source="none")

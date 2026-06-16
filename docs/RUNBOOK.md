@@ -138,6 +138,8 @@ Flow hiện tại:
 ```text
 robo_raw.admin_help_templates
   -> robo_app.knowledge_articles
+robo_raw.patient_question_templates
+  -> robo_app.patient_question_templates
   -> scripts/rag_documents.py
   -> scripts/build_qdrant_index.py
   -> Qdrant collection clinic_knowledge

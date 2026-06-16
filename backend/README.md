@@ -187,6 +187,8 @@ Hiện flow nguồn là:
 ```text
 robo_raw.admin_help_templates
   -> robo_app.knowledge_articles
+robo_raw.patient_question_templates
+  -> robo_app.patient_question_templates
   -> scripts/rag_documents.py
 ```
 

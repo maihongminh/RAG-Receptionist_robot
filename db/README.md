@@ -284,13 +284,15 @@ Flow RAG hiện tại:
 ```text
 robo_raw.admin_help_templates
   -> robo_app.knowledge_articles
+robo_raw.patient_question_templates
+  -> robo_app.patient_question_templates
   -> scripts/rag_documents.py
   -> scripts/build_qdrant_index.py --mode full|incremental
   -> Qdrant collection clinic_knowledge
   -> robo_rag.index_manifest
 ```
 
-`scripts/rag_documents.py` là registry tổng hợp nguồn được phép vector hóa. Hiện file này mới gom `robo_app.knowledge_articles`.
+`scripts/rag_documents.py` là registry tổng hợp nguồn được phép vector hóa. Hiện file này gom `robo_app.knowledge_articles` và `robo_app.patient_question_templates`.
 
 Khi có thêm nhiều nguồn text phù hợp RAG, thêm source vào:
 

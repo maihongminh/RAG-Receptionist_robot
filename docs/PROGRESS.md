@@ -139,7 +139,7 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `183 passed`.
+- Test backend hiện tại: `186 passed`.
 - MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -224,6 +224,16 @@ Postgres
   - `scripts/build_qdrant_index.py --mode incremental` đọc `robo_rag.index_manifest`, bỏ qua document chưa đổi hash, re-index document mới/đổi hash, xóa point stale;
   - nếu thiếu collection hoặc manifest, incremental tự fallback sang full rebuild;
   - đã chạy incremental sync thật thành công: `4 unchanged`, `0 changed/new`, `0 stale`, `0 upserted chunks`.
+- Mở rộng RAG source thứ hai:
+  - thêm `robo_app.patient_question_templates` vào `scripts/rag_documents.py`;
+  - source này lấy từ `robo_raw.patient_question_templates`;
+  - `document_type=patient_question_template`, nội dung được đóng khung là mẫu câu hỏi gợi ý bệnh nhân hỏi bác sĩ;
+  - registry checker hiện pass `2 source(s)`;
+  - đã chạy incremental sync thật: `4 unchanged`, `11 changed/new docs`, `0 stale`, `11 upserted chunks`;
+  - manifest hiện có `4` chunks từ `knowledge_articles` và `11` chunks từ `patient_question_templates`.
+  - thêm routing cho câu hỏi dạng `mẫu câu hỏi`, `nên hỏi bác sĩ câu gì` vào `knowledge_search`;
+  - formatter fallback hiện trả `patient_question_template` dưới dạng danh sách câu hỏi gợi ý, có lọc topic như `medication`, `test_results`, `lifestyle`;
+  - test thực tế `Tôi nên hỏi bác sĩ câu gì về thuốc?` trả 2 câu hỏi liên quan thuốc.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
@@ -380,12 +390,12 @@ http://localhost:5173
 - Pull model embedding `nomic-embed-text` bằng Ollama.
 - Thêm Qdrant local vector store tại `qdrant_data/`, đã thêm vào `.gitignore`.
 - Thêm script `scripts/build_qdrant_index.py` để vector hóa source registry trong `scripts/rag_documents.py`.
-- Build index thành công sau khi lọc: `4 chunks` từ `4 rows` vào collection `clinic_knowledge`.
+- Build index ban đầu thành công sau khi lọc: `4 chunks` từ `4 rows` vào collection `clinic_knowledge`.
 - Sửa backend `knowledge_search` để ưu tiên Qdrant vector search, fallback keyword/fuzzy search.
 - Test `Quy trình check-in bệnh nhân như thế nào?` trả source `qdrant:clinic_knowledge`.
 - Cập nhật tài liệu flow RAG:
   - hiện tại build vector từ `scripts/rag_documents.py`.
-  - `scripts/rag_documents.py` hiện gom `robo_app.knowledge_articles`; sau này thêm nguồn text hợp lệ vào file này.
+  - `scripts/rag_documents.py` hiện gom `robo_app.knowledge_articles` và `robo_app.patient_question_templates`; sau này thêm nguồn text hợp lệ vào file này.
 - Đồng bộ tài liệu với source hiện tại:
   - bổ sung `embedding_client.py`, `qdrant_store.py`, `build_qdrant_index.py`, `qdrant_data/`.
   - bổ sung `test_clinic_sql_tools.py`.

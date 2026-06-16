@@ -24,7 +24,7 @@ File này mô tả chức năng của từng tài liệu trong project. Toàn b�
 4. `doc_system.md`
    - Tài liệu tổng quan hệ thống.
    - Đánh giá trạng thái data layer, RAG, LLM, scale đa lĩnh vực.
-   - Mô tả flow hiện tại `knowledge_articles -> Qdrant` và hướng sau này `rag_documents -> Qdrant`.
+   - Mô tả flow hiện tại `rag_documents.py -> Qdrant` với `knowledge_articles` và `patient_question_templates`.
 
 5. `ROBOT_RECEPTION_ROADMAP.md`
    - Roadmap sản phẩm/kiến trúc dài hạn.

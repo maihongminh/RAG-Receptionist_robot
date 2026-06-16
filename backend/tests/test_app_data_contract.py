@@ -55,6 +55,16 @@ def test_rag_registry_is_valid():
     assert validate_rag_registry() == []
 
 
+def test_rag_registry_includes_public_question_templates_source():
+    sources = {source.source_name: source for source in RAG_DOCUMENT_SOURCES}
+
+    assert set(sources) == {"knowledge_articles", "patient_question_templates"}
+    assert sources["patient_question_templates"].source_view == "robo_app.patient_question_templates"
+    assert sources["patient_question_templates"].source_tables == (
+        "robo_raw.patient_question_templates",
+    )
+
+
 def test_rag_document_normalization_adds_production_metadata():
     source = RAG_DOCUMENT_SOURCES[0]
     document = normalize_rag_document(

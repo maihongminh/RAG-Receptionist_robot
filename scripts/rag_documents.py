@@ -41,6 +41,46 @@ RAG_DOCUMENT_SOURCES = [
             WHERE COALESCE(is_active, true) = true
         """,
     ),
+    RagDocumentSource(
+        source_name="patient_question_templates",
+        source_view="robo_app.patient_question_templates",
+        source_tables=("robo_raw.patient_question_templates",),
+        query="""
+            SELECT
+              'patient_question_templates'::text AS source,
+              'robo_app.patient_question_templates'::text AS source_table,
+              id::text AS source_id,
+              category::text AS topic,
+              question_text AS title,
+              question_text_vi AS title_vi,
+              CONCAT(
+                'Suggested patient question. Category: ',
+                category,
+                '. Question: ',
+                question_text
+              ) AS content,
+              CONCAT(
+                'Mẫu câu hỏi gợi ý cho bệnh nhân. Chủ đề: ',
+                CASE category
+                  WHEN 'general' THEN 'thông tin chung'
+                  WHEN 'medication' THEN 'thuốc'
+                  WHEN 'test_results' THEN 'kết quả xét nghiệm'
+                  WHEN 'lifestyle' THEN 'lối sống'
+                  ELSE category
+                END,
+                '. Câu hỏi: ',
+                question_text_vi
+              ) AS content_vi,
+              'patient_question_template'::text AS document_type,
+              'public'::text AS access_level,
+              'vi'::text AS language,
+              NULL::text AS clinic_id,
+              is_active,
+              NULL::text AS updated_at
+            FROM robo_app.patient_question_templates
+            WHERE COALESCE(is_active, true) = true
+        """,
+    ),
 ]
 
 

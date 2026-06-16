@@ -212,6 +212,14 @@ def test_knowledge_search_intent():
     assert intent.entities["knowledge_query"] == "Quy trình khám như thế nào?"
 
 
+def test_patient_question_template_routes_to_knowledge_search_not_doctor_schedule():
+    intent = RuleIntentParser().parse("Tôi nên hỏi bác sĩ câu gì về thuốc?", "clinic")
+
+    assert intent.intent == "knowledge_search"
+    assert intent.data_source == "rag"
+    assert intent.entities["knowledge_query"] == "Tôi nên hỏi bác sĩ câu gì về thuốc?"
+
+
 def test_appointment_booking_intent():
     intent = RuleIntentParser().parse("đặt lịch", "clinic")
 

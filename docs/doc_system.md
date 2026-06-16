@@ -92,7 +92,7 @@ Project đã có RAG vector local bằng Qdrant cho dữ liệu hướng dẫn/q
 Nguồn dữ liệu nên đưa vào RAG:
 
 - Hiện tại: `scripts/rag_documents.py`
-- Nguồn ban đầu trong registry: `robo_app.knowledge_articles`
+- Nguồn hiện có trong registry: `robo_app.knowledge_articles`, `robo_app.patient_question_templates`
 - nội dung hướng dẫn/quy trình
 - FAQ
 - mô tả dịch vụ nếu cần semantic search

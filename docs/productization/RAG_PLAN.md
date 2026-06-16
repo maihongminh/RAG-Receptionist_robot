@@ -9,10 +9,11 @@ scripts/rag_documents.py
   -> backend knowledge_search
 ```
 
-Nguồn chính hiện tại:
+Nguồn hiện tại:
 
 ```text
 robo_app.knowledge_articles
+robo_app.patient_question_templates
 ```
 
 ## 1. RAG dùng cho loại dữ liệu nào?
@@ -61,6 +62,13 @@ Ví dụ:
 knowledge_articles
   source_view: robo_app.knowledge_articles
   source_tables: robo_raw.admin_help_templates
+  domain: clinic
+  default_access_level: public
+  default_language: vi
+
+patient_question_templates
+  source_view: robo_app.patient_question_templates
+  source_tables: robo_raw.patient_question_templates
   domain: clinic
   default_access_level: public
   default_language: vi

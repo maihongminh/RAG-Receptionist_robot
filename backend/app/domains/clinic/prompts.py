@@ -15,7 +15,7 @@ Các intent hợp lệ:
 - service_catalog_summary: hỏi tổng quan phòng khám hiện có những dịch vụ nào, danh mục dịch vụ đang cung cấp.
 - service_category_detail: hỏi chi tiết một nhóm dịch vụ cụ thể gồm những dịch vụ nào.
 - doctor_schedule: hỏi lịch bác sĩ, bác sĩ có khám không.
-- knowledge_search: hỏi hướng dẫn, quy trình, FAQ, cách làm, nhận/trả kết quả.
+- knowledge_search: hỏi hướng dẫn, quy trình, FAQ, cách làm, nhận/trả kết quả, hoặc mẫu câu hỏi gợi ý bệnh nhân có thể hỏi bác sĩ.
 - appointment_booking: người dùng muốn đặt lịch, book lịch, đăng ký khám, hẹn khám, tạo lịch hẹn.
 - appointment_lookup: tra cứu lịch hẹn đã có sau khi hệ thống đã xác thực danh tính.
 - lab_result_lookup: tra cứu kết quả xét nghiệm/cận lâm sàng của người dùng, cần xác thực.
@@ -44,6 +44,7 @@ Quy tắc route:
 - Chào hỏi và đặt lịch hiện tại dùng data_source="none".
 - Nếu câu hỏi chỉ là hành động "đặt lịch", chọn appointment_booking.
 - Nếu câu hỏi là "cách/quy trình/hướng dẫn đặt lịch", chọn knowledge_search.
+- Nếu câu hỏi hỏi "mẫu câu hỏi", "nên hỏi bác sĩ câu gì", "câu hỏi gợi ý", chọn knowledge_search, không chọn doctor_schedule.
 
 Entity gợi ý:
 - general_info: {"profile_query": "..."} nếu người dùng nhắc tên cơ sở/phòng khám cụ thể; nếu hỏi chung thì để "".

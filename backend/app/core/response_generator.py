@@ -47,7 +47,7 @@ class ResponseGenerator:
         if intent.intent == "doctor_schedule":
             return self._doctor_schedule(intent, result)
         if intent.intent == "knowledge_search":
-            return self._knowledge_search(result)
+            return self._knowledge_search(question, result)
         if intent.intent == "appointment_booking":
             return self._appointment_booking()
         if intent.intent == "medical_advice":
@@ -242,9 +242,12 @@ class ResponseGenerator:
             f"{index}. {line}" for index, line in enumerate(lines, start=1)
         )
 
-    def _knowledge_search(self, result: ToolResult) -> str:
+    def _knowledge_search(self, question: str, result: ToolResult) -> str:
         if not result.rows:
             return "Tôi chưa tìm thấy hướng dẫn phù hợp trong dữ liệu hiện có."
+
+        if result.rows[0].get("document_type") == "patient_question_template":
+            return self._patient_question_template_answer(question, result)
 
         row = result.rows[0]
         title = row.get("title_vi") or row.get("title") or row.get("topic") or "Thông tin hướng dẫn"
@@ -253,6 +256,37 @@ class ResponseGenerator:
         if summary_lines:
             return f"{title}:\n" + "\n".join(summary_lines)
         return f"Tôi tìm thấy nội dung liên quan: {title}."
+
+    def _patient_question_template_answer(self, question: str, result: ToolResult) -> str:
+        max_rows = get_rag_config().context_max_rows
+        preferred_topic = self._preferred_question_template_topic(question)
+        rows = result.rows
+        if preferred_topic:
+            topic_rows = [row for row in rows if row.get("topic") == preferred_topic]
+            if topic_rows:
+                rows = topic_rows
+
+        questions = []
+        for row in rows[:max_rows]:
+            question = row.get("title_vi") or row.get("title")
+            if question and question not in questions:
+                questions.append(str(question))
+
+        if not questions:
+            return "Tôi tìm thấy mẫu câu hỏi gợi ý, nhưng dữ liệu hiện chưa có nội dung chi tiết."
+
+        lines = [f"{index}. {question}" for index, question in enumerate(questions, start=1)]
+        return "Bạn có thể tham khảo các câu hỏi sau để trao đổi với bác sĩ:\n" + "\n".join(lines)
+
+    def _preferred_question_template_topic(self, question: str) -> str | None:
+        normalized = question.lower()
+        if any(keyword in normalized for keyword in ("thuốc", "medication", "uống thuốc")):
+            return "medication"
+        if any(keyword in normalized for keyword in ("xét nghiệm", "kết quả", "test result")):
+            return "test_results"
+        if any(keyword in normalized for keyword in ("lối sống", "sinh hoạt", "hoạt động", "lifestyle")):
+            return "lifestyle"
+        return None
 
     def _knowledge_summary_lines(self, content: str, title: str, limit: int = 8) -> list[str]:
         raw_lines = str(content or "").splitlines()
