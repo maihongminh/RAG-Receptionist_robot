@@ -154,6 +154,7 @@ robo_app.service_descriptions sau này
   -> scripts/check_rag_registry.py
   -> scripts/build_qdrant_index.py
   -> Qdrant
+  -> robo_rag.index_manifest
 ```
 
 `scripts/rag_documents.py` là registry tổng hợp có schema ổn định:
@@ -183,6 +184,8 @@ domain = clinic
 access_level = public
 clinic_id = null hoặc clinic cụ thể sau này
 ```
+
+`robo_rag.index_manifest` lưu các point đã index theo `source/source_id/chunk_index/content_hash`. Hiện build index vẫn là full rebuild, nhưng manifest này là nền cho incremental sync sau này.
 
 ## 4. Đánh giá khả năng LLM
 

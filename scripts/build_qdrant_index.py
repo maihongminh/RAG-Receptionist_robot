@@ -12,6 +12,7 @@ sys.path.insert(0, str(BACKEND_ROOT))
 from app.rag.embedding_client import EmbeddingClient  # noqa: E402
 from app.rag.qdrant_store import QdrantVectorStore  # noqa: E402
 from app.rag.rag_config import get_rag_config  # noqa: E402
+from rag_index_manifest import build_manifest_rows, replace_index_manifest  # noqa: E402
 from rag_documents import load_rag_documents  # noqa: E402
 
 
@@ -88,10 +89,13 @@ def main() -> None:
 
     vector_store.recreate_collection(vector_size=len(chunks[0]["embedding"]))
     vector_store.upsert_chunks(chunks)
+    manifest_rows = build_manifest_rows(chunks)
+    replace_index_manifest(vector_store.collection_name, manifest_rows)
 
     print(
         f"Indexed {len(chunks)} chunks from {len(rows)} rows in {SOURCE_VIEW} "
-        f"into Qdrant collection '{vector_store.collection_name}'."
+        f"into Qdrant collection '{vector_store.collection_name}'. "
+        f"Manifest rows: {len(manifest_rows)}."
     )
 
 

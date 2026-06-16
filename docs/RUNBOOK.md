@@ -128,10 +128,10 @@ Lưu ý:
 RAG vector dùng:
 
 ```text
-scripts/rag_documents.py -> Ollama embedding -> Qdrant local qdrant_data
+scripts/rag_documents.py -> Ollama embedding -> Qdrant local qdrant_data -> robo_rag.index_manifest
 ```
 
-Postgres vẫn là nguồn dữ liệu gốc. Qdrant chỉ là vector index, có thể xóa và build lại.
+Postgres vẫn là nguồn dữ liệu gốc. Qdrant chỉ là vector index, có thể xóa và build lại. `robo_rag.index_manifest` chỉ lưu manifest/tracking của các point đã index, không thay Qdrant.
 
 Flow hiện tại:
 
@@ -141,6 +141,7 @@ robo_raw.admin_help_templates
   -> scripts/rag_documents.py
   -> scripts/build_qdrant_index.py
   -> Qdrant collection clinic_knowledge
+  -> robo_rag.index_manifest
 ```
 
 Khi thêm nguồn mới:
@@ -177,6 +178,13 @@ Vector search hiện filter tối thiểu:
 ```text
 domain = clinic
 access_level = public
+```
+
+Tạo/cập nhật RAG manifest schema trước lần build index đầu tiên:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
 ```
 
 Model embedding:
@@ -231,6 +239,7 @@ Build hoặc rebuild index:
 
 ```bash
 cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
 backend/.venv/bin/python scripts/check_rag_registry.py
 backend/.venv/bin/python scripts/build_qdrant_index.py
 ```
@@ -485,6 +494,7 @@ Nếu vừa sửa dữ liệu trong app views hoặc thêm nguồn vào `scripts
 
 ```bash
 cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
 backend/.venv/bin/python scripts/check_rag_registry.py
 backend/.venv/bin/python scripts/build_qdrant_index.py
 ```

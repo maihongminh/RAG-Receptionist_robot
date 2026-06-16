@@ -109,6 +109,7 @@ Postgres
   -> embed
   -> recreate Qdrant collection
   -> upsert all points
+  -> replace robo_rag.index_manifest for the collection
 ```
 
 Khi dùng full rebuild:
@@ -139,11 +140,20 @@ indexed_at
 qdrant_point_id
 ```
 
-Có thể lưu trong Postgres:
+Hiện đã có manifest foundation trong Postgres:
 
 ```text
 robo_rag.index_manifest
 ```
+
+Schema:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
+```
+
+`scripts/build_qdrant_index.py` hiện ghi lại manifest sau khi upsert Qdrant thành công. Bản hiện tại vẫn là full rebuild; incremental sync thật sẽ dùng bảng này để so `source/source_id/content_hash/updated_at`.
 
 ## 6. Filtering
 

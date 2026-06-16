@@ -7,6 +7,7 @@ Kiến trúc dữ liệu hiện tại:
 ```text
 Excel -> robo_raw tables -> robo_app views -> backend/chatbot
                          -> robo_auth accounts/session/audit
+                         -> robo_rag index manifest
 ```
 
 Thư mục `db/` được chia theo schema:
@@ -25,6 +26,8 @@ db/
 ├── auth/
 │   ├── schema.sql
 │   └── seed_demo.sql
+├── rag/
+│   └── schema.sql
 ├── import_all.sql
 ├── manifest.json
 └── README.md
@@ -85,6 +88,7 @@ Các file được sinh:
 - `db/app/seed_productization_demo.sql`: bổ sung demo data cho các use case mở rộng sau MVP.
 - `db/auth/schema.sql`: tạo schema `robo_auth` cho account/session/audit production foundation.
 - `db/auth/seed_demo.sql`: seed account demo cho login email/password.
+- `db/rag/schema.sql`: tạo schema `robo_rag` để lưu manifest các vector chunk đã index vào Qdrant.
 - `db/manifest.json`: mapping sheet Excel -> bảng Postgres -> cột.
 - `data/postgres_csv/*.csv`: dữ liệu CSV đã export từ từng sheet Excel.
 
@@ -104,11 +108,14 @@ cd /home/minhmh/tool/robo
 psql robo_reception -f db/app/seed_mvp_demo.sql
 scripts/apply_productization_seed.sh
 scripts/apply_auth_schema.sh
+scripts/apply_rag_schema.sh
 ```
 
 Seed này tách riêng khỏi dữ liệu Excel gốc. `db/app/seed_mvp_demo.sql` bổ sung doctor demo còn thiếu, giờ làm việc/địa chỉ cho các clinic active, appointment tương lai và vài kết quả lab/imaging để test chatbot. Từ phase productization, demo data mới đặt trong `db/app/seed_productization_demo.sql` để không trộn với mốc MVP. `db/auth/seed_demo.sql` bổ sung account demo vào `robo_auth`.
 
 `robo_auth.audit_events` lưu audit event kèm `request_id` và `latency_ms` để lần vết login/logout/policy/tool result theo từng HTTP request.
+
+`robo_rag.index_manifest` lưu manifest của các Qdrant point đã build: collection, source, source_id, chunk_index, point_id, content_hash và metadata filter. Đây là nền để sau này làm incremental RAG sync.
 
 ## Schema `robo_app`
 
@@ -189,6 +196,21 @@ Các bảng auth hiện có:
 - `robo_auth.password_reset_tokens`: reset password token hash có TTL.
 - `robo_auth.audit_events`: audit login/logout/policy/tool result.
 
+## Schema `robo_rag`
+
+`robo_rag` là schema vận hành cho RAG, tách khỏi `robo_app` và Qdrant.
+
+Tạo/cập nhật RAG schema:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
+```
+
+Các bảng RAG hiện có:
+
+- `robo_rag.index_manifest`: manifest các chunk đã index vào Qdrant, gồm `qdrant_collection`, `source`, `source_id`, `chunk_index`, `point_id`, `content_hash`, `domain`, `clinic_id`, `access_level`, `language`, `indexed_at`.
+
 Kiểm tra view:
 
 ```sql
@@ -265,6 +287,7 @@ robo_raw.admin_help_templates
   -> scripts/rag_documents.py
   -> scripts/build_qdrant_index.py
   -> Qdrant collection clinic_knowledge
+  -> robo_rag.index_manifest
 ```
 
 `scripts/rag_documents.py` là registry tổng hợp nguồn được phép vector hóa. Hiện file này mới gom `robo_app.knowledge_articles`.
@@ -287,7 +310,10 @@ service descriptions sau này
 Mỗi document trong registry nên chuẩn hóa thành schema:
 
 ```text
+source
 source_table
+source_view
+source_tables
 source_id
 topic
 title
@@ -296,8 +322,11 @@ content
 content_vi
 document_type
 access_level
-is_active
+visibility
+language
+clinic_id
 updated_at
+content_hash
 ```
 
 Script vector hiện đọc registry:

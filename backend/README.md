@@ -179,6 +179,7 @@ scripts/rag_documents.py
   -> scripts/build_qdrant_index.py
   -> Ollama nomic-embed-text
   -> qdrant_data / clinic_knowledge
+  -> robo_rag.index_manifest
 ```
 
 Hiện flow nguồn là:
@@ -193,8 +194,12 @@ Build index:
 
 ```bash
 cd /home/minhmh/tool/robo
+scripts/apply_rag_schema.sh
+backend/.venv/bin/python scripts/check_rag_registry.py
 backend/.venv/bin/python scripts/build_qdrant_index.py
 ```
+
+`robo_rag.index_manifest` lưu các point đã index theo collection/source/document/chunk/hash để chuẩn bị incremental sync. Qdrant vẫn là vector store chính; manifest chỉ là tracking trong Postgres.
 
 Khi `knowledge_search`, backend sẽ query Qdrant trước. Nếu Qdrant chưa có index, không có kết quả đạt `RAG_MIN_SCORE`, hoặc lỗi, backend fallback về keyword/fuzzy search từ cùng registry `scripts/rag_documents.py`.
 

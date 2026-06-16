@@ -139,7 +139,7 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `180 passed`.
+- Test backend hiện tại: `182 passed`.
 - MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -212,6 +212,14 @@ Postgres
   - vector search đã filter tối thiểu theo `domain=clinic` và `access_level=public`;
   - thêm `scripts/check_rag_registry.py`;
   - contract/test backend đã kiểm tra registry RAG.
+- Mở rộng P4 RAG manifest foundation:
+  - thêm schema `db/rag/schema.sql`;
+  - thêm script `scripts/apply_rag_schema.sh`;
+  - thêm bảng `robo_rag.index_manifest` để track Qdrant point theo `qdrant_collection`, `source`, `source_id`, `chunk_index`, `point_id`, `content_hash`;
+  - `scripts/build_qdrant_index.py` hiện ghi manifest sau full rebuild;
+  - thêm helper `scripts/rag_index_manifest.py`;
+  - đã chạy rebuild Qdrant local thành công: `4 chunks` từ `4 rows`, manifest `4 rows`;
+  - incremental sync thật vẫn là bước tiếp theo, dùng manifest này để so thay đổi.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

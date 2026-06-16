@@ -9,6 +9,7 @@ sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from check_tool_map import validate_tool_map
 from check_rag_registry import validate_rag_registry
+from rag_index_manifest import build_manifest_rows
 from rag_documents import RAG_DOCUMENT_SOURCES, build_content_hash, normalize_rag_document
 
 
@@ -79,3 +80,58 @@ def test_rag_document_normalization_adds_production_metadata():
     assert document["document_type"] == "knowledge_article"
     assert document["content_hash"] == build_content_hash(document)
     assert len(document["content_hash"]) == 64
+
+
+def test_rag_index_manifest_schema_exists():
+    schema_path = PROJECT_ROOT / "db" / "rag" / "schema.sql"
+
+    assert schema_path.exists()
+    schema_sql = schema_path.read_text(encoding="utf-8")
+    assert "CREATE SCHEMA IF NOT EXISTS robo_rag" in schema_sql
+    assert "CREATE TABLE IF NOT EXISTS robo_rag.index_manifest" in schema_sql
+
+
+def test_rag_index_manifest_rows_are_derived_from_qdrant_payload():
+    rows = build_manifest_rows(
+        [
+            {
+                "point_id": "point-1",
+                "payload": {
+                    "qdrant_collection": "clinic_knowledge",
+                    "source": "knowledge_articles",
+                    "source_table": "robo_app.knowledge_articles",
+                    "source_view": "robo_app.knowledge_articles",
+                    "source_id": "article-1",
+                    "chunk_index": 2,
+                    "content_hash": "abc123",
+                    "domain": "clinic",
+                    "access_level": "public",
+                    "visibility": "public",
+                    "language": "vi",
+                    "document_type": "knowledge_article",
+                    "updated_at": "2026-06-16T00:00:00Z",
+                },
+            }
+        ]
+    )
+
+    assert rows == [
+        {
+            "id": "clinic_knowledge:knowledge_articles:article-1:2",
+            "qdrant_collection": "clinic_knowledge",
+            "source": "knowledge_articles",
+            "source_table": "robo_app.knowledge_articles",
+            "source_view": "robo_app.knowledge_articles",
+            "source_id": "article-1",
+            "chunk_index": 2,
+            "point_id": "point-1",
+            "content_hash": "abc123",
+            "domain": "clinic",
+            "clinic_id": None,
+            "access_level": "public",
+            "visibility": "public",
+            "language": "vi",
+            "document_type": "knowledge_article",
+            "source_updated_at": "2026-06-16T00:00:00Z",
+        }
+    ]
