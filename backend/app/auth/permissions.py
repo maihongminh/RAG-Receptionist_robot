@@ -8,6 +8,8 @@ PUBLIC_TOOLS = {
     "clinic.list_service_categories",
     "clinic.summarize_service_catalog",
     "clinic.list_services_by_category",
+    "clinic.lookup_service_package_detail",
+    "clinic.lookup_lab_indicator_detail",
     "clinic.search_doctor_schedules",
     "clinic.search_knowledge",
     "clinic.create_appointment_request",

@@ -28,6 +28,10 @@ class ToolRegistry:
             return adapter.summarize_service_catalog(intent.entities)
         if intent.intent == "service_category_detail":
             return adapter.list_services_by_category(intent.entities)
+        if intent.intent == "service_package_detail":
+            return adapter.lookup_service_package_detail(intent.entities)
+        if intent.intent == "lab_indicator_detail":
+            return adapter.lookup_lab_indicator_detail(intent.entities)
         if intent.intent == "doctor_schedule":
             return adapter.check_availability(intent.entities)
         if intent.intent == "knowledge_search":

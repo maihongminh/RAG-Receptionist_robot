@@ -75,6 +75,30 @@
       "tests": ["backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
     },
     {
+      "tool_name": "clinic.lookup_service_package_detail",
+      "status": "active",
+      "intents": ["service_package_detail"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["service_packages", "service_package_items"],
+      "source_tables": ["robo_raw.service_packages", "robo_raw.service_package_items", "robo_raw.service_catalog"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Returns active package metadata and package item composition.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
+    },
+    {
+      "tool_name": "clinic.lookup_lab_indicator_detail",
+      "status": "active",
+      "intents": ["lab_indicator_detail"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["service_lab_indicators"],
+      "source_tables": ["robo_raw.service_lab_indicators", "robo_raw.service_catalog"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Returns active lab indicators/analytes for matched lab services.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
+    },
+    {
       "tool_name": "clinic.search_doctor_schedules",
       "status": "active",
       "intents": ["doctor_schedule"],

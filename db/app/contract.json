@@ -143,7 +143,7 @@
       "name": "service_lab_indicators",
       "access_level": "public",
       "source_tables": ["robo_raw.service_lab_indicators", "robo_app.services"],
-      "tools": ["future.lab_indicator_detail"],
+      "tools": ["clinic.lookup_lab_indicator_detail"],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},
@@ -169,7 +169,7 @@
       "name": "service_packages",
       "access_level": "public",
       "source_tables": ["robo_raw.service_packages"],
-      "tools": ["future.service_package_detail"],
+      "tools": ["clinic.lookup_service_package_detail"],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},
@@ -192,7 +192,7 @@
       "name": "service_package_items",
       "access_level": "public",
       "source_tables": ["robo_raw.service_package_items", "robo_app.service_packages", "robo_app.services"],
-      "tools": ["future.service_package_detail"],
+      "tools": ["clinic.lookup_service_package_detail"],
       "columns": [
         {"name": "id", "data_type": "text"},
         {"name": "clinic_id", "data_type": "text"},

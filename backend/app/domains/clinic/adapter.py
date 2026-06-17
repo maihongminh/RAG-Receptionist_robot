@@ -33,6 +33,16 @@ class ClinicAdapter(DomainAdapter):
             service_type=entities.get("service_type", "all"),
         )
 
+    def lookup_service_package_detail(self, entities: dict) -> ToolResult:
+        return self.sql_tools.lookup_service_package_detail(
+            package_query=entities.get("package_query", ""),
+        )
+
+    def lookup_lab_indicator_detail(self, entities: dict) -> ToolResult:
+        return self.sql_tools.lookup_lab_indicator_detail(
+            indicator_query=entities.get("indicator_query", ""),
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return self.sql_tools.search_doctor_schedules(
             doctor_query=entities.get("doctor_query", ""),

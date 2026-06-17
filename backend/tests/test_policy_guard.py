@@ -14,6 +14,22 @@ def test_guest_can_access_public_tool():
     assert decision.allowed is True
 
 
+def test_guest_can_access_public_service_package_detail():
+    intent = Intent(domain="clinic", intent="service_package_detail", data_source="sql")
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="guest"))
+
+    assert decision.allowed is True
+
+
+def test_guest_can_access_public_lab_indicator_detail():
+    intent = Intent(domain="clinic", intent="lab_indicator_detail", data_source="sql")
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="guest"))
+
+    assert decision.allowed is True
+
+
 def test_guest_cannot_access_personal_data():
     intent = Intent(
         domain="clinic",

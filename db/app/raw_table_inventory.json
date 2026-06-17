@@ -472,8 +472,8 @@
       "status": "current",
       "batch": "batch_2_lab_diagnostics",
       "app_views": ["service_lab_indicators"],
-      "tools": ["future.lab_indicator_detail"],
-      "notes": "App view contract enriches lab service detail with indicators/analytes; chatbot tool integration is still future work."
+      "tools": ["clinic.lookup_lab_indicator_detail"],
+      "notes": "App view contract enriches lab service detail with indicators/analytes and is exposed through a public SQL lookup tool."
     },
     {
       "raw_table": "service_package_items",
@@ -482,8 +482,8 @@
       "status": "current",
       "batch": "batch_3_packages_billing",
       "app_views": ["service_package_items"],
-      "tools": ["future.service_package_detail"],
-      "notes": "App view contract exposes package composition; chatbot package detail tool is still future work."
+      "tools": ["clinic.lookup_service_package_detail"],
+      "notes": "App view contract exposes package composition and is used by the public package detail lookup tool."
     },
     {
       "raw_table": "service_packages",
@@ -492,8 +492,8 @@
       "status": "current",
       "batch": "batch_3_packages_billing",
       "app_views": ["service_packages"],
-      "tools": ["future.service_package_detail"],
-      "notes": "App view contract exposes package listing/pricing; chatbot package detail tool is still future work."
+      "tools": ["clinic.lookup_service_package_detail"],
+      "notes": "App view contract exposes package listing/pricing and is used by the public package detail lookup tool."
     },
     {
       "raw_table": "staff",

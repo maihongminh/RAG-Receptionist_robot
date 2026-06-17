@@ -249,6 +249,8 @@ class Orchestrator:
             "service_category_list": "sql",
             "service_catalog_summary": "sql",
             "service_category_detail": "sql",
+            "service_package_detail": "sql",
+            "lab_indicator_detail": "sql",
             "doctor_schedule": "sql",
             "knowledge_search": "rag",
             "appointment_booking": "none",
@@ -280,6 +282,16 @@ class Orchestrator:
             intent = rule_intent.model_copy(
                 update={"confidence": max(intent.confidence, rule_intent.confidence)}
             )
+        elif rule_intent.intent in {"service_package_detail", "lab_indicator_detail"} and intent.intent in {
+            "service_price",
+            "service_category_list",
+            "service_catalog_summary",
+            "service_category_detail",
+            "out_of_scope",
+        }:
+            intent = rule_intent.model_copy(
+                update={"confidence": max(intent.confidence, rule_intent.confidence)}
+            )
         elif rule_intent.intent == "service_catalog_summary" and intent.intent in {
             "service_category_list",
             "service_price",
@@ -292,6 +304,8 @@ class Orchestrator:
             "service_category_list",
             "service_catalog_summary",
             "service_category_detail",
+            "service_package_detail",
+            "lab_indicator_detail",
             "out_of_scope",
         }:
             intent = rule_intent.model_copy(
@@ -330,6 +344,10 @@ class Orchestrator:
                 entities["category_query"] = rule_intent.entities.get("category_query", question.strip())
             if not entities.get("service_type"):
                 entities["service_type"] = rule_intent.entities.get("service_type", "all")
+        elif intent.intent == "service_package_detail" and not entities.get("package_query"):
+            entities["package_query"] = rule_intent.entities.get("package_query", question.strip())
+        elif intent.intent == "lab_indicator_detail" and not entities.get("indicator_query"):
+            entities["indicator_query"] = rule_intent.entities.get("indicator_query", question.strip())
         elif intent.intent == "general_info" and not entities.get("profile_query"):
             entities["profile_query"] = rule_intent.entities.get("profile_query", "")
         elif intent.intent == "doctor_schedule":

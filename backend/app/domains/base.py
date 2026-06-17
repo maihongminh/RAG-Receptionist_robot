@@ -25,6 +25,14 @@ class DomainAdapter(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def lookup_service_package_detail(self, entities: dict) -> ToolResult:
+        raise NotImplementedError
+
+    @abstractmethod
+    def lookup_lab_indicator_detail(self, entities: dict) -> ToolResult:
+        raise NotImplementedError
+
+    @abstractmethod
     def check_availability(self, entities: dict) -> ToolResult:
         raise NotImplementedError
 

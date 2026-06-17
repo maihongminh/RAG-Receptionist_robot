@@ -90,7 +90,7 @@ Trạng thái hiện tại:
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
 - Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
 - Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
-- Đã thêm `db/app/tool_map.json` cho 15 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary` và `clinic.lookup_billing_summary`.
+- Đã thêm `db/app/tool_map.json` cho 17 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary`, `clinic.lookup_billing_summary`, `clinic.lookup_lab_indicator_detail` và `clinic.lookup_service_package_detail`.
 - Đã mở rộng contract `robo_app.patients` cho patient profile summary.
 - Đã map timeline sang các view hiện có: `patients`, `appointments`, `paraclinical_results`.
 - Đã thêm `robo_app.patient_visit_summaries` để gom `medical_records`, `visits`, latest `vital_signs`, patient và doctor.
@@ -100,6 +100,9 @@ Trạng thái hiện tại:
   - `robo_app.service_lab_indicators`;
   - `robo_app.service_packages`;
   - `robo_app.service_package_items`.
+- Đã nối public SQL tool cho lab indicator/package detail:
+  - `clinic.lookup_lab_indicator_detail`;
+  - `clinic.lookup_service_package_detail`.
 - Chưa có mapping chi tiết cho toàn bộ 56 bảng raw; sẽ mở theo use case.
 
 ## Phase P3 - Private data expansion + audit

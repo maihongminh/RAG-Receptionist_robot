@@ -139,8 +139,8 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `190 passed`.
-- MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
+- Test backend hiện tại: `200 passed`.
+- MVP/productization scenario hiện tại: `23/23 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
   - `POST /auth/login`;
@@ -207,7 +207,7 @@ Postgres
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
   - contract check hiện tại pass: `robo_app has 19 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
-  - thêm `scripts/check_tool_map.py`, hiện pass `15 mapped tools`;
+  - thêm `scripts/check_tool_map.py`, hiện pass `17 mapped tools`;
   - productization smoke hiện chạy cả raw table inventory check.
 - Bắt đầu P4 RAG production sync:
   - chuẩn hóa `scripts/rag_documents.py` thành registry có `source_name`, `source_view`, `source_tables`, `domain`, `access_level`, `language`;
@@ -244,7 +244,7 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `19 views`, tool map `15 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `190 passed`.
+  - đã chạy productization smoke thành công: app contract `19 views`, tool map `17 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP/productization scenario `23/23`, backend tests `200 passed`.
 - Bắt đầu Batch 1 Scheduling expansion:
   - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
   - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;
@@ -256,7 +256,8 @@ Postgres
   - thêm view `robo_app.service_packages` từ `robo_raw.service_packages`;
   - thêm view `robo_app.service_package_items` từ `robo_raw.service_package_items`;
   - cập nhật `db/app/contract.json` và `db/app/raw_table_inventory.json`;
-  - các tool chatbot chi tiết cho lab indicator/package vẫn đánh dấu `future.*`, chưa đổi behavior trả lời hiện tại.
+  - nối public SQL tool `clinic.lookup_lab_indicator_detail` cho câu hỏi chỉ số/analyte xét nghiệm;
+  - nối public SQL tool `clinic.lookup_service_package_detail` cho câu hỏi gói khám/gói dịch vụ gồm gì.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

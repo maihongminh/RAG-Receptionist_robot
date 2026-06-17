@@ -10,6 +10,8 @@ IntentName = Literal[
     "service_category_list",
     "service_catalog_summary",
     "service_category_detail",
+    "service_package_detail",
+    "lab_indicator_detail",
     "doctor_schedule",
     "knowledge_search",
     "appointment_booking",

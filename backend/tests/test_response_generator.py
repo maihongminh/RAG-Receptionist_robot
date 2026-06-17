@@ -204,6 +204,77 @@ def test_service_category_detail_lists_services_in_group():
     assert "CT002 - CT Brain with contrast" in answer
 
 
+def test_service_package_detail_lists_package_items():
+    intent = Intent(intent="service_package_detail", data_source="sql")
+    result = ToolResult(
+        tool_name="clinic.lookup_service_package_detail",
+        source="fake.service_packages",
+        rows=[
+            {
+                "package_code": "PKG-0001",
+                "package_name": "General Health Check Up",
+                "package_price_amount": 0,
+                "currency_code": "USD",
+                "service_code": "GHC001",
+                "service_name": "CBC",
+                "service_category_name": "General Health Check Up",
+                "quantity": 1,
+                "service_price_amount": 2.0,
+                "service_currency_code": "USD",
+                "total_items_in_package": 2,
+            },
+            {
+                "package_code": "PKG-0001",
+                "package_name": "General Health Check Up",
+                "package_price_amount": 0,
+                "currency_code": "USD",
+                "service_code": "GHC002",
+                "service_name": "Glucose",
+                "service_category_name": "General Health Check Up",
+                "quantity": 1,
+                "service_price_amount": 1.0,
+                "service_currency_code": "USD",
+                "total_items_in_package": 2,
+            },
+        ],
+    )
+
+    answer = ResponseGenerator().generate("gói khám General Health Check Up gồm gì?", intent, result)
+
+    assert "PKG-0001 - General Health Check Up có 2 dịch vụ" in answer
+    assert "GHC001 - CBC" in answer
+    assert "GHC002 - Glucose" in answer
+
+
+def test_lab_indicator_detail_lists_indicator_metadata():
+    intent = Intent(intent="lab_indicator_detail", data_source="sql")
+    result = ToolResult(
+        tool_name="clinic.lookup_lab_indicator_detail",
+        source="fake.service_lab_indicators",
+        rows=[
+            {
+                "service_id": "svc-cbc",
+                "service_code": "GHC001",
+                "service_name": "CBC",
+                "code": "WBC",
+                "name": "Bạch cầu",
+                "unit": "x10^9/L",
+                "reference_range_text": "4.0 - 10.0",
+                "specimen_type": "Whole Blood (EDTA)",
+                "method": "Automated Hematology Analyzer",
+                "total_indicators": 1,
+            }
+        ],
+    )
+
+    answer = ResponseGenerator().generate("CBC gồm những chỉ số nào?", intent, result)
+
+    assert "Dịch vụ CBC có 1 chỉ số xét nghiệm" in answer
+    assert "WBC - Bạch cầu" in answer
+    assert "x10^9/L" in answer
+    assert "4.0 - 10.0" in answer
+
+
 def test_knowledge_search_template_formats_markdown_as_readable_lines():
     intent = Intent(intent="knowledge_search", data_source="rag")
     result = ToolResult(

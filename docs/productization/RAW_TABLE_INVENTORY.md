@@ -20,7 +20,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 ```text
 robo_raw: 56 bảng
 robo_app contract hiện tại: 19 view
-backend policy/tool map hiện tại: 15 mapped tools
+backend policy/tool map hiện tại: 17 mapped tools
 ```
 
 Nguyên tắc:
@@ -84,7 +84,7 @@ Mở rộng xét nghiệm/chẩn đoán:
 
 Use case:
 
-- contract nền đã có qua `robo_app.service_lab_indicators`;
+- public SQL tool đã có qua `clinic.lookup_lab_indicator_detail`;
 - xem chỉ số xét nghiệm thuộc dịch vụ nào;
 - theo dõi yêu cầu xét nghiệm từ đối tác;
 - xem trạng thái lấy mẫu;
@@ -105,7 +105,7 @@ Mở rộng tài chính/dịch vụ gói:
 
 Use case:
 
-- contract nền đã có qua `robo_app.service_packages` và `robo_app.service_package_items`;
+- public SQL tool đã có qua `clinic.lookup_service_package_detail`;
 - chuẩn hóa tiền tệ/giá;
 - tra gói dịch vụ;
 - group/corporate examination;

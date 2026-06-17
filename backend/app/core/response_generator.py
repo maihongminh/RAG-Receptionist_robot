@@ -44,6 +44,10 @@ class ResponseGenerator:
             return self._service_catalog_summary(result)
         if intent.intent == "service_category_detail":
             return self._service_category_detail(result)
+        if intent.intent == "service_package_detail":
+            return self._service_package_detail(result)
+        if intent.intent == "lab_indicator_detail":
+            return self._lab_indicator_detail(result)
         if intent.intent == "doctor_schedule":
             return self._doctor_schedule(intent, result)
         if intent.intent == "knowledge_search":
@@ -220,6 +224,94 @@ class ResponseGenerator:
 
         return (
             f"Nhóm {category} có {total} dịch vụ. Dưới đây là {len(display_rows)} dịch vụ đầu tiên:\n"
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+            + suffix
+        )
+
+    def _service_package_detail(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy gói dịch vụ phù hợp."
+
+        first = result.rows[0]
+        package_name = first.get("package_name") or first.get("name") or "gói dịch vụ"
+        package_code = first.get("package_code") or first.get("code")
+        total = self._safe_int(first.get("total_items_in_package"), default=len(result.rows))
+        price = first.get("package_price_amount")
+        currency = first.get("currency_code") or ""
+        price_text = f", giá gói {price} {currency}" if price is not None else ""
+        valid_days = f", hiệu lực {first.get('valid_days')} ngày" if first.get("valid_days") else ""
+        package_label = f"{package_code} - {package_name}" if package_code else str(package_name)
+
+        service_rows = [row for row in result.rows if row.get("service_name") or row.get("service_code")]
+        if not service_rows:
+            return f"Tôi tìm thấy {package_label}{price_text}{valid_days}, nhưng chưa có thành phần dịch vụ trong hệ thống."
+
+        lines = []
+        for row in service_rows[: min(20, len(service_rows))]:
+            code = f"{row.get('service_code')} - " if row.get("service_code") else ""
+            service = row.get("service_name") or "dịch vụ chưa rõ"
+            quantity = row.get("quantity")
+            quantity_text = f", số lượng {quantity}" if quantity not in {None, ""} else ""
+            service_price = row.get("service_price_amount")
+            service_currency = row.get("service_currency_code") or ""
+            service_price_text = (
+                f", giá lẻ {service_price} {service_currency}" if service_price is not None else ""
+            )
+            category = f", nhóm {row.get('service_category_name')}" if row.get("service_category_name") else ""
+            lines.append(f"{code}{service}{category}{quantity_text}{service_price_text}")
+
+        hidden_count = max(total - len(lines), 0)
+        suffix = ""
+        if hidden_count > 0:
+            suffix = f"\nGói này còn {hidden_count} dịch vụ khác trong dữ liệu."
+
+        return (
+            f"{package_label} có {total} dịch vụ{price_text}{valid_days}:\n"
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+            + suffix
+        )
+
+    def _lab_indicator_detail(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy chỉ số xét nghiệm phù hợp."
+
+        first = result.rows[0]
+        same_service = len({row.get("service_id") for row in result.rows if row.get("service_id")}) == 1
+        service_name = first.get("service_name") or first.get("service_code") or "dịch vụ xét nghiệm"
+        total = self._safe_int(first.get("total_indicators"), default=len(result.rows))
+        display_rows = result.rows[: min(20, len(result.rows))]
+
+        lines = []
+        for row in display_rows:
+            code = f"{row.get('code')} - " if row.get("code") else ""
+            name = row.get("name") or row.get("name_en") or "chỉ số chưa rõ"
+            unit = f", đơn vị {row.get('unit')}" if row.get("unit") else ""
+            reference = (
+                f", khoảng tham chiếu {row.get('reference_range_text')}"
+                if row.get("reference_range_text")
+                else ""
+            )
+            specimen = f", mẫu {row.get('specimen_type')}" if row.get("specimen_type") else ""
+            method = f", phương pháp {row.get('method')}" if row.get("method") else ""
+            if same_service:
+                lines.append(f"{code}{name}{unit}{reference}{specimen}{method}")
+            else:
+                service = row.get("service_name") or row.get("service_code") or "dịch vụ chưa rõ"
+                lines.append(f"{service}: {code}{name}{unit}{reference}{specimen}{method}")
+
+        hidden_count = max(total - len(display_rows), 0)
+        suffix = ""
+        if hidden_count > 0:
+            suffix = f"\nCòn {hidden_count} chỉ số khác trong dữ liệu."
+
+        if same_service:
+            return (
+                f"Dịch vụ {service_name} có {total} chỉ số xét nghiệm:\n"
+                + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+                + suffix
+            )
+        return (
+            "Tôi tìm thấy các chỉ số xét nghiệm phù hợp:\n"
             + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
             + suffix
         )

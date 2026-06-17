@@ -103,6 +103,22 @@ def test_service_category_detail_does_not_treat_insects_as_ct_imaging():
     assert intent.entities["service_type"] == "all"
 
 
+def test_service_package_detail_intent():
+    intent = RuleIntentParser().parse("gói khám General Health Check Up gồm gì?", "clinic")
+
+    assert intent.intent == "service_package_detail"
+    assert intent.data_source == "sql"
+    assert intent.entities["package_query"] == "General Health Check Up"
+
+
+def test_lab_indicator_detail_intent():
+    intent = RuleIntentParser().parse("CBC gồm những chỉ số nào?", "clinic")
+
+    assert intent.intent == "lab_indicator_detail"
+    assert intent.data_source == "sql"
+    assert intent.entities["indicator_query"] == "CBC"
+
+
 def test_numeric_service_category_detail_defaults_to_lab_without_session_context():
     intent = RuleIntentParser().parse("xem chi tiết nhóm 35", "clinic")
 

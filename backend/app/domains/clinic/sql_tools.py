@@ -267,6 +267,158 @@ class ClinicSqlTools:
             confidence=category.get("_score", 0.88) if rows else 0.0,
         )
 
+    def lookup_service_package_detail(self, package_query: str) -> ToolResult:
+        package_query = (package_query or "").strip()
+        packages = fetch_all(
+            f"""
+            SELECT
+              id,
+              clinic_id,
+              code,
+              name,
+              name_en,
+              description,
+              package_price_amount,
+              original_price_amount,
+              discount_percent,
+              currency_code,
+              valid_days,
+              display_order,
+              is_active
+            FROM robo_app.service_packages
+            WHERE COALESCE(is_active, true) = true
+            ORDER BY display_order NULLS LAST, code, name
+            LIMIT {get_rag_config().sql_result_limit}
+            """
+        )
+        ranked_packages = self._rank_rows(
+            packages,
+            package_query,
+            ["code", "name", "name_en", "description"],
+            min_score=0.25,
+        )
+        package = ranked_packages[0] if package_query else (packages[0] if packages else None)
+        if not package:
+            return ToolResult(
+                tool_name="clinic.lookup_service_package_detail",
+                source="robo_app.service_packages, robo_app.service_package_items",
+                rows=[],
+                message=f"Không tìm thấy gói dịch vụ phù hợp với '{package_query}'.",
+                confidence=0.0,
+            )
+
+        rows = fetch_all(
+            """
+            SELECT
+              package_id,
+              package_code,
+              package_name,
+              service_id,
+              service_code,
+              service_name,
+              service_category_name,
+              quantity,
+              notes,
+              service_price_amount,
+              service_currency_code,
+              COUNT(*) OVER ()::integer AS total_items_in_package
+            FROM robo_app.service_package_items
+            WHERE package_id = %(package_id)s
+            ORDER BY service_category_name NULLS LAST, service_code, service_name
+            LIMIT %(limit)s
+            """,
+            {
+                "package_id": package["id"],
+                "limit": get_rag_config().api_preview_max_rows,
+            },
+        )
+        if not rows:
+            rows = [dict(package)]
+            rows[0]["total_items_in_package"] = 0
+        for row in rows:
+            row["package_price_amount"] = package.get("package_price_amount")
+            row["original_price_amount"] = package.get("original_price_amount")
+            row["discount_percent"] = package.get("discount_percent")
+            row["currency_code"] = package.get("currency_code")
+            row["valid_days"] = package.get("valid_days")
+            row["matched_package_score"] = package.get("_score", 1.0)
+        return ToolResult(
+            tool_name="clinic.lookup_service_package_detail",
+            source="robo_app.service_packages, robo_app.service_package_items",
+            rows=rows,
+            confidence=package.get("_score", 0.88) if rows else 0.0,
+        )
+
+    def lookup_lab_indicator_detail(self, indicator_query: str) -> ToolResult:
+        indicator_query = (indicator_query or "").strip()
+        indicators = fetch_all(
+            f"""
+            SELECT
+              id,
+              clinic_id,
+              service_id,
+              service_code,
+              service_name,
+              service_category_name,
+              code,
+              name,
+              name_en,
+              unit,
+              reference_range_text,
+              reference_range_low,
+              reference_range_high,
+              specimen_type,
+              method,
+              display_order,
+              is_active
+            FROM robo_app.service_lab_indicators
+            WHERE COALESCE(is_active, true) = true
+            ORDER BY service_name, display_order NULLS LAST, code, name
+            LIMIT {get_rag_config().sql_result_limit}
+            """
+        )
+        ranked = self._rank_rows(
+            indicators,
+            indicator_query,
+            [
+                "service_code",
+                "service_name",
+                "service_category_name",
+                "code",
+                "name",
+                "name_en",
+                "specimen_type",
+                "method",
+            ],
+            min_score=0.25,
+        )
+        rows = ranked if indicator_query else indicators
+        if not rows:
+            return ToolResult(
+                tool_name="clinic.lookup_lab_indicator_detail",
+                source="robo_app.service_lab_indicators",
+                rows=[],
+                message=f"Không tìm thấy chỉ số xét nghiệm phù hợp với '{indicator_query}'.",
+                confidence=0.0,
+            )
+
+        if indicator_query and self._is_specific_lab_service_query(indicator_query, rows[0]):
+            service_id = rows[0].get("service_id")
+            rows = [row for row in indicators if row.get("service_id") == service_id]
+            for row in rows:
+                row["_score"] = rows[0].get("_score", 1.0)
+
+        total = len(rows)
+        rows = rows[: get_rag_config().api_preview_max_rows]
+        for row in rows:
+            row["total_indicators"] = total
+        return ToolResult(
+            tool_name="clinic.lookup_lab_indicator_detail",
+            source="robo_app.service_lab_indicators",
+            rows=rows,
+            confidence=rows[0].get("_score", 0.88) if rows else 0.0,
+        )
+
     def search_doctor_schedules(self, doctor_query: str, weekday: int | None = None) -> ToolResult:
         params: dict[str, Any] = {}
         weekday_clause = ""
@@ -1079,6 +1231,15 @@ class ClinicSqlTools:
             return True
         query_tokens = normalized_query.split()
         return len(query_tokens) >= 3 and normalized_query in top_name
+
+    def _is_specific_lab_service_query(self, query: str, row: dict[str, Any]) -> bool:
+        normalized_query = self._normalize(query)
+        service_code = self._normalize(str(row.get("service_code") or ""))
+        service_name = self._normalize(str(row.get("service_name") or ""))
+        if normalized_query in {service_code, service_name}:
+            return True
+        query_tokens = normalized_query.split()
+        return len(query_tokens) >= 2 and normalized_query in service_name
 
     def _score(self, query: str, text: str) -> float:
         normalized_text = self._normalize(text)

@@ -40,6 +40,21 @@ SERVICE_CATEGORY_DETAIL_PATTERNS = (
     r"nhóm\s+(.+?)\s+(?:gồm|có)\s+(?:những\s+)?(?:gì|dịch vụ nào)",
     r"(.+?)\s+(?:gồm|có)\s+(?:những\s+)?dịch vụ nào",
 )
+SERVICE_PACKAGE_KEYWORDS = (
+    "gói khám",
+    "gói dịch vụ",
+    "service package",
+    "package",
+)
+LAB_INDICATOR_KEYWORDS = (
+    "chỉ số xét nghiệm",
+    "chỉ số",
+    "analyte",
+    "indicator",
+    "khoảng tham chiếu",
+    "reference range",
+    "đơn vị",
+)
 LAB_RESULT_KEYWORDS = (
     "kết quả xét nghiệm",
     "nhận kết quả",
@@ -256,6 +271,26 @@ class RuleIntentParser:
                 reasoning="Question asks for a broad service catalog summary.",
             )
 
+        if any(keyword in normalized for keyword in SERVICE_PACKAGE_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="service_package_detail",
+                entities={"package_query": self._clean_package_query(question)},
+                confidence=0.78,
+                data_source="sql",
+                reasoning="Question asks about a service package and its items.",
+            )
+
+        if self._is_lab_indicator_question(normalized):
+            return Intent(
+                domain=domain,
+                intent="lab_indicator_detail",
+                entities={"indicator_query": self._clean_lab_indicator_query(question)},
+                confidence=0.78,
+                data_source="sql",
+                reasoning="Question asks about lab indicators/analytes for a service.",
+            )
+
         if any(keyword in normalized for keyword in LAB_RESULT_KEYWORDS) and not any(
             keyword in normalized for keyword in GUIDANCE_KEYWORDS
         ):
@@ -417,6 +452,75 @@ class RuleIntentParser:
             "cho tôi",
             "có",
             "không",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_package_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "gói khám",
+            "gói dịch vụ",
+            "service package",
+            "package",
+            "gồm những dịch vụ nào",
+            "gồm dịch vụ nào",
+            "gồm những gì",
+            "gồm những",
+            "gồm gì",
+            "có những gì",
+            "có những",
+            "có gì",
+            "giá bao nhiêu",
+            "bao nhiêu",
+            "giá",
+            "xem",
+            "chi tiết",
+            "cho tôi",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _is_lab_indicator_question(self, normalized_question: str) -> bool:
+        if any(keyword in normalized_question for keyword in LAB_INDICATOR_KEYWORDS):
+            return "xét nghiệm" in normalized_question or any(
+                keyword in normalized_question
+                for keyword in ("cbc", "wbc", "rbc", "hgb", "plt", "aptt", "tibc")
+            )
+        return bool(
+            re.search(
+                r"\b(cbc|wbc|rbc|hgb|plt|aptt|tibc)\b.*(?:gồm|có).*(?:chỉ số|indicator|analyte)",
+                normalized_question,
+            )
+        )
+
+    def _clean_lab_indicator_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "chỉ số xét nghiệm",
+            "chỉ số",
+            "xét nghiệm",
+            "analyte",
+            "indicator",
+            "khoảng tham chiếu",
+            "reference range",
+            "đơn vị",
+            "gồm những gì",
+            "gồm những",
+            "gồm gì",
+            "có những gì",
+            "có những",
+            "có gì",
+            "có",
+            "là gì",
+            "nào",
+            "xem",
+            "chi tiết",
+            "cho tôi",
             "?",
         ]
         for value in replacements:

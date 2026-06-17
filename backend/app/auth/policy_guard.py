@@ -9,6 +9,8 @@ INTENT_TOOL_MAP = {
     "service_category_list": "clinic.list_service_categories",
     "service_catalog_summary": "clinic.summarize_service_catalog",
     "service_category_detail": "clinic.list_services_by_category",
+    "service_package_detail": "clinic.lookup_service_package_detail",
+    "lab_indicator_detail": "clinic.lookup_lab_indicator_detail",
     "doctor_schedule": "clinic.search_doctor_schedules",
     "knowledge_search": "clinic.search_knowledge",
     "appointment_booking": "clinic.create_appointment_request",

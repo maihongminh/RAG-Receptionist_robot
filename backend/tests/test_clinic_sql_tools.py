@@ -393,6 +393,116 @@ def test_list_services_by_category_matches_exact_lowercase_category(monkeypatch)
     assert result.confidence == 1.0
 
 
+def test_lookup_service_package_detail_matches_package_and_lists_items(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = []
+
+    def fake_fetch_all(query, params=None):
+        calls.append((query, params or {}))
+        if "FROM robo_app.service_packages" in query:
+            return [
+                {
+                    "id": "pkg-1",
+                    "code": "PKG-0001",
+                    "name": "General Health Check Up",
+                    "name_en": None,
+                    "description": "",
+                    "package_price_amount": 0,
+                    "original_price_amount": 0,
+                    "discount_percent": 0,
+                    "currency_code": "USD",
+                    "valid_days": None,
+                    "display_order": 1,
+                    "is_active": True,
+                }
+            ]
+        return [
+            {
+                "package_id": "pkg-1",
+                "package_code": "PKG-0001",
+                "package_name": "General Health Check Up",
+                "service_code": "GHC001",
+                "service_name": "CBC",
+                "service_category_name": "General Health Check Up",
+                "quantity": 1,
+                "service_price_amount": 2.0,
+                "service_currency_code": "USD",
+                "total_items_in_package": 1,
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_service_package_detail("General Health Check Up")
+
+    assert result.tool_name == "clinic.lookup_service_package_detail"
+    assert result.source == "robo_app.service_packages, robo_app.service_package_items"
+    assert calls[-1][1]["package_id"] == "pkg-1"
+    assert result.rows[0]["service_code"] == "GHC001"
+    assert result.rows[0]["package_price_amount"] == 0
+
+
+def test_lookup_lab_indicator_detail_returns_all_indicators_for_matched_service(monkeypatch):
+    tool = ClinicSqlTools()
+
+    def fake_fetch_all(query):
+        return [
+            {
+                "id": "ind-1",
+                "service_id": "svc-cbc",
+                "service_code": "GHC001",
+                "service_name": "CBC",
+                "service_category_name": "General Health Check Up",
+                "code": "WBC",
+                "name": "Bạch cầu",
+                "unit": "x10^9/L",
+                "reference_range_text": "4.0 - 10.0",
+                "specimen_type": "Whole Blood (EDTA)",
+                "method": "Automated Hematology Analyzer",
+                "display_order": 1,
+                "is_active": True,
+            },
+            {
+                "id": "ind-2",
+                "service_id": "svc-cbc",
+                "service_code": "GHC001",
+                "service_name": "CBC",
+                "service_category_name": "General Health Check Up",
+                "code": "RBC",
+                "name": "Hồng cầu",
+                "unit": "x10^12/L",
+                "reference_range_text": "4.2 - 5.9",
+                "specimen_type": "Whole Blood (EDTA)",
+                "method": "Automated Hematology Analyzer",
+                "display_order": 2,
+                "is_active": True,
+            },
+            {
+                "id": "ind-3",
+                "service_id": "svc-aptt",
+                "service_code": "BLD002",
+                "service_name": "APTT",
+                "service_category_name": "Blood test",
+                "code": "APTT",
+                "name": "APTT",
+                "unit": "sec",
+                "reference_range_text": "25 - 35",
+                "specimen_type": "Plasma",
+                "method": "Coagulation Analyzer",
+                "display_order": 1,
+                "is_active": True,
+            },
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_lab_indicator_detail("CBC")
+
+    assert result.tool_name == "clinic.lookup_lab_indicator_detail"
+    assert [row["code"] for row in result.rows] == ["WBC", "RBC"]
+    assert result.rows[0]["total_indicators"] == 2
+
+
 def test_lookup_lab_results_filters_patient_scope(monkeypatch):
     tool = ClinicSqlTools()
     calls = {}

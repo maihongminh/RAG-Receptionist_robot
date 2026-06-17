@@ -155,6 +155,43 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.9,
         )
 
+    def lookup_service_package_detail(self, entities: dict) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_service_package_detail",
+            source="fake.service_packages",
+            rows=[
+                {
+                    "package_code": "PKG-0001",
+                    "package_name": entities.get("package_query") or "General Health Check Up",
+                    "service_code": "GHC001",
+                    "service_name": "CBC",
+                    "quantity": 1,
+                    "total_items_in_package": 1,
+                    "package_price_amount": 0,
+                    "currency_code": "USD",
+                }
+            ],
+            confidence=0.9,
+        )
+
+    def lookup_lab_indicator_detail(self, entities: dict) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_lab_indicator_detail",
+            source="fake.service_lab_indicators",
+            rows=[
+                {
+                    "service_id": "svc-cbc",
+                    "service_name": entities.get("indicator_query") or "CBC",
+                    "code": "WBC",
+                    "name": "Bạch cầu",
+                    "unit": "x10^9/L",
+                    "reference_range_text": "4.0 - 10.0",
+                    "total_indicators": 1,
+                }
+            ],
+            confidence=0.9,
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.search_doctor_schedules",
@@ -432,6 +469,26 @@ def test_orchestrator_prefers_rule_for_service_category_detail_when_llm_is_broad
     assert response.parser_source == "llm"
     assert response.sources == ["fake.services"]
     assert "CT Scan demo service" in response.answer
+
+
+def test_orchestrator_service_package_detail():
+    response = build_orchestrator().handle(
+        AskRequest(question="gói khám General Health Check Up gồm gì?")
+    )
+
+    assert response.intent == "service_package_detail"
+    assert response.sources == ["fake.service_packages"]
+    assert "PKG-0001" in response.answer
+    assert "CBC" in response.answer
+
+
+def test_orchestrator_lab_indicator_detail():
+    response = build_orchestrator().handle(AskRequest(question="CBC gồm những chỉ số nào?"))
+
+    assert response.intent == "lab_indicator_detail"
+    assert response.sources == ["fake.service_lab_indicators"]
+    assert "WBC" in response.answer
+    assert "Bạch cầu" in response.answer
 
 
 def test_orchestrator_prefers_lab_service_type_when_llm_uses_all():
