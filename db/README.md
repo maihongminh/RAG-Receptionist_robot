@@ -19,6 +19,7 @@ db/
 │   └── load.sql
 ├── app/
 │   ├── contract.json
+│   ├── raw_table_inventory.json
 │   ├── tool_map.json
 │   ├── views.sql
 │   ├── seed_mvp_demo.sql
@@ -83,6 +84,7 @@ Các file được sinh:
 - `db/import_all.sql`: chạy cả schema và load.
 - `db/app/views.sql`: tạo schema view `robo_app`.
 - `db/app/contract.json`: contract máy đọc được cho các view/cột `robo_app` mà backend được phép dùng.
+- `db/app/raw_table_inventory.json`: inventory đủ 56 bảng `robo_raw`, phân nhóm access/status/batch để mở rộng có kiểm soát.
 - `db/app/tool_map.json`: mapping intent/tool -> app view -> source table -> policy/test.
 - `db/app/seed_mvp_demo.sql`: bổ sung dữ liệu demo nhất quán cho test MVP, chạy sau khi import raw.
 - `db/app/seed_productization_demo.sql`: bổ sung demo data cho các use case mở rộng sau MVP.
@@ -141,6 +143,7 @@ Kiểm tra contract `robo_app` sau khi sửa view:
 ```bash
 cd /home/minhmh/tool/robo
 backend/.venv/bin/python scripts/check_app_contract.py
+backend/.venv/bin/python scripts/check_raw_table_inventory.py
 backend/.venv/bin/python scripts/check_tool_map.py
 backend/.venv/bin/python scripts/check_rag_registry.py
 ```

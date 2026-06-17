@@ -1,0 +1,569 @@
+{
+  "version": 1,
+  "source_schema": "robo_raw",
+  "raw_table_count": 56,
+  "status_values": ["current", "planned", "later", "hold"],
+  "access_levels": ["public", "operational", "private", "sensitive", "platform"],
+  "tables": [
+    {
+      "raw_table": "admin_help_templates",
+      "group": "rag_knowledge",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["knowledge_articles"],
+      "tools": ["clinic.search_knowledge", "scripts.rag_documents"],
+      "notes": "Public help/process content currently indexed into RAG."
+    },
+    {
+      "raw_table": "ai_boundary_metadata",
+      "group": "ai_governance",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "AI boundary metadata; keep out of patient-facing RAG until governance use case is explicit."
+    },
+    {
+      "raw_table": "appointment_requests",
+      "group": "appointments",
+      "access_level": "private",
+      "status": "planned",
+      "batch": "batch_1_scheduling",
+      "app_views": [],
+      "tools": [],
+      "notes": "Potential source for appointment booking/request workflow."
+    },
+    {
+      "raw_table": "appointments",
+      "group": "appointments",
+      "access_level": "private",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["appointments"],
+      "tools": ["clinic.lookup_private_data", "clinic.lookup_patient_timeline"],
+      "notes": "Current source for personal appointment lookup and patient timeline."
+    },
+    {
+      "raw_table": "beds",
+      "group": "facility",
+      "access_level": "operational",
+      "status": "later",
+      "batch": "batch_4_operations",
+      "app_views": [],
+      "tools": [],
+      "notes": "Facility/bed management; not needed for receptionist MVP yet."
+    },
+    {
+      "raw_table": "clinic_currencies",
+      "group": "clinic_settings",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Needed before currency/price normalization is production-grade."
+    },
+    {
+      "raw_table": "clinic_currency_rate_versions",
+      "group": "clinic_settings",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Exchange-rate/versioning support for billing and price display."
+    },
+    {
+      "raw_table": "clinic_feature_flags",
+      "group": "platform_config",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Feature gating; backend config/admin use case, not chatbot answer source."
+    },
+    {
+      "raw_table": "clinic_general_settings",
+      "group": "clinic_settings",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["clinic_settings"],
+      "tools": ["clinic.get_public_profile"],
+      "notes": "Current source for public opening hours and booking settings."
+    },
+    {
+      "raw_table": "clinic_memberships",
+      "group": "account_scope",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Useful for real role/scope mapping beyond demo account seed."
+    },
+    {
+      "raw_table": "clinic_subscriptions",
+      "group": "subscription",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_billing",
+      "app_views": [],
+      "tools": [],
+      "notes": "SaaS subscription state; separate from patient billing."
+    },
+    {
+      "raw_table": "clinic_type_ai_capabilities",
+      "group": "platform_config",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Platform capability metadata; not patient-facing."
+    },
+    {
+      "raw_table": "clinic_type_modules",
+      "group": "platform_config",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Platform module metadata; not patient-facing."
+    },
+    {
+      "raw_table": "clinics",
+      "group": "clinic_public",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["clinics"],
+      "tools": ["clinic.get_public_profile"],
+      "notes": "Current source for public clinic identity/contact/location."
+    },
+    {
+      "raw_table": "crm_corporate_accounts",
+      "group": "crm",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Corporate customer/group examination use cases; separate from individual patient MVP."
+    },
+    {
+      "raw_table": "crm_loyalty_tiers",
+      "group": "crm",
+      "access_level": "operational",
+      "status": "later",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Loyalty/CRM feature; not priority for receptionist answering."
+    },
+    {
+      "raw_table": "diagnostic_machines",
+      "group": "facility",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_4_operations",
+      "app_views": [],
+      "tools": [],
+      "notes": "Needed for diagnostic operations/capacity, not public Q&A yet."
+    },
+    {
+      "raw_table": "diagnostic_walk_in_patients",
+      "group": "billing",
+      "access_level": "private",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["billing_records"],
+      "tools": ["clinic.lookup_billing_summary"],
+      "notes": "Current source for patient billing/payment summary."
+    },
+    {
+      "raw_table": "doctor_schedules",
+      "group": "scheduling",
+      "access_level": "operational",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["doctor_schedules"],
+      "tools": ["clinic.lookup_doctor_schedule"],
+      "notes": "Current source for doctor schedule lookup."
+    },
+    {
+      "raw_table": "examination_zones",
+      "group": "facility",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_4_operations",
+      "app_views": [],
+      "tools": [],
+      "notes": "Useful for routing patients to zones/rooms."
+    },
+    {
+      "raw_table": "group_examinations",
+      "group": "corporate_health",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Corporate/group examination workflow; not individual patient MVP."
+    },
+    {
+      "raw_table": "lis_accession_counters",
+      "group": "laboratory_ops",
+      "access_level": "operational",
+      "status": "later",
+      "batch": "batch_4_operations",
+      "app_views": [],
+      "tools": [],
+      "notes": "LIS numbering/counter state; should not be exposed to chatbot unless ops admin use case exists."
+    },
+    {
+      "raw_table": "location_countries",
+      "group": "reference",
+      "access_level": "public",
+      "status": "later",
+      "batch": "reference_data",
+      "app_views": [],
+      "tools": [],
+      "notes": "Reference geography data."
+    },
+    {
+      "raw_table": "location_provinces",
+      "group": "reference",
+      "access_level": "public",
+      "status": "later",
+      "batch": "reference_data",
+      "app_views": [],
+      "tools": [],
+      "notes": "Reference geography data."
+    },
+    {
+      "raw_table": "medical_records",
+      "group": "clinical",
+      "access_level": "sensitive",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["patient_visit_summaries"],
+      "tools": ["clinic.lookup_visit_summary"],
+      "notes": "Current source for visit/medical summary; must stay behind auth/policy/audit."
+    },
+    {
+      "raw_table": "organization_memberships",
+      "group": "account_scope",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Organization-level account scope mapping."
+    },
+    {
+      "raw_table": "organizations",
+      "group": "organization",
+      "access_level": "operational",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Organization parent entity for multi-clinic productization."
+    },
+    {
+      "raw_table": "paraclinical_orders",
+      "group": "clinical_results",
+      "access_level": "private",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["paraclinical_results"],
+      "tools": ["clinic.lookup_lab_result", "clinic.lookup_patient_timeline"],
+      "notes": "Current source for lab/imaging result lookup and timeline."
+    },
+    {
+      "raw_table": "partner_audit_logs",
+      "group": "partner",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "partner_portal",
+      "app_views": [],
+      "tools": [],
+      "notes": "Partner portal audit data; separate from patient chatbot."
+    },
+    {
+      "raw_table": "partner_clinics",
+      "group": "partner",
+      "access_level": "operational",
+      "status": "later",
+      "batch": "partner_portal",
+      "app_views": [],
+      "tools": [],
+      "notes": "Partner clinic registry."
+    },
+    {
+      "raw_table": "partner_lab_requests",
+      "group": "partner",
+      "access_level": "private",
+      "status": "planned",
+      "batch": "batch_2_lab_diagnostics",
+      "app_views": [],
+      "tools": [],
+      "notes": "Partner lab request workflow; likely private/operational."
+    },
+    {
+      "raw_table": "partner_onsite_collections",
+      "group": "partner",
+      "access_level": "private",
+      "status": "planned",
+      "batch": "batch_2_lab_diagnostics",
+      "app_views": [],
+      "tools": [],
+      "notes": "Onsite sample collection workflow."
+    },
+    {
+      "raw_table": "partner_users",
+      "group": "partner",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "partner_portal",
+      "app_views": [],
+      "tools": [],
+      "notes": "Partner user account mapping."
+    },
+    {
+      "raw_table": "patient_question_templates",
+      "group": "rag_knowledge",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["patient_question_templates"],
+      "tools": ["scripts.rag_documents"],
+      "notes": "Current RAG source for suggested questions patients can ask doctors."
+    },
+    {
+      "raw_table": "patients",
+      "group": "patient",
+      "access_level": "private",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["patients"],
+      "tools": ["clinic.lookup_patient_profile", "clinic.lookup_patient_timeline"],
+      "notes": "Current source for authenticated patient profile and scoping joins."
+    },
+    {
+      "raw_table": "platform_admins",
+      "group": "platform_account",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Platform admin identity source; not patient-facing."
+    },
+    {
+      "raw_table": "platform_pricing_config",
+      "group": "platform_billing",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_billing",
+      "app_views": [],
+      "tools": [],
+      "notes": "SaaS/platform pricing; unrelated to clinical service price."
+    },
+    {
+      "raw_table": "profiles",
+      "group": "account",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Profile/user mapping; could feed auth identity migration."
+    },
+    {
+      "raw_table": "ref_clinic_type_features",
+      "group": "reference",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Reference feature set by clinic type."
+    },
+    {
+      "raw_table": "ref_currencies",
+      "group": "reference",
+      "access_level": "public",
+      "status": "planned",
+      "batch": "batch_3_billing_finance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Currency reference table for price/billing normalization."
+    },
+    {
+      "raw_table": "ref_icd10_codes",
+      "group": "reference",
+      "access_level": "public",
+      "status": "planned",
+      "batch": "batch_2_clinical_reference",
+      "app_views": [],
+      "tools": [],
+      "notes": "Clinical code reference; do not use as diagnosis advice source."
+    },
+    {
+      "raw_table": "rooms",
+      "group": "facility",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["rooms", "doctor_schedules"],
+      "tools": ["clinic.lookup_doctor_schedule"],
+      "notes": "Current source for room information and schedule joins."
+    },
+    {
+      "raw_table": "security_check_results",
+      "group": "clinical_results",
+      "access_level": "private",
+      "status": "planned",
+      "batch": "batch_2_lab_diagnostics",
+      "app_views": [],
+      "tools": [],
+      "notes": "Sensitive diagnostic/security check result data; needs auth policy."
+    },
+    {
+      "raw_table": "sensitive_field_definitions",
+      "group": "governance",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "platform_governance",
+      "app_views": [],
+      "tools": [],
+      "notes": "Useful for redaction/audit policy when expanding sensitive data."
+    },
+    {
+      "raw_table": "service_catalog",
+      "group": "services",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["services"],
+      "tools": ["clinic.lookup_service_price", "clinic.list_service_categories", "clinic.summarize_service_catalog", "clinic.lookup_service_category_detail"],
+      "notes": "Current source for services, prices and catalog summaries."
+    },
+    {
+      "raw_table": "service_categories",
+      "group": "services",
+      "access_level": "public",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["service_categories", "services"],
+      "tools": ["clinic.list_service_categories", "clinic.lookup_service_category_detail"],
+      "notes": "Current source for service grouping."
+    },
+    {
+      "raw_table": "service_lab_indicators",
+      "group": "services",
+      "access_level": "public",
+      "status": "planned",
+      "batch": "batch_2_lab_diagnostics",
+      "app_views": [],
+      "tools": [],
+      "notes": "Can enrich lab service detail with indicators/analytes."
+    },
+    {
+      "raw_table": "service_package_items",
+      "group": "services",
+      "access_level": "public",
+      "status": "planned",
+      "batch": "batch_3_packages_billing",
+      "app_views": [],
+      "tools": [],
+      "notes": "Package composition; useful for package price/detail answers."
+    },
+    {
+      "raw_table": "service_packages",
+      "group": "services",
+      "access_level": "public",
+      "status": "planned",
+      "batch": "batch_3_packages_billing",
+      "app_views": [],
+      "tools": [],
+      "notes": "Service package listing and pricing."
+    },
+    {
+      "raw_table": "staff",
+      "group": "staff",
+      "access_level": "operational",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["staff", "doctors"],
+      "tools": ["clinic.lookup_doctor_schedule"],
+      "notes": "Current source for staff/doctor identity and roles."
+    },
+    {
+      "raw_table": "subscription_plans",
+      "group": "platform_billing",
+      "access_level": "platform",
+      "status": "later",
+      "batch": "platform_billing",
+      "app_views": [],
+      "tools": [],
+      "notes": "SaaS subscription plan metadata, not clinical service package."
+    },
+    {
+      "raw_table": "tasks",
+      "group": "operations",
+      "access_level": "operational",
+      "status": "later",
+      "batch": "batch_4_operations",
+      "app_views": [],
+      "tools": [],
+      "notes": "Internal task workflow; not chatbot-facing yet."
+    },
+    {
+      "raw_table": "translations",
+      "group": "localization",
+      "access_level": "public",
+      "status": "later",
+      "batch": "reference_data",
+      "app_views": [],
+      "tools": [],
+      "notes": "Localization reference; may support UI/API display later."
+    },
+    {
+      "raw_table": "user_roles",
+      "group": "account_scope",
+      "access_level": "platform",
+      "status": "planned",
+      "batch": "batch_4_account_scope",
+      "app_views": [],
+      "tools": [],
+      "notes": "Could feed auth role migration from raw source."
+    },
+    {
+      "raw_table": "visits",
+      "group": "clinical",
+      "access_level": "sensitive",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["patient_visit_summaries"],
+      "tools": ["clinic.lookup_visit_summary"],
+      "notes": "Current source for visit summary; auth/policy required."
+    },
+    {
+      "raw_table": "vital_signs",
+      "group": "clinical",
+      "access_level": "sensitive",
+      "status": "current",
+      "batch": "current",
+      "app_views": ["patient_visit_summaries"],
+      "tools": ["clinic.lookup_visit_summary"],
+      "notes": "Current source for latest vital signs in visit summary."
+    }
+  ]
+}

@@ -35,6 +35,21 @@ data/postgres_csv
 
 Không đưa 56 bảng vào backend tool hoặc RAG cùng lúc.
 
+Inventory chính thức:
+
+```text
+db/app/raw_table_inventory.json
+docs/productization/RAW_TABLE_INVENTORY.md
+```
+
+Checker:
+
+```bash
+backend/.venv/bin/python scripts/check_raw_table_inventory.py
+```
+
+Inventory hiện khóa đủ `56` bảng `robo_raw` và phân loại từng bảng theo group, access level, status, batch, app view/tool hiện có hoặc dự kiến.
+
 Mỗi bảng được mở khi có use case rõ:
 
 ```text

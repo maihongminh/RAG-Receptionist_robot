@@ -58,23 +58,27 @@ File này mô tả chức năng của từng tài liệu trong project. Toàn b�
 13. `productization/DATA_PLAN.md`
    - Kế hoạch chuẩn hóa `robo_raw`, `robo_app`, migration và mở rộng 56 bảng.
 
-14. `productization/RAG_PLAN.md`
+14. `productization/RAW_TABLE_INVENTORY.md`
+   - Inventory đọc nhanh cho 56 bảng `robo_raw`.
+   - Phân nhóm current/batch/later, access level và hướng mở rộng từng nhóm.
+
+15. `productization/RAG_PLAN.md`
    - Kế hoạch RAG registry, Qdrant payload, rebuild/incremental sync.
 
-15. `productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`
+16. `productization/AUDIT_DEPLOYMENT_TEST_PLAN.md`
    - Audit log DB, observability, test strategy và deployment checklist.
 
-16. `AUTHORIZATION_PLAN.md`
+17. `AUTHORIZATION_PLAN.md`
    - Kế hoạch xác thực và phân quyền.
    - Role, quyền theo role, policy guard, audit log, row-level filtering.
 
-17. `db/README.md`
+18. `db/README.md`
    - Giải thích `robo_raw`, `robo_app`.
    - Cách import Excel vào Postgres.
    - Cách tạo app views.
    - Ghi chú nguồn nào phù hợp vector/RAG và cách quản lý source trong `scripts/rag_documents.py`.
 
-18. `backend/README.md`
+19. `backend/README.md`
    - Hướng dẫn riêng cho backend.
    - Kiến trúc backend core + domain adapter.
 

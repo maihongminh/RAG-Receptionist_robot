@@ -563,6 +563,7 @@ Script này chạy:
 ```text
 check_app_contract.py
 check_tool_map.py
+check_raw_table_inventory.py
 check_rag_registry.py
 test_mvp_chatbot.py --llm-provider none
 backend pytest

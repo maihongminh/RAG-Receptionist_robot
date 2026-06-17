@@ -139,7 +139,7 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `189 passed`.
+- Test backend hiện tại: `190 passed`.
 - MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -199,12 +199,16 @@ Postgres
   - `/ask` response có `request_id`, `latency_ms`;
   - audit DB ghi `request_id`, `latency_ms`.
 - Bắt đầu P2 data/application layer hardening:
+  - thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`;
+  - thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh nhóm bảng, access level, batch mở rộng;
+  - thêm `scripts/check_raw_table_inventory.py` để đảm bảo inventory khớp `db/raw/schema.sql`;
   - thêm `db/app/contract.json` làm contract máy đọc được cho 13 view `robo_app`;
   - thêm `scripts/check_app_contract.py` để kiểm tra live DB có đủ view/cột/type theo contract;
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
   - contract check hiện tại pass: `robo_app has 15 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
-  - thêm `scripts/check_tool_map.py`, hiện pass `15 mapped tools`.
+  - thêm `scripts/check_tool_map.py`, hiện pass `15 mapped tools`;
+  - productization smoke hiện chạy cả raw table inventory check.
 - Bắt đầu P4 RAG production sync:
   - chuẩn hóa `scripts/rag_documents.py` thành registry có `source_name`, `source_view`, `source_tables`, `domain`, `access_level`, `language`;
   - mỗi RAG document có `content_hash` để chuẩn bị incremental sync sau này;
@@ -240,7 +244,7 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `15 views`, tool map `15 tools`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `189 passed`.
+  - đã chạy productization smoke thành công: app contract `15 views`, tool map `15 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `190 passed`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

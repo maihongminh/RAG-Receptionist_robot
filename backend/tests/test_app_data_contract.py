@@ -9,6 +9,11 @@ sys.path.insert(0, str(SCRIPTS_ROOT))
 
 from check_tool_map import validate_tool_map
 from check_rag_registry import validate_rag_registry
+from check_raw_table_inventory import (
+    load_inventory,
+    load_raw_table_names,
+    validate_inventory,
+)
 from build_qdrant_index import plan_incremental_sync
 from rag_index_manifest import build_manifest_rows
 from rag_documents import RAG_DOCUMENT_SOURCES, build_content_hash, normalize_rag_document
@@ -49,6 +54,13 @@ def test_tool_map_matches_app_contract_and_policy_guard():
     tool_map = json.loads((PROJECT_ROOT / "db" / "app" / "tool_map.json").read_text(encoding="utf-8"))
 
     assert validate_tool_map(contract, tool_map) == []
+
+
+def test_raw_table_inventory_covers_all_raw_tables():
+    raw_tables = load_raw_table_names(PROJECT_ROOT / "db" / "raw" / "schema.sql")
+    inventory = load_inventory(PROJECT_ROOT / "db" / "app" / "raw_table_inventory.json")
+
+    assert validate_inventory(raw_tables, inventory) == []
 
 
 def test_rag_registry_is_valid():

@@ -85,6 +85,9 @@ Done khi:
 Trạng thái hiện tại:
 
 - Đã thêm `db/app/contract.json` cho 15 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
+- Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
+- Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
 - Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
 - Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
 - Đã thêm `db/app/tool_map.json` cho 15 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary` và `clinic.lookup_billing_summary`.
