@@ -84,7 +84,7 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 15 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 19 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
 - Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
@@ -95,6 +95,11 @@ Trạng thái hiện tại:
 - Đã map timeline sang các view hiện có: `patients`, `appointments`, `paraclinical_results`.
 - Đã thêm `robo_app.patient_visit_summaries` để gom `medical_records`, `visits`, latest `vital_signs`, patient và doctor.
 - Đã thêm `robo_app.billing_records` cho hóa đơn/thanh toán cá nhân từ `diagnostic_walk_in_patients`.
+- Đã bắt đầu Batch 1 Scheduling bằng view `robo_app.appointment_requests`; write flow đặt lịch vẫn disabled.
+- Đã mở contract nền cho service/lab/package detail:
+  - `robo_app.service_lab_indicators`;
+  - `robo_app.service_packages`;
+  - `robo_app.service_package_items`.
 - Chưa có mapping chi tiết cho toàn bộ 56 bảng raw; sẽ mở theo use case.
 
 ## Phase P3 - Private data expansion + audit

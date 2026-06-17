@@ -145,6 +145,100 @@ FROM robo_raw.service_catalog s
 LEFT JOIN robo_app.service_categories c ON c.id = s.category_id
 WHERE COALESCE(s.is_deleted, 'f') <> 't';
 
+CREATE VIEW robo_app.service_lab_indicators AS
+SELECT
+  li.id,
+  li.clinic_id,
+  li.service_id,
+  sv.code AS service_code,
+  sv.name AS service_name,
+  sv.category_id AS service_category_id,
+  sv.category_name AS service_category_name,
+  li.code,
+  li.name,
+  li.name_en,
+  li.name_km,
+  li.unit,
+  li.reference_range_text,
+  CASE
+    WHEN li.reference_range_low ~ '^-?[0-9]+(\.[0-9]+)?$' THEN li.reference_range_low::numeric
+    ELSE NULL
+  END AS reference_range_low,
+  CASE
+    WHEN li.reference_range_high ~ '^-?[0-9]+(\.[0-9]+)?$' THEN li.reference_range_high::numeric
+    ELSE NULL
+  END AS reference_range_high,
+  li.specimen_type,
+  li.method,
+  CASE
+    WHEN li.display_order ~ '^[0-9]+$' THEN li.display_order::integer
+    ELSE NULL
+  END AS display_order,
+  CASE li.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active
+FROM robo_raw.service_lab_indicators li
+LEFT JOIN robo_app.services sv ON sv.id = li.service_id
+WHERE COALESCE(li.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.service_packages AS
+SELECT
+  sp.id,
+  sp.clinic_id,
+  sp.code,
+  sp.name,
+  sp.name_en,
+  sp.name_km,
+  sp.description,
+  CASE
+    WHEN sp.package_price_vnd ~ '^[0-9]+(\.[0-9]+)?$' THEN sp.package_price_vnd::numeric
+    ELSE NULL
+  END AS package_price_amount,
+  CASE
+    WHEN sp.original_price_vnd ~ '^[0-9]+(\.[0-9]+)?$' THEN sp.original_price_vnd::numeric
+    ELSE NULL
+  END AS original_price_amount,
+  CASE
+    WHEN sp.discount_percent ~ '^[0-9]+(\.[0-9]+)?$' THEN sp.discount_percent::numeric
+    ELSE NULL
+  END AS discount_percent,
+  COALESCE(NULLIF(sp.currency_code, ''), 'VND') AS currency_code,
+  CASE
+    WHEN sp.valid_days ~ '^[0-9]+$' THEN sp.valid_days::integer
+    ELSE NULL
+  END AS valid_days,
+  CASE
+    WHEN sp.display_order ~ '^[0-9]+$' THEN sp.display_order::integer
+    ELSE NULL
+  END AS display_order,
+  CASE sp.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(sp.created_at, '')::timestamptz AS created_at,
+  NULLIF(sp.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.service_packages sp
+WHERE COALESCE(sp.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.service_package_items AS
+SELECT
+  pi.id,
+  pi.clinic_id,
+  pi.package_id,
+  sp.code AS package_code,
+  sp.name AS package_name,
+  pi.service_id,
+  sv.code AS service_code,
+  sv.name AS service_name,
+  sv.category_id AS service_category_id,
+  sv.category_name AS service_category_name,
+  CASE
+    WHEN pi.quantity ~ '^[0-9]+(\.[0-9]+)?$' THEN pi.quantity::numeric
+    ELSE NULL
+  END AS quantity,
+  pi.notes,
+  sv.price_amount AS service_price_amount,
+  sv.currency_code AS service_currency_code,
+  NULLIF(pi.created_at, '')::timestamptz AS created_at
+FROM robo_raw.service_package_items pi
+LEFT JOIN robo_app.service_packages sp ON sp.id = pi.package_id
+LEFT JOIN robo_app.services sv ON sv.id = pi.service_id;
+
 CREATE VIEW robo_app.patients AS
 SELECT
   id,
@@ -192,6 +286,47 @@ LEFT JOIN robo_app.patients p ON p.id = a.patient_id
 LEFT JOIN robo_app.staff d ON d.id = a.doctor_id
 LEFT JOIN robo_app.services sv ON sv.id = a.service_id
 WHERE COALESCE(a.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.appointment_requests AS
+SELECT
+  ar.id,
+  ar.organization_id,
+  ar.clinic_id,
+  ar.source,
+  ar.source_reference,
+  ar.patient_info,
+  NULLIF(ar.patient_info, '')::jsonb ->> 'full_name' AS patient_name,
+  NULLIF(ar.patient_info, '')::jsonb ->> 'phone' AS patient_phone,
+  NULLIF(ar.patient_info, '')::jsonb ->> 'gender' AS patient_gender,
+  NULLIF(ar.preferred_date, '')::date AS preferred_date,
+  NULLIF(ar.preferred_time_start, '')::time AS preferred_time_start,
+  NULLIF(ar.preferred_time_end, '')::time AS preferred_time_end,
+  CASE ar.is_flexible_time WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_flexible_time,
+  ar.department_hint,
+  ar.service_hint,
+  ar.doctor_preference_id,
+  d.full_name AS doctor_preference_name,
+  ar.symptom_data,
+  NULLIF(ar.symptom_data, '')::jsonb ->> 'chief_complaint' AS chief_complaint,
+  NULLIF(ar.symptom_data, '')::jsonb ->> 'additional_notes' AS additional_notes,
+  ar.ai_summary,
+  ar.status,
+  ar.priority,
+  ar.reviewed_by,
+  NULLIF(ar.reviewed_at, '')::timestamptz AS reviewed_at,
+  ar.review_notes,
+  ar.rejection_reason,
+  ar.converted_appointment_id,
+  ar.converted_patient_id,
+  NULLIF(ar.converted_at, '')::timestamptz AS converted_at,
+  ar.converted_by,
+  NULLIF(ar.expires_at, '')::timestamptz AS expires_at,
+  NULLIF(ar.created_at, '')::timestamptz AS created_at,
+  NULLIF(ar.updated_at, '')::timestamptz AS updated_at,
+  ar.created_by
+FROM robo_raw.appointment_requests ar
+LEFT JOIN robo_app.staff d ON d.id = ar.doctor_preference_id
+WHERE COALESCE(ar.is_deleted, 'f') <> 't';
 
 CREATE VIEW robo_app.paraclinical_results AS
 SELECT

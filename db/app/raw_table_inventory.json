@@ -29,11 +29,11 @@
       "raw_table": "appointment_requests",
       "group": "appointments",
       "access_level": "private",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_1_scheduling",
-      "app_views": [],
-      "tools": [],
-      "notes": "Potential source for appointment booking/request workflow."
+      "app_views": ["appointment_requests"],
+      "tools": ["clinic.create_appointment_request"],
+      "notes": "App view contract is available for booking request workflow; write flow is still disabled."
     },
     {
       "raw_table": "appointments",
@@ -469,31 +469,31 @@
       "raw_table": "service_lab_indicators",
       "group": "services",
       "access_level": "public",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_2_lab_diagnostics",
-      "app_views": [],
-      "tools": [],
-      "notes": "Can enrich lab service detail with indicators/analytes."
+      "app_views": ["service_lab_indicators"],
+      "tools": ["future.lab_indicator_detail"],
+      "notes": "App view contract enriches lab service detail with indicators/analytes; chatbot tool integration is still future work."
     },
     {
       "raw_table": "service_package_items",
       "group": "services",
       "access_level": "public",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_packages_billing",
-      "app_views": [],
-      "tools": [],
-      "notes": "Package composition; useful for package price/detail answers."
+      "app_views": ["service_package_items"],
+      "tools": ["future.service_package_detail"],
+      "notes": "App view contract exposes package composition; chatbot package detail tool is still future work."
     },
     {
       "raw_table": "service_packages",
       "group": "services",
       "access_level": "public",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_packages_billing",
-      "app_views": [],
-      "tools": [],
-      "notes": "Service package listing and pricing."
+      "app_views": ["service_packages"],
+      "tools": ["future.service_package_detail"],
+      "notes": "App view contract exposes package listing/pricing; chatbot package detail tool is still future work."
     },
     {
       "raw_table": "staff",

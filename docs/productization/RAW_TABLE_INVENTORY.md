@@ -19,7 +19,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 15 view
+robo_app contract hiện tại: 19 view
 backend policy/tool map hiện tại: 15 mapped tools
 ```
 
@@ -37,6 +37,7 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | Raw table | App view/RAG | Mục đích |
 | --- | --- | --- |
 | `admin_help_templates` | `robo_app.knowledge_articles`, RAG | hướng dẫn/quy trình/FAQ public |
+| `appointment_requests` | `robo_app.appointment_requests` | contract nền cho yêu cầu đặt lịch |
 | `appointments` | `robo_app.appointments` | lịch hẹn cá nhân, timeline |
 | `clinic_general_settings` | `robo_app.clinic_settings` | giờ làm việc/cấu hình phòng khám |
 | `clinics` | `robo_app.clinics` | thông tin cơ sở public |
@@ -49,6 +50,9 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `rooms` | `robo_app.rooms`, schedule join | phòng/tầng/phòng khám |
 | `service_catalog` | `robo_app.services` | dịch vụ/giá/catalog |
 | `service_categories` | `robo_app.service_categories` | nhóm dịch vụ |
+| `service_lab_indicators` | `robo_app.service_lab_indicators` | chỉ số/analyte của xét nghiệm |
+| `service_package_items` | `robo_app.service_package_items` | thành phần dịch vụ trong gói |
+| `service_packages` | `robo_app.service_packages` | gói dịch vụ/giá gói |
 | `staff` | `robo_app.staff`, `robo_app.doctors` | nhân sự/bác sĩ |
 | `visits` | `robo_app.patient_visit_summaries` | visit summary |
 | `vital_signs` | `robo_app.patient_visit_summaries` | sinh hiệu gần nhất |
@@ -63,6 +67,7 @@ Mở rộng đặt lịch/request:
 
 Use case:
 
+- contract nền đã có qua `robo_app.appointment_requests`;
 - tạo yêu cầu đặt lịch;
 - xem trạng thái yêu cầu đặt lịch;
 - receptionist duyệt/chuyển thành appointment.
@@ -79,6 +84,7 @@ Mở rộng xét nghiệm/chẩn đoán:
 
 Use case:
 
+- contract nền đã có qua `robo_app.service_lab_indicators`;
 - xem chỉ số xét nghiệm thuộc dịch vụ nào;
 - theo dõi yêu cầu xét nghiệm từ đối tác;
 - xem trạng thái lấy mẫu;
@@ -99,6 +105,7 @@ Mở rộng tài chính/dịch vụ gói:
 
 Use case:
 
+- contract nền đã có qua `robo_app.service_packages` và `robo_app.service_package_items`;
 - chuẩn hóa tiền tệ/giá;
 - tra gói dịch vụ;
 - group/corporate examination;

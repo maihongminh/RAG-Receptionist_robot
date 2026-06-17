@@ -202,10 +202,10 @@ Postgres
   - thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`;
   - thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh nhóm bảng, access level, batch mở rộng;
   - thêm `scripts/check_raw_table_inventory.py` để đảm bảo inventory khớp `db/raw/schema.sql`;
-  - thêm `db/app/contract.json` làm contract máy đọc được cho 13 view `robo_app`;
+  - thêm `db/app/contract.json` làm contract máy đọc được cho 19 view `robo_app`;
   - thêm `scripts/check_app_contract.py` để kiểm tra live DB có đủ view/cột/type theo contract;
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
-  - contract check hiện tại pass: `robo_app has 15 contracted views`;
+  - contract check hiện tại pass: `robo_app has 19 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
   - thêm `scripts/check_tool_map.py`, hiện pass `15 mapped tools`;
   - productization smoke hiện chạy cả raw table inventory check.
@@ -244,7 +244,19 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `15 views`, tool map `15 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `190 passed`.
+  - đã chạy productization smoke thành công: app contract `19 views`, tool map `15 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `190 passed`.
+- Bắt đầu Batch 1 Scheduling expansion:
+  - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
+  - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;
+  - chuẩn hóa preferred date/time, flexible flag, chief complaint, review/convert/expiry timestamps;
+  - cập nhật `db/app/contract.json`, `db/app/tool_map.json`, `db/app/raw_table_inventory.json`;
+  - write flow `clinic.create_appointment_request` vẫn đang disabled, nhưng đã có app contract nền để mở ở bước sau.
+- Mở rộng contract service/lab/package foundation:
+  - thêm view `robo_app.service_lab_indicators` từ `robo_raw.service_lab_indicators`;
+  - thêm view `robo_app.service_packages` từ `robo_raw.service_packages`;
+  - thêm view `robo_app.service_package_items` từ `robo_raw.service_package_items`;
+  - cập nhật `db/app/contract.json` và `db/app/raw_table_inventory.json`;
+  - các tool chatbot chi tiết cho lab indicator/package vẫn đánh dấu `future.*`, chưa đổi behavior trả lời hiện tại.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

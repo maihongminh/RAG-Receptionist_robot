@@ -73,11 +73,15 @@ use case
 - `doctor_schedules`
 - `service_catalog`
 - `service_categories`
+- `service_lab_indicators`
+- `service_packages`
+- `service_package_items`
 
 Dùng cho:
 
 - địa chỉ/giờ làm việc;
 - dịch vụ/giá;
+- chỉ số xét nghiệm và thành phần gói khám;
 - lịch bác sĩ;
 - phòng/khu vực.
 

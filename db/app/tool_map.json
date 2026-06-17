@@ -176,7 +176,7 @@
       "intents": ["appointment_booking"],
       "data_source": "none",
       "access_level": "operational",
-      "contract_views": [],
+      "contract_views": ["appointment_requests"],
       "source_tables": ["robo_raw.appointment_requests"],
       "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
       "scope_rule": "Booking write flow is not enabled yet; current tool returns a disabled message.",

@@ -165,8 +165,12 @@ Các view hiện có:
 - `robo_app.doctor_schedules`: lịch bác sĩ, join sẵn tên bác sĩ và phòng.
 - `robo_app.service_categories`: nhóm dịch vụ.
 - `robo_app.services`: dịch vụ, giá, tiền tệ, thời lượng, loại dịch vụ.
+- `robo_app.service_lab_indicators`: chỉ số/analyte của dịch vụ xét nghiệm, join sẵn dịch vụ/nhóm dịch vụ.
+- `robo_app.service_packages`: gói dịch vụ, giá gói, giảm giá, hiệu lực.
+- `robo_app.service_package_items`: thành phần dịch vụ trong từng gói, join sẵn tên dịch vụ/gói.
 - `robo_app.patients`: thông tin bệnh nhân, chỉ dùng sau khi có xác thực.
 - `robo_app.appointments`: lịch hẹn, join sẵn bệnh nhân/bác sĩ/dịch vụ.
+- `robo_app.appointment_requests`: yêu cầu đặt lịch, chuẩn hóa patient JSON, ngày giờ mong muốn, triệu chứng và trạng thái xử lý.
 - `robo_app.paraclinical_results`: chỉ định/kết quả xét nghiệm, chẩn đoán hình ảnh, join sẵn bệnh nhân/dịch vụ/nhân sự liên quan.
 - `robo_app.patient_visit_summaries`: tóm tắt lượt khám, join `medical_records`, `visits`, latest `vital_signs`, bệnh nhân và bác sĩ.
 - `robo_app.billing_records`: hóa đơn/thanh toán cá nhân từ `diagnostic_walk_in_patients`.
@@ -220,9 +224,13 @@ Kiểm tra view:
 \dv robo_app.*
 SELECT count(*) FROM robo_app.clinics;
 SELECT count(*) FROM robo_app.services;
+SELECT count(*) FROM robo_app.service_lab_indicators;
+SELECT count(*) FROM robo_app.service_packages;
+SELECT count(*) FROM robo_app.service_package_items;
 SELECT count(*) FROM robo_app.doctors;
 SELECT count(*) FROM robo_app.doctor_schedules;
 SELECT count(*) FROM robo_app.appointments;
+SELECT count(*) FROM robo_app.appointment_requests;
 SELECT count(*) FROM robo_app.paraclinical_results;
 ```
 
