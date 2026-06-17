@@ -161,6 +161,15 @@ Done khi:
 - Có thể biết document vector đến từ bảng/dòng nào.
 - Query RAG filter được theo domain/clinic/source khi cần.
 
+Trạng thái hiện tại:
+
+- `scripts/rag_documents.py` đã là registry có metadata chuẩn.
+- Qdrant payload có `source/source_table/source_id/domain/clinic_id/language/content_hash`.
+- Đã có `scripts/build_qdrant_index.py --mode full`.
+- Đã có `scripts/build_qdrant_index.py --mode incremental` dựa trên `robo_rag.index_manifest`.
+- Registry hiện có 2 source public: `robo_app.knowledge_articles`, `robo_app.patient_question_templates`.
+- Vector search filter tối thiểu theo `domain=clinic`, `access_level=public`.
+
 ## Phase P5 - Deployment/test hardening
 
 Mục tiêu: chạy được môi trường nhất quán và kiểm thử end-to-end.
@@ -182,6 +191,12 @@ Done khi:
 
 - Clone repo -> chạy setup -> test MVP/productization smoke được.
 - CI hoặc script local có thể chạy test quan trọng.
+
+Trạng thái hiện tại:
+
+- Đã có `GET /health` cho liveness.
+- Đã có `GET /ready` kiểm tra Postgres schema, RAG manifest và Qdrant collection.
+- Đã có `scripts/check_productization_smoke.sh` gom app contract, tool map, RAG registry, MVP scenario và backend pytest.
 
 ## Thứ tự khuyến nghị
 

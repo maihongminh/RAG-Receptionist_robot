@@ -48,6 +48,14 @@ Kết quả đúng:
 {"status":"ok"}
 ```
 
+Kiểm tra readiness dependencies:
+
+```bash
+curl http://localhost:8000/ready
+```
+
+`/health` chỉ xác nhận process backend còn sống. `/ready` kiểm tra Postgres, các schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection. Nếu thiếu dependency, endpoint trả HTTP `503` với chi tiết trong `checks`.
+
 API docs:
 
 ```text
@@ -539,6 +547,31 @@ Mặc định script tắt vector RAG để chạy ổn định bằng keyword f
 
 ```bash
 ./backend/.venv/bin/python scripts/test_mvp_chatbot.py --llm-provider ollama --rag-vector --verbose
+```
+
+### Productization smoke check
+
+Chạy toàn bộ smoke quan trọng sau khi pull code, đổi schema hoặc đổi RAG/auth/data layer:
+
+```bash
+cd /home/minhmh/tool/robo
+scripts/check_productization_smoke.sh
+```
+
+Script này chạy:
+
+```text
+check_app_contract.py
+check_tool_map.py
+check_rag_registry.py
+test_mvp_chatbot.py --llm-provider none
+backend pytest
+```
+
+Nếu chỉ muốn chạy smoke nhanh và bỏ qua full pytest:
+
+```bash
+SKIP_PYTEST=1 scripts/check_productization_smoke.sh
 ```
 
 ## 8. Ghi chú kiến trúc

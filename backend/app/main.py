@@ -3,11 +3,13 @@ from uuid import uuid4
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.requests import Request
 
 from app.api.auth import router as auth_router
 from app.api.ask import router as ask_router
 from app.core.request_context import set_request_context, get_elapsed_ms
+from app.core.readiness import get_readiness_status
 
 
 app = FastAPI(
@@ -43,3 +45,10 @@ async def request_context_middleware(request: Request, call_next):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/ready")
+def ready():
+    is_ready, payload = get_readiness_status()
+    status_code = 200 if is_ready else 503
+    return JSONResponse(status_code=status_code, content=payload)

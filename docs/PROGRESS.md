@@ -4,7 +4,7 @@ File này dùng để cập nhật trạng thái sau mỗi lần làm việc.
 
 ## Trạng thái hiện tại
 
-Cập nhật gần nhất: 2026-06-16
+Cập nhật gần nhất: 2026-06-17
 
 Project đã hoàn thành **MVP hỏi đáp có SQL/RAG/LLM local, auth productization foundation và context hội thoại ngắn**.
 
@@ -139,7 +139,7 @@ Postgres
   - receptionist/clinic_admin/system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing;
   - seed productization thêm 5 billing records cho patient demo.
-- Test backend hiện tại: `186 passed`.
+- Test backend hiện tại: `189 passed`.
 - MVP scenario hiện tại: `21/21 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
@@ -234,6 +234,13 @@ Postgres
   - thêm routing cho câu hỏi dạng `mẫu câu hỏi`, `nên hỏi bác sĩ câu gì` vào `knowledge_search`;
   - formatter fallback hiện trả `patient_question_template` dưới dạng danh sách câu hỏi gợi ý, có lọc topic như `medication`, `test_results`, `lifestyle`;
   - test thực tế `Tôi nên hỏi bác sĩ câu gì về thuốc?` trả 2 câu hỏi liên quan thuốc.
+- Bắt đầu P5 deployment/test hardening:
+  - thêm endpoint `GET /ready`;
+  - `/health` giữ vai trò liveness check đơn giản;
+  - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
+  - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
+  - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
+  - đã chạy productization smoke thành công: app contract `15 views`, tool map `15 tools`, RAG registry `2 sources`, MVP scenario `21/21`, backend tests `189 passed`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

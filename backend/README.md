@@ -68,6 +68,9 @@ Auth/RBAC hiện có:
 - audit ghi application logger và `robo_auth.audit_events`
 - request observability có `X-Request-ID`, `X-Process-Time-Ms`, `/ask.request_id`, `/ask.latency_ms`
 - account admin API chỉ cho `clinic_admin` trong clinic scope hoặc `system_admin` toàn hệ thống
+- `GET /health` là liveness check đơn giản
+- `GET /ready` là readiness check cho Postgres schema, RAG manifest và Qdrant collection
+- `scripts/check_productization_smoke.sh` chạy smoke chính: app contract, tool map, RAG registry, MVP scenario và backend pytest
 - chưa gắn provider email/SMS/OTP thật; reset token foundation đã có và mặc định không expose token ra API
 
 Tài khoản demo:
