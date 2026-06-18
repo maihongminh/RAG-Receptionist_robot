@@ -240,6 +240,23 @@
       ]
     },
     {
+      "name": "icd10_codes",
+      "access_level": "public",
+      "source_tables": ["robo_raw.ref_icd10_codes"],
+      "tools": ["clinic.lookup_icd10_codes"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "code", "data_type": "text"},
+        {"name": "name_vi", "data_type": "text"},
+        {"name": "name_en", "data_type": "text"},
+        {"name": "category", "data_type": "text"},
+        {"name": "chapter", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"},
+        {"name": "display_order", "data_type": "integer"},
+        {"name": "created_at", "data_type": "timestamp with time zone"}
+      ]
+    },
+    {
       "name": "patients",
       "access_level": "private",
       "source_tables": ["robo_raw.patients"],

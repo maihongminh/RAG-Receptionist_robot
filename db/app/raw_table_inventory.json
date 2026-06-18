@@ -409,11 +409,11 @@
       "raw_table": "ref_icd10_codes",
       "group": "reference",
       "access_level": "public",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_2_clinical_reference",
-      "app_views": [],
-      "tools": [],
-      "notes": "Clinical code reference; do not use as diagnosis advice source."
+      "app_views": ["icd10_codes"],
+      "tools": ["clinic.lookup_icd10_codes"],
+      "notes": "Clinical code reference exposed through public SQL lookup. Do not use as diagnosis advice source."
     },
     {
       "raw_table": "rooms",

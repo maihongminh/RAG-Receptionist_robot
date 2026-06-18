@@ -50,6 +50,8 @@ class ResponseGenerator:
             return self._service_package_detail(result)
         if intent.intent == "lab_indicator_detail":
             return self._lab_indicator_detail(result)
+        if intent.intent == "icd10_lookup":
+            return self._icd10_lookup(result)
         if intent.intent == "doctor_schedule":
             return self._doctor_schedule(intent, result)
         if intent.intent == "knowledge_search":
@@ -317,6 +319,33 @@ class ResponseGenerator:
             + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
             + suffix
         )
+
+    def _icd10_lookup(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy mã ICD10 phù hợp trong bảng tham khảo."
+
+        rows = result.rows[: min(get_rag_config().context_max_rows, len(result.rows))]
+        lines = []
+        for row in rows:
+            code = row.get("code") or "chưa rõ mã"
+            name_vi = row.get("name_vi") or "chưa có tên tiếng Việt"
+            name_en = row.get("name_en")
+            category = row.get("category")
+            chapter = row.get("chapter")
+            parts = [f"{code}: {name_vi}"]
+            if name_en:
+                parts.append(f"EN: {name_en}")
+            if category:
+                parts.append(f"nhóm {category}")
+            if chapter:
+                parts.append(f"chương {chapter}")
+            lines.append(", ".join(parts))
+
+        prefix = "Tôi tìm thấy mã ICD10 tham khảo:\n"
+        suffix = "\nLưu ý: đây là bảng mã tham khảo, không phải chẩn đoán y khoa."
+        return prefix + "\n".join(
+            f"{index}. {line}" for index, line in enumerate(lines, start=1)
+        ) + suffix
 
     def _doctor_schedule(self, intent: Intent, result: ToolResult) -> str:
         if not result.rows:

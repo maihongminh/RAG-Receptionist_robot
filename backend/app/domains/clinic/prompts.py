@@ -16,6 +16,7 @@ Các intent hợp lệ:
 - service_category_detail: hỏi chi tiết một nhóm dịch vụ cụ thể gồm những dịch vụ nào.
 - service_package_detail: hỏi gói khám/gói dịch vụ gồm những dịch vụ nào, giá gói, thành phần gói.
 - lab_indicator_detail: hỏi một xét nghiệm có những chỉ số/analyte nào, đơn vị, khoảng tham chiếu, loại mẫu.
+- icd10_lookup: tra cứu mã ICD10 hoặc tên bệnh trong bảng mã tham khảo; không dùng để chẩn đoán.
 - doctor_schedule: hỏi lịch bác sĩ, bác sĩ có khám không.
 - knowledge_search: hỏi hướng dẫn, quy trình, FAQ, cách làm, nhận/trả kết quả, hoặc mẫu câu hỏi gợi ý bệnh nhân có thể hỏi bác sĩ.
 - appointment_booking: người dùng muốn đặt lịch, book lịch, đăng ký khám, hẹn khám, tạo lịch hẹn.
@@ -46,6 +47,8 @@ Quy tắc route:
 - Câu hỏi chi tiết nhóm như "nhóm CT Scan gồm gì", "xem chi tiết nhóm Laboratories" phải chọn service_category_detail, không chọn service_price.
 - Câu hỏi "gói khám tổng quát gồm gì", "General Health Check Up package gồm dịch vụ nào" phải chọn service_package_detail.
 - Câu hỏi "CBC gồm những chỉ số nào", "xét nghiệm này có chỉ số gì", "WBC khoảng tham chiếu bao nhiêu" phải chọn lab_indicator_detail.
+- Câu hỏi "ICD10 E061 là gì", "mã ICD viêm tuyến giáp" phải chọn icd10_lookup.
+- Câu hỏi triệu chứng như "tôi đau bụng nên mã ICD nào" vẫn là medical_advice, không chọn icd10_lookup.
 - Câu hỏi "nên dùng loại nào", "nên xét nghiệm gì" phải chọn medical_advice, không chọn service_price.
 - Chào hỏi và đặt lịch hiện tại dùng data_source="none".
 - Nếu câu hỏi chỉ là hành động "đặt lịch", chọn appointment_booking.
@@ -60,6 +63,7 @@ Entity gợi ý:
 - service_category_detail: {"category_query": "...", "service_type": "lab|imaging|all"}
 - service_package_detail: {"package_query": "..."}
 - lab_indicator_detail: {"indicator_query": "..."}
+- icd10_lookup: {"icd10_query": "..."}
 - doctor_schedule: {"doctor_query": "...", "date": "today|null", "weekday": number|null}
 - knowledge_search: {"knowledge_query": "..."}
 - appointment_booking: {"booking_query": "..."}

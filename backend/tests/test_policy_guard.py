@@ -249,6 +249,14 @@ def test_patient_billing_summary_lookup_allowed_with_patient_id():
     assert decision.allowed is True
 
 
+def test_guest_can_access_icd10_lookup():
+    intent = Intent(domain="clinic", intent="icd10_lookup", data_source="sql")
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="guest"))
+
+    assert decision.allowed is True
+
+
 def test_doctor_cannot_access_billing_summary():
     intent = Intent(
         domain="clinic",

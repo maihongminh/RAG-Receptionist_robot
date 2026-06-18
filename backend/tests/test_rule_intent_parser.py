@@ -237,6 +237,21 @@ def test_knowledge_search_intent():
     assert intent.entities["knowledge_query"] == "Quy trình khám như thế nào?"
 
 
+def test_icd10_lookup_intent():
+    intent = RuleIntentParser().parse("ICD10 E061 là gì?", "clinic")
+
+    assert intent.intent == "icd10_lookup"
+    assert intent.data_source == "sql"
+    assert intent.entities["icd10_query"] == "E061"
+
+
+def test_symptom_question_with_icd_stays_medical_advice():
+    intent = RuleIntentParser().parse("Tôi đau bụng nên dùng mã ICD nào?", "clinic")
+
+    assert intent.intent == "medical_advice"
+    assert intent.data_source == "none"
+
+
 def test_patient_question_template_routes_to_knowledge_search_not_doctor_schedule():
     intent = RuleIntentParser().parse("Tôi nên hỏi bác sĩ câu gì về thuốc?", "clinic")
 

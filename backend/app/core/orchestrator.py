@@ -251,6 +251,7 @@ class Orchestrator:
             "service_category_detail": "sql",
             "service_package_detail": "sql",
             "lab_indicator_detail": "sql",
+            "icd10_lookup": "sql",
             "doctor_schedule": "sql",
             "knowledge_search": "rag",
             "appointment_booking": "none",
@@ -284,7 +285,7 @@ class Orchestrator:
             intent = rule_intent.model_copy(
                 update={"confidence": max(intent.confidence, rule_intent.confidence)}
             )
-        elif rule_intent.intent in {"service_package_detail", "lab_indicator_detail"} and intent.intent in {
+        elif rule_intent.intent in {"service_package_detail", "lab_indicator_detail", "icd10_lookup"} and intent.intent in {
             "service_price",
             "service_category_list",
             "service_catalog_summary",
@@ -350,6 +351,8 @@ class Orchestrator:
             entities["package_query"] = rule_intent.entities.get("package_query", question.strip())
         elif intent.intent == "lab_indicator_detail" and not entities.get("indicator_query"):
             entities["indicator_query"] = rule_intent.entities.get("indicator_query", question.strip())
+        elif intent.intent == "icd10_lookup" and not entities.get("icd10_query"):
+            entities["icd10_query"] = rule_intent.entities.get("icd10_query", question.strip())
         elif intent.intent == "general_info" and not entities.get("profile_query"):
             entities["profile_query"] = rule_intent.entities.get("profile_query", "")
         elif intent.intent == "doctor_schedule":

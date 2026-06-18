@@ -113,7 +113,7 @@ Các bảng chưa nên đưa vào MVP nếu chưa cần:
 
 - Hồ sơ bệnh án, sinh hiệu, chi tiết kết quả: nên làm sau vì rủi ro bảo mật cao.
 - Audit/security/subscription/platform admin: không liên quan trực tiếp tới robot lễ tân.
-- ICD10: dữ liệu quá lớn và chưa cần cho lễ tân giai đoạn đầu.
+- ICD10: đã mở ở phase productization dưới dạng tra cứu reference public; không dùng để chẩn đoán.
 
 ## 6. Thiết kế module để scale nhiều ngành
 

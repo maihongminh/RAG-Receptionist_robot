@@ -369,6 +369,29 @@ def test_knowledge_search_template_formats_patient_question_templates_as_suggest
     assert "Kết quả xét nghiệm" not in answer
 
 
+def test_icd10_lookup_formats_reference_disclaimer():
+    intent = Intent(intent="icd10_lookup", data_source="sql")
+    result = ToolResult(
+        tool_name="clinic.lookup_icd10_codes",
+        source="robo_app.icd10_codes",
+        rows=[
+            {
+                "code": "E061",
+                "name_vi": "Viêm tuyến giáp bán cấp",
+                "name_en": "Subacute thyroiditis",
+                "category": "E06",
+                "chapter": "E",
+            }
+        ],
+    )
+
+    answer = ResponseGenerator().generate("ICD10 E061 là gì?", intent, result)
+
+    assert "E061: Viêm tuyến giáp bán cấp" in answer
+    assert "Subacute thyroiditis" in answer
+    assert "không phải chẩn đoán y khoa" in answer
+
+
 def test_medical_advice_mentions_symptom_without_recommending_specific_test():
     intent = Intent(intent="medical_advice", data_source="none")
     result = ToolResult(tool_name="none", source="none")

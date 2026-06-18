@@ -419,6 +419,89 @@ class ClinicSqlTools:
             confidence=rows[0].get("_score", 0.88) if rows else 0.0,
         )
 
+    def lookup_icd10_codes(self, icd10_query: str) -> ToolResult:
+        icd10_query = (icd10_query or "").strip()
+        if not icd10_query:
+            return ToolResult(
+                tool_name="clinic.lookup_icd10_codes",
+                source="robo_app.icd10_codes",
+                rows=[],
+                message="Vui lòng nhập mã ICD10 hoặc tên bệnh cần tra cứu.",
+                confidence=0.0,
+            )
+
+        normalized_code = self._normalize_icd10_code(icd10_query)
+        like_query = f"%{icd10_query}%"
+        code_like_query = f"%{normalized_code}%"
+        rows = fetch_all(
+            """
+            SELECT
+              id,
+              code,
+              name_vi,
+              name_en,
+              category,
+              chapter
+            FROM robo_app.icd10_codes
+            WHERE COALESCE(is_active, true) = true
+              AND (
+                code ILIKE %(code_like_query)s
+                OR name_vi ILIKE %(like_query)s
+                OR name_en ILIKE %(like_query)s
+                OR category ILIKE %(code_like_query)s
+                OR chapter ILIKE %(code_like_query)s
+              )
+            ORDER BY
+              CASE
+                WHEN code = %(normalized_code)s THEN 0
+                WHEN code LIKE %(normalized_code_prefix)s THEN 1
+                WHEN category = %(normalized_code)s THEN 2
+                WHEN name_vi ILIKE %(like_query)s THEN 3
+                WHEN name_en ILIKE %(like_query)s THEN 4
+                ELSE 5
+              END,
+              code
+            LIMIT %(limit)s
+            """,
+            {
+                "normalized_code": normalized_code,
+                "normalized_code_prefix": f"{normalized_code}%",
+                "code_like_query": code_like_query,
+                "like_query": like_query,
+                "limit": get_rag_config().api_preview_max_rows,
+            },
+        )
+        if not rows:
+            fallback_rows = fetch_all(
+                f"""
+                SELECT
+                  id,
+                  code,
+                  name_vi,
+                  name_en,
+                  category,
+                  chapter
+                FROM robo_app.icd10_codes
+                WHERE COALESCE(is_active, true) = true
+                LIMIT {get_rag_config().sql_result_limit}
+                """
+            )
+            rows = self._rank_rows(
+                fallback_rows,
+                icd10_query,
+                ["code", "name_vi", "name_en", "category", "chapter"],
+                min_score=0.35,
+            )[: get_rag_config().api_preview_max_rows]
+
+        for row in rows:
+            row["query"] = icd10_query
+        return ToolResult(
+            tool_name="clinic.lookup_icd10_codes",
+            source="robo_app.icd10_codes",
+            rows=rows,
+            confidence=0.88 if rows else 0.0,
+        )
+
     def search_doctor_schedules(self, doctor_query: str, weekday: int | None = None) -> ToolResult:
         params: dict[str, Any] = {}
         weekday_clause = ""
@@ -1394,6 +1477,12 @@ class ClinicSqlTools:
             return True
         query_tokens = normalized_query.split()
         return len(query_tokens) >= 2 and normalized_query in service_name
+
+    def _normalize_icd10_code(self, value: str) -> str:
+        cleaned = str(value or "").upper()
+        for token in ("ICD-10", "ICD10", "ICD", "MÃ", "MA"):
+            cleaned = cleaned.replace(token, " ")
+        return "".join(character for character in cleaned if character.isalnum())
 
     def _score(self, query: str, text: str) -> float:
         normalized_text = self._normalize(text)

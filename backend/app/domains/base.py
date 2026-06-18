@@ -33,6 +33,10 @@ class DomainAdapter(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def lookup_icd10_codes(self, entities: dict) -> ToolResult:
+        raise NotImplementedError
+
+    @abstractmethod
     def check_availability(self, entities: dict) -> ToolResult:
         raise NotImplementedError
 

@@ -141,6 +141,15 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="icd10_lookup",
+        question="ICD10 E061 là gì?",
+        expected_intent="icd10_lookup",
+        expected_source="robo_app.icd10_codes",
+        expected_answer_contains=("E061", "Viêm tuyến giáp", "không phải chẩn đoán y khoa"),
+        expected_data_contains=("E061", "Viêm tuyến giáp bán cấp"),
+        min_data_rows=1,
+    ),
+    Scenario(
         name="medical_advice_safety",
         question="tôi đau bụng nên khám gì?",
         expected_intent="medical_advice",

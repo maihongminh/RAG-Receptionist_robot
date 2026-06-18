@@ -316,6 +316,23 @@ FROM robo_raw.service_package_items pi
 LEFT JOIN robo_app.service_packages sp ON sp.id = pi.package_id
 LEFT JOIN robo_app.services sv ON sv.id = pi.service_id;
 
+CREATE VIEW robo_app.icd10_codes AS
+SELECT
+  id,
+  UPPER(REPLACE(code, '.', '')) AS code,
+  name_vi,
+  name_en,
+  category,
+  chapter,
+  CASE is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  CASE
+    WHEN display_order ~ '^[0-9]+$' THEN display_order::integer
+    ELSE NULL
+  END AS display_order,
+  NULLIF(created_at, '')::timestamptz AS created_at
+FROM robo_raw.ref_icd10_codes
+WHERE COALESCE(is_active, 't') = 't';
+
 CREATE VIEW robo_app.patients AS
 SELECT
   id,

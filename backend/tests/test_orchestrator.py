@@ -192,6 +192,22 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.9,
         )
 
+    def lookup_icd10_codes(self, entities: dict) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_icd10_codes",
+            source="fake.icd10_codes",
+            rows=[
+                {
+                    "code": "E061",
+                    "name_vi": "Viêm tuyến giáp bán cấp",
+                    "name_en": "Subacute thyroiditis",
+                    "category": "E06",
+                    "chapter": "E",
+                }
+            ],
+            confidence=0.9,
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.search_doctor_schedules",
@@ -509,6 +525,15 @@ def test_orchestrator_lab_indicator_detail():
     assert response.sources == ["fake.service_lab_indicators"]
     assert "WBC" in response.answer
     assert "Bạch cầu" in response.answer
+
+
+def test_orchestrator_icd10_lookup():
+    response = build_orchestrator().handle(AskRequest(question="ICD10 E061 là gì?"))
+
+    assert response.intent == "icd10_lookup"
+    assert response.sources == ["fake.icd10_codes"]
+    assert "E061" in response.answer
+    assert "không phải chẩn đoán y khoa" in response.answer
 
 
 def test_orchestrator_partner_lab_request_lookup_requires_auth_context():

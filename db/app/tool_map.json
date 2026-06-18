@@ -99,6 +99,18 @@
       "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
     },
     {
+      "tool_name": "clinic.lookup_icd10_codes",
+      "status": "active",
+      "intents": ["icd10_lookup"],
+      "data_source": "sql",
+      "access_level": "public",
+      "contract_views": ["icd10_codes"],
+      "source_tables": ["robo_raw.ref_icd10_codes"],
+      "allowed_roles": ["guest", "patient", "doctor", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "Reference lookup only. Do not use as diagnosis advice source.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
+    },
+    {
       "tool_name": "clinic.search_doctor_schedules",
       "status": "active",
       "intents": ["doctor_schedule"],

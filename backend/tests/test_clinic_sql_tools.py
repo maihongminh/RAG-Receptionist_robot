@@ -503,6 +503,35 @@ def test_lookup_lab_indicator_detail_returns_all_indicators_for_matched_service(
     assert result.rows[0]["total_indicators"] == 2
 
 
+def test_lookup_icd10_codes_searches_reference_view(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "id": "icd-1",
+                "code": "E061",
+                "name_vi": "Viêm tuyến giáp bán cấp",
+                "name_en": "Subacute thyroiditis",
+                "category": "E06",
+                "chapter": "E",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_icd10_codes("ICD10 E06.1")
+
+    assert "FROM robo_app.icd10_codes" in calls["query"]
+    assert calls["params"]["normalized_code"] == "E061"
+    assert result.tool_name == "clinic.lookup_icd10_codes"
+    assert result.source == "robo_app.icd10_codes"
+    assert result.rows[0]["code"] == "E061"
+
+
 def test_lookup_lab_results_filters_patient_scope(monkeypatch):
     tool = ClinicSqlTools()
     calls = {}

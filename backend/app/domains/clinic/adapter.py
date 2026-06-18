@@ -43,6 +43,11 @@ class ClinicAdapter(DomainAdapter):
             indicator_query=entities.get("indicator_query", ""),
         )
 
+    def lookup_icd10_codes(self, entities: dict) -> ToolResult:
+        return self.sql_tools.lookup_icd10_codes(
+            icd10_query=entities.get("icd10_query", ""),
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return self.sql_tools.search_doctor_schedules(
             doctor_query=entities.get("doctor_query", ""),

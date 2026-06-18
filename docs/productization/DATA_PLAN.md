@@ -251,17 +251,18 @@ Các use case productization đã có app contract, tool map, policy và test:
 - Billing summary: `robo_app.billing_records` -> `clinic.lookup_billing_summary`.
 - Service/package detail: `robo_app.service_lab_indicators`, `robo_app.service_packages`, `robo_app.service_package_items`.
 - Service RAG guides: `robo_app.service_rag_guides` -> `scripts.rag_documents`.
+- ICD10 reference: `robo_app.icd10_codes` -> `clinic.lookup_icd10_codes`.
 - Partner lab tracking: `robo_app.partner_lab_requests`, `robo_app.partner_onsite_collections` -> `clinic.lookup_partner_lab_requests`.
 
 Smoke hiện tại:
 
 ```text
-app contract: 22 views
-tool map: 18 tools
+app contract: 23 views
+tool map: 19 tools
 raw inventory: 56 tables
 RAG registry: 3 sources / 56 chunks
-chatbot scenarios: 24/24
-backend tests: 207 passed
+chatbot scenarios: 25/25
+backend tests: 213 passed
 ```
 
 Ví dụ đã làm sau productization foundation:
