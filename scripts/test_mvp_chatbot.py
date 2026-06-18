@@ -169,6 +169,20 @@ SCENARIOS = [
         min_data_rows=1,
     ),
     Scenario(
+        name="patient_partner_lab_request_lookup",
+        question="Mẫu xét nghiệm của tôi đã lấy chưa?",
+        auth={
+            "role": "patient",
+            "patient_id": "d7402d44-a12f-420b-93b9-90372a3b2e6e",
+        },
+        expected_intent="partner_lab_request_lookup",
+        expected_source="robo_app.partner_lab_requests, robo_app.partner_onsite_collections",
+        expected_answer_contains=("PLR-PROD", "Trần Thị Bình"),
+        expected_data_contains=("PLR-PROD-0003", "sample_collected", "partner_lab_request"),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
         name="patient_appointment_lookup",
         question="tôi có lịch hẹn nào không",
         auth={

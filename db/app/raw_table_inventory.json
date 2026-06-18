@@ -309,21 +309,21 @@
       "raw_table": "partner_lab_requests",
       "group": "partner",
       "access_level": "private",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_2_lab_diagnostics",
-      "app_views": [],
-      "tools": [],
-      "notes": "Partner lab request workflow; likely private/operational."
+      "app_views": ["partner_lab_requests"],
+      "tools": ["clinic.lookup_partner_lab_requests"],
+      "notes": "Partner lab request workflow exposed through a private/auth SQL lookup tool."
     },
     {
       "raw_table": "partner_onsite_collections",
       "group": "partner",
       "access_level": "private",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_2_lab_diagnostics",
-      "app_views": [],
-      "tools": [],
-      "notes": "Onsite sample collection workflow."
+      "app_views": ["partner_onsite_collections"],
+      "tools": ["clinic.lookup_partner_lab_requests"],
+      "notes": "Onsite sample collection status is joined to partner lab request lookup."
     },
     {
       "raw_table": "partner_users",

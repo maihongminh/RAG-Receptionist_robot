@@ -62,6 +62,20 @@ LAB_RESULT_KEYWORDS = (
     "xem kết quả",
     "tra kết quả",
 )
+PARTNER_LAB_REQUEST_KEYWORDS = (
+    "yêu cầu xét nghiệm",
+    "request xét nghiệm",
+    "trạng thái xét nghiệm",
+    "trạng thái mẫu",
+    "mẫu đã lấy",
+    "đã lấy mẫu",
+    "đã lấy chưa",
+    "lấy mẫu tận nơi",
+    "lịch lấy mẫu",
+    "mã accession",
+    "accession",
+    "barcode",
+)
 PATIENT_TIMELINE_KEYWORDS = (
     "timeline của tôi",
     "dòng thời gian của tôi",
@@ -302,6 +316,19 @@ class RuleIntentParser:
                 requires_auth=True,
                 data_source="auth",
                 reasoning="Question asks to look up lab/diagnostic results.",
+            )
+
+        if any(keyword in normalized for keyword in PARTNER_LAB_REQUEST_KEYWORDS) and not any(
+            keyword in normalized for keyword in GUIDANCE_KEYWORDS
+        ):
+            return Intent(
+                domain=domain,
+                intent="partner_lab_request_lookup",
+                entities={"request_query": self._clean_partner_lab_request_query(question)},
+                confidence=0.82,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to look up partner lab request or onsite collection status.",
             )
 
         if any(keyword in normalized for keyword in PATIENT_TIMELINE_KEYWORDS):
@@ -615,6 +642,35 @@ class RuleIntentParser:
             "của tôi",
             "cho tôi xem",
             "xem",
+            "là gì",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _clean_partner_lab_request_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "mẫu xét nghiệm",
+            "yêu cầu xét nghiệm",
+            "request xét nghiệm",
+            "trạng thái xét nghiệm",
+            "trạng thái mẫu",
+            "mẫu đã lấy chưa",
+            "mẫu đã lấy",
+            "đã lấy mẫu chưa",
+            "đã lấy mẫu",
+            "đã lấy chưa",
+            "lấy mẫu tận nơi",
+            "lịch lấy mẫu",
+            "mã accession",
+            "accession",
+            "barcode",
+            "của tôi",
+            "cho tôi xem",
+            "xem",
+            "tra",
             "là gì",
             "?",
         ]

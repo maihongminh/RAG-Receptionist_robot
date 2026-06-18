@@ -84,13 +84,13 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 19 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 21 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
 - Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
 - Đã thêm `scripts/check_app_contract.py` để kiểm tra live DB theo contract.
 - Đã thêm test guardrail để domain SQL tools không query trực tiếp `robo_raw`.
-- Đã thêm `db/app/tool_map.json` cho 17 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary`, `clinic.lookup_billing_summary`, `clinic.lookup_lab_indicator_detail` và `clinic.lookup_service_package_detail`.
+- Đã thêm `db/app/tool_map.json` cho 18 mapped tools, gồm `clinic.lookup_patient_profile`, `clinic.lookup_patient_timeline`, `clinic.lookup_visit_summary`, `clinic.lookup_billing_summary`, `clinic.lookup_lab_indicator_detail`, `clinic.lookup_service_package_detail` và `clinic.lookup_partner_lab_requests`.
 - Đã mở rộng contract `robo_app.patients` cho patient profile summary.
 - Đã map timeline sang các view hiện có: `patients`, `appointments`, `paraclinical_results`.
 - Đã thêm `robo_app.patient_visit_summaries` để gom `medical_records`, `visits`, latest `vital_signs`, patient và doctor.
@@ -100,6 +100,10 @@ Trạng thái hiện tại:
   - `robo_app.service_lab_indicators`;
   - `robo_app.service_packages`;
   - `robo_app.service_package_items`.
+- Đã mở Batch 2 Lab/Diagnostics cho partner lab:
+  - `robo_app.partner_lab_requests`;
+  - `robo_app.partner_onsite_collections`;
+  - seed productization có 5 partner lab requests và 2 onsite collections cho patient demo.
 - Đã nối public SQL tool cho lab indicator/package detail:
   - `clinic.lookup_lab_indicator_detail`;
   - `clinic.lookup_service_package_detail`.
@@ -152,6 +156,12 @@ Trạng thái hiện tại:
   - receptionist/clinic_admin scope theo `clinic_id` và phải nêu bệnh nhân cụ thể;
   - system_admin phải nêu bệnh nhân cụ thể;
   - doctor không có quyền billing.
+- Đã có private tool `clinic.lookup_partner_lab_requests`:
+  - gom yêu cầu xét nghiệm đối tác và lịch lấy mẫu tận nơi;
+  - patient scope theo `patient_id`;
+  - receptionist/clinic_admin scope theo `clinic_id` và phải nêu bệnh nhân/yêu cầu cụ thể;
+  - system_admin phải nêu bệnh nhân/yêu cầu cụ thể;
+  - doctor chưa mở quyền cho partner lab request khi chưa có care-scope rõ.
 - Cần tiếp tục mở từng use case riêng như visit/medical summary thay vì query rộng toàn bộ patient data.
 
 ## Phase P4 - RAG production sync

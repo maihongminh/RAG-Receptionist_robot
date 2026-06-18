@@ -257,6 +257,26 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
         )
 
+    def lookup_partner_lab_requests(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_partner_lab_requests",
+            source="fake.partner_lab_requests",
+            rows=[
+                {
+                    "record_type": "partner_lab_request",
+                    "accession_number": "PLR-DEMO-001",
+                    "patient_name": "Nguyễn Văn A",
+                    "status": "processing",
+                    "sample_type": "Máu",
+                    "collection_method": "onsite_collection",
+                    "requested_at": "2026-06-10 08:00:00+00",
+                }
+            ]
+            if auth.patient_id == "patient-1"
+            else [],
+            confidence=0.8 if auth.patient_id == "patient-1" else 0.0,
+        )
+
     def lookup_patient_profile(self, entities: dict, auth: AuthContext) -> ToolResult:
         return ToolResult(
             tool_name="clinic.lookup_patient_profile",
@@ -489,6 +509,17 @@ def test_orchestrator_lab_indicator_detail():
     assert response.sources == ["fake.service_lab_indicators"]
     assert "WBC" in response.answer
     assert "Bạch cầu" in response.answer
+
+
+def test_orchestrator_partner_lab_request_lookup_requires_auth_context():
+    response = build_orchestrator().handle(
+        AskRequest(question="Mẫu xét nghiệm của tôi đã lấy chưa?"),
+        authorization=bearer_for(AuthContext(role="patient", patient_id="patient-1")),
+    )
+
+    assert response.intent == "partner_lab_request_lookup"
+    assert response.sources == ["fake.partner_lab_requests"]
+    assert "PLR-DEMO-001" in response.answer
 
 
 def test_orchestrator_prefers_lab_service_type_when_llm_uses_all():

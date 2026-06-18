@@ -528,6 +528,51 @@ def test_lookup_lab_results_filters_patient_scope(monkeypatch):
     assert result.rows[0]["service_name"] == "CBC"
 
 
+def test_lookup_partner_lab_requests_filters_patient_scope(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = []
+
+    def fake_fetch_all(query, params):
+        calls.append((query, params))
+        if "FROM robo_app.partner_lab_requests" in query:
+            return [
+                {
+                    "record_type": "partner_lab_request",
+                    "accession_number": "PLR-PROD-0001",
+                    "patient_id": "patient-1",
+                    "patient_name": "Nguyễn Văn A",
+                    "status": "pending",
+                }
+            ]
+        return [
+            {
+                "record_type": "partner_onsite_collection",
+                "accession_number": "PLR-PROD-0001",
+                "patient_id": "patient-1",
+                "patient_name": "Nguyễn Văn A",
+                "onsite_status": "scheduled",
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_partner_lab_requests({}, AuthContext(role="patient", patient_id="patient-1"))
+
+    assert result.tool_name == "clinic.lookup_partner_lab_requests"
+    assert calls[0][1]["patient_id"] == "patient-1"
+    assert "patient_id = %(patient_id)s" in calls[0][0]
+    assert len(result.rows) == 2
+
+
+def test_lookup_partner_lab_requests_requires_query_for_clinic_roles():
+    tool = ClinicSqlTools()
+
+    result = tool.lookup_partner_lab_requests({}, AuthContext(role="clinic_admin", clinic_id="clinic-1"))
+
+    assert result.rows == []
+    assert "Vui lòng nêu" in (result.message or "")
+
+
 def test_lookup_patient_profile_filters_patient_scope(monkeypatch):
     tool = ClinicSqlTools()
     calls = {}

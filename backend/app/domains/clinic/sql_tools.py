@@ -510,6 +510,28 @@ class ClinicSqlTools:
             confidence=0.9 if rows else 0.0,
         )
 
+    def lookup_partner_lab_requests(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
+        request_query = str(entities.get("request_query", "") or "").strip()
+        if auth.role in {"receptionist", "clinic_admin", "system_admin"} and not request_query:
+            return ToolResult(
+                tool_name="clinic.lookup_partner_lab_requests",
+                source="robo_app.partner_lab_requests, robo_app.partner_onsite_collections",
+                rows=[],
+                message="Vui lòng nêu tên, mã bệnh nhân, số điện thoại, accession hoặc barcode để tra cứu yêu cầu xét nghiệm/lấy mẫu.",
+                confidence=0.0,
+            )
+
+        rows = self._lookup_partner_lab_request_rows(auth, request_query)
+        rows.extend(self._lookup_partner_onsite_collection_rows(auth, request_query))
+        rows = sorted(rows, key=lambda row: str(row.get("event_at") or ""), reverse=True)
+        return ToolResult(
+            tool_name="clinic.lookup_partner_lab_requests",
+            source="robo_app.partner_lab_requests, robo_app.partner_onsite_collections",
+            rows=rows,
+            message=None if rows else "Không tìm thấy yêu cầu xét nghiệm/lấy mẫu phù hợp trong phạm vi đã xác thực.",
+            confidence=0.9 if rows else 0.0,
+        )
+
     def lookup_patient_profile(self, entities: dict[str, Any], auth: AuthContext) -> ToolResult:
         rows = self._lookup_patient_profiles(auth, entities.get("patient_query", ""))
         return ToolResult(
@@ -593,6 +615,138 @@ class ClinicSqlTools:
             rows=rows,
             message=None if rows else "Không tìm thấy hóa đơn/thanh toán phù hợp trong phạm vi đã xác thực.",
             confidence=0.9 if rows else 0.0,
+        )
+
+    def _partner_lab_scope_where(
+        self,
+        auth: AuthContext,
+        query: str,
+        *,
+        prefix: str = "",
+    ) -> tuple[list[str], dict[str, Any]]:
+        field = lambda name: f"{prefix}.{name}" if prefix else name
+        where_clauses: list[str] = []
+        params: dict[str, Any] = {}
+
+        if auth.role == "patient":
+            where_clauses.append(f"{field('patient_id')} = %(patient_id)s")
+            params["patient_id"] = auth.patient_id
+        elif auth.role in {"receptionist", "clinic_admin"}:
+            where_clauses.append(f"{field('clinic_id')} = %(clinic_id)s")
+            params["clinic_id"] = auth.clinic_id
+        elif auth.role == "system_admin":
+            where_clauses.append("TRUE")
+        else:
+            return ["FALSE"], {}
+
+        if query:
+            where_clauses.append(
+                f"""
+                (
+                  {field('patient_name')} ILIKE %(request_query)s
+                  OR {field('patient_code')} ILIKE %(request_query)s
+                  OR {field('patient_phone')} ILIKE %(request_query)s
+                  OR {field('accession_number')} ILIKE %(request_query)s
+                  OR {field('barcode')} ILIKE %(request_query)s
+                )
+                """
+            )
+            params["request_query"] = f"%{query}%"
+
+        return where_clauses, params
+
+    def _lookup_partner_lab_request_rows(self, auth: AuthContext, request_query: str = "") -> list[dict[str, Any]]:
+        where_clauses, params = self._partner_lab_scope_where(auth, request_query)
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              'partner_lab_request' AS record_type,
+              COALESCE(delivered_at, verified_at, completed_at, processing_started_at, sample_collected_at, confirmed_at, requested_at)::text AS event_at,
+              id,
+              clinic_id,
+              accession_number,
+              barcode,
+              patient_id,
+              patient_code,
+              patient_name,
+              patient_phone,
+              status,
+              priority,
+              sample_type,
+              collection_method,
+              clinical_notes,
+              requested_at::text AS requested_at,
+              confirmed_at::text AS confirmed_at,
+              sample_collected_at::text AS sample_collected_at,
+              processing_started_at::text AS processing_started_at,
+              completed_at::text AS completed_at,
+              verified_at::text AS verified_at,
+              delivered_at::text AS delivered_at,
+              estimated_completion_at::text AS estimated_completion_at,
+              total_amount,
+              currency_code,
+              NULL::text AS onsite_status,
+              NULL::text AS collection_address,
+              NULL::text AS preferred_date,
+              NULL::text AS preferred_time_start,
+              NULL::text AS preferred_time_end,
+              NULL::text AS assigned_collector_name,
+              NULL::text AS collected_at,
+              NULL::text AS returned_to_lab_at
+            FROM robo_app.partner_lab_requests
+            WHERE {where_sql}
+            ORDER BY COALESCE(delivered_at, verified_at, completed_at, processing_started_at, sample_collected_at, confirmed_at, requested_at) DESC NULLS LAST
+            LIMIT %(limit)s
+            """,
+            {**params, "limit": get_rag_config().context_max_rows},
+        )
+
+    def _lookup_partner_onsite_collection_rows(self, auth: AuthContext, request_query: str = "") -> list[dict[str, Any]]:
+        where_clauses, params = self._partner_lab_scope_where(auth, request_query)
+        where_sql = " AND ".join(where_clauses)
+        return fetch_all(
+            f"""
+            SELECT
+              'partner_onsite_collection' AS record_type,
+              COALESCE(returned_to_lab_at, collected_at, arrived_at, departed_at, scheduled_at, preferred_date::timestamptz)::text AS event_at,
+              id,
+              clinic_id,
+              accession_number,
+              barcode,
+              patient_id,
+              patient_code,
+              patient_name,
+              patient_phone,
+              NULL::text AS status,
+              NULL::text AS priority,
+              NULL::text AS sample_type,
+              NULL::text AS collection_method,
+              collection_notes AS clinical_notes,
+              NULL::text AS requested_at,
+              NULL::text AS confirmed_at,
+              NULL::text AS sample_collected_at,
+              NULL::text AS processing_started_at,
+              NULL::text AS completed_at,
+              NULL::text AS verified_at,
+              NULL::text AS delivered_at,
+              NULL::text AS estimated_completion_at,
+              NULL::numeric AS total_amount,
+              NULL::text AS currency_code,
+              status AS onsite_status,
+              collection_address,
+              preferred_date::text AS preferred_date,
+              preferred_time_start::text AS preferred_time_start,
+              preferred_time_end::text AS preferred_time_end,
+              assigned_collector_name,
+              collected_at::text AS collected_at,
+              returned_to_lab_at::text AS returned_to_lab_at
+            FROM robo_app.partner_onsite_collections
+            WHERE {where_sql}
+            ORDER BY COALESCE(returned_to_lab_at, collected_at, arrived_at, departed_at, scheduled_at, preferred_date::timestamptz) DESC NULLS LAST
+            LIMIT %(limit)s
+            """,
+            {**params, "limit": get_rag_config().context_max_rows},
         )
 
     def _lookup_appointments(self, auth: AuthContext) -> list[dict[str, Any]]:

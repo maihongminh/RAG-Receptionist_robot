@@ -172,6 +172,8 @@ Các view hiện có:
 - `robo_app.appointments`: lịch hẹn, join sẵn bệnh nhân/bác sĩ/dịch vụ.
 - `robo_app.appointment_requests`: yêu cầu đặt lịch, chuẩn hóa patient JSON, ngày giờ mong muốn, triệu chứng và trạng thái xử lý.
 - `robo_app.paraclinical_results`: chỉ định/kết quả xét nghiệm, chẩn đoán hình ảnh, join sẵn bệnh nhân/dịch vụ/nhân sự liên quan.
+- `robo_app.partner_lab_requests`: yêu cầu xét nghiệm từ đối tác, join patient nếu match được theo clinic/phone/id number.
+- `robo_app.partner_onsite_collections`: lịch và trạng thái lấy mẫu tận nơi, join partner lab request và nhân viên lấy mẫu.
 - `robo_app.patient_visit_summaries`: tóm tắt lượt khám, join `medical_records`, `visits`, latest `vital_signs`, bệnh nhân và bác sĩ.
 - `robo_app.billing_records`: hóa đơn/thanh toán cá nhân từ `diagnostic_walk_in_patients`.
 - `robo_app.knowledge_articles`: nội dung hướng dẫn/quy trình từ `admin_help_templates`.
@@ -232,6 +234,8 @@ SELECT count(*) FROM robo_app.doctor_schedules;
 SELECT count(*) FROM robo_app.appointments;
 SELECT count(*) FROM robo_app.appointment_requests;
 SELECT count(*) FROM robo_app.paraclinical_results;
+SELECT count(*) FROM robo_app.partner_lab_requests;
+SELECT count(*) FROM robo_app.partner_onsite_collections;
 ```
 
 Query test:

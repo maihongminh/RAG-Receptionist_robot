@@ -22,6 +22,7 @@ ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
     | {
         "clinic.lookup_private_data",
         "clinic.lookup_lab_results",
+        "clinic.lookup_partner_lab_requests",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
         "clinic.lookup_visit_summary",
@@ -37,6 +38,7 @@ ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
     | {
         "clinic.lookup_private_data",
         "clinic.lookup_lab_results",
+        "clinic.lookup_partner_lab_requests",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
         "clinic.lookup_visit_summary",
@@ -46,6 +48,7 @@ ROLE_TOOL_PERMISSIONS: dict[str, set[str]] = {
     | {
         "clinic.lookup_private_data",
         "clinic.lookup_lab_results",
+        "clinic.lookup_partner_lab_requests",
         "clinic.lookup_patient_profile",
         "clinic.lookup_patient_timeline",
         "clinic.lookup_visit_summary",

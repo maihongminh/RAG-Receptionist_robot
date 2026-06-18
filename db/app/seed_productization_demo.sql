@@ -188,4 +188,112 @@ WHERE NOT EXISTS (
   SELECT 1 FROM robo_raw.diagnostic_walk_in_patients d WHERE d.id = seeded.id
 );
 
+-- Partner lab request and onsite collection demo records.
+-- These rows connect partner lab workflows to the patient demo so productized
+-- auth scopes can be tested without changing the original Excel export rows.
+
+INSERT INTO robo_raw.partner_lab_requests (
+  _excel_row_number,
+  id,
+  partner_id,
+  clinic_id,
+  organization_id,
+  accession_number,
+  barcode,
+  patient_name,
+  patient_phone,
+  patient_dob,
+  patient_gender,
+  patient_id_number,
+  patient_address,
+  status,
+  priority,
+  sample_type,
+  collection_method,
+  clinical_notes,
+  requested_at,
+  confirmed_at,
+  sample_collected_at,
+  processing_started_at,
+  completed_at,
+  verified_at,
+  delivered_at,
+  cancelled_at,
+  cancellation_reason,
+  estimated_completion_at,
+  total_amount,
+  currency_code,
+  created_at,
+  created_by,
+  updated_at,
+  updated_by
+)
+SELECT *
+FROM (
+  VALUES
+    (-950001, 'prod-plr-0001-0000-0000-000000000001', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '', 'PLR-PROD-0001', 'BC-PROD-0001', 'Trần Thị Bình', '+855987654321', '1988-04-12', 'female', '', 'Demo patient address', 'pending', 'routine', 'Máu', 'onsite_collection', 'Demo blood sample request.', '2026-06-10 08:00:00+00', '', '', '', '', '', '', '', '', '2026-06-10 17:00:00+00', '25.00', 'USD', '2026-06-10 08:00:00+00', 'system', '2026-06-10 08:00:00+00', 'system'),
+    (-950002, 'prod-plr-0002-0000-0000-000000000002', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '', 'PLR-PROD-0002', 'BC-PROD-0002', 'Trần Thị Bình', '+855987654321', '1988-04-12', 'female', '', 'Demo patient address', 'confirmed', 'urgent', 'Nước tiểu', 'patient_visits', 'Demo urine request confirmed.', '2026-06-11 08:00:00+00', '2026-06-11 08:10:00+00', '', '', '', '', '', '', '', '2026-06-11 14:00:00+00', '12.50', 'USD', '2026-06-11 08:00:00+00', 'system', '2026-06-11 08:10:00+00', 'system'),
+    (-950003, 'prod-plr-0003-0000-0000-000000000003', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '', 'PLR-PROD-0003', 'BC-PROD-0003', 'Trần Thị Bình', '+855987654321', '1988-04-12', 'female', '', 'Demo patient address', 'sample_collected', 'routine', 'Máu', 'onsite_collection', 'Demo sample collected.', '2026-06-12 08:00:00+00', '2026-06-12 08:05:00+00', '2026-06-12 09:15:00+00', '', '', '', '', '', '', '2026-06-12 18:00:00+00', '30.00', 'USD', '2026-06-12 08:00:00+00', 'system', '2026-06-12 09:15:00+00', 'system'),
+    (-950004, 'prod-plr-0004-0000-0000-000000000004', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '', 'PLR-PROD-0004', 'BC-PROD-0004', 'Trần Thị Bình', '+855987654321', '1988-04-12', 'female', '', 'Demo patient address', 'processing', 'routine', 'Máu', 'patient_visits', 'Demo request processing.', '2026-06-13 08:00:00+00', '2026-06-13 08:05:00+00', '2026-06-13 08:30:00+00', '2026-06-13 09:00:00+00', '', '', '', '', '', '2026-06-13 16:00:00+00', '18.00', 'USD', '2026-06-13 08:00:00+00', 'system', '2026-06-13 09:00:00+00', 'system'),
+    (-950005, 'prod-plr-0005-0000-0000-000000000005', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '', 'PLR-PROD-0005', 'BC-PROD-0005', 'Trần Thị Bình', '+855987654321', '1988-04-12', 'female', '', 'Demo patient address', 'completed', 'routine', 'Máu', 'patient_visits', 'Demo completed partner lab request.', '2026-06-14 08:00:00+00', '2026-06-14 08:05:00+00', '2026-06-14 08:30:00+00', '2026-06-14 09:00:00+00', '2026-06-14 11:00:00+00', '2026-06-14 11:15:00+00', '2026-06-14 12:00:00+00', '', '', '2026-06-14 12:00:00+00', '20.00', 'USD', '2026-06-14 08:00:00+00', 'system', '2026-06-14 12:00:00+00', 'system')
+) AS seeded(
+  _excel_row_number, id, partner_id, clinic_id, organization_id, accession_number,
+  barcode, patient_name, patient_phone, patient_dob, patient_gender,
+  patient_id_number, patient_address, status, priority, sample_type,
+  collection_method, clinical_notes, requested_at, confirmed_at,
+  sample_collected_at, processing_started_at, completed_at, verified_at,
+  delivered_at, cancelled_at, cancellation_reason, estimated_completion_at,
+  total_amount, currency_code, created_at, created_by, updated_at, updated_by
+)
+WHERE NOT EXISTS (
+  SELECT 1 FROM robo_raw.partner_lab_requests plr WHERE plr.id = seeded.id
+);
+
+INSERT INTO robo_raw.partner_onsite_collections (
+  _excel_row_number,
+  id,
+  request_id,
+  partner_id,
+  clinic_id,
+  collection_address,
+  collection_city,
+  collection_district,
+  location_notes,
+  contact_person,
+  contact_phone,
+  preferred_date,
+  preferred_time_start,
+  preferred_time_end,
+  scheduled_at,
+  assigned_collector_id,
+  assigned_at,
+  status,
+  departed_at,
+  arrived_at,
+  collected_at,
+  returned_to_lab_at,
+  collection_notes,
+  cancellation_reason,
+  created_at,
+  created_by,
+  updated_at,
+  updated_by
+)
+SELECT *
+FROM (
+  VALUES
+    (-960001, 'prod-poc-0001-0000-0000-000000000001', 'prod-plr-0001-0000-0000-000000000001', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '123 Demo Street', 'Phnom Penh', 'Toul Kork', 'Call before arrival.', 'Trần Thị Bình', '+855987654321', '2026-06-10', '09:00:00', '10:00:00', '2026-06-10 09:00:00+00', '87952bb5-34c7-4b88-8bab-39b8925299aa', '2026-06-10 08:30:00+00', 'scheduled', '', '', '', '', 'Scheduled demo onsite collection.', '', '2026-06-10 08:00:00+00', 'system', '2026-06-10 08:30:00+00', 'system'),
+    (-960002, 'prod-poc-0002-0000-0000-000000000002', 'prod-plr-0003-0000-0000-000000000003', 'partner-demo-001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', '123 Demo Street', 'Phnom Penh', 'Toul Kork', 'Collected at reception desk.', 'Trần Thị Bình', '+855987654321', '2026-06-12', '09:00:00', '10:00:00', '2026-06-12 09:00:00+00', '87952bb5-34c7-4b88-8bab-39b8925299aa', '2026-06-12 08:30:00+00', 'collected', '2026-06-12 08:45:00+00', '2026-06-12 09:00:00+00', '2026-06-12 09:15:00+00', '2026-06-12 09:45:00+00', 'Sample collected and returned to lab.', '', '2026-06-12 08:00:00+00', 'system', '2026-06-12 09:45:00+00', 'system')
+) AS seeded(
+  _excel_row_number, id, request_id, partner_id, clinic_id, collection_address,
+  collection_city, collection_district, location_notes, contact_person,
+  contact_phone, preferred_date, preferred_time_start, preferred_time_end,
+  scheduled_at, assigned_collector_id, assigned_at, status, departed_at,
+  arrived_at, collected_at, returned_to_lab_at, collection_notes,
+  cancellation_reason, created_at, created_by, updated_at, updated_by
+)
+WHERE NOT EXISTS (
+  SELECT 1 FROM robo_raw.partner_onsite_collections poc WHERE poc.id = seeded.id
+);
+
 COMMIT;

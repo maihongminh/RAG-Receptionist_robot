@@ -275,6 +275,43 @@ def test_lab_indicator_detail_lists_indicator_metadata():
     assert "4.0 - 10.0" in answer
 
 
+def test_partner_lab_request_lookup_lists_request_and_onsite_rows():
+    intent = Intent(intent="partner_lab_request_lookup", data_source="auth", requires_auth=True)
+    result = ToolResult(
+        tool_name="clinic.lookup_partner_lab_requests",
+        source="fake.partner_lab_requests",
+        rows=[
+            {
+                "record_type": "partner_lab_request",
+                "accession_number": "PLR-PROD-0003",
+                "patient_name": "Trần Thị Bình",
+                "status": "sample_collected",
+                "sample_type": "Máu",
+                "collection_method": "onsite_collection",
+                "requested_at": "2026-06-12 15:00:00+07",
+                "sample_collected_at": "2026-06-12 16:15:00+07",
+            },
+            {
+                "record_type": "partner_onsite_collection",
+                "accession_number": "PLR-PROD-0003",
+                "patient_name": "Trần Thị Bình",
+                "onsite_status": "collected",
+                "preferred_date": "2026-06-12",
+                "collection_address": "123 Demo Street",
+                "collected_at": "2026-06-12 16:15:00+07",
+                "returned_to_lab_at": "2026-06-12 16:45:00+07",
+            },
+        ],
+    )
+
+    answer = ResponseGenerator().generate("Mẫu xét nghiệm của tôi đã lấy chưa?", intent, result)
+
+    assert "PLR-PROD-0003" in answer
+    assert "sample_collected" in answer
+    assert "Lấy mẫu tận nơi" in answer
+    assert "đã chuyển về lab" in answer
+
+
 def test_knowledge_search_template_formats_markdown_as_readable_lines():
     intent = Intent(intent="knowledge_search", data_source="rag")
     result = ToolResult(

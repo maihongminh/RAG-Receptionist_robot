@@ -384,6 +384,88 @@ LEFT JOIN robo_app.staff processed_staff ON processed_staff.id = po.processed_by
 LEFT JOIN robo_app.staff completed_staff ON completed_staff.id = po.completed_by
 WHERE COALESCE(po.is_deleted, 'f') <> 't';
 
+CREATE VIEW robo_app.partner_lab_requests AS
+SELECT
+  plr.id,
+  plr.partner_id,
+  plr.clinic_id,
+  plr.organization_id,
+  plr.accession_number,
+  plr.barcode,
+  matched_patient.id AS patient_id,
+  matched_patient.patient_code,
+  COALESCE(matched_patient.full_name, NULLIF(plr.patient_name, '')) AS patient_name,
+  COALESCE(matched_patient.phone_primary, NULLIF(plr.patient_phone, '')) AS patient_phone,
+  NULLIF(plr.patient_dob, '')::date AS patient_dob,
+  plr.patient_gender,
+  plr.patient_id_number,
+  plr.patient_address,
+  plr.status,
+  plr.priority,
+  plr.sample_type,
+  plr.collection_method,
+  plr.clinical_notes,
+  NULLIF(plr.requested_at, '')::timestamptz AS requested_at,
+  NULLIF(plr.confirmed_at, '')::timestamptz AS confirmed_at,
+  NULLIF(plr.sample_collected_at, '')::timestamptz AS sample_collected_at,
+  NULLIF(plr.processing_started_at, '')::timestamptz AS processing_started_at,
+  NULLIF(plr.completed_at, '')::timestamptz AS completed_at,
+  NULLIF(plr.verified_at, '')::timestamptz AS verified_at,
+  NULLIF(plr.delivered_at, '')::timestamptz AS delivered_at,
+  NULLIF(plr.cancelled_at, '')::timestamptz AS cancelled_at,
+  plr.cancellation_reason,
+  NULLIF(plr.estimated_completion_at, '')::timestamptz AS estimated_completion_at,
+  CASE WHEN plr.total_amount ~ '^[0-9]+([.][0-9]+)?$' THEN plr.total_amount::numeric ELSE NULL END AS total_amount,
+  plr.currency_code,
+  NULLIF(plr.created_at, '')::timestamptz AS created_at,
+  NULLIF(plr.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.partner_lab_requests plr
+LEFT JOIN robo_app.patients matched_patient
+  ON matched_patient.clinic_id = plr.clinic_id
+  AND (
+    NULLIF(matched_patient.phone_primary, '') = NULLIF(plr.patient_phone, '')
+    OR NULLIF(matched_patient.phone_secondary, '') = NULLIF(plr.patient_phone, '')
+    OR NULLIF(matched_patient.id_number, '') = NULLIF(plr.patient_id_number, '')
+  );
+
+CREATE VIEW robo_app.partner_onsite_collections AS
+SELECT
+  poc.id,
+  poc.request_id,
+  req.accession_number,
+  req.barcode,
+  poc.partner_id,
+  poc.clinic_id,
+  req.patient_id,
+  req.patient_code,
+  req.patient_name,
+  req.patient_phone,
+  poc.collection_address,
+  poc.collection_city,
+  poc.collection_district,
+  poc.location_notes,
+  poc.contact_person,
+  poc.contact_phone,
+  NULLIF(poc.preferred_date, '')::date AS preferred_date,
+  NULLIF(poc.preferred_time_start, '')::time AS preferred_time_start,
+  NULLIF(poc.preferred_time_end, '')::time AS preferred_time_end,
+  NULLIF(poc.scheduled_at, '')::timestamptz AS scheduled_at,
+  poc.assigned_collector_id,
+  collector.full_name AS assigned_collector_name,
+  NULLIF(poc.assigned_at, '')::timestamptz AS assigned_at,
+  poc.status,
+  NULLIF(poc.departed_at, '')::timestamptz AS departed_at,
+  NULLIF(poc.arrived_at, '')::timestamptz AS arrived_at,
+  NULLIF(poc.collected_at, '')::timestamptz AS collected_at,
+  NULLIF(poc.returned_to_lab_at, '')::timestamptz AS returned_to_lab_at,
+  poc.collection_notes,
+  poc.cancellation_reason,
+  NULLIF(poc.created_at, '')::timestamptz AS created_at,
+  NULLIF(poc.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.partner_onsite_collections poc
+LEFT JOIN robo_app.partner_lab_requests req ON req.id = poc.request_id
+LEFT JOIN robo_app.staff collector ON collector.id = poc.assigned_collector_id;
+
 CREATE VIEW robo_app.patient_visit_summaries AS
 SELECT
   mr.id AS id,

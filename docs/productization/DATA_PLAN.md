@@ -91,6 +91,8 @@ Dùng cho:
 - `appointments`
 - `visits`
 - `paraclinical_orders`
+- `partner_lab_requests`
+- `partner_onsite_collections`
 - `medical_records`
 - `vital_signs`
 
@@ -98,6 +100,7 @@ Dùng cho:
 
 - lịch hẹn cá nhân;
 - kết quả xét nghiệm/cận lâm sàng;
+- yêu cầu xét nghiệm từ đối tác và trạng thái lấy mẫu tận nơi;
 - visit summary;
 - patient summary.
 
@@ -238,6 +241,27 @@ Quy trình khi thêm bảng/view cho tool mới:
 
 Backend domain tools không được query `robo_raw` trực tiếp. Raw chỉ là import/debug layer.
 
+## 9. Batch đã mở sau MVP
+
+Các use case productization đã có app contract, tool map, policy và test:
+
+- Patient profile: `robo_app.patients` -> `clinic.lookup_patient_profile`.
+- Patient timeline: `robo_app.appointments`, `robo_app.paraclinical_results` -> `clinic.lookup_patient_timeline`.
+- Visit summary: `robo_app.patient_visit_summaries` -> `clinic.lookup_visit_summary`.
+- Billing summary: `robo_app.billing_records` -> `clinic.lookup_billing_summary`.
+- Service/package detail: `robo_app.service_lab_indicators`, `robo_app.service_packages`, `robo_app.service_package_items`.
+- Partner lab tracking: `robo_app.partner_lab_requests`, `robo_app.partner_onsite_collections` -> `clinic.lookup_partner_lab_requests`.
+
+Smoke hiện tại:
+
+```text
+app contract: 21 views
+tool map: 18 tools
+raw inventory: 56 tables
+chatbot scenarios: 24/24
+backend tests: 207 passed
+```
+
 Ví dụ đã làm sau productization foundation:
 
 ```text
@@ -283,6 +307,17 @@ billing_summary_lookup
 ```
 
 Billing summary hiện chỉ mở hóa đơn/thanh toán cá nhân từ diagnostic walk-in. Billing doanh nghiệp/group examination chưa mở vì đó là use case khác. Bước này đã thêm 5 demo billing records trong `db/app/seed_productization_demo.sql`.
+
+```text
+partner_lab_request_lookup
+  -> robo_raw.partner_lab_requests + robo_raw.partner_onsite_collections
+  -> robo_app.partner_lab_requests + robo_app.partner_onsite_collections
+  -> clinic.lookup_partner_lab_requests
+  -> PolicyGuard + role permission
+  -> backend tests + MVP/productization scenario
+```
+
+Partner lab tracking mở dữ liệu yêu cầu xét nghiệm và lấy mẫu tận nơi. `patient` chỉ thấy request đã match với `patient_id` của mình; `receptionist`, `clinic_admin` và `system_admin` phải nêu bệnh nhân hoặc mã yêu cầu cụ thể trước khi tool trả dữ liệu. Bước này đã thêm 5 demo partner lab requests và 2 demo onsite collections trong `db/app/seed_productization_demo.sql`.
 
 ## 9. Test data strategy
 

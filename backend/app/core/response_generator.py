@@ -17,6 +17,8 @@ class ResponseGenerator:
             return self._private_data(result, auth or AuthContext(role="guest"))
         if intent.intent == "lab_result_lookup":
             return self._lab_result_lookup(result)
+        if intent.intent == "partner_lab_request_lookup":
+            return self._partner_lab_request_lookup(result)
         if intent.intent == "patient_timeline_summary":
             return self._patient_timeline_summary(result)
         if intent.intent == "visit_summary_lookup":
@@ -458,6 +460,59 @@ class ResponseGenerator:
                 parts.append(f"kết quả: {detail}")
             lines.append("\n   ".join(parts))
         return "Tôi tìm thấy các chỉ định/kết quả xét nghiệm trong phạm vi đã xác thực:\n" + "\n".join(lines)
+
+    def _partner_lab_request_lookup(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy yêu cầu xét nghiệm/lấy mẫu phù hợp."
+
+        lines = []
+        for index, row in enumerate(result.rows, start=1):
+            accession = row.get("accession_number") or row.get("barcode") or row.get("id")
+            patient = row.get("patient_name") or "bệnh nhân chưa rõ"
+            if row.get("record_type") == "partner_onsite_collection":
+                parts = [
+                    f"{index}. Lấy mẫu tận nơi {accession}: {row.get('onsite_status') or 'chưa rõ trạng thái'}",
+                    f"bệnh nhân {patient}",
+                ]
+                if row.get("preferred_date"):
+                    preferred_time = ""
+                    if row.get("preferred_time_start") or row.get("preferred_time_end"):
+                        preferred_time = f" {row.get('preferred_time_start') or ''}-{row.get('preferred_time_end') or ''}".strip()
+                    parts.append(f"lịch mong muốn {row.get('preferred_date')}{(' ' + preferred_time) if preferred_time else ''}")
+                if row.get("collection_address"):
+                    parts.append(f"địa chỉ {row.get('collection_address')}")
+                if row.get("assigned_collector_name"):
+                    parts.append(f"người lấy mẫu {row.get('assigned_collector_name')}")
+                if row.get("collected_at"):
+                    parts.append(f"đã lấy mẫu lúc {row.get('collected_at')}")
+                if row.get("returned_to_lab_at"):
+                    parts.append(f"đã chuyển về lab lúc {row.get('returned_to_lab_at')}")
+                lines.append(", ".join(str(part) for part in parts if part) + ".")
+                continue
+
+            parts = [
+                f"{index}. Yêu cầu xét nghiệm {accession}: {row.get('status') or 'chưa rõ trạng thái'}",
+                f"bệnh nhân {patient}",
+            ]
+            if row.get("sample_type"):
+                parts.append(f"mẫu {row.get('sample_type')}")
+            if row.get("collection_method"):
+                parts.append(f"hình thức {row.get('collection_method')}")
+            if row.get("requested_at"):
+                parts.append(f"tạo lúc {row.get('requested_at')}")
+            if row.get("sample_collected_at"):
+                parts.append(f"đã lấy mẫu lúc {row.get('sample_collected_at')}")
+            if row.get("processing_started_at"):
+                parts.append(f"bắt đầu xử lý lúc {row.get('processing_started_at')}")
+            if row.get("completed_at"):
+                parts.append(f"hoàn tất lúc {row.get('completed_at')}")
+            if row.get("delivered_at"):
+                parts.append(f"đã trả lúc {row.get('delivered_at')}")
+            if row.get("estimated_completion_at"):
+                parts.append(f"dự kiến hoàn tất {row.get('estimated_completion_at')}")
+            lines.append(", ".join(str(part) for part in parts if part) + ".")
+
+        return "Tôi tìm thấy yêu cầu xét nghiệm/lấy mẫu trong phạm vi đã xác thực:\n" + "\n".join(lines)
 
     def _patient_profile_summary(self, result: ToolResult) -> str:
         if not result.rows:

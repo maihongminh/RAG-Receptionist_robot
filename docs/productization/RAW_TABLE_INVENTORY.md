@@ -19,8 +19,8 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 19 view
-backend policy/tool map hiện tại: 17 mapped tools
+robo_app contract hiện tại: 21 view
+backend policy/tool map hiện tại: 18 mapped tools
 ```
 
 Nguyên tắc:
@@ -44,6 +44,8 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `diagnostic_walk_in_patients` | `robo_app.billing_records` | billing/payment summary |
 | `doctor_schedules` | `robo_app.doctor_schedules` | lịch bác sĩ |
 | `medical_records` | `robo_app.patient_visit_summaries` | visit/medical summary |
+| `partner_lab_requests` | `robo_app.partner_lab_requests` | theo dõi yêu cầu xét nghiệm từ đối tác |
+| `partner_onsite_collections` | `robo_app.partner_onsite_collections` | theo dõi lịch/trạng thái lấy mẫu tận nơi |
 | `paraclinical_orders` | `robo_app.paraclinical_results` | kết quả/chỉ định cận lâm sàng |
 | `patient_question_templates` | `robo_app.patient_question_templates`, RAG | mẫu câu hỏi gợi ý cho bệnh nhân |
 | `patients` | `robo_app.patients` | hồ sơ hành chính bệnh nhân, scope private |
@@ -86,8 +88,9 @@ Use case:
 
 - public SQL tool đã có qua `clinic.lookup_lab_indicator_detail`;
 - xem chỉ số xét nghiệm thuộc dịch vụ nào;
+- private SQL tool đã có qua `clinic.lookup_partner_lab_requests`;
 - theo dõi yêu cầu xét nghiệm từ đối tác;
-- xem trạng thái lấy mẫu;
+- xem trạng thái lấy mẫu tận nơi;
 - dùng ICD10 làm reference, không dùng để chẩn đoán tự động.
 
 ### Batch 3 - Billing/Packages/Corporate

@@ -58,6 +58,9 @@ class ClinicAdapter(DomainAdapter):
     def lookup_lab_results(self, entities: dict, auth: AuthContext) -> ToolResult:
         return self.sql_tools.lookup_lab_results(entities, auth)
 
+    def lookup_partner_lab_requests(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return self.sql_tools.lookup_partner_lab_requests(entities, auth)
+
     def lookup_patient_profile(self, entities: dict, auth: AuthContext) -> ToolResult:
         return self.sql_tools.lookup_patient_profile(entities, auth)
 

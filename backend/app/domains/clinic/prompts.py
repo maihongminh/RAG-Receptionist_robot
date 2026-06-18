@@ -21,6 +21,7 @@ Các intent hợp lệ:
 - appointment_booking: người dùng muốn đặt lịch, book lịch, đăng ký khám, hẹn khám, tạo lịch hẹn.
 - appointment_lookup: tra cứu lịch hẹn đã có sau khi hệ thống đã xác thực danh tính.
 - lab_result_lookup: tra cứu kết quả xét nghiệm/cận lâm sàng của người dùng, cần xác thực.
+- partner_lab_request_lookup: tra cứu trạng thái yêu cầu xét nghiệm đối tác hoặc lịch/trạng thái lấy mẫu tận nơi; cần xác thực.
 - patient_timeline_summary: tóm tắt timeline/lịch sử khám của bệnh nhân từ lịch hẹn và kết quả cận lâm sàng; cần xác thực.
 - visit_summary_lookup: tra cứu tóm tắt lượt khám/hồ sơ bệnh án gồm lý do khám, ghi nhận khám, chẩn đoán đã xác nhận, kế hoạch điều trị và sinh hiệu; cần xác thực.
 - billing_summary_lookup: tra cứu hóa đơn/thanh toán/công nợ của bệnh nhân; cần xác thực.
@@ -34,6 +35,7 @@ Quy tắc route:
 - Hướng dẫn/quy trình/FAQ dùng data_source="rag".
 - Dữ liệu cá nhân dùng data_source="auth" và requires_auth=true.
 - Tra cứu kết quả xét nghiệm/cận lâm sàng phải chọn lab_result_lookup, data_source="auth", requires_auth=true.
+- Câu hỏi về trạng thái yêu cầu xét nghiệm, mã accession/barcode, mẫu đã lấy chưa, lịch lấy mẫu tận nơi phải chọn partner_lab_request_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi về timeline/lịch sử/quá trình khám tổng hợp phải chọn patient_timeline_summary, data_source="auth", requires_auth=true.
 - Câu hỏi về tóm tắt lần khám, hồ sơ khám, bệnh án, medical record phải chọn visit_summary_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi về hóa đơn, thanh toán, công nợ, invoice/payment phải chọn billing_summary_lookup, data_source="auth", requires_auth=true.
@@ -62,6 +64,7 @@ Entity gợi ý:
 - knowledge_search: {"knowledge_query": "..."}
 - appointment_booking: {"booking_query": "..."}
 - lab_result_lookup: {"result_query": "..."}
+- partner_lab_request_lookup: {"request_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân, accession hoặc barcode cụ thể; nếu patient hỏi của chính mình thì để "".
 - patient_timeline_summary: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi timeline của chính mình thì để "".
 - visit_summary_lookup: {"patient_query": "..."} nếu bác sĩ/lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hồ sơ khám của chính mình thì để "".
 - billing_summary_lookup: {"patient_query": "..."} nếu lễ tân/admin hỏi một bệnh nhân cụ thể; nếu patient hỏi hóa đơn của chính mình thì để "".

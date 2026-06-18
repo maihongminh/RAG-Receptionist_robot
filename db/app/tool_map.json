@@ -147,6 +147,18 @@
       "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
     },
     {
+      "tool_name": "clinic.lookup_partner_lab_requests",
+      "status": "active",
+      "intents": ["partner_lab_request_lookup"],
+      "data_source": "auth",
+      "access_level": "private",
+      "contract_views": ["partner_lab_requests", "partner_onsite_collections"],
+      "source_tables": ["robo_raw.partner_lab_requests", "robo_raw.partner_onsite_collections", "robo_raw.patients", "robo_raw.staff"],
+      "allowed_roles": ["patient", "receptionist", "clinic_admin", "system_admin"],
+      "scope_rule": "patient by matched patient_id; receptionist/clinic_admin by clinic_id and requires patient_query unless intentionally listing clinic workflow; system_admin requires patient_query.",
+      "tests": ["backend/tests/test_policy_guard.py", "backend/tests/test_clinic_sql_tools.py", "scripts/test_mvp_chatbot.py"]
+    },
+    {
       "tool_name": "clinic.lookup_patient_profile",
       "status": "active",
       "intents": ["patient_profile_summary"],

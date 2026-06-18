@@ -140,6 +140,35 @@ def test_patient_lab_result_lookup_allowed_with_patient_id():
     assert decision.allowed is True
 
 
+def test_patient_partner_lab_request_lookup_allowed_with_patient_id():
+    intent = Intent(
+        domain="clinic",
+        intent="partner_lab_request_lookup",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(
+        intent,
+        AuthContext(role="patient", patient_id="patient-1"),
+    )
+
+    assert decision.allowed is True
+
+
+def test_guest_cannot_access_partner_lab_request_lookup():
+    intent = Intent(
+        domain="clinic",
+        intent="partner_lab_request_lookup",
+        requires_auth=True,
+        data_source="auth",
+    )
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="guest"))
+
+    assert decision.allowed is False
+
+
 def test_patient_profile_summary_allowed_with_patient_id():
     intent = Intent(
         domain="clinic",

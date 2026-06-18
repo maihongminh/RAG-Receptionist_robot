@@ -46,6 +46,15 @@ def test_result_process_stays_knowledge_search():
     assert intent.data_source == "rag"
 
 
+def test_partner_lab_request_lookup_requires_auth():
+    intent = RuleIntentParser().parse("Mẫu xét nghiệm của tôi đã lấy chưa?", "clinic")
+
+    assert intent.intent == "partner_lab_request_lookup"
+    assert intent.requires_auth is True
+    assert intent.data_source == "auth"
+    assert intent.entities["request_query"] == ""
+
+
 def test_lab_category_list_intent():
     intent = RuleIntentParser().parse("tôi muốn xét nghiệm, có các loại xét nghiệm nào", "clinic")
 

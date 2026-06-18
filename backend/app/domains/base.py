@@ -49,6 +49,10 @@ class DomainAdapter(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def lookup_partner_lab_requests(self, entities: dict, auth: AuthContext) -> ToolResult:
+        raise NotImplementedError
+
+    @abstractmethod
     def lookup_patient_profile(self, entities: dict, auth: AuthContext) -> ToolResult:
         raise NotImplementedError
 
