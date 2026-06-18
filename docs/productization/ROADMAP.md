@@ -84,7 +84,7 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 24 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 27 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
 - Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
@@ -112,6 +112,11 @@ Trạng thái hiện tại:
   - `robo_app.security_check_results`;
   - auth tool `clinic.lookup_security_checks`;
   - chỉ `system_admin` được xem.
+- Đã mở Batch 3 currency foundation:
+  - `robo_app.ref_currencies`;
+  - `robo_app.clinic_currencies`;
+  - `robo_app.clinic_currency_rate_versions`;
+  - hiện là app contract nền cho `future.currency_normalization`, chưa đổi cách chatbot trả lời giá.
 - Đã nối public SQL tool cho lab indicator/package detail:
   - `clinic.lookup_lab_indicator_detail`;
   - `clinic.lookup_service_package_detail`.

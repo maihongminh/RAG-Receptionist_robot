@@ -272,7 +272,7 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `24 views`, tool map `20 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `26/26`, backend tests `220 passed`.
+  - đã chạy productization smoke thành công: app contract `27 views`, tool map `20 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `26/26`, backend tests `220 passed`.
 - Bắt đầu Batch 1 Scheduling expansion:
   - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
   - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;
@@ -286,6 +286,12 @@ Postgres
   - cập nhật `db/app/contract.json` và `db/app/raw_table_inventory.json`;
   - nối public SQL tool `clinic.lookup_lab_indicator_detail` cho câu hỏi chỉ số/analyte xét nghiệm;
   - nối public SQL tool `clinic.lookup_service_package_detail` cho câu hỏi gói khám/gói dịch vụ gồm gì.
+- Mở rộng currency/price foundation:
+  - thêm view `robo_app.ref_currencies` từ `robo_raw.ref_currencies`;
+  - thêm view `robo_app.clinic_currencies` từ `robo_raw.clinic_currencies`, join danh mục tiền để có tên/symbol/decimal places;
+  - thêm view `robo_app.clinic_currency_rate_versions` từ `robo_raw.clinic_currency_rate_versions`, có cờ `is_latest`;
+  - cập nhật `db/app/contract.json` và `db/app/raw_table_inventory.json`;
+  - các view này là nền cho `future.currency_normalization`, chưa đổi formatter/trả lời giá của chatbot.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:

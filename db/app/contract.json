@@ -39,6 +39,60 @@
       ]
     },
     {
+      "name": "ref_currencies",
+      "access_level": "public",
+      "source_tables": ["robo_raw.ref_currencies"],
+      "tools": ["future.currency_normalization"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "code", "data_type": "text"},
+        {"name": "name_vi", "data_type": "text"},
+        {"name": "name_en", "data_type": "text"},
+        {"name": "symbol", "data_type": "text"},
+        {"name": "decimal_places", "data_type": "integer"},
+        {"name": "is_active", "data_type": "boolean"},
+        {"name": "display_order", "data_type": "integer"},
+        {"name": "created_at", "data_type": "timestamp with time zone"}
+      ]
+    },
+    {
+      "name": "clinic_currencies",
+      "access_level": "operational",
+      "source_tables": ["robo_raw.clinic_currencies", "robo_app.ref_currencies"],
+      "tools": ["future.currency_normalization"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "currency_code", "data_type": "text"},
+        {"name": "currency_name_vi", "data_type": "text"},
+        {"name": "currency_name_en", "data_type": "text"},
+        {"name": "symbol", "data_type": "text"},
+        {"name": "decimal_places", "data_type": "integer"},
+        {"name": "is_default", "data_type": "boolean"},
+        {"name": "exchange_rate_to_vnd", "data_type": "numeric"},
+        {"name": "units_per_default_unit", "data_type": "numeric"},
+        {"name": "display_order", "data_type": "integer"},
+        {"name": "created_at", "data_type": "timestamp with time zone"},
+        {"name": "created_by", "data_type": "text"}
+      ]
+    },
+    {
+      "name": "clinic_currency_rate_versions",
+      "access_level": "operational",
+      "source_tables": ["robo_raw.clinic_currency_rate_versions"],
+      "tools": ["future.currency_normalization"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "currency_code", "data_type": "text"},
+        {"name": "effective_from", "data_type": "timestamp with time zone"},
+        {"name": "units_per_default_unit", "data_type": "numeric"},
+        {"name": "created_at", "data_type": "timestamp with time zone"},
+        {"name": "created_by", "data_type": "text"},
+        {"name": "is_latest", "data_type": "boolean"}
+      ]
+    },
+    {
       "name": "rooms",
       "access_level": "operational",
       "source_tables": ["robo_raw.rooms"],

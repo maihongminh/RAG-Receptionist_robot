@@ -19,7 +19,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 24 view
+robo_app contract hiện tại: 27 view
 backend policy/tool map hiện tại: 20 mapped tools
 ```
 
@@ -39,6 +39,8 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `admin_help_templates` | `robo_app.knowledge_articles`, RAG | hướng dẫn/quy trình/FAQ public |
 | `appointment_requests` | `robo_app.appointment_requests` | contract nền cho yêu cầu đặt lịch |
 | `appointments` | `robo_app.appointments` | lịch hẹn cá nhân, timeline |
+| `clinic_currencies` | `robo_app.clinic_currencies` | currency theo clinic, nền cho chuẩn hóa giá |
+| `clinic_currency_rate_versions` | `robo_app.clinic_currency_rate_versions` | lịch sử tỷ giá theo clinic/currency |
 | `clinic_general_settings` | `robo_app.clinic_settings` | giờ làm việc/cấu hình phòng khám |
 | `clinics` | `robo_app.clinics` | thông tin cơ sở public |
 | `diagnostic_walk_in_patients` | `robo_app.billing_records` | billing/payment summary |
@@ -49,6 +51,7 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `paraclinical_orders` | `robo_app.paraclinical_results` | kết quả/chỉ định cận lâm sàng |
 | `patient_question_templates` | `robo_app.patient_question_templates`, RAG | mẫu câu hỏi gợi ý cho bệnh nhân |
 | `patients` | `robo_app.patients` | hồ sơ hành chính bệnh nhân, scope private |
+| `ref_currencies` | `robo_app.ref_currencies` | danh mục tiền tệ public |
 | `ref_icd10_codes` | `robo_app.icd10_codes` | bảng mã ICD10 tham khảo, không dùng để chẩn đoán |
 | `rooms` | `robo_app.rooms`, schedule join | phòng/tầng/phòng khám |
 | `service_catalog` | `robo_app.services`, `robo_app.service_rag_guides` | dịch vụ/giá/catalog và guide RAG public không chứa giá |
@@ -101,9 +104,9 @@ Use case:
 
 Mở rộng tài chính/dịch vụ gói:
 
-- `clinic_currencies`
-- `clinic_currency_rate_versions`
-- `ref_currencies`
+- `clinic_currencies` - app contract đã có, chưa bật formatter đổi/diễn giải giá
+- `clinic_currency_rate_versions` - app contract đã có, có cờ `is_latest`
+- `ref_currencies` - app contract đã có
 - `service_packages`
 - `service_package_items`
 - `crm_corporate_accounts`

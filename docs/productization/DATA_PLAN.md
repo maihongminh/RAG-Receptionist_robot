@@ -254,11 +254,12 @@ Các use case productization đã có app contract, tool map, policy và test:
 - ICD10 reference: `robo_app.icd10_codes` -> `clinic.lookup_icd10_codes`.
 - Partner lab tracking: `robo_app.partner_lab_requests`, `robo_app.partner_onsite_collections` -> `clinic.lookup_partner_lab_requests`.
 - Security checks: `robo_app.security_check_results` -> `clinic.lookup_security_checks`.
+- Currency foundation: `robo_app.ref_currencies`, `robo_app.clinic_currencies`, `robo_app.clinic_currency_rate_versions` -> `future.currency_normalization`.
 
 Smoke hiện tại:
 
 ```text
-app contract: 24 views
+app contract: 27 views
 tool map: 20 tools
 raw inventory: 56 tables
 RAG registry: 3 sources / 56 chunks

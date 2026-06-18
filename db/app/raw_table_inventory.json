@@ -59,21 +59,21 @@
       "raw_table": "clinic_currencies",
       "group": "clinic_settings",
       "access_level": "operational",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_billing_finance",
-      "app_views": [],
-      "tools": [],
-      "notes": "Needed before currency/price normalization is production-grade."
+      "app_views": ["clinic_currencies"],
+      "tools": ["future.currency_normalization"],
+      "notes": "Clinic currency configuration is available in the app contract; chatbot price normalization is still a future behavior change."
     },
     {
       "raw_table": "clinic_currency_rate_versions",
       "group": "clinic_settings",
       "access_level": "operational",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_billing_finance",
-      "app_views": [],
-      "tools": [],
-      "notes": "Exchange-rate/versioning support for billing and price display."
+      "app_views": ["clinic_currency_rate_versions"],
+      "tools": ["future.currency_normalization"],
+      "notes": "Exchange-rate/version history is available in the app contract; latest-row marker is exposed for future price display rules."
     },
     {
       "raw_table": "clinic_feature_flags",
@@ -399,11 +399,11 @@
       "raw_table": "ref_currencies",
       "group": "reference",
       "access_level": "public",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_billing_finance",
-      "app_views": [],
-      "tools": [],
-      "notes": "Currency reference table for price/billing normalization."
+      "app_views": ["ref_currencies"],
+      "tools": ["future.currency_normalization"],
+      "notes": "Currency reference table for future price/billing normalization."
     },
     {
       "raw_table": "ref_icd10_codes",

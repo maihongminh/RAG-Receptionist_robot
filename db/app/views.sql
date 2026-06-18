@@ -42,6 +42,63 @@ SELECT
   currency
 FROM robo_raw.clinic_general_settings;
 
+CREATE VIEW robo_app.ref_currencies AS
+SELECT
+  id,
+  code,
+  name_vi,
+  name_en,
+  symbol,
+  NULLIF(decimal_places, '')::integer AS decimal_places,
+  CASE is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(display_order, '')::integer AS display_order,
+  NULLIF(created_at, '')::timestamptz AS created_at
+FROM robo_raw.ref_currencies
+WHERE COALESCE(is_active, 't') = 't';
+
+CREATE VIEW robo_app.clinic_currencies AS
+SELECT
+  cc.id,
+  cc.clinic_id,
+  cc.currency_code,
+  rc.name_vi AS currency_name_vi,
+  rc.name_en AS currency_name_en,
+  rc.symbol,
+  rc.decimal_places,
+  CASE cc.is_default WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_default,
+  CASE
+    WHEN cc.exchange_rate_to_vnd ~ '^[0-9]+([.][0-9]+)?$' THEN cc.exchange_rate_to_vnd::numeric
+    ELSE NULL
+  END AS exchange_rate_to_vnd,
+  CASE
+    WHEN cc.units_per_default_unit ~ '^[0-9]+([.][0-9]+)?$' THEN cc.units_per_default_unit::numeric
+    ELSE NULL
+  END AS units_per_default_unit,
+  NULLIF(cc.display_order, '')::integer AS display_order,
+  NULLIF(cc.created_at, '')::timestamptz AS created_at,
+  cc.created_by
+FROM robo_raw.clinic_currencies cc
+LEFT JOIN robo_app.ref_currencies rc ON rc.code = cc.currency_code;
+
+CREATE VIEW robo_app.clinic_currency_rate_versions AS
+SELECT
+  rv.id,
+  rv.clinic_id,
+  rv.currency_code,
+  NULLIF(rv.effective_from, '')::timestamptz AS effective_from,
+  CASE
+    WHEN rv.units_per_default_unit ~ '^[0-9]+([.][0-9]+)?$' THEN rv.units_per_default_unit::numeric
+    ELSE NULL
+  END AS units_per_default_unit,
+  NULLIF(rv.created_at, '')::timestamptz AS created_at,
+  rv.created_by,
+  ROW_NUMBER() OVER (
+    PARTITION BY rv.clinic_id, rv.currency_code
+    ORDER BY NULLIF(rv.effective_from, '')::timestamptz DESC NULLS LAST,
+             NULLIF(rv.created_at, '')::timestamptz DESC NULLS LAST
+  ) = 1 AS is_latest
+FROM robo_raw.clinic_currency_rate_versions rv;
+
 CREATE VIEW robo_app.rooms AS
 SELECT
   id,
