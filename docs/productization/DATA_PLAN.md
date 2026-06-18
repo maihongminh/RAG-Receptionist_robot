@@ -256,11 +256,12 @@ Các use case productization đã có app contract, tool map, policy và test:
 - Security checks: `robo_app.security_check_results` -> `clinic.lookup_security_checks`.
 - Currency foundation: `robo_app.ref_currencies`, `robo_app.clinic_currencies`, `robo_app.clinic_currency_rate_versions` -> `future.currency_normalization`.
 - Corporate/group exam foundation: `robo_app.corporate_accounts`, `robo_app.group_examinations` -> `future.corporate_examination`.
+- Account scope foundation: `robo_app.account_profiles`, `robo_app.account_user_roles`, `robo_app.account_clinic_memberships`, `robo_app.organizations`, `robo_app.organization_memberships`, `robo_app.platform_admins` -> `future.auth_scope_resolution`.
 
 Smoke hiện tại:
 
 ```text
-app contract: 29 views
+app contract: 35 views
 tool map: 20 tools
 raw inventory: 56 tables
 RAG registry: 3 sources / 56 chunks

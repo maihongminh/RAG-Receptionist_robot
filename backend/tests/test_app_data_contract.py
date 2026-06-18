@@ -28,7 +28,7 @@ def test_app_contract_has_unique_views_and_columns():
     assert len(view_names) == len(set(view_names))
 
     for view in contract["views"]:
-        assert view["access_level"] in {"public", "operational", "private"}
+        assert view["access_level"] in {"public", "operational", "private", "platform"}
         assert view["source_tables"]
         assert view["columns"]
         column_names = [column["name"] for column in view["columns"]]

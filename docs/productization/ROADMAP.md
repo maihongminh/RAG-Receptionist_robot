@@ -84,7 +84,7 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 29 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 35 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
 - Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
@@ -122,6 +122,14 @@ Trạng thái hiện tại:
   - `robo_app.group_examinations`;
   - seed productization có 5 corporate accounts và 5 group examinations demo;
   - hiện là app contract nền cho `future.corporate_examination`, chưa mở chatbot/admin workflow.
+- Đã mở Batch 4 account scope foundation:
+  - `robo_app.account_profiles`;
+  - `robo_app.account_user_roles`;
+  - `robo_app.account_clinic_memberships`;
+  - `robo_app.organizations`;
+  - `robo_app.organization_memberships`;
+  - `robo_app.platform_admins`;
+  - hiện là app contract nền cho `future.auth_scope_resolution`, chưa thay login runtime khỏi `robo_auth.accounts`.
 - Đã nối public SQL tool cho lab indicator/package detail:
   - `clinic.lookup_lab_indicator_detail`;
   - `clinic.lookup_service_package_detail`.

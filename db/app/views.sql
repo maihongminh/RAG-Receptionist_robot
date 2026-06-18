@@ -142,6 +142,136 @@ SELECT *
 FROM robo_app.staff
 WHERE role ILIKE '%doctor%' AND COALESCE(is_active, true) = true;
 
+CREATE VIEW robo_app.account_profiles AS
+SELECT
+  p.id,
+  p.user_id,
+  p.full_name,
+  p.display_name,
+  p.email,
+  p.phone,
+  p.avatar_url,
+  p.preferred_language,
+  p.notification_settings,
+  p.license_number,
+  p.academic_title,
+  p.specialty,
+  p.sub_specialty,
+  p.title,
+  p.position,
+  CASE WHEN p.years_of_experience ~ '^[0-9]+$' THEN p.years_of_experience::integer ELSE NULL END AS years_of_experience,
+  p.workplaces,
+  p.bio,
+  p.signature_url,
+  p.license_document_url,
+  NULLIF(p.created_at, '')::timestamptz AS created_at,
+  NULLIF(p.updated_at, '')::timestamptz AS updated_at,
+  CASE p.is_deleted WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_deleted
+FROM robo_raw.profiles p
+WHERE COALESCE(p.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.account_user_roles AS
+SELECT
+  ur.id,
+  ur.user_id,
+  p.full_name,
+  p.email,
+  ur.clinic_id,
+  c.name AS clinic_name,
+  ur.role,
+  NULLIF(ur.created_at, '')::timestamptz AS created_at,
+  NULLIF(ur.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.user_roles ur
+LEFT JOIN robo_app.account_profiles p ON p.user_id = ur.user_id
+LEFT JOIN robo_app.clinics c ON c.id = ur.clinic_id
+WHERE COALESCE(ur.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.account_clinic_memberships AS
+SELECT
+  cm.id,
+  cm.user_id,
+  p.full_name,
+  p.email,
+  cm.clinic_id,
+  c.name AS clinic_name,
+  CASE cm.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(cm.joined_at, '')::timestamptz AS joined_at,
+  NULLIF(cm.deactivated_at, '')::timestamptz AS deactivated_at,
+  cm.deactivation_reason,
+  NULLIF(cm.created_at, '')::timestamptz AS created_at,
+  NULLIF(cm.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.clinic_memberships cm
+LEFT JOIN robo_app.account_profiles p ON p.user_id = cm.user_id
+LEFT JOIN robo_app.clinics c ON c.id = cm.clinic_id
+WHERE COALESCE(cm.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.organizations AS
+SELECT
+  o.id,
+  o.name,
+  o.name_short,
+  o.legal_name,
+  o.tax_id,
+  o.business_license,
+  o.email,
+  o.phone,
+  o.website,
+  o.address,
+  o.city,
+  o.country,
+  o.timezone,
+  o.locale,
+  o.currency,
+  CASE o.share_patient_index WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS share_patient_index,
+  CASE o.centralized_billing WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS centralized_billing,
+  CASE WHEN o.max_clinics ~ '^[0-9]+$' THEN o.max_clinics::integer ELSE NULL END AS max_clinics,
+  o.enabled_modules,
+  o.settings,
+  o.status,
+  NULLIF(o.onboarded_at, '')::timestamptz AS onboarded_at,
+  NULLIF(o.suspended_at, '')::timestamptz AS suspended_at,
+  o.suspended_reason,
+  o.subscription_plan,
+  NULLIF(o.subscription_expires_at, '')::timestamptz AS subscription_expires_at,
+  NULLIF(o.created_at, '')::timestamptz AS created_at,
+  NULLIF(o.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.organizations o
+WHERE COALESCE(o.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.organization_memberships AS
+SELECT
+  om.id,
+  om.organization_id,
+  o.name AS organization_name,
+  om.user_id,
+  p.full_name,
+  p.email,
+  om.role,
+  CASE om.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(om.invited_at, '')::timestamptz AS invited_at,
+  NULLIF(om.joined_at, '')::timestamptz AS joined_at,
+  om.invited_by,
+  NULLIF(om.created_at, '')::timestamptz AS created_at,
+  NULLIF(om.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.organization_memberships om
+LEFT JOIN robo_app.organizations o ON o.id = om.organization_id
+LEFT JOIN robo_app.account_profiles p ON p.user_id = om.user_id;
+
+CREATE VIEW robo_app.platform_admins AS
+SELECT
+  pa.id,
+  pa.user_id,
+  p.full_name,
+  p.email,
+  CASE pa.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(pa.created_at, '')::timestamptz AS created_at,
+  pa.created_by,
+  NULLIF(pa.updated_at, '')::timestamptz AS updated_at,
+  NULLIF(pa.deactivated_at, '')::timestamptz AS deactivated_at,
+  pa.deactivated_reason
+FROM robo_raw.platform_admins pa
+LEFT JOIN robo_app.account_profiles p ON p.user_id = pa.user_id;
+
 CREATE VIEW robo_app.doctor_schedules AS
 SELECT
   s.id,

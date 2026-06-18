@@ -99,11 +99,11 @@
       "raw_table": "clinic_memberships",
       "group": "account_scope",
       "access_level": "platform",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Useful for real role/scope mapping beyond demo account seed."
+      "app_views": ["account_clinic_memberships"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Clinic membership contract is available for future auth scope resolution."
     },
     {
       "raw_table": "clinic_subscriptions",
@@ -259,21 +259,21 @@
       "raw_table": "organization_memberships",
       "group": "account_scope",
       "access_level": "platform",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Organization-level account scope mapping."
+      "app_views": ["organization_memberships"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Organization membership contract is available for future auth scope resolution."
     },
     {
       "raw_table": "organizations",
       "group": "organization",
       "access_level": "operational",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Organization parent entity for multi-clinic productization."
+      "app_views": ["organizations"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Organization contract is available for multi-clinic scope modeling."
     },
     {
       "raw_table": "paraclinical_orders",
@@ -359,11 +359,11 @@
       "raw_table": "platform_admins",
       "group": "platform_account",
       "access_level": "platform",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Platform admin identity source; not patient-facing."
+      "app_views": ["platform_admins"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Platform admin identity source is available in the app contract; not patient-facing."
     },
     {
       "raw_table": "platform_pricing_config",
@@ -379,11 +379,11 @@
       "raw_table": "profiles",
       "group": "account",
       "access_level": "platform",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Profile/user mapping; could feed auth identity migration."
+      "app_views": ["account_profiles"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Profile/user mapping contract is available for future auth identity migration."
     },
     {
       "raw_table": "ref_clinic_type_features",
@@ -539,11 +539,11 @@
       "raw_table": "user_roles",
       "group": "account_scope",
       "access_level": "platform",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_4_account_scope",
-      "app_views": [],
-      "tools": [],
-      "notes": "Could feed auth role migration from raw source."
+      "app_views": ["account_user_roles"],
+      "tools": ["future.auth_scope_resolution"],
+      "notes": "Role-by-clinic contract is available for future auth scope resolution."
     },
     {
       "raw_table": "visits",

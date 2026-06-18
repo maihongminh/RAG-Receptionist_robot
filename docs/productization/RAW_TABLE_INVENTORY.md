@@ -19,7 +19,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 29 view
+robo_app contract hiện tại: 35 view
 backend policy/tool map hiện tại: 20 mapped tools
 ```
 
@@ -39,6 +39,7 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `admin_help_templates` | `robo_app.knowledge_articles`, RAG | hướng dẫn/quy trình/FAQ public |
 | `appointment_requests` | `robo_app.appointment_requests` | contract nền cho yêu cầu đặt lịch |
 | `appointments` | `robo_app.appointments` | lịch hẹn cá nhân, timeline |
+| `clinic_memberships` | `robo_app.account_clinic_memberships` | membership user theo clinic, nền cho auth scope thật |
 | `clinic_currencies` | `robo_app.clinic_currencies` | currency theo clinic, nền cho chuẩn hóa giá |
 | `clinic_currency_rate_versions` | `robo_app.clinic_currency_rate_versions` | lịch sử tỷ giá theo clinic/currency |
 | `clinic_general_settings` | `robo_app.clinic_settings` | giờ làm việc/cấu hình phòng khám |
@@ -48,11 +49,15 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `doctor_schedules` | `robo_app.doctor_schedules` | lịch bác sĩ |
 | `group_examinations` | `robo_app.group_examinations` | phiên khám đoàn/corporate health |
 | `medical_records` | `robo_app.patient_visit_summaries` | visit/medical summary |
+| `organization_memberships` | `robo_app.organization_memberships` | membership user theo organization |
+| `organizations` | `robo_app.organizations` | tổ chức/multi-clinic parent |
 | `partner_lab_requests` | `robo_app.partner_lab_requests` | theo dõi yêu cầu xét nghiệm từ đối tác |
 | `partner_onsite_collections` | `robo_app.partner_onsite_collections` | theo dõi lịch/trạng thái lấy mẫu tận nơi |
 | `paraclinical_orders` | `robo_app.paraclinical_results` | kết quả/chỉ định cận lâm sàng |
 | `patient_question_templates` | `robo_app.patient_question_templates`, RAG | mẫu câu hỏi gợi ý cho bệnh nhân |
 | `patients` | `robo_app.patients` | hồ sơ hành chính bệnh nhân, scope private |
+| `platform_admins` | `robo_app.platform_admins` | platform/system admin identity source |
+| `profiles` | `robo_app.account_profiles` | profile/user mapping cho account scope |
 | `ref_currencies` | `robo_app.ref_currencies` | danh mục tiền tệ public |
 | `ref_icd10_codes` | `robo_app.icd10_codes` | bảng mã ICD10 tham khảo, không dùng để chẩn đoán |
 | `rooms` | `robo_app.rooms`, schedule join | phòng/tầng/phòng khám |
@@ -63,6 +68,7 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `service_packages` | `robo_app.service_packages` | gói dịch vụ/giá gói |
 | `security_check_results` | `robo_app.security_check_results` | kiểm tra bảo mật/nền tảng, system_admin-only |
 | `staff` | `robo_app.staff`, `robo_app.doctors` | nhân sự/bác sĩ |
+| `user_roles` | `robo_app.account_user_roles` | role theo clinic cho user |
 | `visits` | `robo_app.patient_visit_summaries` | visit summary |
 | `vital_signs` | `robo_app.patient_visit_summaries` | sinh hiệu gần nhất |
 
@@ -127,12 +133,12 @@ Use case:
 
 Mở rộng vận hành và phân quyền thật:
 
-- `clinic_memberships`
-- `organization_memberships`
-- `organizations`
-- `platform_admins`
-- `profiles`
-- `user_roles`
+- `clinic_memberships` - app contract đã có qua `robo_app.account_clinic_memberships`
+- `organization_memberships` - app contract đã có qua `robo_app.organization_memberships`
+- `organizations` - app contract đã có qua `robo_app.organizations`
+- `platform_admins` - app contract đã có qua `robo_app.platform_admins`
+- `profiles` - app contract đã có qua `robo_app.account_profiles`
+- `user_roles` - app contract đã có qua `robo_app.account_user_roles`
 - `beds`
 - `diagnostic_machines`
 - `examination_zones`

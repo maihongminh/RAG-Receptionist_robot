@@ -272,7 +272,7 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `27 views`, tool map `20 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `26/26`, backend tests `220 passed`.
+  - đã chạy productization smoke thành công: app contract `35 views`, tool map `20 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `26/26`, backend tests `220 passed`.
 - Bắt đầu Batch 1 Scheduling expansion:
   - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
   - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;
@@ -298,6 +298,14 @@ Postgres
   - thêm demo data productization: 5 corporate accounts và 5 group examination sessions;
   - cập nhật app contract/inventory/docs;
   - các view này là nền cho `future.corporate_examination`, chưa mở intent/chatbot tool.
+- Mở rộng account scope foundation:
+  - thêm view `robo_app.account_profiles` từ `robo_raw.profiles`;
+  - thêm view `robo_app.account_user_roles` từ `robo_raw.user_roles`;
+  - thêm view `robo_app.account_clinic_memberships` từ `robo_raw.clinic_memberships`;
+  - thêm view `robo_app.organizations` từ `robo_raw.organizations`;
+  - thêm view `robo_app.organization_memberships` từ `robo_raw.organization_memberships`;
+  - thêm view `robo_app.platform_admins` từ `robo_raw.platform_admins`;
+  - các view này là nền cho `future.auth_scope_resolution`, chưa thay login runtime khỏi `robo_auth.accounts`.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
