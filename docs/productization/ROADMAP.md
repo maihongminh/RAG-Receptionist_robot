@@ -84,7 +84,7 @@ Done khi:
 
 Trạng thái hiện tại:
 
-- Đã thêm `db/app/contract.json` cho 21 view `robo_app` đang phục vụ MVP/productization.
+- Đã thêm `db/app/contract.json` cho 22 view `robo_app` đang phục vụ MVP/productization.
 - Đã thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`, kèm group/access/status/batch/app view/tool mapping hiện có.
 - Đã thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh theo nhóm và batch mở rộng.
 - Đã thêm `scripts/check_raw_table_inventory.py` để validate inventory khớp `db/raw/schema.sql`.
@@ -188,7 +188,8 @@ Trạng thái hiện tại:
 - Qdrant payload có `source/source_table/source_id/domain/clinic_id/language/content_hash`.
 - Đã có `scripts/build_qdrant_index.py --mode full`.
 - Đã có `scripts/build_qdrant_index.py --mode incremental` dựa trên `robo_rag.index_manifest`.
-- Registry hiện có 2 source public: `robo_app.knowledge_articles`, `robo_app.patient_question_templates`.
+- Registry hiện có 3 source public: `robo_app.knowledge_articles`, `robo_app.patient_question_templates`, `robo_app.service_rag_guides`.
+- `robo_app.service_rag_guides` chỉ dùng để giải thích nhóm dịch vụ/ví dụ dịch vụ; không dùng để trả giá hoặc dữ liệu cá nhân.
 - Vector search filter tối thiểu theo `domain=clinic`, `access_level=public`.
 
 ## Phase P5 - Deployment/test hardening

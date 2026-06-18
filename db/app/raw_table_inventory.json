@@ -451,9 +451,9 @@
       "access_level": "public",
       "status": "current",
       "batch": "current",
-      "app_views": ["services"],
-      "tools": ["clinic.lookup_service_price", "clinic.list_service_categories", "clinic.summarize_service_catalog", "clinic.lookup_service_category_detail"],
-      "notes": "Current source for services, prices and catalog summaries."
+      "app_views": ["services", "service_rag_guides"],
+      "tools": ["clinic.lookup_service_price", "clinic.list_service_categories", "clinic.summarize_service_catalog", "clinic.lookup_service_category_detail", "scripts.rag_documents"],
+      "notes": "Current source for services, prices and catalog summaries. A safe service guide view is also indexed into public RAG without price fields."
     },
     {
       "raw_table": "service_categories",
@@ -461,9 +461,9 @@
       "access_level": "public",
       "status": "current",
       "batch": "current",
-      "app_views": ["service_categories", "services"],
-      "tools": ["clinic.list_service_categories", "clinic.lookup_service_category_detail"],
-      "notes": "Current source for service grouping."
+      "app_views": ["service_categories", "services", "service_rag_guides"],
+      "tools": ["clinic.list_service_categories", "clinic.lookup_service_category_detail", "scripts.rag_documents"],
+      "notes": "Current source for service grouping and public service guide RAG documents."
     },
     {
       "raw_table": "service_lab_indicators",

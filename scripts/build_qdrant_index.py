@@ -30,8 +30,8 @@ MAX_CHUNK_CHARS = 900
 MIN_CHUNK_CHARS = 80
 SOURCE_VIEW = "scripts/rag_documents.py"
 SOURCE_DESCRIPTION = (
-    "Only public knowledge/FAQ/process documents from the RAG source registry are vectorized. "
-    "Structured data such as services, schedules, appointments and patients stays in SQL."
+    "Only public knowledge/FAQ/process/guide documents from the RAG source registry are vectorized. "
+    "Structured facts such as prices, schedules, appointments and patients stay in SQL/Auth tools."
 )
 
 

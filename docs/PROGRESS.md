@@ -210,10 +210,10 @@ Postgres
   - thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`;
   - thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh nhóm bảng, access level, batch mở rộng;
   - thêm `scripts/check_raw_table_inventory.py` để đảm bảo inventory khớp `db/raw/schema.sql`;
-  - thêm `db/app/contract.json` làm contract máy đọc được cho 21 view `robo_app`;
+  - thêm `db/app/contract.json` làm contract máy đọc được cho 22 view `robo_app`;
   - thêm `scripts/check_app_contract.py` để kiểm tra live DB có đủ view/cột/type theo contract;
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
-  - contract check hiện tại pass: `robo_app has 21 contracted views`;
+  - contract check hiện tại pass: `robo_app has 22 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
   - thêm `scripts/check_tool_map.py`, hiện pass `18 mapped tools`;
   - productization smoke hiện chạy cả raw table inventory check.
@@ -240,19 +240,27 @@ Postgres
   - thêm `robo_app.patient_question_templates` vào `scripts/rag_documents.py`;
   - source này lấy từ `robo_raw.patient_question_templates`;
   - `document_type=patient_question_template`, nội dung được đóng khung là mẫu câu hỏi gợi ý bệnh nhân hỏi bác sĩ;
-  - registry checker hiện pass `2 source(s)`;
+  - registry checker pass tại thời điểm chỉ có hai source RAG;
   - đã chạy incremental sync thật: `4 unchanged`, `11 changed/new docs`, `0 stale`, `11 upserted chunks`;
   - manifest hiện có `4` chunks từ `knowledge_articles` và `11` chunks từ `patient_question_templates`.
   - thêm routing cho câu hỏi dạng `mẫu câu hỏi`, `nên hỏi bác sĩ câu gì` vào `knowledge_search`;
   - formatter fallback hiện trả `patient_question_template` dưới dạng danh sách câu hỏi gợi ý, có lọc topic như `medication`, `test_results`, `lifestyle`;
   - test thực tế `Tôi nên hỏi bác sĩ câu gì về thuốc?` trả 2 câu hỏi liên quan thuốc.
+- Mở rộng RAG source thứ ba:
+  - thêm view `robo_app.service_rag_guides` từ `robo_app.services`;
+  - source lấy từ `robo_raw.service_catalog` và `robo_raw.service_categories`;
+  - view này chỉ tạo nội dung giải thích nhóm dịch vụ/ví dụ dịch vụ, không chứa giá;
+  - giá, lịch, dữ liệu cá nhân vẫn phải đi qua SQL/Auth tool;
+  - registry checker hiện pass `3 source(s)`;
+  - incremental sync đã upsert `41` chunks mới;
+  - manifest hiện có `56` chunks: `4 knowledge_articles`, `11 patient_question_templates`, `41 service_rag_guides`.
 - Bắt đầu P5 deployment/test hardening:
   - thêm endpoint `GET /ready`;
   - `/health` giữ vai trò liveness check đơn giản;
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `21 views`, tool map `18 tools`, raw inventory `56 tables`, RAG registry `2 sources`, MVP/productization scenario `24/24`, backend tests `207 passed`.
+  - đã chạy productization smoke thành công: app contract `22 views`, tool map `18 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `24/24`, backend tests `207 passed`.
 - Bắt đầu Batch 1 Scheduling expansion:
   - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
   - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;

@@ -70,10 +70,19 @@ def test_rag_registry_is_valid():
 def test_rag_registry_includes_public_question_templates_source():
     sources = {source.source_name: source for source in RAG_DOCUMENT_SOURCES}
 
-    assert set(sources) == {"knowledge_articles", "patient_question_templates"}
+    assert set(sources) == {
+        "knowledge_articles",
+        "patient_question_templates",
+        "service_rag_guides",
+    }
     assert sources["patient_question_templates"].source_view == "robo_app.patient_question_templates"
     assert sources["patient_question_templates"].source_tables == (
         "robo_raw.patient_question_templates",
+    )
+    assert sources["service_rag_guides"].source_view == "robo_app.service_rag_guides"
+    assert sources["service_rag_guides"].source_tables == (
+        "robo_raw.service_catalog",
+        "robo_raw.service_categories",
     )
 
 

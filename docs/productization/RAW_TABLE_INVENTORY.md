@@ -19,7 +19,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 21 view
+robo_app contract hiện tại: 22 view
 backend policy/tool map hiện tại: 18 mapped tools
 ```
 
@@ -50,8 +50,8 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `patient_question_templates` | `robo_app.patient_question_templates`, RAG | mẫu câu hỏi gợi ý cho bệnh nhân |
 | `patients` | `robo_app.patients` | hồ sơ hành chính bệnh nhân, scope private |
 | `rooms` | `robo_app.rooms`, schedule join | phòng/tầng/phòng khám |
-| `service_catalog` | `robo_app.services` | dịch vụ/giá/catalog |
-| `service_categories` | `robo_app.service_categories` | nhóm dịch vụ |
+| `service_catalog` | `robo_app.services`, `robo_app.service_rag_guides` | dịch vụ/giá/catalog và guide RAG public không chứa giá |
+| `service_categories` | `robo_app.service_categories`, `robo_app.service_rag_guides` | nhóm dịch vụ và guide RAG public |
 | `service_lab_indicators` | `robo_app.service_lab_indicators` | chỉ số/analyte của xét nghiệm |
 | `service_package_items` | `robo_app.service_package_items` | thành phần dịch vụ trong gói |
 | `service_packages` | `robo_app.service_packages` | gói dịch vụ/giá gói |

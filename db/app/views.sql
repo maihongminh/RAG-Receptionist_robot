@@ -145,6 +145,83 @@ FROM robo_raw.service_catalog s
 LEFT JOIN robo_app.service_categories c ON c.id = s.category_id
 WHERE COALESCE(s.is_deleted, 'f') <> 't';
 
+CREATE VIEW robo_app.service_rag_guides AS
+WITH active_services AS (
+  SELECT
+    clinic_id,
+    category_id,
+    COALESCE(category_name, 'Uncategorized') AS category_name,
+    category_name_en,
+    COALESCE(service_type, 'service') AS service_type,
+    name,
+    duration_minutes,
+    ROW_NUMBER() OVER (
+      PARTITION BY clinic_id, category_id, COALESCE(service_type, 'service')
+      ORDER BY name
+    ) AS example_rank
+  FROM robo_app.services
+  WHERE COALESCE(is_active, true) = true
+),
+category_guides AS (
+  SELECT
+    clinic_id,
+    category_id,
+    category_name,
+    category_name_en,
+    service_type,
+    COUNT(*)::integer AS service_count,
+    MIN(duration_minutes) AS min_duration_minutes,
+    MAX(duration_minutes) AS max_duration_minutes,
+    STRING_AGG(name, ', ' ORDER BY name) FILTER (WHERE example_rank <= 8) AS example_services
+  FROM active_services
+  GROUP BY clinic_id, category_id, category_name, category_name_en, service_type
+)
+SELECT
+  CONCAT('service-guide-', MD5(CONCAT_WS('|', clinic_id, category_id, category_name, service_type))) AS id,
+  clinic_id,
+  category_id,
+  category_name,
+  category_name_en,
+  service_type,
+  service_count,
+  min_duration_minutes,
+  max_duration_minutes,
+  example_services,
+  'service_guide'::text AS topic,
+  CONCAT('Service guide: ', category_name) AS title,
+  CONCAT('Hướng dẫn nhóm dịch vụ: ', category_name) AS title_vi,
+  CONCAT(
+    'Service category guide for ', category_name,
+    '. Type: ', service_type,
+    '. Example services: ', COALESCE(example_services, 'not available'),
+    '. Use this document only to explain the service category and ask the user to clarify the exact service name. ',
+    'Do not use this document to answer prices, booking status, personal results, diagnosis, or medical advice.'
+  ) AS content,
+  CONCAT(
+    'Hướng dẫn tham khảo về nhóm dịch vụ ', category_name,
+    '. Loại dịch vụ: ',
+    CASE service_type
+      WHEN 'lab' THEN 'xét nghiệm'
+      WHEN 'imaging' THEN 'chẩn đoán hình ảnh'
+      ELSE service_type
+    END,
+    '. Nhóm này hiện có ', service_count, ' dịch vụ trong dữ liệu.',
+    ' Ví dụ dịch vụ: ', COALESCE(example_services, 'chưa có dữ liệu ví dụ'), '.',
+    CASE
+      WHEN min_duration_minutes IS NOT NULL AND max_duration_minutes IS NOT NULL THEN
+        CONCAT(' Thời lượng tham khảo trong dữ liệu từ ', min_duration_minutes, ' đến ', max_duration_minutes, ' phút.')
+      ELSE ''
+    END,
+    ' Tài liệu này chỉ dùng để giải thích nhóm dịch vụ và gợi ý người dùng hỏi rõ tên dịch vụ cần tra.',
+    ' Không dùng tài liệu này để trả giá, đặt lịch, trả kết quả cá nhân, chẩn đoán hoặc tư vấn y khoa.'
+  ) AS content_vi,
+  'service_guide'::text AS document_type,
+  'public'::text AS access_level,
+  'vi'::text AS language,
+  true AS is_active,
+  NULL::text AS updated_at
+FROM category_guides;
+
 CREATE VIEW robo_app.service_lab_indicators AS
 SELECT
   li.id,

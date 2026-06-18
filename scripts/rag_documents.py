@@ -81,6 +81,30 @@ RAG_DOCUMENT_SOURCES = [
             WHERE COALESCE(is_active, true) = true
         """,
     ),
+    RagDocumentSource(
+        source_name="service_rag_guides",
+        source_view="robo_app.service_rag_guides",
+        source_tables=("robo_raw.service_catalog", "robo_raw.service_categories"),
+        query="""
+            SELECT
+              'service_rag_guides'::text AS source,
+              'robo_app.service_rag_guides'::text AS source_table,
+              id::text AS source_id,
+              topic,
+              title,
+              title_vi,
+              content,
+              content_vi,
+              document_type,
+              access_level,
+              language,
+              clinic_id,
+              is_active,
+              updated_at
+            FROM robo_app.service_rag_guides
+            WHERE COALESCE(is_active, true) = true
+        """,
+    ),
 ]
 
 

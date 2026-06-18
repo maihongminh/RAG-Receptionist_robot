@@ -140,6 +140,34 @@
       ]
     },
     {
+      "name": "service_rag_guides",
+      "access_level": "public",
+      "source_tables": ["robo_raw.service_catalog", "robo_raw.service_categories"],
+      "tools": ["scripts.rag_documents"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "clinic_id", "data_type": "text"},
+        {"name": "category_id", "data_type": "text"},
+        {"name": "category_name", "data_type": "text"},
+        {"name": "category_name_en", "data_type": "text"},
+        {"name": "service_type", "data_type": "text"},
+        {"name": "service_count", "data_type": "integer"},
+        {"name": "min_duration_minutes", "data_type": "integer"},
+        {"name": "max_duration_minutes", "data_type": "integer"},
+        {"name": "example_services", "data_type": "text"},
+        {"name": "topic", "data_type": "text"},
+        {"name": "title", "data_type": "text"},
+        {"name": "title_vi", "data_type": "text"},
+        {"name": "content", "data_type": "text"},
+        {"name": "content_vi", "data_type": "text"},
+        {"name": "document_type", "data_type": "text"},
+        {"name": "access_level", "data_type": "text"},
+        {"name": "language", "data_type": "text"},
+        {"name": "is_active", "data_type": "boolean"},
+        {"name": "updated_at", "data_type": "text"}
+      ]
+    },
+    {
       "name": "service_lab_indicators",
       "access_level": "public",
       "source_tables": ["robo_raw.service_lab_indicators", "robo_app.services"],

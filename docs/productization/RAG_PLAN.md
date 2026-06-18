@@ -72,7 +72,16 @@ patient_question_templates
   domain: clinic
   default_access_level: public
   default_language: vi
+
+service_rag_guides
+  source_view: robo_app.service_rag_guides
+  source_tables: robo_raw.service_catalog, robo_raw.service_categories
+  domain: clinic
+  default_access_level: public
+  default_language: vi
 ```
+
+`service_rag_guides` là source RAG an toàn cho giải thích nhóm dịch vụ và ví dụ tên dịch vụ. View này cố ý không chứa giá. Câu hỏi về giá, lịch, kết quả cá nhân, đặt lịch hoặc trạng thái cá nhân vẫn phải đi qua SQL/Auth tool.
 
 Registry có checker riêng:
 

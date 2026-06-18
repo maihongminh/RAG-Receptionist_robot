@@ -165,6 +165,7 @@ Các view hiện có:
 - `robo_app.doctor_schedules`: lịch bác sĩ, join sẵn tên bác sĩ và phòng.
 - `robo_app.service_categories`: nhóm dịch vụ.
 - `robo_app.services`: dịch vụ, giá, tiền tệ, thời lượng, loại dịch vụ.
+- `robo_app.service_rag_guides`: nội dung guide public cho nhóm dịch vụ để vector hóa, không chứa giá.
 - `robo_app.service_lab_indicators`: chỉ số/analyte của dịch vụ xét nghiệm, join sẵn dịch vụ/nhóm dịch vụ.
 - `robo_app.service_packages`: gói dịch vụ, giá gói, giảm giá, hiệu lực.
 - `robo_app.service_package_items`: thành phần dịch vụ trong từng gói, join sẵn tên dịch vụ/gói.
@@ -226,6 +227,7 @@ Kiểm tra view:
 \dv robo_app.*
 SELECT count(*) FROM robo_app.clinics;
 SELECT count(*) FROM robo_app.services;
+SELECT count(*) FROM robo_app.service_rag_guides;
 SELECT count(*) FROM robo_app.service_lab_indicators;
 SELECT count(*) FROM robo_app.service_packages;
 SELECT count(*) FROM robo_app.service_package_items;
