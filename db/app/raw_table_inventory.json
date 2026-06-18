@@ -149,11 +149,11 @@
       "raw_table": "crm_corporate_accounts",
       "group": "crm",
       "access_level": "operational",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_billing_finance",
-      "app_views": [],
-      "tools": [],
-      "notes": "Corporate customer/group examination use cases; separate from individual patient MVP."
+      "app_views": ["corporate_accounts"],
+      "tools": ["future.corporate_examination"],
+      "notes": "Corporate customer account contract is available for future group examination workflows."
     },
     {
       "raw_table": "crm_loyalty_tiers",
@@ -209,11 +209,11 @@
       "raw_table": "group_examinations",
       "group": "corporate_health",
       "access_level": "operational",
-      "status": "planned",
+      "status": "current",
       "batch": "batch_3_billing_finance",
-      "app_views": [],
-      "tools": [],
-      "notes": "Corporate/group examination workflow; not individual patient MVP."
+      "app_views": ["group_examinations"],
+      "tools": ["future.corporate_examination"],
+      "notes": "Group examination contract is available; chatbot/admin workflow is still future behavior."
     },
     {
       "raw_table": "lis_accession_counters",

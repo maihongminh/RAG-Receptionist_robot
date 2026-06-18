@@ -296,4 +296,109 @@ WHERE NOT EXISTS (
   SELECT 1 FROM robo_raw.partner_onsite_collections poc WHERE poc.id = seeded.id
 );
 
+-- Corporate account and group examination demo records.
+-- These rows make the corporate/group-health contract inspectable without
+-- changing individual patient MVP data.
+
+INSERT INTO robo_raw.crm_corporate_accounts (
+  _excel_row_number,
+  id,
+  clinic_id,
+  company_name,
+  tax_code,
+  address,
+  city,
+  phone,
+  email,
+  website,
+  industry,
+  employee_count,
+  contract_count,
+  total_revenue_vnd,
+  notes,
+  is_active,
+  is_deleted,
+  deleted_at,
+  deleted_by,
+  created_at,
+  updated_at,
+  created_by,
+  updated_by
+)
+SELECT *
+FROM (
+  VALUES
+    (-970001, 'prod-corp-0001-0000-0000-000000000001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'Mekong Textile Co., Ltd', 'MKT-001', 'No. 10, Industrial Road', 'Phnom Penh', '+85512000111', 'hr@mekong-textile.example', 'https://mekong-textile.example', 'manufacturing', '250', '2', '125000000', 'Annual employee health check demo account.', 't', 'f', '', '', '2026-06-15 08:00:00+00', '2026-06-15 08:00:00+00', 'system', 'system'),
+    (-970002, 'prod-corp-0002-0000-0000-000000000002', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'Cambodia Retail Group', 'CRG-002', 'St. 271, Office Tower B', 'Phnom Penh', '+85512000222', 'benefits@crg.example', 'https://crg.example', 'retail', '480', '3', '210000000', 'Multi-branch staff screening demo account.', 't', 'f', '', '', '2026-06-15 08:00:00+00', '2026-06-15 08:00:00+00', 'system', 'system'),
+    (-970003, 'prod-corp-0003-0000-0000-000000000003', '99efa33e-8a21-4b1f-a5ac-92f920e69179', 'Indica Logistics JSC', 'ILG-003', '12 Nguyen Trai', 'Ho Chi Minh', '0287000111', 'admin@indica-logistics.example', 'https://indica-logistics.example', 'logistics', '120', '1', '78000000', 'Driver health check demo account.', 't', 'f', '', '', '2026-06-15 08:00:00+00', '2026-06-15 08:00:00+00', 'system', 'system'),
+    (-970004, 'prod-corp-0004-0000-0000-000000000004', 'e137130e-ce05-403d-aa63-d4d63e03699d', 'Saigon Software Lab', 'SSL-004', '45 Le Loi', 'Ho Chi Minh', '0287000222', 'people@saigon-software.example', 'https://saigon-software.example', 'technology', '85', '1', '56000000', 'Office worker wellness demo account.', 't', 'f', '', '', '2026-06-15 08:00:00+00', '2026-06-15 08:00:00+00', 'system', 'system'),
+    (-970005, 'prod-corp-0005-0000-0000-000000000005', '640f49d1-dcef-4fdf-9fa2-420308e3e776', 'Phnom Penh Food Services', 'PPF-005', 'Street 2004', 'Phnom Penh', '+85512000555', 'ops@pp-food.example', 'https://pp-food.example', 'food_services', '60', '1', '32000000', 'Food handler periodic check demo account.', 't', 'f', '', '', '2026-06-15 08:00:00+00', '2026-06-15 08:00:00+00', 'system', 'system')
+) AS seeded(
+  _excel_row_number, id, clinic_id, company_name, tax_code, address, city,
+  phone, email, website, industry, employee_count, contract_count,
+  total_revenue_vnd, notes, is_active, is_deleted, deleted_at, deleted_by,
+  created_at, updated_at, created_by, updated_by
+)
+WHERE NOT EXISTS (
+  SELECT 1 FROM robo_raw.crm_corporate_accounts ca WHERE ca.id = seeded.id
+);
+
+INSERT INTO robo_raw.group_examinations (
+  _excel_row_number,
+  id,
+  clinic_id,
+  company_name,
+  company_tax_code,
+  company_address,
+  company_phone,
+  company_email,
+  contract_number,
+  contract_date,
+  contract_value,
+  session_name,
+  session_code,
+  exam_date,
+  expected_count,
+  actual_count,
+  service_package_id,
+  package_name,
+  package_price,
+  contact_name,
+  contact_phone,
+  contact_email,
+  payment_status,
+  total_amount,
+  paid_amount,
+  payment_notes,
+  status,
+  notes,
+  created_at,
+  created_by,
+  updated_at,
+  updated_by,
+  is_deleted,
+  deleted_at,
+  deleted_by
+)
+SELECT *
+FROM (
+  VALUES
+    (-980001, 'prod-ge-0001-0000-0000-000000000001', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'Mekong Textile Co., Ltd', 'MKT-001', 'No. 10, Industrial Road', '+85512000111', 'hr@mekong-textile.example', 'GE-2026-001', '2026-06-01', '12500.00', 'Mekong Textile Annual Check 2026', 'GE-PROD-0001', '2026-07-05', '120', '0', 'd8bcd04f-799b-4391-849a-af3175048c28', 'General Health Check Up', '35.00', 'Sokha HR', '+85512000112', 'sokha.hr@mekong-textile.example', 'deposit_paid', '4200.00', '1200.00', 'Deposit received.', 'scheduled', 'Demo group examination session.', '2026-06-15 08:00:00+00', 'system', '2026-06-15 08:00:00+00', 'system', 'f', '', ''),
+    (-980002, 'prod-ge-0002-0000-0000-000000000002', 'd5ac6269-d8cf-4821-ac8b-a6341e68987b', 'Cambodia Retail Group', 'CRG-002', 'St. 271, Office Tower B', '+85512000222', 'benefits@crg.example', 'GE-2026-002', '2026-06-03', '18000.00', 'Retail Group Staff Screening', 'GE-PROD-0002', '2026-07-12', '180', '0', 'a89649ec-9ae9-43da-86a5-3876753ef7e6', 'Check cholesterol levels', '18.00', 'Dara Benefits', '+85512000223', 'dara.benefits@crg.example', 'unpaid', '3240.00', '0.00', 'Awaiting company approval.', 'draft', 'Demo pending contract session.', '2026-06-15 08:00:00+00', 'system', '2026-06-15 08:00:00+00', 'system', 'f', '', ''),
+    (-980003, 'prod-ge-0003-0000-0000-000000000003', '99efa33e-8a21-4b1f-a5ac-92f920e69179', 'Indica Logistics JSC', 'ILG-003', '12 Nguyen Trai', '0287000111', 'admin@indica-logistics.example', 'GE-2026-003', '2026-06-05', '6400.00', 'Driver Health Check', 'GE-PROD-0003', '2026-07-18', '80', '12', 'a9766dd9-e721-4d8b-9d37-818df4df4005', 'Fasting Blood Glucose', '8.00', 'Nguyen Admin', '0287000112', 'nguyen.admin@indica-logistics.example', 'partial', '640.00', '240.00', 'Partial payment after first group.', 'in_progress', 'Demo in-progress group examination.', '2026-06-15 08:00:00+00', 'system', '2026-06-15 08:00:00+00', 'system', 'f', '', ''),
+    (-980004, 'prod-ge-0004-0000-0000-000000000004', 'e137130e-ce05-403d-aa63-d4d63e03699d', 'Saigon Software Lab', 'SSL-004', '45 Le Loi', '0287000222', 'people@saigon-software.example', 'GE-2026-004', '2026-06-07', '5100.00', 'Office Wellness Check', 'GE-PROD-0004', '2026-07-22', '85', '85', 'abb42ebb-31d2-4b60-8241-33026dcb9b26', 'Check Liver Function', '12.00', 'Tran People', '0287000223', 'tran.people@saigon-software.example', 'paid', '1020.00', '1020.00', 'Paid in full.', 'completed', 'Demo completed group examination.', '2026-06-15 08:00:00+00', 'system', '2026-06-15 08:00:00+00', 'system', 'f', '', ''),
+    (-980005, 'prod-ge-0005-0000-0000-000000000005', '640f49d1-dcef-4fdf-9fa2-420308e3e776', 'Phnom Penh Food Services', 'PPF-005', 'Street 2004', '+85512000555', 'ops@pp-food.example', 'GE-2026-005', '2026-06-09', '3000.00', 'Food Handler Periodic Check', 'GE-PROD-0005', '2026-07-28', '60', '0', '0db20c7e-a107-4110-970f-4842c06517eb', 'Check for hepatitis A Virus', '10.00', 'Chan Ops', '+85512000556', 'chan.ops@pp-food.example', 'unpaid', '600.00', '0.00', 'Pending invoice.', 'scheduled', 'Demo scheduled food-service screening.', '2026-06-15 08:00:00+00', 'system', '2026-06-15 08:00:00+00', 'system', 'f', '', '')
+) AS seeded(
+  _excel_row_number, id, clinic_id, company_name, company_tax_code,
+  company_address, company_phone, company_email, contract_number,
+  contract_date, contract_value, session_name, session_code, exam_date,
+  expected_count, actual_count, service_package_id, package_name,
+  package_price, contact_name, contact_phone, contact_email, payment_status,
+  total_amount, paid_amount, payment_notes, status, notes, created_at,
+  created_by, updated_at, updated_by, is_deleted, deleted_at, deleted_by
+)
+WHERE NOT EXISTS (
+  SELECT 1 FROM robo_raw.group_examinations ge WHERE ge.id = seeded.id
+);
+
 COMMIT;

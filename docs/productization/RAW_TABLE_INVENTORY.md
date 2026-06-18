@@ -19,7 +19,7 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 27 view
+robo_app contract hiện tại: 29 view
 backend policy/tool map hiện tại: 20 mapped tools
 ```
 
@@ -43,8 +43,10 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `clinic_currency_rate_versions` | `robo_app.clinic_currency_rate_versions` | lịch sử tỷ giá theo clinic/currency |
 | `clinic_general_settings` | `robo_app.clinic_settings` | giờ làm việc/cấu hình phòng khám |
 | `clinics` | `robo_app.clinics` | thông tin cơ sở public |
+| `crm_corporate_accounts` | `robo_app.corporate_accounts` | khách hàng doanh nghiệp/corporate account |
 | `diagnostic_walk_in_patients` | `robo_app.billing_records` | billing/payment summary |
 | `doctor_schedules` | `robo_app.doctor_schedules` | lịch bác sĩ |
+| `group_examinations` | `robo_app.group_examinations` | phiên khám đoàn/corporate health |
 | `medical_records` | `robo_app.patient_visit_summaries` | visit/medical summary |
 | `partner_lab_requests` | `robo_app.partner_lab_requests` | theo dõi yêu cầu xét nghiệm từ đối tác |
 | `partner_onsite_collections` | `robo_app.partner_onsite_collections` | theo dõi lịch/trạng thái lấy mẫu tận nơi |
@@ -109,9 +111,9 @@ Mở rộng tài chính/dịch vụ gói:
 - `ref_currencies` - app contract đã có
 - `service_packages`
 - `service_package_items`
-- `crm_corporate_accounts`
+- `crm_corporate_accounts` - app contract đã có qua `robo_app.corporate_accounts`
 - `crm_loyalty_tiers`
-- `group_examinations`
+- `group_examinations` - app contract đã có qua `robo_app.group_examinations`
 
 Use case:
 

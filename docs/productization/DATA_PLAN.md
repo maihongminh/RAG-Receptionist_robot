@@ -255,11 +255,12 @@ Các use case productization đã có app contract, tool map, policy và test:
 - Partner lab tracking: `robo_app.partner_lab_requests`, `robo_app.partner_onsite_collections` -> `clinic.lookup_partner_lab_requests`.
 - Security checks: `robo_app.security_check_results` -> `clinic.lookup_security_checks`.
 - Currency foundation: `robo_app.ref_currencies`, `robo_app.clinic_currencies`, `robo_app.clinic_currency_rate_versions` -> `future.currency_normalization`.
+- Corporate/group exam foundation: `robo_app.corporate_accounts`, `robo_app.group_examinations` -> `future.corporate_examination`.
 
 Smoke hiện tại:
 
 ```text
-app contract: 27 views
+app contract: 29 views
 tool map: 20 tools
 raw inventory: 56 tables
 RAG registry: 3 sources / 56 chunks

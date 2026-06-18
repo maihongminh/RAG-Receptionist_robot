@@ -373,6 +373,72 @@ FROM robo_raw.service_package_items pi
 LEFT JOIN robo_app.service_packages sp ON sp.id = pi.package_id
 LEFT JOIN robo_app.services sv ON sv.id = pi.service_id;
 
+CREATE VIEW robo_app.corporate_accounts AS
+SELECT
+  ca.id,
+  ca.clinic_id,
+  ca.company_name,
+  ca.tax_code,
+  ca.address,
+  ca.city,
+  ca.phone,
+  ca.email,
+  ca.website,
+  ca.industry,
+  CASE WHEN ca.employee_count ~ '^[0-9]+$' THEN ca.employee_count::integer ELSE NULL END AS employee_count,
+  CASE WHEN ca.contract_count ~ '^[0-9]+$' THEN ca.contract_count::integer ELSE NULL END AS contract_count,
+  CASE WHEN ca.total_revenue_vnd ~ '^[0-9]+([.][0-9]+)?$' THEN ca.total_revenue_vnd::numeric ELSE NULL END AS total_revenue_vnd,
+  ca.notes,
+  CASE ca.is_active WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_active,
+  NULLIF(ca.created_at, '')::timestamptz AS created_at,
+  NULLIF(ca.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.crm_corporate_accounts ca
+WHERE COALESCE(ca.is_deleted, 'f') <> 't';
+
+CREATE VIEW robo_app.group_examinations AS
+SELECT
+  ge.id,
+  ge.clinic_id,
+  ge.company_name,
+  ge.company_tax_code,
+  ge.company_address,
+  ge.company_phone,
+  ge.company_email,
+  ge.contract_number,
+  NULLIF(ge.contract_date, '')::date AS contract_date,
+  CASE WHEN ge.contract_value ~ '^[0-9]+([.][0-9]+)?$' THEN ge.contract_value::numeric ELSE NULL END AS contract_value,
+  ge.session_name,
+  ge.session_code,
+  NULLIF(ge.exam_date, '')::date AS exam_date,
+  CASE WHEN ge.expected_count ~ '^[0-9]+$' THEN ge.expected_count::integer ELSE NULL END AS expected_count,
+  CASE WHEN ge.actual_count ~ '^[0-9]+$' THEN ge.actual_count::integer ELSE NULL END AS actual_count,
+  ge.service_package_id,
+  sp.code AS service_package_code,
+  COALESCE(NULLIF(ge.package_name, ''), sp.name) AS package_name,
+  COALESCE(
+    CASE WHEN ge.package_price ~ '^[0-9]+([.][0-9]+)?$' THEN ge.package_price::numeric ELSE NULL END,
+    sp.package_price_amount
+  ) AS package_price_amount,
+  COALESCE(sp.currency_code, 'USD') AS currency_code,
+  ge.contact_name,
+  ge.contact_phone,
+  ge.contact_email,
+  ge.payment_status,
+  CASE WHEN ge.total_amount ~ '^[0-9]+([.][0-9]+)?$' THEN ge.total_amount::numeric ELSE NULL END AS total_amount,
+  CASE WHEN ge.paid_amount ~ '^[0-9]+([.][0-9]+)?$' THEN ge.paid_amount::numeric ELSE NULL END AS paid_amount,
+  (
+    COALESCE(CASE WHEN ge.total_amount ~ '^[0-9]+([.][0-9]+)?$' THEN ge.total_amount::numeric ELSE NULL END, 0)
+    - COALESCE(CASE WHEN ge.paid_amount ~ '^[0-9]+([.][0-9]+)?$' THEN ge.paid_amount::numeric ELSE NULL END, 0)
+  ) AS balance_amount,
+  ge.payment_notes,
+  ge.status,
+  ge.notes,
+  NULLIF(ge.created_at, '')::timestamptz AS created_at,
+  NULLIF(ge.updated_at, '')::timestamptz AS updated_at
+FROM robo_raw.group_examinations ge
+LEFT JOIN robo_app.service_packages sp ON sp.id = ge.service_package_id
+WHERE COALESCE(ge.is_deleted, 'f') <> 't';
+
 CREATE VIEW robo_app.icd10_codes AS
 SELECT
   id,

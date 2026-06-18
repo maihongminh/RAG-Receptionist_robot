@@ -236,6 +236,8 @@ SELECT count(*) FROM robo_app.service_package_items;
 SELECT count(*) FROM robo_app.ref_currencies;
 SELECT count(*) FROM robo_app.clinic_currencies;
 SELECT count(*) FROM robo_app.clinic_currency_rate_versions;
+SELECT count(*) FROM robo_app.corporate_accounts;
+SELECT count(*) FROM robo_app.group_examinations;
 SELECT count(*) FROM robo_app.icd10_codes;
 SELECT count(*) FROM robo_app.security_check_results;
 SELECT count(*) FROM robo_app.doctors;

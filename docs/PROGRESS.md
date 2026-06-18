@@ -292,6 +292,12 @@ Postgres
   - thêm view `robo_app.clinic_currency_rate_versions` từ `robo_raw.clinic_currency_rate_versions`, có cờ `is_latest`;
   - cập nhật `db/app/contract.json` và `db/app/raw_table_inventory.json`;
   - các view này là nền cho `future.currency_normalization`, chưa đổi formatter/trả lời giá của chatbot.
+- Mở rộng corporate/group examination foundation:
+  - thêm view `robo_app.corporate_accounts` từ `robo_raw.crm_corporate_accounts`;
+  - thêm view `robo_app.group_examinations` từ `robo_raw.group_examinations`, join `robo_app.service_packages` khi có package id;
+  - thêm demo data productization: 5 corporate accounts và 5 group examination sessions;
+  - cập nhật app contract/inventory/docs;
+  - các view này là nền cho `future.corporate_examination`, chưa mở intent/chatbot tool.
 - Tạo branch `mvp-v1` để lưu snapshot MVP.
 - Push `mvp-v1` lên GitHub.
 - Tạo `docs/mvp/` để lưu phạm vi, account test và test plan của MVP:
