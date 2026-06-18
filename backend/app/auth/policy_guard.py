@@ -12,6 +12,7 @@ INTENT_TOOL_MAP = {
     "service_package_detail": "clinic.lookup_service_package_detail",
     "lab_indicator_detail": "clinic.lookup_lab_indicator_detail",
     "icd10_lookup": "clinic.lookup_icd10_codes",
+    "security_check_summary": "clinic.lookup_security_checks",
     "doctor_schedule": "clinic.search_doctor_schedules",
     "knowledge_search": "clinic.search_knowledge",
     "appointment_booking": "clinic.create_appointment_request",

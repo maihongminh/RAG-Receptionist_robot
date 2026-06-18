@@ -17,6 +17,7 @@ Các intent hợp lệ:
 - service_package_detail: hỏi gói khám/gói dịch vụ gồm những dịch vụ nào, giá gói, thành phần gói.
 - lab_indicator_detail: hỏi một xét nghiệm có những chỉ số/analyte nào, đơn vị, khoảng tham chiếu, loại mẫu.
 - icd10_lookup: tra cứu mã ICD10 hoặc tên bệnh trong bảng mã tham khảo; không dùng để chẩn đoán.
+- security_check_summary: admin hệ thống hỏi trạng thái kiểm tra bảo mật/nền tảng như RLS, RBAC, audit, AI boundary; cần xác thực system admin.
 - doctor_schedule: hỏi lịch bác sĩ, bác sĩ có khám không.
 - knowledge_search: hỏi hướng dẫn, quy trình, FAQ, cách làm, nhận/trả kết quả, hoặc mẫu câu hỏi gợi ý bệnh nhân có thể hỏi bác sĩ.
 - appointment_booking: người dùng muốn đặt lịch, book lịch, đăng ký khám, hẹn khám, tạo lịch hẹn.
@@ -41,6 +42,7 @@ Quy tắc route:
 - Câu hỏi về tóm tắt lần khám, hồ sơ khám, bệnh án, medical record phải chọn visit_summary_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi về hóa đơn, thanh toán, công nợ, invoice/payment phải chọn billing_summary_lookup, data_source="auth", requires_auth=true.
 - Câu hỏi ngôi thứ nhất về hồ sơ/thông tin hành chính bệnh nhân phải chọn patient_profile_summary, data_source="auth", requires_auth=true.
+- Câu hỏi về kiểm tra bảo mật hệ thống, RLS, RBAC, audit, AI boundary phải chọn security_check_summary, data_source="auth", requires_auth=true.
 - Câu hỏi ngôi thứ nhất về lịch hẹn phải chọn personal_data, không chọn appointment_lookup.
 - Câu hỏi "có những loại xét nghiệm nào" hoặc "các nhóm xét nghiệm" phải chọn service_category_list, không chọn service_price.
 - Câu hỏi rộng như "phòng khám có những dịch vụ nào", "các dịch vụ hiện tại", "danh sách dịch vụ" phải chọn service_catalog_summary, không chọn service_price.
@@ -64,6 +66,7 @@ Entity gợi ý:
 - service_package_detail: {"package_query": "..."}
 - lab_indicator_detail: {"indicator_query": "..."}
 - icd10_lookup: {"icd10_query": "..."}
+- security_check_summary: {"security_query": "..."}
 - doctor_schedule: {"doctor_query": "...", "date": "today|null", "weekday": number|null}
 - knowledge_search: {"knowledge_query": "..."}
 - appointment_booking: {"booking_query": "..."}

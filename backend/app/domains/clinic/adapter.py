@@ -48,6 +48,12 @@ class ClinicAdapter(DomainAdapter):
             icd10_query=entities.get("icd10_query", ""),
         )
 
+    def lookup_security_checks(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return self.sql_tools.lookup_security_checks(
+            security_query=entities.get("security_query", ""),
+            auth=auth,
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return self.sql_tools.search_doctor_schedules(
             doctor_query=entities.get("doctor_query", ""),

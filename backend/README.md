@@ -80,6 +80,7 @@ patient.demo@robo.local   / demo123 -> patient
 doctor@clinic.local       / demo123 -> doctor
 receptionist@clinic.local / demo123 -> receptionist
 admin@clinic.local        / demo123 -> clinic_admin
+system.admin@robo.local   / demo123 -> system_admin
 ```
 
 ## Cài dependency

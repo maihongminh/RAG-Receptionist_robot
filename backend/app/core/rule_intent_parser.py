@@ -64,6 +64,20 @@ ICD10_KEYWORDS = (
     "mã bệnh",
     "ma benh",
 )
+SECURITY_CHECK_KEYWORDS = (
+    "kiểm tra bảo mật",
+    "kiem tra bao mat",
+    "security check",
+    "security checks",
+    "trạng thái bảo mật",
+    "bao mat he thong",
+    "bảo mật hệ thống",
+    "rls",
+    "rbac",
+    "ai boundary",
+    "audit",
+    "tenant isolation",
+)
 LAB_RESULT_KEYWORDS = (
     "kết quả xét nghiệm",
     "nhận kết quả",
@@ -322,6 +336,17 @@ class RuleIntentParser:
                 confidence=0.78,
                 data_source="sql",
                 reasoning="Question asks to look up an ICD10 reference code or disease name.",
+            )
+
+        if any(keyword in normalized for keyword in SECURITY_CHECK_KEYWORDS):
+            return Intent(
+                domain=domain,
+                intent="security_check_summary",
+                entities={"security_query": self._clean_security_check_query(question)},
+                confidence=0.8,
+                requires_auth=True,
+                data_source="auth",
+                reasoning="Question asks to look up system security posture checks.",
             )
 
         if any(keyword in normalized for keyword in LAB_RESULT_KEYWORDS) and not any(
@@ -602,6 +627,28 @@ class RuleIntentParser:
             text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
         cleaned = re.sub(r"\s+", " ", text).strip()
         return cleaned or question.strip()
+
+    def _clean_security_check_query(self, question: str) -> str:
+        text = question
+        replacements = [
+            "kiểm tra bảo mật",
+            "kiem tra bao mat",
+            "security check",
+            "security checks",
+            "trạng thái bảo mật",
+            "bao mat he thong",
+            "bảo mật hệ thống",
+            "trạng thái",
+            "tình trạng",
+            "hệ thống",
+            "he thong",
+            "cho tôi",
+            "xem",
+            "?",
+        ]
+        for value in replacements:
+            text = re.sub(re.escape(value), " ", text, flags=re.IGNORECASE)
+        return re.sub(r"\s+", " ", text).strip()
 
     def _service_type_from_question(self, normalized_question: str) -> str:
         if "xét nghiệm" in normalized_question or "lab" in normalized_question:

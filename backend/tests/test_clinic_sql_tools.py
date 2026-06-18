@@ -532,6 +532,47 @@ def test_lookup_icd10_codes_searches_reference_view(monkeypatch):
     assert result.rows[0]["code"] == "E061"
 
 
+def test_lookup_security_checks_requires_system_admin():
+    result = ClinicSqlTools().lookup_security_checks(
+        "RLS",
+        AuthContext(role="clinic_admin"),
+    )
+
+    assert result.tool_name == "clinic.lookup_security_checks"
+    assert result.rows == []
+    assert "system_admin" in str(result.message)
+
+
+def test_lookup_security_checks_queries_operational_view(monkeypatch):
+    tool = ClinicSqlTools()
+    calls = {}
+
+    def fake_fetch_all(query, params):
+        calls["query"] = query
+        calls["params"] = params
+        return [
+            {
+                "category": "RLS",
+                "check_name": "all_tables_rls_enabled",
+                "status": "PASS",
+                "severity": "CRITICAL",
+                "details": "All business tables have RLS enabled",
+                "is_blocking": False,
+                "total_checks": 1,
+                "attention_checks": 0,
+            }
+        ]
+
+    monkeypatch.setattr(sql_tools, "fetch_all", fake_fetch_all)
+
+    result = tool.lookup_security_checks("RLS", AuthContext(role="system_admin"))
+
+    assert "FROM robo_app.security_check_results" in calls["query"]
+    assert calls["params"]["query"] == "%RLS%"
+    assert result.tool_name == "clinic.lookup_security_checks"
+    assert result.rows[0]["check_name"] == "all_tables_rls_enabled"
+
+
 def test_lookup_lab_results_filters_patient_scope(monkeypatch):
     tool = ClinicSqlTools()
     calls = {}

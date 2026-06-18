@@ -37,6 +37,10 @@ class DomainAdapter(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def lookup_security_checks(self, entities: dict, auth: AuthContext) -> ToolResult:
+        raise NotImplementedError
+
+    @abstractmethod
     def check_availability(self, entities: dict) -> ToolResult:
         raise NotImplementedError
 

@@ -502,6 +502,75 @@ class ClinicSqlTools:
             confidence=0.88 if rows else 0.0,
         )
 
+    def lookup_security_checks(self, security_query: str, auth: AuthContext) -> ToolResult:
+        if auth.role != "system_admin":
+            return ToolResult(
+                tool_name="clinic.lookup_security_checks",
+                source="robo_app.security_check_results",
+                rows=[],
+                message="Chỉ system_admin mới được xem kết quả kiểm tra bảo mật hệ thống.",
+                confidence=0.0,
+            )
+
+        security_query = (security_query or "").strip()
+        params: dict[str, Any] = {"limit": get_rag_config().api_preview_max_rows}
+        filter_clause = ""
+        if security_query:
+            params["query"] = f"%{security_query}%"
+            filter_clause = """
+              AND (
+                category ILIKE %(query)s
+                OR check_name ILIKE %(query)s
+                OR status ILIKE %(query)s
+                OR severity ILIKE %(query)s
+                OR details ILIKE %(query)s
+              )
+            """
+
+        rows = fetch_all(
+            f"""
+            WITH filtered AS (
+              SELECT
+                id,
+                category,
+                check_name,
+                status,
+                severity,
+                details,
+                detected_at,
+                COALESCE(is_blocking, false) AS is_blocking
+              FROM robo_app.security_check_results
+              WHERE true
+                {filter_clause}
+            )
+            SELECT
+              *,
+              COUNT(*) OVER ()::integer AS total_checks,
+              SUM(CASE WHEN status <> 'PASS' OR is_blocking THEN 1 ELSE 0 END) OVER ()::integer AS attention_checks
+            FROM filtered
+            ORDER BY
+              is_blocking DESC,
+              CASE severity
+                WHEN 'CRITICAL' THEN 0
+                WHEN 'ERROR' THEN 1
+                WHEN 'WARN' THEN 2
+                WHEN 'INFO' THEN 3
+                ELSE 4
+              END,
+              status,
+              category,
+              check_name
+            LIMIT %(limit)s
+            """,
+            params,
+        )
+        return ToolResult(
+            tool_name="clinic.lookup_security_checks",
+            source="robo_app.security_check_results",
+            rows=rows,
+            confidence=0.9 if rows else 0.0,
+        )
+
     def search_doctor_schedules(self, doctor_query: str, weekday: int | None = None) -> ToolResult:
         params: dict[str, Any] = {}
         weekday_clause = ""

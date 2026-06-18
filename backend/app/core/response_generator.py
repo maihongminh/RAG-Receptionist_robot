@@ -27,6 +27,8 @@ class ResponseGenerator:
             return self._billing_summary_lookup(result)
         if intent.intent == "patient_profile_summary":
             return self._patient_profile_summary(result)
+        if intent.intent == "security_check_summary":
+            return self._security_check_summary(result)
 
         if intent.requires_auth:
             return (
@@ -346,6 +348,30 @@ class ResponseGenerator:
         return prefix + "\n".join(
             f"{index}. {line}" for index, line in enumerate(lines, start=1)
         ) + suffix
+
+    def _security_check_summary(self, result: ToolResult) -> str:
+        if not result.rows:
+            return result.message or "Tôi chưa tìm thấy kết quả kiểm tra bảo mật hệ thống."
+
+        first = result.rows[0]
+        total = self._safe_int(first.get("total_checks"), default=len(result.rows))
+        attention = self._safe_int(first.get("attention_checks"), default=0)
+        rows = result.rows[: min(get_rag_config().context_max_rows, len(result.rows))]
+        lines = []
+        for row in rows:
+            category = row.get("category") or "UNKNOWN"
+            check_name = row.get("check_name") or "unnamed_check"
+            status = row.get("status") or "UNKNOWN"
+            severity = row.get("severity") or "UNKNOWN"
+            blocking = "blocking" if row.get("is_blocking") else "non-blocking"
+            details = row.get("details")
+            detail_text = f" - {details}" if details else ""
+            lines.append(f"{category}/{check_name}: {status}, severity {severity}, {blocking}{detail_text}")
+
+        return (
+            f"Kết quả kiểm tra bảo mật hệ thống: {total} check, {attention} check cần chú ý.\n"
+            + "\n".join(f"{index}. {line}" for index, line in enumerate(lines, start=1))
+        )
 
     def _doctor_schedule(self, intent: Intent, result: ToolResult) -> str:
         if not result.rows:

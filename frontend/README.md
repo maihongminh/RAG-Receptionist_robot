@@ -42,6 +42,7 @@ patient.demo@robo.local   -> patient
 doctor@clinic.local       -> doctor
 receptionist@clinic.local -> receptionist
 admin@clinic.local        -> clinic_admin
+system.admin@robo.local   -> system_admin
 ```
 
 Guest có thể vào chatbot mà không cần token, nhưng dữ liệu cá nhân vẫn bị policy guard chặn. Token hiện là MVP HMAC local có `session_id`; account/password/session dùng schema `robo_auth`.

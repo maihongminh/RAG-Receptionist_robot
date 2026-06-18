@@ -401,6 +401,7 @@ patient.demo@robo.local   / demo123 -> patient
 doctor@clinic.local       / demo123 -> doctor
 receptionist@clinic.local / demo123 -> receptionist
 admin@clinic.local        / demo123 -> clinic_admin
+system.admin@robo.local   / demo123 -> system_admin
 ```
 
 Khi test LLM, response JSON có thêm:
@@ -607,7 +608,7 @@ Hiện tại:
 - Auth change password: `/auth/change-password` yêu cầu bearer token, current password và new password; đổi xong revoke các session khác.
 - Auth password reset foundation: `/auth/password-reset/request` tạo token reset có TTL trong `robo_auth.password_reset_tokens`; `/auth/password-reset/complete` đổi password bằng reset token, clear lock/counter và revoke toàn bộ session. Mặc định API không trả token; bật `AUTH_PASSWORD_RESET_EXPOSE_TOKEN=true` chỉ khi test local/dev.
 - Auth logout server-side: `/auth/logout` revoke session hiện tại bằng `sessions.revoked_at`.
-- Account admin UI/API: đăng nhập `admin@clinic.local`, vào sidebar bấm `Quản trị tài khoản`; backend dùng `/auth/admin/accounts...` để list/detail account, unlock account và revoke sessions trong phạm vi clinic.
+- Account admin UI/API: đăng nhập `admin@clinic.local` hoặc `system.admin@robo.local`, vào sidebar bấm `Quản trị tài khoản`; backend dùng `/auth/admin/accounts...` để list/detail account, unlock account và revoke sessions trong phạm vi được phép.
 - Audit DB nền tảng: login/logout, policy decision và tool result được ghi vào `robo_auth.audit_events`.
 - Request observability: backend nhận/tạo `X-Request-ID`, trả `X-Request-ID`, `X-Process-Time-Ms`; `/ask` response và audit DB đều có `request_id`, `latency_ms`.
 - Auth mock trong request là dev-only path và mặc định tắt.

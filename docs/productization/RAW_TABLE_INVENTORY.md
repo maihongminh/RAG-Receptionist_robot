@@ -19,8 +19,8 @@ backend/.venv/bin/python scripts/check_raw_table_inventory.py
 
 ```text
 robo_raw: 56 bảng
-robo_app contract hiện tại: 23 view
-backend policy/tool map hiện tại: 19 mapped tools
+robo_app contract hiện tại: 24 view
+backend policy/tool map hiện tại: 20 mapped tools
 ```
 
 Nguyên tắc:
@@ -56,6 +56,7 @@ Các bảng đã được dùng qua `robo_app`, SQL tool hoặc RAG:
 | `service_lab_indicators` | `robo_app.service_lab_indicators` | chỉ số/analyte của xét nghiệm |
 | `service_package_items` | `robo_app.service_package_items` | thành phần dịch vụ trong gói |
 | `service_packages` | `robo_app.service_packages` | gói dịch vụ/giá gói |
+| `security_check_results` | `robo_app.security_check_results` | kiểm tra bảo mật/nền tảng, system_admin-only |
 | `staff` | `robo_app.staff`, `robo_app.doctors` | nhân sự/bác sĩ |
 | `visits` | `robo_app.patient_visit_summaries` | visit summary |
 | `vital_signs` | `robo_app.patient_visit_summaries` | sinh hiệu gần nhất |
@@ -94,6 +95,7 @@ Use case:
 - xem trạng thái lấy mẫu tận nơi;
 - public SQL tool đã có qua `clinic.lookup_icd10_codes`;
 - dùng ICD10 làm reference, không dùng để chẩn đoán tự động.
+- `security_check_results` đã được phân loại lại sang platform/security và chỉ mở cho `system_admin`.
 
 ### Batch 3 - Billing/Packages/Corporate
 

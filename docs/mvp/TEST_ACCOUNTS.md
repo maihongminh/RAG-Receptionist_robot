@@ -53,6 +53,14 @@ clinic_id: d5ac6269-d8cf-4821-ac8b-a6341e68987b
 name: Clinic Admin Nguyen Van F
 ```
 
+## System admin
+
+```text
+email: system.admin@robo.local
+role: system_admin
+scope: toàn hệ thống
+```
+
 ## Curl login mẫu
 
 ```bash

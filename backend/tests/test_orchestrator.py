@@ -208,6 +208,25 @@ class FakeClinicAdapter(DomainAdapter):
             confidence=0.9,
         )
 
+    def lookup_security_checks(self, entities: dict, auth: AuthContext) -> ToolResult:
+        return ToolResult(
+            tool_name="clinic.lookup_security_checks",
+            source="fake.security_check_results",
+            rows=[
+                {
+                    "category": "RLS",
+                    "check_name": "all_tables_rls_enabled",
+                    "status": "PASS",
+                    "severity": "CRITICAL",
+                    "details": "All business tables have RLS enabled",
+                    "is_blocking": False,
+                    "total_checks": 1,
+                    "attention_checks": 0,
+                }
+            ],
+            confidence=0.9,
+        )
+
     def check_availability(self, entities: dict) -> ToolResult:
         return ToolResult(
             tool_name="clinic.search_doctor_schedules",
@@ -534,6 +553,17 @@ def test_orchestrator_icd10_lookup():
     assert response.sources == ["fake.icd10_codes"]
     assert "E061" in response.answer
     assert "không phải chẩn đoán y khoa" in response.answer
+
+
+def test_orchestrator_security_check_summary_requires_system_admin():
+    response = build_orchestrator().handle(
+        AskRequest(question="trạng thái kiểm tra bảo mật hệ thống"),
+        authorization=bearer_for(AuthContext(role="system_admin")),
+    )
+
+    assert response.intent == "security_check_summary"
+    assert response.sources == ["fake.security_check_results"]
+    assert "all_tables_rls_enabled" in response.answer
 
 
 def test_orchestrator_partner_lab_request_lookup_requires_auth_context():

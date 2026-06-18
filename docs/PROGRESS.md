@@ -153,8 +153,14 @@ Postgres
   - thêm tool public SQL `clinic.lookup_icd10_codes`;
   - dùng để tra mã/tên ICD10 tham khảo;
   - formatter luôn nhắc đây là bảng mã tham khảo, không phải chẩn đoán y khoa.
-- Test backend hiện tại: `213 passed`.
-- MVP/productization scenario hiện tại: `25/25 passed` với `--llm-provider none`.
+- Mở rộng security/platform check summary:
+  - thêm view `robo_app.security_check_results`;
+  - thêm intent `security_check_summary`;
+  - thêm tool `clinic.lookup_security_checks`;
+  - chỉ `system_admin` được xem;
+  - thêm account demo `system.admin@robo.local` với password `demo123`.
+- Test backend hiện tại: `220 passed`.
+- MVP/productization scenario hiện tại: `26/26 passed` với `--llm-provider none`.
 - Manual role test đã ổn cho `guest`, `patient`, `doctor`, `receptionist`, `clinic_admin`.
 - Thêm auth password/token MVP:
   - `POST /auth/login`;
@@ -216,12 +222,12 @@ Postgres
   - thêm `db/app/raw_table_inventory.json` để inventory đủ 56 bảng `robo_raw`;
   - thêm `docs/productization/RAW_TABLE_INVENTORY.md` để đọc nhanh nhóm bảng, access level, batch mở rộng;
   - thêm `scripts/check_raw_table_inventory.py` để đảm bảo inventory khớp `db/raw/schema.sql`;
-  - thêm `db/app/contract.json` làm contract máy đọc được cho 23 view `robo_app`;
+  - thêm `db/app/contract.json` làm contract máy đọc được cho 24 view `robo_app`;
   - thêm `scripts/check_app_contract.py` để kiểm tra live DB có đủ view/cột/type theo contract;
   - thêm `backend/tests/test_app_data_contract.py` để bắt domain SQL tools query trực tiếp `robo_raw`;
-  - contract check hiện tại pass: `robo_app has 23 contracted views`;
+  - contract check hiện tại pass: `robo_app has 24 contracted views`;
   - thêm `db/app/tool_map.json` để map intent/tool -> app view -> source table -> policy/test;
-  - thêm `scripts/check_tool_map.py`, hiện pass `19 mapped tools`;
+  - thêm `scripts/check_tool_map.py`, hiện pass `20 mapped tools`;
   - productization smoke hiện chạy cả raw table inventory check.
 - Bắt đầu P4 RAG production sync:
   - chuẩn hóa `scripts/rag_documents.py` thành registry có `source_name`, `source_view`, `source_tables`, `domain`, `access_level`, `language`;
@@ -266,7 +272,7 @@ Postgres
   - `/ready` kiểm tra Postgres, schema tối thiểu `robo_app/robo_auth/robo_rag`, RAG manifest và Qdrant collection;
   - thêm `scripts/check_productization_smoke.sh` để chạy app contract, tool map, RAG registry, MVP scenario và backend pytest;
   - đã chạy `/ready` local thành công với RAG manifest `15` chunks;
-  - đã chạy productization smoke thành công: app contract `23 views`, tool map `19 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `25/25`, backend tests `213 passed`.
+  - đã chạy productization smoke thành công: app contract `24 views`, tool map `20 tools`, raw inventory `56 tables`, RAG registry `3 sources`, MVP/productization scenario `26/26`, backend tests `220 passed`.
 - Bắt đầu Batch 1 Scheduling expansion:
   - thêm view `robo_app.appointment_requests` từ `robo_raw.appointment_requests`;
   - view chuẩn hóa patient JSON thành `patient_name`, `patient_phone`, `patient_gender`;

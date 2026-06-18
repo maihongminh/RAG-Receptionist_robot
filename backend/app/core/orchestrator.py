@@ -252,6 +252,7 @@ class Orchestrator:
             "service_package_detail": "sql",
             "lab_indicator_detail": "sql",
             "icd10_lookup": "sql",
+            "security_check_summary": "auth",
             "doctor_schedule": "sql",
             "knowledge_search": "rag",
             "appointment_booking": "none",
@@ -270,6 +271,7 @@ class Orchestrator:
             "appointment_lookup": True,
             "lab_result_lookup": True,
             "partner_lab_request_lookup": True,
+            "security_check_summary": True,
             "patient_timeline_summary": True,
             "visit_summary_lookup": True,
             "billing_summary_lookup": True,
@@ -290,6 +292,14 @@ class Orchestrator:
             "service_category_list",
             "service_catalog_summary",
             "service_category_detail",
+            "out_of_scope",
+        }:
+            intent = rule_intent.model_copy(
+                update={"confidence": max(intent.confidence, rule_intent.confidence)}
+            )
+        elif rule_intent.intent == "security_check_summary" and intent.intent in {
+            "general_info",
+            "knowledge_search",
             "out_of_scope",
         }:
             intent = rule_intent.model_copy(
@@ -353,6 +363,8 @@ class Orchestrator:
             entities["indicator_query"] = rule_intent.entities.get("indicator_query", question.strip())
         elif intent.intent == "icd10_lookup" and not entities.get("icd10_query"):
             entities["icd10_query"] = rule_intent.entities.get("icd10_query", question.strip())
+        elif intent.intent == "security_check_summary" and not entities.get("security_query"):
+            entities["security_query"] = rule_intent.entities.get("security_query", question.strip())
         elif intent.intent == "general_info" and not entities.get("profile_query"):
             entities["profile_query"] = rule_intent.entities.get("profile_query", "")
         elif intent.intent == "doctor_schedule":

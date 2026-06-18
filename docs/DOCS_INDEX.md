@@ -38,7 +38,7 @@ File này mô tả chức năng của từng tài liệu trong project. Toàn b�
    - Phạm vi MVP, flow chính, bảng/app views đã dùng.
 
 8. `mvp/TEST_ACCOUNTS.md`
-   - Account demo cho patient/doctor/receptionist/clinic_admin.
+   - Account demo cho patient/doctor/receptionist/clinic_admin/system_admin.
 
 9. `mvp/TEST_PLAN.md`
    - Test smoke thủ công và automated checks cho MVP.

@@ -474,6 +474,7 @@ patient.demo@robo.local
 doctor@clinic.local
 receptionist@clinic.local
 admin@clinic.local
+system.admin@robo.local
 ```
 
 ## 6. Backend đang xử lý những gì?

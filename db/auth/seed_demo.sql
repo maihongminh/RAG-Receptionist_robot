@@ -43,6 +43,14 @@ VALUES
     'pbkdf2_sha256',
     'active',
     now()
+  ),
+  (
+    'auth-system-admin-demo-001',
+    'system.admin@robo.local',
+    'pbkdf2_sha256$260000$system-admin-demo-salt$skJtrwhNe7lL05r-Xfa2mhu_IawFhD900c6hKm8_8Lk',
+    'pbkdf2_sha256',
+    'active',
+    now()
   )
 ON CONFLICT (email) DO UPDATE
 SET
@@ -107,6 +115,17 @@ VALUES
     NULL,
     'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
     true
+  ),
+  (
+    'auth-ident-system-admin-demo-001',
+    'auth-system-admin-demo-001',
+    'system_admin',
+    'auth-system-admin-demo-001',
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    true
   )
 ON CONFLICT (id) DO UPDATE
 SET
@@ -158,6 +177,14 @@ VALUES
     'auth-clinic-admin-demo-001',
     'clinic_admin',
     'd5ac6269-d8cf-4821-ac8b-a6341e68987b',
+    true,
+    true
+  ),
+  (
+    'auth-role-system-admin-demo-001',
+    'auth-system-admin-demo-001',
+    'system_admin',
+    NULL,
     true,
     true
   )

@@ -427,13 +427,13 @@
     },
     {
       "raw_table": "security_check_results",
-      "group": "clinical_results",
-      "access_level": "private",
-      "status": "planned",
-      "batch": "batch_2_lab_diagnostics",
-      "app_views": [],
-      "tools": [],
-      "notes": "Sensitive diagnostic/security check result data; needs auth policy."
+      "group": "platform_security",
+      "access_level": "operational",
+      "status": "current",
+      "batch": "platform_governance",
+      "app_views": ["security_check_results"],
+      "tools": ["clinic.lookup_security_checks"],
+      "notes": "Platform/security posture checks exposed only through system-admin operational lookup."
     },
     {
       "raw_table": "sensitive_field_definitions",

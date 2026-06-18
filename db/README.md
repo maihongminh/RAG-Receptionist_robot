@@ -170,6 +170,7 @@ Các view hiện có:
 - `robo_app.service_packages`: gói dịch vụ, giá gói, giảm giá, hiệu lực.
 - `robo_app.service_package_items`: thành phần dịch vụ trong từng gói, join sẵn tên dịch vụ/gói.
 - `robo_app.icd10_codes`: bảng mã ICD10 tham khảo, chỉ dùng để tra cứu mã/tên, không dùng để chẩn đoán.
+- `robo_app.security_check_results`: kết quả kiểm tra bảo mật/nền tảng, chỉ dùng cho system admin.
 - `robo_app.patients`: thông tin bệnh nhân, chỉ dùng sau khi có xác thực.
 - `robo_app.appointments`: lịch hẹn, join sẵn bệnh nhân/bác sĩ/dịch vụ.
 - `robo_app.appointment_requests`: yêu cầu đặt lịch, chuẩn hóa patient JSON, ngày giờ mong muốn, triệu chứng và trạng thái xử lý.
@@ -233,6 +234,7 @@ SELECT count(*) FROM robo_app.service_lab_indicators;
 SELECT count(*) FROM robo_app.service_packages;
 SELECT count(*) FROM robo_app.service_package_items;
 SELECT count(*) FROM robo_app.icd10_codes;
+SELECT count(*) FROM robo_app.security_check_results;
 SELECT count(*) FROM robo_app.doctors;
 SELECT count(*) FROM robo_app.doctor_schedules;
 SELECT count(*) FROM robo_app.appointments;

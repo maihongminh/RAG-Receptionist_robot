@@ -333,6 +333,18 @@ SELECT
 FROM robo_raw.ref_icd10_codes
 WHERE COALESCE(is_active, 't') = 't';
 
+CREATE VIEW robo_app.security_check_results AS
+SELECT
+  id,
+  category,
+  check_name,
+  status,
+  severity,
+  details,
+  NULLIF(detected_at, '')::timestamptz AS detected_at,
+  CASE is_blocking WHEN 't' THEN true WHEN 'f' THEN false ELSE NULL END AS is_blocking
+FROM robo_raw.security_check_results;
+
 CREATE VIEW robo_app.patients AS
 SELECT
   id,

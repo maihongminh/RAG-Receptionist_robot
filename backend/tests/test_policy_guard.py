@@ -257,6 +257,32 @@ def test_guest_can_access_icd10_lookup():
     assert decision.allowed is True
 
 
+def test_system_admin_can_access_security_check_summary():
+    intent = Intent(
+        domain="clinic",
+        intent="security_check_summary",
+        data_source="auth",
+        requires_auth=True,
+    )
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="system_admin"))
+
+    assert decision.allowed is True
+
+
+def test_clinic_admin_cannot_access_security_check_summary():
+    intent = Intent(
+        domain="clinic",
+        intent="security_check_summary",
+        data_source="auth",
+        requires_auth=True,
+    )
+
+    decision = PolicyGuard().authorize(intent, AuthContext(role="clinic_admin"))
+
+    assert decision.allowed is False
+
+
 def test_doctor_cannot_access_billing_summary():
     intent = Intent(
         domain="clinic",

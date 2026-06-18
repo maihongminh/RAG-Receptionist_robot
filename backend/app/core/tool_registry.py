@@ -34,6 +34,8 @@ class ToolRegistry:
             return adapter.lookup_lab_indicator_detail(intent.entities)
         if intent.intent == "icd10_lookup":
             return adapter.lookup_icd10_codes(intent.entities)
+        if intent.intent == "security_check_summary":
+            return adapter.lookup_security_checks(intent.entities, auth or AuthContext(role="guest"))
         if intent.intent == "doctor_schedule":
             return adapter.check_availability(intent.entities)
         if intent.intent == "knowledge_search":

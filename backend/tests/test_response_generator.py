@@ -1,5 +1,5 @@
 from app.core.response_generator import ResponseGenerator
-from app.core.schemas import Intent, ToolResult
+from app.core.schemas import AuthContext, Intent, ToolResult
 
 
 def test_doctor_schedule_lists_available_rows_without_hidden_count():
@@ -390,6 +390,37 @@ def test_icd10_lookup_formats_reference_disclaimer():
     assert "E061: Viêm tuyến giáp bán cấp" in answer
     assert "Subacute thyroiditis" in answer
     assert "không phải chẩn đoán y khoa" in answer
+
+
+def test_security_check_summary_formats_operational_rows():
+    intent = Intent(intent="security_check_summary", data_source="auth", requires_auth=True)
+    result = ToolResult(
+        tool_name="clinic.lookup_security_checks",
+        source="robo_app.security_check_results",
+        rows=[
+            {
+                "category": "RLS",
+                "check_name": "all_tables_rls_enabled",
+                "status": "PASS",
+                "severity": "CRITICAL",
+                "details": "All business tables have RLS enabled",
+                "is_blocking": False,
+                "total_checks": 1,
+                "attention_checks": 0,
+            }
+        ],
+    )
+
+    answer = ResponseGenerator().generate(
+        "trạng thái kiểm tra bảo mật hệ thống",
+        intent,
+        result,
+        AuthContext(role="system_admin"),
+    )
+
+    assert "1 check" in answer
+    assert "RLS/all_tables_rls_enabled" in answer
+    assert "PASS" in answer
 
 
 def test_medical_advice_mentions_symptom_without_recommending_specific_test():

@@ -24,6 +24,7 @@ DEMO_ACCOUNTS_BY_ROLE = {
     "doctor": ("doctor@clinic.local", "demo123"),
     "receptionist": ("receptionist@clinic.local", "demo123"),
     "clinic_admin": ("admin@clinic.local", "demo123"),
+    "system_admin": ("system.admin@robo.local", "demo123"),
 }
 
 
@@ -298,6 +299,17 @@ SCENARIOS = [
         expected_intent="lab_result_lookup",
         expected_source="robo_app.paraclinical_results",
         expected_data_contains=("d5ac6269-d8cf-4821-ac8b-a6341e68987b", "Glucose"),
+        expected_requires_auth=True,
+        min_data_rows=1,
+    ),
+    Scenario(
+        name="system_admin_security_check_summary",
+        question="trạng thái kiểm tra bảo mật hệ thống",
+        auth={"role": "system_admin"},
+        expected_intent="security_check_summary",
+        expected_source="robo_app.security_check_results",
+        expected_answer_contains=("bảo mật hệ thống", "check"),
+        expected_data_contains=("all_tables_rls_enabled", "AI_BOUNDARY"),
         expected_requires_auth=True,
         min_data_rows=1,
     ),

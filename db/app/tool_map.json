@@ -111,6 +111,18 @@
       "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_rule_intent_parser.py", "backend/tests/test_response_generator.py"]
     },
     {
+      "tool_name": "clinic.lookup_security_checks",
+      "status": "active",
+      "intents": ["security_check_summary"],
+      "data_source": "auth",
+      "access_level": "operational",
+      "contract_views": ["security_check_results"],
+      "source_tables": ["robo_raw.security_check_results"],
+      "allowed_roles": ["system_admin"],
+      "scope_rule": "System-admin only operational/security posture lookup.",
+      "tests": ["backend/tests/test_clinic_sql_tools.py", "backend/tests/test_policy_guard.py", "backend/tests/test_response_generator.py"]
+    },
+    {
       "tool_name": "clinic.search_doctor_schedules",
       "status": "active",
       "intents": ["doctor_schedule"],

@@ -252,6 +252,14 @@ def test_symptom_question_with_icd_stays_medical_advice():
     assert intent.data_source == "none"
 
 
+def test_security_check_summary_requires_auth():
+    intent = RuleIntentParser().parse("Trạng thái kiểm tra bảo mật hệ thống", "clinic")
+
+    assert intent.intent == "security_check_summary"
+    assert intent.requires_auth is True
+    assert intent.data_source == "auth"
+
+
 def test_patient_question_template_routes_to_knowledge_search_not_doctor_schedule():
     intent = RuleIntentParser().parse("Tôi nên hỏi bác sĩ câu gì về thuốc?", "clinic")
 

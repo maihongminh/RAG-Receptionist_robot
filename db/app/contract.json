@@ -257,6 +257,22 @@
       ]
     },
     {
+      "name": "security_check_results",
+      "access_level": "operational",
+      "source_tables": ["robo_raw.security_check_results"],
+      "tools": ["clinic.lookup_security_checks"],
+      "columns": [
+        {"name": "id", "data_type": "text"},
+        {"name": "category", "data_type": "text"},
+        {"name": "check_name", "data_type": "text"},
+        {"name": "status", "data_type": "text"},
+        {"name": "severity", "data_type": "text"},
+        {"name": "details", "data_type": "text"},
+        {"name": "detected_at", "data_type": "timestamp with time zone"},
+        {"name": "is_blocking", "data_type": "boolean"}
+      ]
+    },
+    {
       "name": "patients",
       "access_level": "private",
       "source_tables": ["robo_raw.patients"],
